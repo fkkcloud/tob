@@ -41,7 +41,7 @@ var mainState = {
 		spaceKey.onDown.add(this.jump, this);
 
 		// add mouse/touch controls
-    	this.input.onDown.add(this.bird.flap, this.bird);
+    	this.input.onDown.add(this.jump, this);
 
 		this.pipes = game.add.group(); // Create a group  
 		this.pipes.enableBody = true;  // Add physics to the group  
