@@ -1,6 +1,6 @@
 
 // init phaser, and create a 400 x 490 game
-var game = new Phaser.Game(400, 490, Phaser.AUTO, 'gameDiv');
+var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'gameDiv');
 
 // create main state of game
 var mainState = {
@@ -16,7 +16,10 @@ var mainState = {
 		game.load.image('bird', 'assets/bird.png');
 
 		// load pipe sprite
-		game.load.image('pipe', 'assets/pipe.png');  
+		game.load.image('pipe', 'assets/pipe.png'); 
+
+		this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;this.scale.minWidth = 320;this.scale.minHeight = 480;this.scale.maxWidth = 768;this.scale.maxHeight = 1152; 
+		game.scale.refresh();
 	},
 
 	create: function(){
