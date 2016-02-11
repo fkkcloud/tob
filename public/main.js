@@ -40,6 +40,9 @@ var mainState = {
 		var spaceKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 		spaceKey.onDown.add(this.jump, this);
 
+		// add mouse/touch controls
+    	this.input.onDown.add(this.bird.flap, this.bird);
+
 		this.pipes = game.add.group(); // Create a group  
 		this.pipes.enableBody = true;  // Add physics to the group  
 		this.pipes.createMultiple(20, 'pipe'); // Create 20 pipes 
