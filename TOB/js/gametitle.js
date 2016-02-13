@@ -101,6 +101,12 @@ GameTitle.prototype = {
 			{font:subHeadingFont, fill:"#000"});
 		instructionLabel3.anchor.setTo(0.5, 1);
 		instructionLabel3.align = 'center';
+
+		instructionLabel4 = me.game.add.text(me.game.world.centerX,
+			me.game.world.centerY + 140 * window.devicePixelRatio, "device pixel:" + window.devicePixelRatio,
+			{font:subHeadingFont, fill:"#000"});
+		instructionLabel4.anchor.setTo(0.5, 1);
+		instructionLabel4.align = 'center';
 	}
 
 }
