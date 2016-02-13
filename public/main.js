@@ -16,7 +16,11 @@ var mainState = {
 		game.load.image('bird', 'assets/bird.png');
 
 		// load pipe sprite
-		game.load.image('pipe', 'assets/pipe.png'); 
+		game.load.image('pipe', 'assets/pipe.png');
+
+		//this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+	    //this.game.scale.pageAlignHorizontally = true;
+	    //this.game.scale.pageAlignVertically = true;
 
 		//this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;this.scale.minWidth = 320;this.scale.minHeight = 480;this.scale.maxWidth = 768;this.scale.maxHeight = 1152; 
 		//game.scale.refresh();
