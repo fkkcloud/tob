@@ -24,9 +24,27 @@
             margin: 0;
             background-color: #000;
         }
+
+        #desktop-game {
+        	position: absolute;
+  			margin: auto;
+        	width: 375px;
+			right: 0;
+			left: 0;
+        	display: none;
+        }
+
+        #mobile-game {
+        	display: none;
+        }
+
     </style>
     <script type="text/javascript">
 		(function() {
+
+				window.onload = function(){
+					document.getElementById('desktop-game').style.display = "block";
+				}
 
 				window.mobilecheck = function() {
 				  var check = false;
@@ -38,9 +56,15 @@
 
 				var width = (isMobile) ? (window.innerWidth * window.devicePixelRatio) : (375 * window.devicePixelRatio);
 				var height = (isMobile) ? (window.innerHeight * window.devicePixelRatio) : (667 * window.devicePixelRatio);
+				
+				var div;
+				if (isMobile)
+					div = 'mobile-game';
+				else
+					div = 'desktop-game';
 
 				//Create a new game that fills the screen
-				game = new Phaser.Game(width, height, Phaser.AUTO);
+				game = new Phaser.Game(width, height, Phaser.AUTO, div);
 				
 				//Add all states
 				game.state.add("Boot", Boot);
@@ -56,5 +80,7 @@
     </script>
 </head>
 <body>
+	<div id="mobile-game"> </div>
+	<div id="desktop-game"> </div>
 </body>
 </html>

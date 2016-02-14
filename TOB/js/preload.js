@@ -3,14 +3,14 @@ var Preload = function(game){};
 Preload.prototype = {
 
 	preload: function(){ 
-		if(window.devicePixelRatio === 3){
+		if(window.devicePixelRatio >= 3){
 		 this.game.load.image('player', 'assets/player@3x.png');
 		 this.game.load.image('enemy', 'assets/enemy@3x.png');
 		 this.game.load.image('superenemy', 'assets/superenemy@3x.png');
 		 this.game.load.image('logo', 'assets/logo@3x.png');
 		 this.game.load.image('restart', 'assets/restart@3x.png');
 		}
-		else if(window.devicePixelRatio === 2){
+		else if(window.devicePixelRatio >= 2){
 		 this.game.load.image('player', 'assets/player@2x.png');
 		 this.game.load.image('enemy', 'assets/enemy@2x.png');
 		 this.game.load.image('superenemy', 'assets/superenemy@2x.png');
