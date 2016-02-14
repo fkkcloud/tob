@@ -14,7 +14,7 @@ GameTitle.prototype = {
 
 		me.createLogo();
 
-		//me.createInstructions();
+		me.createInstructions();
 
 		me.createButtons();
 
@@ -67,7 +67,7 @@ GameTitle.prototype = {
 
 		var headingFont = fontSize + "px Arial";
 		var subHeadingFont = (fontSize * 0.5) + "px Arial";
-
+		/*
 		instructionLabel = me.game.add.text(me.game.world.centerX,
 			me.game.world.centerY, "TAP TO JUMP", {font: headingFont, fill: "#000"});
 		instructionLabel.anchor.setTo(0.5, 1);
@@ -81,6 +81,13 @@ GameTitle.prototype = {
 
 		instructionLabel3 = me.game.add.text(me.game.world.centerX,
 			me.game.world.centerY + 100 * window.devicePixelRatio, "(..and don't fall)",
+			{font:subHeadingFont, fill:"#000"});
+
+		instructionLabel3.anchor.setTo(0.5, 1);
+		instructionLabel3.align = 'center';*/
+
+		instructionLabel3 = me.game.add.text(me.game.world.centerX,
+			me.game.world.centerY - 150 * window.devicePixelRatio, window.devicePixelRatio,
 			{font:subHeadingFont, fill:"#000"});
 
 		instructionLabel3.anchor.setTo(0.5, 1);
