@@ -7,37 +7,41 @@ Main.prototype = {
 	create: function() {
 		var me = this;
 
+		// score variable
+		me.score = 0;
+
+		// sound setup
 		this.flapSound = this.game.add.audio('flap');
 		this.hitSound = this.game.add.audio('hit');
 
-		me.score = 0;
+		// setup env - bg
+		me.createBG();
+
+		// pipe objects		me.score = 0;
+		me.pipes = this.game.add.group();
 
 		// enable physics
 		me.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-		me.createBG();
-		
+		// setup player
 		me.createPlayer();
+		me.setupPlayerControl();
 
-		me.pipes = this.game.add.group();;
-
-		me.game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
-
-		var jumpKey = me.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-		jumpKey.onDown.add(me.jump, me);
-
-		me.input.onDown.add(me.jump, me);
-
-		me.pipeGenerator = me.game.time.events.loop(Phaser.Timer.SECOND * 1.75, me.generatePipes, this);
-		me.pipeGenerator = me.game.time.events.loop(Phaser.Timer.SECOND * 1.0, me.getScore, this);
+		// timers
+		me.pipeGenerator = me.game.time.events.loop(Phaser.Timer.SECOND * 2.0, me.generatePipes, this);
    	 	me.pipeGenerator.timer.start();
 
-   	 	me.createGround();
+   	 	me.scoreCounter = me.game.time.events.loop(Phaser.Timer.SECOND * 1.0, me.getScore, this);
+   	 	me.scoreCounter.timer.start();
 
-   	 	me.scoreText = this.game.add.bitmapText(this.game.width/2, 10, 'flappyfont',me.score.toString() + 'm', 24);
+   	 	// setup score bar
+   	 	me.scoreText = this.game.add.bitmapText(this.game.width * 0.5, 40 * window.devicePixelRatio, 'flappyfont',me.score.toString() + 'm', 32 * window.devicePixelRatio);
+    	me.scoreText.anchor.setTo(0.5, 0.5);
     	me.scoreText.visible = true;
 
-
+    	// setup env - ground
+   	 	me.createGround();
+    	
 	},
 
 	getScore: function(){
@@ -61,16 +65,11 @@ Main.prototype = {
 
 		var me = this;
 
-		// add the ground sprite as a tile
-	    // and start scrolling in the negative x direction
-	    me.ground = this.game.add.tileSprite(0, this.game.world.height - 120, 335, 112, 'ground');
-
-	    //me.ground.anchor.setTo(0.5, 0);
+	    me.ground = me.game.add.tileSprite(0, this.game.world.height - 120 * window.devicePixelRatio, 335 * window.devicePixelRatio, 112 * window.devicePixelRatio, 'ground');
+	    me.ground.scale.setTo(1.2, 1.2);
+	    me.ground.autoScroll(-200, 0);
 
 	    me.game.physics.arcade.enable(me.ground);
-
-	    me.ground.scale.setTo(1.3, 1.3);
-	    me.ground.autoScroll(-200, 0);
 	    
     	//Enable physics for the building
 		me.game.physics.arcade.enable(me.ground);
@@ -83,7 +82,7 @@ Main.prototype = {
 
 		var me = this;
 
-		me.bird = this.game.add.sprite(60, this.game.height * 0.5, 'bird');
+		me.bird = this.game.add.sprite(60 * window.devicePixelRatio, this.game.height * 0.5, 'bird');
 
 		// add and play animations
 		me.bird.animations.add('flap');
@@ -94,15 +93,29 @@ Main.prototype = {
 		// set the sprite's anchor to the center
 		me.bird.anchor.setTo(0.5, 0.5);
 
+		me.bird.scale.setTo(1.4, 1.4);
+
 		//Make the player fall by applying gravity 
 		me.bird.body.gravity.y = 800;
 
         //Make the player collide with the game boundaries
-		me.bird.body.collideWorldBounds = true; 
+		me.bird.body.collideWorldBounds = false; 
 
 		//Make the player bounce a little 
-		me.bird.body.bounce.y = 0.3;
-		me.bird.body.bounce.x = 0.3;
+		me.bird.body.bounce.y = 0.5;
+		me.bird.body.bounce.x = 1.0;
+	},
+
+	setupPlayerControl: function(){
+
+		var me = this;
+
+		me.game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
+
+		var jumpKey = me.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+		jumpKey.onDown.add(me.jump, me);
+
+		me.input.onDown.add(me.jump, me);
 	},
 
 	gameOver: function(){
@@ -125,7 +138,7 @@ Main.prototype = {
 			
 			var pipeGroup = me.pipes.children[i];
 
-			pipeGroup.setAll('body.velocity.x', -270);
+			pipeGroup.setAll('body.velocity.x', -280);
 
 			if (pipeGroup.x < pipeGroup.children[0].width - 200){
 				pipeGroup.exists = false;
@@ -159,7 +172,7 @@ Main.prototype = {
 	jump: function(){
 		var me = this;
 
-		me.bird.body.velocity.y = -300;
+		me.bird.body.velocity.y = -360;
 
 		me.game.add.tween(me.bird).to({angle: -40}, 100).start();
 
@@ -171,8 +184,9 @@ Main.prototype = {
 
 		var me = this;
 
-		var pipe = this.game.add.sprite(x, y, 'pipe', frame);
-		this.game.physics.arcade.enableBody(pipe);
+		var pipe = me.game.add.sprite(x, y, 'pipe', frame);
+		me.game.physics.arcade.enableBody(pipe);
+		pipe.scale.setTo(1.2, 1.2);
 
 		pipe.body.collideWorldBounds = false;
 		pipe.body.immovable = true;
@@ -189,7 +203,7 @@ Main.prototype = {
 		var topPipe = me.generatePipe(0, 0, 0);
 		group.add(topPipe);
 
-		var bottomPipe = me.generatePipe(0, 440, 1);
+		var bottomPipe = me.generatePipe(0, 460 * window.devicePixelRatio, 1);
 		group.add(bottomPipe);
 
 		var pipeY = y;
@@ -207,7 +221,7 @@ Main.prototype = {
 	generatePipes: function(){
 		var me = this;
 
-		var y = me.game.rnd.integerInRange(-100, 100);
+		var y = me.game.rnd.integerInRange(-180 * window.devicePixelRatio, 0 * window.devicePixelRatio);
 
 		var pipeGroup = this.pipes.getFirstExists(false);
 
@@ -217,7 +231,6 @@ Main.prototype = {
 		}
 
 		me.resetPipeGroup(pipeGroup, y);
-		
 	},
 
 	resetPipeGroup: function(pipeGroup, y){

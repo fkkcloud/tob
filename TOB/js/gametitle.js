@@ -14,7 +14,7 @@ GameTitle.prototype = {
 
 		me.createLogo();
 
-		me.createInstructions();
+		//me.createInstructions();
 
 		me.createButtons();
 
@@ -28,15 +28,13 @@ GameTitle.prototype = {
 		var sprite = this.game.add.sprite(0, 0, 'background');
 		var scale = this.game.width / sprite.width * 1.1;
 		sprite.scale.setTo(scale, scale);
-
-
 	},
 
 	createGround: function(){
 		// add the ground sprite as a tile
 	    // and start scrolling in the negative x direction
-	    this.ground = this.game.add.tileSprite(0, this.game.world.height - 120, 335, 112, 'ground');
-	    this.ground.scale.setTo(1.3, 1.3);
+	    this.ground = this.game.add.tileSprite(0, this.game.world.height - 120 * window.devicePixelRatio, 335 * window.devicePixelRatio, 112 * window.devicePixelRatio, 'ground');
+	    this.ground.scale.setTo(1.2, 1.2);
 	    this.ground.autoScroll(-200, 0);
 	},
 
@@ -50,16 +48,16 @@ GameTitle.prototype = {
 		this.title = this.game.add.sprite(0, 0, 'title');
 		this.titleGroup.add(this.title);
 
-		this.bird = this.game.add.sprite(200, 0, 'bird');
+		this.bird = this.game.add.sprite(170 * window.devicePixelRatio, 0, 'bird');
 		this.titleGroup.add(this.bird);
 
 		this.bird.animations.add('flap');
 		this.bird.animations.play('flap', 12, true);
 
 		this.titleGroup.x = this.game.width * 0.25;
-		this.titleGroup.y = 100;
+		this.titleGroup.y = 100 * window.devicePixelRatio;
 
-		this.game.add.tween(this.titleGroup).to({y:115}, 350, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
+		this.game.add.tween(this.titleGroup).to({y:115 * window.devicePixelRatio}, 350, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
 	},
 
 	createInstructions: function(){
@@ -68,7 +66,7 @@ GameTitle.prototype = {
 		var fontSize = 25 * window.devicePixelRatio;
 
 		var headingFont = fontSize + "px Arial";
-		var subHeadingFont = (fontSize/2) + "px Arial";
+		var subHeadingFont = (fontSize * 0.5) + "px Arial";
 
 		instructionLabel = me.game.add.text(me.game.world.centerX,
 			me.game.world.centerY, "TAP TO JUMP", {font: headingFont, fill: "#000"});
@@ -84,12 +82,13 @@ GameTitle.prototype = {
 		instructionLabel3 = me.game.add.text(me.game.world.centerX,
 			me.game.world.centerY + 100 * window.devicePixelRatio, "(..and don't fall)",
 			{font:subHeadingFont, fill:"#000"});
+
 		instructionLabel3.anchor.setTo(0.5, 1);
 		instructionLabel3.align = 'center';
 	},
 
 	createButtons: function(){
-		this.startButton = this.game.add.button(this.game.width/2, this.game.world.height - 220, 'startButton', this.startGame, this);
+		this.startButton = this.game.add.button(this.game.width * 0.5, this.game.world.height - 220 * window.devicePixelRatio, 'startButton', this.startGame, this);
 		this.startButton.anchor.setTo(0.5, 0.5);
 	}
 
