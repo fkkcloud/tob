@@ -1,6 +1,6 @@
-var Preload = function(game){};
+BasicGame.Preload = function(game){};
 
-Preload.prototype = {
+BasicGame.Preload.prototype = {
 
 	preload: function(){ 
 

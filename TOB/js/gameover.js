@@ -1,6 +1,6 @@
-var GameOver = function(game){};
+BasicGame.GameOver = function(game){};
 
-GameOver.prototype = {
+BasicGame.GameOver.prototype = {
 
   	create: function(){
   		var me = this;

@@ -1,6 +1,6 @@
-var GameTitle = function(game){};
+BasicGame.GameTitle = function(game){};
 
-GameTitle.prototype = {
+BasicGame.GameTitle.prototype = {
 
 	create: function(){
 		var me = this;
@@ -31,10 +31,20 @@ GameTitle.prototype = {
 	},
 
 	createGround: function(){
-		// add the ground sprite as a tile
-	    // and start scrolling in the negative x direction
-	    this.ground = this.game.add.tileSprite(0, this.game.world.height - 120 * window.devicePixelRatio, 335 * window.devicePixelRatio, 112 * window.devicePixelRatio, 'ground');
-	    this.ground.scale.setTo(1.2, 1.2);
+
+		var me = this;
+
+		var groundWidth = me.game.width;
+		var groundHeight = me.game.height * 0.1;
+
+	    me.ground = me.game.add.tileSprite(
+	    	0, // x
+	    	me.game.world.height - groundHeight, // y
+	    	groundWidth, // width
+	    	groundHeight, //height
+	    	'ground' // key
+	    	);
+
 	    this.ground.autoScroll(-200, 0);
 	},
 
@@ -48,16 +58,16 @@ GameTitle.prototype = {
 		this.title = this.game.add.sprite(0, 0, 'title');
 		this.titleGroup.add(this.title);
 
-		this.bird = this.game.add.sprite(170 * window.devicePixelRatio, 0, 'bird');
+		this.bird = this.game.add.sprite(this.game.width * 0.42, 0, 'bird');
 		this.titleGroup.add(this.bird);
 
 		this.bird.animations.add('flap');
 		this.bird.animations.play('flap', 12, true);
 
 		this.titleGroup.x = this.game.width * 0.25;
-		this.titleGroup.y = 100 * window.devicePixelRatio;
+		this.titleGroup.y = this.game.height * 0.23;
 
-		this.game.add.tween(this.titleGroup).to({y:115 * window.devicePixelRatio}, 350, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
+		this.game.add.tween(this.titleGroup).to({y:this.game.height * 0.26}, 350, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
 	},
 
 	createInstructions: function(){
@@ -88,7 +98,7 @@ GameTitle.prototype = {
 	},
 
 	createButtons: function(){
-		this.startButton = this.game.add.button(this.game.width * 0.5, this.game.world.height - 220 * window.devicePixelRatio, 'startButton', this.startGame, this);
+		this.startButton = this.game.add.button(this.game.width * 0.5, this.game.world.height * 0.7, 'startButton', this.startGame, this);
 		this.startButton.anchor.setTo(0.5, 0.5);
 	}
 

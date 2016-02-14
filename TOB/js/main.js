@@ -1,8 +1,8 @@
-var Main = function(game){
+BasicGame.Main = function(game){
 
 };
 
-Main.prototype = {
+BasicGame.Main.prototype = {
 
 	create: function() {
 		var me = this;
@@ -35,7 +35,7 @@ Main.prototype = {
    	 	me.scoreCounter.timer.start();
 
    	 	// setup score bar
-   	 	me.scoreText = this.game.add.bitmapText(this.game.width * 0.5, 40 * window.devicePixelRatio, 'flappyfont',me.score.toString() + 'm', 32 * window.devicePixelRatio);
+   	 	me.scoreText = this.game.add.bitmapText(this.game.width * 0.5, this.game.height * 0.125, 'flappyfont',me.score.toString() + 'm', 32 * window.devicePixelRatio);
     	me.scoreText.anchor.setTo(0.5, 0.5);
     	me.scoreText.visible = true;
 
@@ -65,11 +65,18 @@ Main.prototype = {
 
 		var me = this;
 
-	    me.ground = me.game.add.tileSprite(0, this.game.world.height - 120 * window.devicePixelRatio, 335 * window.devicePixelRatio, 112 * window.devicePixelRatio, 'ground');
-	    me.ground.scale.setTo(1.2, 1.2);
-	    me.ground.autoScroll(-200, 0);
+		var groundWidth = me.game.width;
+		var groundHeight = me.game.height * 0.1;
 
-	    me.game.physics.arcade.enable(me.ground);
+	    me.ground = me.game.add.tileSprite(
+	    	0, // x
+	    	me.game.world.height - groundHeight, // y
+	    	groundWidth, // width
+	    	groundHeight, //height
+	    	'ground' // key
+	    	);
+
+	    this.ground.autoScroll(-200, 0);
 	    
     	//Enable physics for the building
 		me.game.physics.arcade.enable(me.ground);
@@ -82,7 +89,7 @@ Main.prototype = {
 
 		var me = this;
 
-		me.bird = this.game.add.sprite(60 * window.devicePixelRatio, this.game.height * 0.5, 'bird');
+		me.bird = this.game.add.sprite(this.game.width * 0.2, this.game.height * 0.5, 'bird');
 
 		// add and play animations
 		me.bird.animations.add('flap');
@@ -198,12 +205,13 @@ Main.prototype = {
 		var me = this;
 
 		var group = me.game.add.group();
-		//this.game.physics.arcade.enableBody(group);
 
 		var topPipe = me.generatePipe(0, 0, 0);
 		group.add(topPipe);
 
-		var bottomPipe = me.generatePipe(0, 460 * window.devicePixelRatio, 1);
+		var gap = topPipe.width + me.bird.width * 10;
+
+		var bottomPipe = me.generatePipe(0, gap, 1);
 		group.add(bottomPipe);
 
 		var pipeY = y;
@@ -221,7 +229,7 @@ Main.prototype = {
 	generatePipes: function(){
 		var me = this;
 
-		var y = me.game.rnd.integerInRange(-180 * window.devicePixelRatio, 0 * window.devicePixelRatio);
+		var y = me.game.rnd.integerInRange(0, - me.game.height * 0.3);
 
 		var pipeGroup = this.pipes.getFirstExists(false);
 
