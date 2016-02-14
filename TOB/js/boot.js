@@ -3,6 +3,9 @@ var Boot = function(game){
 };
   
 Boot.prototype = {
+	init: function(){
+
+	},
 
 	preload: function(){
 
@@ -10,7 +13,7 @@ Boot.prototype = {
 	
   	create: function(){
 		this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-		this.scale.setScreenSize(true);
+		//this.scale.setScreenSize(true);
 		this.game.state.start("Preload");
 	}
 }
