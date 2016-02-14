@@ -8,54 +8,36 @@ GameTitle.prototype = {
 		// enable physics
 		me.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-		me.game.stage.backgroundColor = 'ffffff';
+		me.createBG();
 
-		me.createBuilding();
-
-		me.createPlayer();
+		me.createGround();
 
 		me.createLogo();
 
 		me.createInstructions();
 
-		me.game.input.onDown.add(me.startGame, me);
+		me.createButtons();
+
 	},
 
 	update: function() {
 		var me = this;
-
-		me.game.physics.arcade.collide(me.player, me.buildingSprite);
 	},
 
-	createPlayer: function(){
-		var me = this;
+	createBG: function(){
+		var sprite = this.game.add.sprite(0, 0, 'background');
+		var scale = this.game.width / sprite.width * 1.1;
+		sprite.scale.setTo(scale, scale);
 
-		me.player = me.game.add.sprite(me.game.world.centerX, me.game.world.height - me.buildingSprite.body.height, 'player');
-		me.player.anchor.setTo(0.5, 1.0);
-		me.game.physics.arcade.enable(me.player);
-		me.player.body.gravity.y = 1000;
-		me.player.body.collideWorldBounds = true;
-		me.player.body.bounce.y = 0.1;
+
 	},
 
-	createBuilding: function(){
-		var me = this;
-		var buildingHeight = me.game.world.height / 10;
-		var buildingWidth = 60 * window.devicePixelRatio;
-		var building = me.game.add.bitmapData(buildingWidth, buildingHeight);
-
-		building.ctx.rect(0, 0, buildingWidth, buildingHeight);
-		building.ctx.fillStyle = '#232223';
-		building.ctx.fill();
-
-		me.buildingSprite = me.game.add.sprite(me.game.world.width / 2, 
-			me.game.world.height - buildingHeight + 1, building);
-		me.buildingSprite.anchor.setTo(0.5, 0);
-
-		me.game.physics.arcade.enable(me.buildingSprite);
-		me.buildingSprite.enableBody = true;
-		me.buildingSprite.body.immovable = true;
-
+	createGround: function(){
+		// add the ground sprite as a tile
+	    // and start scrolling in the negative x direction
+	    this.ground = this.game.add.tileSprite(0, this.game.world.height - 120, 335, 112, 'ground');
+	    this.ground.scale.setTo(1.3, 1.3);
+	    this.ground.autoScroll(-200, 0);
 	},
 
 	startGame: function(){
@@ -63,18 +45,21 @@ GameTitle.prototype = {
 	},
 
 	createLogo: function(){
-		var me = this;
+		this.titleGroup = this.game.add.group();
 
-		logo = me.game.add.sprite(me.game.world.centerX, 170, 'logo');
-		logo.anchor.setTo(0.5, 0.5);
+		this.title = this.game.add.sprite(0, 0, 'title');
+		this.titleGroup.add(this.title);
 
-		var logo_tween = this.add.tween(logo);
-		logo_tween
-			.to({y: 176}, 700, Phaser.Easing.Linear.InOut)
-			.to({y: 170}, 700, Phaser.Easing.Linear.InOut)
-			.loop();
+		this.bird = this.game.add.sprite(200, 0, 'bird');
+		this.titleGroup.add(this.bird);
 
-		logo_tween.start();
+		this.bird.animations.add('flap');
+		this.bird.animations.play('flap', 12, true);
+
+		this.titleGroup.x = this.game.width * 0.25;
+		this.titleGroup.y = 100;
+
+		this.game.add.tween(this.titleGroup).to({y:115}, 350, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
 	},
 
 	createInstructions: function(){
@@ -101,6 +86,11 @@ GameTitle.prototype = {
 			{font:subHeadingFont, fill:"#000"});
 		instructionLabel3.anchor.setTo(0.5, 1);
 		instructionLabel3.align = 'center';
+	},
+
+	createButtons: function(){
+		this.startButton = this.game.add.button(this.game.width/2, this.game.world.height - 220, 'startButton', this.startGame, this);
+		this.startButton.anchor.setTo(0.5, 0.5);
 	}
 
 }
