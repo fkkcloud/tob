@@ -25,8 +25,12 @@ BasicGame.GameTitle.prototype = {
 	},
 
 	createBG: function(){
-		var sprite = this.game.add.sprite(0, 0, 'background');
-		var scale = this.game.width / sprite.width * 1.1;
+		var me = this;
+
+		var sprite = me.game.add.sprite(0, 0, 'bg_sky_flappy');
+		
+		var scale = me.game.width / sprite.width * 1.1;
+		
 		sprite.scale.setTo(scale, scale);
 	},
 
@@ -39,10 +43,10 @@ BasicGame.GameTitle.prototype = {
 
 	    me.ground = me.game.add.tileSprite(
 	    	0, // x
-	    	me.game.world.height - groundHeight, // y
+	    	me.game.height - groundHeight, // y
 	    	groundWidth, // width
 	    	groundHeight, //height
-	    	'ground' // key
+	    	'bg_ground_flappy' // key
 	    	);
 
 	    this.ground.autoScroll(-200, 0);
@@ -58,7 +62,7 @@ BasicGame.GameTitle.prototype = {
 		this.title = this.game.add.sprite(0, 0, 'title');
 		this.titleGroup.add(this.title);
 
-		this.bird = this.game.add.sprite(this.game.width * 0.42, 0, 'bird');
+		this.bird = this.game.add.sprite(this.game.width * 0.42, 0, 'cha_flappy');
 		this.titleGroup.add(this.bird);
 
 		this.bird.animations.add('flap');

@@ -58,9 +58,11 @@ BasicGame.GameOver.prototype = {
 
 	createBG: function(){
 
-		var sprite = this.game.add.sprite(0, 0, 'background');
+		var me = this;
+
+		var sprite = me.game.add.sprite(0, 0, 'bg_sky_flappy');
 		
-		var scale = this.game.width / sprite.width * 1.1;
+		var scale = me.game.width / sprite.width * 1.1;
 		
 		sprite.scale.setTo(scale, scale);
 

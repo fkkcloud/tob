@@ -4,7 +4,7 @@ BasicGame = {
     score: 0,
 
     /* If the music in your game needs to play through-out a few State swaps, then you could reference it here */
-    music: null,
+    music: false,
 
     /* Your game can check BasicGame.orientated in internal loops to know if it should pause or not */
     orientated: false,
@@ -16,8 +16,8 @@ BasicGame.Boot = function(game){
 };
   
 BasicGame.Boot.prototype = {
-	init: function(){
 
+	init: function(){
 		this.input.maxPointers = 1;
         this.stage.disableVisibilityChange = true;
 

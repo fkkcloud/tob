@@ -9,112 +9,221 @@ BasicGame.Main.prototype = {
 
 		// score variable
 		me.score = 0;
+		me.mode = 0; // 0 for flappy, 1 for dash
+		me.lastChaPos = {};
+		me.lastChaPos.x = me.game.width * 0.2;
+		me.lastChaPos.y = me.game.height * 0.5;
+		me.chaOnGround = false;
 
 		// sound setup
-		this.flapSound = this.game.add.audio('flap');
-		this.hitSound = this.game.add.audio('hit');
-
-		// setup env - bg
-		me.createBG();
-
-		// pipe objects		me.score = 0;
-		me.pipes = this.game.add.group();
+		me.flapSound = me.game.add.audio('flap');
+		me.hitSound = me.game.add.audio('hit');
 
 		// enable physics
 		me.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-		// setup player
-		me.createPlayer();
-		me.setupPlayerControl();
+		// timers - score
+   	 	me.scoreCounter = me.game.time.events.loop(Phaser.Timer.SECOND * 1.0, me.getScore, me);
 
-		// timers
-		me.pipeGenerator = me.game.time.events.loop(Phaser.Timer.SECOND * 2.0, me.generatePipes, this);
-   	 	me.pipeGenerator.timer.start();
+		// start with flappy mode
+		me.runFlappyMode();
 
-   	 	me.scoreCounter = me.game.time.events.loop(Phaser.Timer.SECOND * 1.0, me.getScore, this);
-   	 	me.scoreCounter.timer.start();
-
-   	 	// setup score bar
-   	 	me.scoreText = this.game.add.bitmapText(this.game.width * 0.5, this.game.height * 0.125, 'flappyfont',me.score.toString() + 'm', 32 * window.devicePixelRatio);
-    	me.scoreText.anchor.setTo(0.5, 0.5);
-    	me.scoreText.visible = true;
-
-    	// setup env - ground
-   	 	me.createGround();
-    	
+		// set up player key input binds
+   	 	me.setupPlayerControl();
 	},
 
-	getScore: function(){
+	test:function(){console.log('dfasdf')},
+
+	update: function() {
 		var me = this;
 
-		me.score += 1;
-		me.scoreText.setText(me.score.toString() + 'm');
+		me.game.physics.arcade.collide(me.ground, me.cha);
+
+		// cha angle default
+		if(me.cha.angle < me.defaultAngle) {
+		    me.cha.angle += 2.5;
+		}
+
+		me.lastChaPos.x = me.cha.x;
+		me.lastChaPos.y = me.cha.y;
+
+		// see if cha is on ground or not
+		var groundHeight = me.game.height - me.game.height * 0.1 - me.cha.height * 0.5 - 1;
+		if (me.mode !== 0 && me.cha.y >= groundHeight){
+			me.chaOnGround = true;
+		}
+		else {
+			me.chaOnGround = false;
+		}
+
+		// loop through pipes 
+		for (var i = 0; i < me.pipes.children.length; i++){
+			
+			var pipe = me.pipes.children[i];
+
+			me.game.physics.arcade.collide(me.cha, pipe, me.deathHandler, null, me);	
+		}
+	},
+
+	runFlappyMode: function(){
+		console.log('/////// RUN FLAPPY MODE ///////');
+		var me = this;
+
+		me.destroyDashMode();
+
+		me.mode = 0;
+		me.defaultAngle = 90;
+
+		me.recreateStage();
+
+		me.pipeGenerator = me.game.time.events.loop(Phaser.Timer.SECOND * 2.0, me.generatePipes, me);
+
+		me.game.time.events.add(10000, me.runDashMode, this);
+	},
+
+	destroyFlappyMode: function(){
+		var me = this;
+
+		me.game.time.events.remove(me.pipeGenerator);
+		me.destroyPipe();
+	},
+
+	runDashMode: function(){
+		console.log('/////// RUN DASH MODE ///////');
+		var me = this;
+
+		me.destroyFlappyMode();
+
+		me.mode = 1;
+		me.defaultAngle = 0;
+
+		me.recreateStage();
+
+		me.pipeGenerator = me.game.time.events.loop(Phaser.Timer.SECOND * 2.75, me.generatePipes, me);
+
+		me.game.time.events.add(10000, me.runFlappyMode, this);
+	},
+
+	destroyDashMode: function(){
+		var me = this;
+
+		me.game.time.events.remove(me.pipeGenerator);
+		me.destroyPipe();
+	},
+
+	recreateStage: function(){
+		var me = this;
+
+		me.createBG();
+
+		me.createPlayer();
+
+		me.createScoreHUD();
+
+		me.createPipe();
+
+		me.createGround();
 	},
 
 	createBG: function(){
+		var me = this;
 
-		var sprite = this.game.add.sprite(0, 0, 'background');
-		
-		var scale = this.game.width / sprite.width * 1.1;
-		
-		sprite.scale.setTo(scale, scale);
+		if (me.bg)
+			me.bg.destroy();
 
+		var bg_img_key;
+		if (me.mode == 0)
+			bg_img_key = 'bg_sky_flappy';
+		else
+			bg_img_key = 'bg_sky_dash';
+
+		me.bg = me.game.add.sprite(0, 0, bg_img_key);
+		
+		var scale = me.game.width / me.bg.width * 1.1;
+		
+		me.bg.scale.setTo(scale, scale);
 	},
 
 	createGround: function(){
-
 		var me = this;
+
+		if (me.ground)
+			me.ground.destroy();
+
+		var ground_img_key;
+		if (me.mode == 0)
+			ground_img_key = 'bg_ground_flappy';
+		else
+			ground_img_key = 'bg_ground_dash';
 
 		var groundWidth = me.game.width;
 		var groundHeight = me.game.height * 0.1;
 
 	    me.ground = me.game.add.tileSprite(
 	    	0, // x
-	    	me.game.world.height - groundHeight, // y
+	    	me.game.height - groundHeight, // y
 	    	groundWidth, // width
 	    	groundHeight, //height
-	    	'ground' // key
+	    	ground_img_key// key
 	    	);
 
-	    this.ground.autoScroll(-200, 0);
+	    me.ground.autoScroll(-200, 0);
 	    
     	//Enable physics for the building
 		me.game.physics.arcade.enable(me.ground);
 		me.ground.physicsType = Phaser.SPRITE;
 		me.ground.body.immovable = true;
-
 	},
 
 	createPlayer: function(){
-
 		var me = this;
 
-		me.bird = this.game.add.sprite(this.game.width * 0.2, this.game.height * 0.5, 'bird');
+		if (me.cha)
+			me.cha.destroy();
+
+		var cha_img_key;
+		if (me.mode === 0)
+			cha_img_key = 'cha_flappy';
+		else
+			cha_img_key = 'cha_dash';
+
+		me.cha = me.game.add.sprite(me.lastChaPos.x, me.lastChaPos.y, cha_img_key);
 
 		// add and play animations
-		me.bird.animations.add('flap');
-		me.bird.animations.play('flap', 12, true);
+		me.cha.animations.add('flap');
+		me.cha.animations.play('flap', 12, true);
 
-		me.game.physics.arcade.enable(me.bird);
+		me.game.physics.arcade.enable(me.cha);
 
 		// set the sprite's anchor to the center
-		me.bird.anchor.setTo(0.5, 0.5);
+		me.cha.anchor.setTo(0.5, 0.5);
 
-		me.bird.scale.setTo(1.4, 1.4);
+		me.cha.scale.setTo(1.4, 1.4);
 
 		//Make the player fall by applying gravity 
-		me.bird.body.gravity.y = 800;
+		me.cha.body.gravity.y = 800;
 
         //Make the player collide with the game boundaries
-		me.bird.body.collideWorldBounds = false; 
+		me.cha.body.collideWorldBounds = false; 
 
 		//Make the player bounce a little 
-		me.bird.body.bounce.y = 0.5;
-		me.bird.body.bounce.x = 1.0;
+		me.cha.body.bounce.y = 0.2;
+		me.cha.body.bounce.x = 0.2;
+	},
+
+	createScoreHUD: function(){
+		var me = this;
+
+		if (me.scoreText)
+			me.scoreText.destroy();
+
+		// setup score bar
+   	 	me.scoreText = me.game.add.bitmapText(me.game.width * 0.5, me.game.height * 0.125, 'flappyfont',me.score.toString() + 'm', 32 * window.devicePixelRatio);
+    	me.scoreText.anchor.setTo(0.5, 0.5);
+    	me.scoreText.visible = true;
 	},
 
 	setupPlayerControl: function(){
-
 		var me = this;
 
 		me.game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
@@ -125,127 +234,120 @@ BasicGame.Main.prototype = {
 		me.input.onDown.add(me.jump, me);
 	},
 
-	gameOver: function(){
-		var me = this;
-
-		me.game.state.start('GameOver');
-	},
-
-	update: function() {
-
-		var me = this;
-
-		me.game.physics.arcade.collide(me.ground, me.bird);
-
-		  if(this.bird.angle < 90) {
-		    this.bird.angle += 2.5;
-		  }
-
-		for (var i = 0; i < me.pipes.children.length; i++){
-			
-			var pipeGroup = me.pipes.children[i];
-
-			pipeGroup.setAll('body.velocity.x', -280);
-
-			if (pipeGroup.x < pipeGroup.children[0].width - 200){
-				pipeGroup.exists = false;
-			}
-			else {
-				me.game.physics.arcade.collide(me.bird, pipeGroup.children[0], me.deathHandler, null, me);	
-				me.game.physics.arcade.collide(me.bird, pipeGroup.children[1], me.deathHandler, null, me);	
-			}
-		}
-	},
-
 	deathHandler: function(){
 		var me = this;
 
-		me.hitSound.play();
+		if (BasicGame.sound)
+			me.hitSound.play();
 
 		//Wait a couple of seconds and then trigger the game over screen
 		me.game.time.events.add(Phaser.Timer.SECOND * 0.3, function(){ 
 			//Send score to game over screen 
 			me.game.state.start('GameOver', true, false, me.score.toString());
 		}, me);
-	},
 
-	shutdown:function(){
-		this.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR);
-  		this.bird.destroy();
-  		this.pipes.destroy();
-  		this.ground.destroy();
 	},
 
 	jump: function(){
 		var me = this;
 
-		me.bird.body.velocity.y = -360;
+		// if its not flappy mode and not on ground, no jump available!
+		if (me.mode !== 0 && !me.chaOnGround)
+			return;
 
-		me.game.add.tween(me.bird).to({angle: -40}, 100).start();
+		if (me.mode === 0)
+			me.cha.body.velocity.y = -360;
+		else
+			me.cha.body.velocity.y = -700;
 
-		me.flapSound.play();
+		me.game.add.tween(me.cha).to({angle: -40}, 100).start();
+
+		if (BasicGame.sound)
+			me.flapSound.play();
 	},
 
-
-	generatePipe: function(x, y, frame){
-
+	getScore: function(){
 		var me = this;
 
-		var pipe = me.game.add.sprite(x, y, 'pipe', frame);
-		me.game.physics.arcade.enableBody(pipe);
-		pipe.scale.setTo(1.2, 1.2);
-
-		pipe.body.collideWorldBounds = false;
-		pipe.body.immovable = true;
-
-		return pipe;
+		me.score += 1;
+		me.scoreText.setText(me.score.toString() + 'm');
 	},
 
-	generatePipeGroup: function(y){
+	createPipe: function(){
+		this.pipes = game.add.group(); // Create a group  
+	},
+
+	destroyPipe: function(){
+		if (this.pipes && this.pipes.length > 0)
+			this.pipes.destroy();
+	},
+
+	generateSinglePipe: function(x, y, frame, speed){
 		var me = this;
 
-		var group = me.game.add.group();
+		// Get the first dead pipe of our group
+	    var pipe = me.pipes.getFirstDead();
 
-		var topPipe = me.generatePipe(0, 0, 0);
-		group.add(topPipe);
+	    if (!pipe){
+	    	console.log('allocating new pipe, total allocated:', this.pipes.length); // debug memory
+	    	pipe = me.game.add.sprite(x, y, 'pipe', frame);
+	    }
 
-		var gap = topPipe.width + me.bird.width * 9;
+	    // Set the new position of the pipe
+	    pipe.reset(x, y);
 
-		var bottomPipe = me.generatePipe(0, gap, 1);
-		group.add(bottomPipe);
+	    me.game.physics.arcade.enable(pipe);
 
-		var pipeY = y;
+	    // Add velocity to the pipe to make it move left
+	    pipe.body.velocity.x = speed; 
 
-		group.y = pipeY;
-		group.x = me.game.width;
+	    // Kill the pipe when it's no longer visible 
+	    pipe.checkWorldBounds = true;
+	    pipe.outOfBoundsKill = true;
 
-		group.hasScored = false;
+	    pipe.body.immovable = true;
 
-		me.pipes.add(group);
-
-		return group;
+	    return pipe;
 	},
 
 	generatePipes: function(){
 		var me = this;
 
-		var y = me.game.rnd.integerInRange(- me.game.height * 0.1, - me.game.height * 0.45);
+		var startPos = me.game.width;
 
-		var pipeGroup = this.pipes.getFirstExists(false);
+		if (me.mode === 0){ // flappy
+			var y_offset = me.game.rnd.integerInRange(- me.game.height * 0.1, - me.game.height * 0.45);
 
-		if (!pipeGroup){
-			console.log('generating..', this.pipes.children.length);
-			pipeGroup = me.generatePipeGroup(y);
+			var topPipe = me.generateSinglePipe(startPos, y_offset, 0, -300);
+			me.pipes.add(topPipe);
+
+			var gap = topPipe.width + me.cha.width * 9;
+
+			var bottomPipe = me.generateSinglePipe(startPos, gap + y_offset, 1, -300);
+			me.pipes.add(bottomPipe);
 		}
+		else { // dash
+			var y_offset = me.game.height - me.game.height * 0.2;
 
-		me.resetPipeGroup(pipeGroup, y);
+			var topPipe = me.generateSinglePipe(startPos, y_offset, 0, -300);
+			me.pipes.add(topPipe);
+		}
 	},
 
-	resetPipeGroup: function(pipeGroup, y){
-		pipeGroup.x = this.game.width + pipeGroup.width;
-		pipeGroup.y =  y;
-		pipeGroup.hasScored = false;
-		pipeGroup.exists = true;
+	shutdown:function(){
+		var me = this;
+
+		me.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR);
+  		me.cha.destroy();
+  		me.pipes.destroy();
+  		me.ground.destroy();
+  		me.bg.destroy();
+	},
+
+	gameOver: function(){
+		var me = this;
+
+		me.game.state.start('GameOver');
 	},
 
 };
