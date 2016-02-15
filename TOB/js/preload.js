@@ -20,6 +20,8 @@ BasicGame.Preload.prototype = {
 	    	this.load.image('startButton', 'assets/start-button@3x.png');
 
 	    	this.load.spritesheet('pipe', 'assets/pipes@3x.png', 54*3,320*3,2);
+	    	this.load.spritesheet('crate', 'assets/crate@3x.png');
+
 		 	this.game.load.image('restart', 'assets/restart@3x.png');
 
 		 	this.load.spritesheet('cha_dash', 'assets/cha_dash@3x.png', 34*3, 24*3, 3);
@@ -33,8 +35,12 @@ BasicGame.Preload.prototype = {
 	    	this.load.image('bg_ground_dash', 'assets/bg_ground_dash@2x.png');
 
 	    	this.load.image('title', 'assets/title@2x.png');
+
 	    	this.load.image('startButton', 'assets/start-button@2x.png');
+
 	    	this.load.spritesheet('pipe', 'assets/pipes@2x.png', 54*2,320*2,2);
+	    	this.load.spritesheet('crate', 'assets/crate@2x.png');
+
 		 	this.game.load.image('restart', 'assets/restart@2x.png');
 
 		 	this.load.spritesheet('cha_dash', 'assets/cha_dash@2x.png', 34*2, 24*2, 3);
@@ -48,8 +54,12 @@ BasicGame.Preload.prototype = {
 		    this.load.image('bg_ground_dash', 'assets/bg_ground_dash.png');
 
 		    this.load.image('title', 'assets/title.png');
+
 		    this.load.image('startButton', 'assets/start-button.png');
+
 		    this.load.spritesheet('pipe', 'assets/pipes.png', 54,320,2);
+		    this.load.spritesheet('crate', 'assets/crate.png');
+
 		 	this.game.load.image('restart', 'assets/restart.png');
 
 		 	this.load.spritesheet('cha_dash', 'assets/cha_dash.png', 34, 24, 3);

@@ -207,8 +207,8 @@ BasicGame.Main.prototype = {
 		me.cha.body.collideWorldBounds = false; 
 
 		//Make the player bounce a little 
-		me.cha.body.bounce.y = 0.2;
-		me.cha.body.bounce.x = 0.2;
+		me.cha.body.bounce.y = 0.15;
+		me.cha.body.bounce.x = 0.15;
 	},
 
 	createScoreHUD: function(){
@@ -258,7 +258,7 @@ BasicGame.Main.prototype = {
 		if (me.mode === 0)
 			me.cha.body.velocity.y = -360;
 		else
-			me.cha.body.velocity.y = -700;
+			me.cha.body.velocity.y = -620;
 
 		me.game.add.tween(me.cha).to({angle: -40}, 100).start();
 
@@ -290,7 +290,14 @@ BasicGame.Main.prototype = {
 
 	    if (!pipe){
 	    	console.log('allocating new pipe, total allocated:', this.pipes.length); // debug memory
-	    	pipe = me.game.add.sprite(x, y, 'pipe', frame);
+
+	    	var blockKey;
+	    	if (me.mode === 0)
+	    		blockKey = 'pipe';
+	    	else
+	    		blockKey = 'crate';
+
+	    	pipe = me.game.add.sprite(x, y, blockKey, frame);
 	    }
 
 	    // Set the new position of the pipe
@@ -316,7 +323,7 @@ BasicGame.Main.prototype = {
 		var startPos = me.game.width;
 
 		if (me.mode === 0){ // flappy
-			var y_offset = me.game.rnd.integerInRange(- me.game.height * 0.1, - me.game.height * 0.45);
+			var y_offset = me.game.rnd.integerInRange(me.game.height * -0.1, me.game.height * -0.45);
 
 			var topPipe = me.generateSinglePipe(startPos, y_offset, 0, -300);
 			me.pipes.add(topPipe);
@@ -327,7 +334,7 @@ BasicGame.Main.prototype = {
 			me.pipes.add(bottomPipe);
 		}
 		else { // dash
-			var y_offset = me.game.height - me.game.height * 0.2;
+			var y_offset = me.game.height - me.game.height * 0.165;
 
 			var topPipe = me.generateSinglePipe(startPos, y_offset, 0, -300);
 			me.pipes.add(topPipe);
