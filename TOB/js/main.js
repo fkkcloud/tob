@@ -209,6 +209,9 @@ BasicGame.Main.prototype = {
 		//Make the player bounce a little 
 		me.cha.body.bounce.y = 0.15;
 		me.cha.body.bounce.x = 0.15;
+
+		if (me.jump)
+			me.jump();
 	},
 
 	createScoreHUD: function(){
