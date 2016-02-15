@@ -229,7 +229,7 @@ BasicGame.Main.prototype = {
 	generatePipes: function(){
 		var me = this;
 
-		var y = me.game.rnd.integerInRange(0, - me.game.height * 0.3);
+		var y = me.game.rnd.integerInRange(- me.game.height * 0.3, - me.game.height * 0.6);
 
 		var pipeGroup = this.pipes.getFirstExists(false);
 
