@@ -209,7 +209,7 @@ BasicGame.Main.prototype = {
 		var topPipe = me.generatePipe(0, 0, 0);
 		group.add(topPipe);
 
-		var gap = topPipe.width + me.bird.width * 10;
+		var gap = topPipe.width + me.bird.width * 9;
 
 		var bottomPipe = me.generatePipe(0, gap, 1);
 		group.add(bottomPipe);
