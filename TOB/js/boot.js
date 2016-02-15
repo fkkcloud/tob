@@ -31,7 +31,7 @@ BasicGame.Boot.prototype = {
         else
         {
             this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-            //this.scale.setMinMax(375, 667, 750, 1334);
+            this.scale.setMinMax(375, 667, 750, 1334);
             this.scale.pageAlignHorizontally = true;
             this.scale.pageAlignVertically = true;
             this.scale.forceOrientation(true, false);

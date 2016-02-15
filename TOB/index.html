@@ -46,8 +46,13 @@
 
 					var isMobile = window.mobilecheck();
 
-					var width = (isMobile) ? (window.innerWidth) : (375 * window.devicePixelRatio);
-					var height = (isMobile) ? (window.innerHeight) : (667 * window.devicePixelRatio);
+					var aspectRatio = (window.innerHeight * 1.0) / window.innerWidth;
+
+					var width = 375 * window.devicePixelRatio;
+					var height = 375 * window.devicePixelRatio * aspectRatio;
+
+					var width = (isMobile) ? (width) : (375 * window.devicePixelRatio);
+					var height = (isMobile) ? (height) : (667 * window.devicePixelRatio);
 					
 					var div;
 					if (isMobile)
