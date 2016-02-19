@@ -17,11 +17,21 @@ angular.module('EditCtrl', []).controller('EditController', function($scope) {
 	}
 
 	$scope.setTrapColor = function(){
-		$scope.paintColor = '#ce4d4d';		
+		$scope.paintColor = '#479c9d';		
 	}
 
 	$scope.setEraser = function(){
 		$scope.paintColor = '#474646';
+	}
+
+	$scope.setBloodColor = function(){
+		$scope.paintColor = '#ab483d';		
+	}
+
+	$scope.reset = function(){
+		$( ".pixel" ).each(function( index ) {
+		  $( this ).css('background-color', '#474646');
+		});
 	}
 
 	function applyColor(evt){

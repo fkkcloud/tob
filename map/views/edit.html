@@ -59,13 +59,32 @@
 		<div class="ui icon buttons">
 		  <button ng-click="setBlockColor()" class="ui button"><i class="square icon"></i>block</button>
 		  <button ng-click="setTrapColor()" class="ui button"><i class="certificate icon"></i>trap</button>
+		  <button ng-click="setBloodColor()" class="ui button"><i class="theme icon"></i>blood</button>
 		  <button ng-click="setEraser()" class="ui button"><i class="eraser icon"></i>erase</button>
+		  <button ng-click="reset()" class="ui button"><i class="bomb icon"></i>reset</button>
 		</div>
+		<select class="ui dropdown">
+		  <option value="">Mode</option>
+		  <option value="1">Bat</option>
+		  <option value="0">Vamp</option>
+		</select>
 	</section>
 
-	<section id="map-manage">
+	<section id="map-preview">
 		<button class="ui inverted red button">Preview</button>
-		<button class="ui inverted teal button">Submit</button>
+	</section>
+
+	<section id="map-manage" class="ui black inverted segment">
+		
+		<form class="ui form">
+		  <div class="field">
+		    <input type="text" name="map-name" placeholder="Map Name">
+		  </div>
+		  <div class="field">
+		    <input type="text" name="creator-name" placeholder="Creator Name">
+		  </div>
+		  <button class="ui inverted teal button">Submit</button>
+		</form>
 	</section>
 
 </div>

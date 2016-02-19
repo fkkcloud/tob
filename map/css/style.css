@@ -46,9 +46,16 @@ body { padding-top:30px; }
 }
 
 #map-control {
-	margin: 100px;
+	width: 500px;
+	margin: 60px auto 10px;
+}
+
+#map-preview {
+	margin-top: 24px;
+	margin-bottom: 48px;
 }
 
 #map-manage {
-	margin: 80px;
+	margin: auto;
+	width: 300px;
 }
