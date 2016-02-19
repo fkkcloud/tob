@@ -1,0 +1,54 @@
+body { padding-top:30px; }
+
+.gap { display:block; width:1px; height:1px; margin: 18px; }
+@media (max-width: 860px) and (min-width:690px) {
+  .gap {
+  	width:1px; height:1px; margin: 13px;
+  }
+}
+@media (max-width: 690px) {
+  .gap {
+  	width:1px; height:1px; margin: 8px;
+  }
+}
+
+
+.pixel { width:16px;height:16px; margin-left:1px; margin-right:2px; background-color:#474646; float: left; }
+@media (max-width: 860px) and (min-width:690px) {
+  .pixel {
+    width:12px;height:12px; margin-left:1px; margin-right:1px;
+  }
+}
+@media (max-width: 690px) {
+  .pixel {
+    width:7px;height:7px; margin-left:1px; margin-right:1px;
+  }
+}
+
+
+.page { background-color: #222; text-align: center; width:100%; height:100%; }
+
+#map-make {
+	width:860px;
+  	margin: auto;
+}
+@media (max-width: 860px) and (min-width:690px){
+  #map-make {
+    width:634px;
+    margin: auto;
+  }
+}
+@media (max-width: 690px) {
+  #map-make {
+    width:420px;
+    margin: auto;
+  }
+}
+
+#map-control {
+	margin: 100px;
+}
+
+#map-manage {
+	margin: 80px;
+}
