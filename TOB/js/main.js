@@ -15,6 +15,12 @@ BasicGame.Main.prototype = {
 		me.lastChaPos.y = me.game.height * 0.5;
 		me.chaOnGround = false;
 
+		me.currentMapXPos = 0;
+		me.mapSpeed = 1;
+		me.currentColumnId = 0;
+		me.prevColumnId = 0;
+		me.mapVelX = -1 * BasicGame.blockSize * 2 * me.mapSpeed;
+
 		// sound setup
 		me.flapSound = me.game.add.audio('flap');
 		me.hitSound = me.game.add.audio('hit');
@@ -30,12 +36,19 @@ BasicGame.Main.prototype = {
 
 		// set up player key input binds
    	 	me.setupPlayerControl();
-	},
 
-	test:function(){console.log('dfasdf')},
+   	 	// debug
+		me.createDebugHUD();
+	},
 
 	update: function() {
 		var me = this;
+
+		me.currentMapXPos += 1 * me.mapSpeed;
+		if (me.isColumnNeedUpdate()){
+			me.generatePipes();
+			//me.generateMapColumn();
+		}
 
 		me.game.physics.arcade.collide(me.ground, me.cha);
 
@@ -63,7 +76,96 @@ BasicGame.Main.prototype = {
 
 			me.game.physics.arcade.collide(me.cha, pipe, me.deathHandler, null, me);	
 		}
+
+		// debug text
+		me.debugText.setText(me.currentMapXPos.toString());
 	},
+
+	isColumnNeedUpdate: function(){
+		var me = this;
+
+		var testBlockColumnId = Math.floor(me.currentMapXPos / BasicGame.blockSize);
+
+		if (me.prevColumnId != testBlockColumnId){
+			me.currentColumnId = testBlockColumnId;
+			me.prevColumnId = testBlockColumnId;
+			return true;
+		}
+
+		return false;
+	},
+
+	generateMapColumn: function(){
+		var me = this;
+
+		for (var i = 0; i < 8; i++){
+
+			x = me.game.width;
+			y = i * BasicGame.blockSize;
+
+			var imageStr = BasicGame.mapData[me.currentColumnId][i];
+
+			if (imageStr == 0){} // if its 0, just leave space
+				// leave space
+			else if (imageStr == 1){
+				var imageName = me.getBlockImage(me.currentColumnId, i);
+				me.game.init_sprite(imageName, x, y);
+			}
+			else if (imageStr == 2){
+				me.game.init_sprite('trap' , x, y);
+			}
+			else if (imageStr == 3){
+				me.game.init_sprite('blood', x, y);
+			}
+
+		}
+	},
+
+	getBlockImage: function(column_id, row_id){
+
+		var up = (BasicGame.mapData[column_id][row_id-1] > 0);
+		var down = (BasicGame.mapData[column_id][row_id+1] > 0);
+		var left = (BasicGame.mapData[column_id-1][row_id] > 0);
+		var right = (BasicGame.mapData[column_id+1][row_id] > 0);
+
+		// all open
+		if (up && down && left && right)
+			return 'open-all';
+
+		// 3 open
+		else if (up && !down && left && right)
+			return 'close_down';
+		else if (up && down && !left && right)
+			return 'close_left';
+		else if (up && down && left && !right)
+			return 'close_right';
+		else if (!up && down && left && right)
+			return 'close_up';
+
+		// 2 open
+		else if (!up && !down && left && right)
+			return 'close_up_down';
+		else if (up && down && !left && !right)
+			return 'close_left_right';
+		else if (!up && down && left && !right)
+			return 'close_up_right';
+		else if (up && !down && !left && right)
+			return 'close_down_left';
+
+		// 1 open
+		else if (up && !down && !left && !right)
+			return 'open_up';
+		else if (!up && down && !left && !right)
+			return 'open_down';
+		else if (!up && !down && left && !right)
+			return 'open_left';
+		else if (!up && !down && !left && right)
+			return 'open_down_right';
+
+		// all closed
+		else if (!up && !down && !left && !right)
+			return 'close_all'
+	},		
 
 	runFlappyMode: function(){
 		console.log('/////// RUN FLAPPY MODE ///////');
@@ -76,9 +178,9 @@ BasicGame.Main.prototype = {
 
 		me.recreateStage();
 
-		me.pipeGenerator = me.game.time.events.loop(Phaser.Timer.SECOND * 2.0, me.generatePipes, me);
+		//me.pipeGenerator = me.game.time.events.loop(Phaser.Timer.SECOND * 2.0, me.generatePipes, me);
 
-		me.game.time.events.add(10000, me.runDashMode, this);
+		//me.game.time.events.add(10000, me.runDashMode, this);
 	},
 
 	destroyFlappyMode: function(){
@@ -99,7 +201,7 @@ BasicGame.Main.prototype = {
 
 		me.recreateStage();
 
-		me.pipeGenerator = me.game.time.events.loop(Phaser.Timer.SECOND * 2.75, me.generatePipes, me);
+		//me.pipeGenerator = me.game.time.events.loop(Phaser.Timer.SECOND * 2.75, me.generatePipes, me);
 
 		me.game.time.events.add(10000, me.runFlappyMode, this);
 	},
@@ -221,9 +323,18 @@ BasicGame.Main.prototype = {
 			me.scoreText.destroy();
 
 		// setup score bar
-   	 	me.scoreText = me.game.add.bitmapText(me.game.width * 0.5, me.game.height * 0.125, 'flappyfont',me.score.toString() + 'm', 32 * window.devicePixelRatio);
+   	 	me.scoreText = me.game.add.bitmapText(me.game.width * 0.5, me.game.height * 0.125, 'flappyfont', me.score.toString() + 'm', 32 * window.devicePixelRatio);
     	me.scoreText.anchor.setTo(0.5, 0.5);
     	me.scoreText.visible = true;
+	},
+
+	createDebugHUD: function(){
+		var me = this;
+
+		// setup score bar
+   	 	me.debugText = me.game.add.bitmapText(me.game.width * 0.9, me.game.height * 0.05, 'flappyfont', me.currentMapXPos.toString() + 'px', 24 * window.devicePixelRatio);
+    	me.debugText.anchor.setTo(0.5, 0.5);
+    	me.debugText.visible = true;
 	},
 
 	setupPlayerControl: function(){
@@ -328,18 +439,18 @@ BasicGame.Main.prototype = {
 		if (me.mode === 0){ // flappy
 			var y_offset = me.game.rnd.integerInRange(me.game.height * -0.1, me.game.height * -0.45);
 
-			var topPipe = me.generateSinglePipe(startPos, y_offset, 0, -300);
+			var topPipe = me.generateSinglePipe(startPos, y_offset, 0, me.mapVelX);
 			me.pipes.add(topPipe);
 
 			var gap = topPipe.width + me.cha.width * 9;
 
-			var bottomPipe = me.generateSinglePipe(startPos, gap + y_offset, 1, -300);
+			var bottomPipe = me.generateSinglePipe(startPos, gap + y_offset, 1, me.mapVelX);
 			me.pipes.add(bottomPipe);
 		}
 		else { // dash
 			var y_offset = me.game.height - me.game.height * 0.165;
 
-			var topPipe = me.generateSinglePipe(startPos, y_offset, 0, -300);
+			var topPipe = me.generateSinglePipe(startPos, y_offset, 0, me.mapVelX);
 			me.pipes.add(topPipe);
 		}
 	},
