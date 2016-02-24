@@ -18,7 +18,7 @@ angular.module('EditCtrl', []).controller('EditController', function($scope) {
 		console.log(mapData);
 		window.localStorage.mapData = JSON.stringify(mapData);
 
-		window.location.href = "http://localhost:4000/";
+		window.location.href = "http://kingsl-tob.herokuapp.com/";
 
 	}
 
