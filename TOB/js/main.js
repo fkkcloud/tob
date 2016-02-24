@@ -16,10 +16,16 @@ BasicGame.Main.prototype = {
 		me.chaOnGround = false;
 
 		me.currentMapXPos = 0;
-		me.mapSpeed = 1;
+		me.mapSpeed = 2;
 		me.currentColumnId = 0;
 		me.prevColumnId = 0;
-		me.mapVelX = -1 * BasicGame.blockSize * 2 * me.mapSpeed;
+		me.mapVelX = -1 * me.mapSpeed * BasicGame.blockSize;
+
+		me.xTester = me.game.add.sprite(0, 0, 'block');
+		me.game.physics.arcade.enable(me.xTester);
+	    me.xTester.body.velocity.x = -me.mapVelX; 
+	    me.xTester.outOfBoundsKill = false;
+	    me.xTester.body.immovable = true;
 
 		// sound setup
 		me.flapSound = me.game.add.audio('flap');
@@ -44,10 +50,11 @@ BasicGame.Main.prototype = {
 	update: function() {
 		var me = this;
 
-		me.currentMapXPos += 1 * me.mapSpeed;
+		//console.log(me.xTester.position.x);
+		me.currentMapXPos = me.xTester.position.x;//+= 1 * me.mapSpeed;
 		if (me.isColumnNeedUpdate()){
-			me.generatePipes();
-			//me.generateMapColumn();
+			//me.generatePipes();
+			me.generateMapColumn();
 		}
 
 		me.game.physics.arcade.collide(me.ground, me.cha);
@@ -60,16 +67,21 @@ BasicGame.Main.prototype = {
 		me.lastChaPos.x = me.cha.x;
 		me.lastChaPos.y = me.cha.y;
 
-		// see if cha is on ground or not
-		var groundHeight = me.game.height - me.game.height * 0.1 - me.cha.height * 0.5 - 1;
-		if (me.mode !== 0 && me.cha.y >= groundHeight){
-			me.chaOnGround = true;
-		}
-		else {
-			me.chaOnGround = false;
+		me.chaOnGround = false;
+
+		// loop through blocks
+		// loop through pipes
+		for (var i = 0; i < me.blocks.children.length; i++){
+			
+			var block = me.blocks.children[i];
+
+			me.game.physics.arcade.collide(me.cha, block, me.blockCollisionHandler, null, me);	
 		}
 
-		// loop through pipes 
+		if (!me.chaOnGround)
+			me.cha.body.velocity.x = 0;
+
+		// loop through pipes
 		for (var i = 0; i < me.pipes.children.length; i++){
 			
 			var pipe = me.pipes.children[i];
@@ -78,13 +90,21 @@ BasicGame.Main.prototype = {
 		}
 
 		// debug text
-		me.debugText.setText(me.currentMapXPos.toString());
+		me.debugText.setText(me.currentColumnId);
+	},
+
+	blockCollisionHandler: function(){
+		var me = this;
+
+		me.chaOnGround = true;
+		me.cha.body.velocity.x = -me.mapVelX;
 	},
 
 	isColumnNeedUpdate: function(){
 		var me = this;
 
 		var testBlockColumnId = Math.floor(me.currentMapXPos / BasicGame.blockSize);
+		//console.log(me.currentMapXPos, BasicGame.blockSize, testBlockColumnId, me.currentColumnId);
 
 		if (me.prevColumnId != testBlockColumnId){
 			me.currentColumnId = testBlockColumnId;
@@ -95,29 +115,78 @@ BasicGame.Main.prototype = {
 		return false;
 	},
 
+	generateSingleBlock: function(x, y, imgStr){
+		var me = this;
+
+		// Get the first dead pipe of our group
+	    var block = me.blocks.getFirstDead();
+
+	    if (!block){
+	    	console.log('allocating new block, total allocated:', me.blocks.length); // debug memory
+
+	    	/*
+	    	var blockKey;
+	    	if (me.mode === 0)
+	    		blockKey = 'pipe';
+	    	else
+	    		blockKey = 'crate';
+	    	*/
+
+	    	block = me.game.add.sprite(x, y, imgStr);
+	    }
+	    else {
+	    	// Set the new position of the pipe
+	    	block.reset(x, y);	
+	    }
+
+	    me.game.physics.arcade.enable(block);
+
+	    // Add velocity to the pipe to make it move left
+	    block.body.velocity.x = me.mapVelX;
+
+	    block.friction = 0;
+
+	    // Kill the pipe when it's no longer visible 
+	    block.checkWorldBounds = true;
+	    block.outOfBoundsKill = true;
+
+	    block.body.immovable = true;
+
+	    me.blocks.add(block);
+
+	    return block;
+	},
+
+
 	generateMapColumn: function(){
 		var me = this;
+
+		var currentColumn = BasicGame.mapData[me.currentColumnId];
+		if (currentColumn == undefined)
+			return;
 
 		for (var i = 0; i < 8; i++){
 
 			x = me.game.width;
 			y = i * BasicGame.blockSize;
 
-			var imageStr = BasicGame.mapData[me.currentColumnId][i];
+			var imgId = currentColumn[i];
+			var imgStr;
 
-			if (imageStr == 0){} // if its 0, just leave space
+			if (imgId == 0){ // if its 0, just leave space
 				// leave space
-			else if (imageStr == 1){
-				var imageName = me.getBlockImage(me.currentColumnId, i);
-				me.game.init_sprite(imageName, x, y);
+				continue;
+			} else if (imgId == 1){
+				imgStr = 'block'; //me.getBlockImage(me.currentColumnId, i);
 			}
-			else if (imageStr == 2){
-				me.game.init_sprite('trap' , x, y);
+			else if (imgId == 2){
+				imgStr = 'trap';
 			}
-			else if (imageStr == 3){
-				me.game.init_sprite('blood', x, y);
+			else if (imgId == 3){
+				imgStr = 'blood';
 			}
 
+			me.generateSingleBlock(x, y, imgStr);
 		}
 	},
 
@@ -210,7 +279,7 @@ BasicGame.Main.prototype = {
 		var me = this;
 
 		me.game.time.events.remove(me.pipeGenerator);
-		me.destroyPipe();
+		me.destroyBlocks();
 	},
 
 	recreateStage: function(){
@@ -222,9 +291,9 @@ BasicGame.Main.prototype = {
 
 		me.createScoreHUD();
 
-		me.createPipe();
+		me.createBlocks();
 
-		me.createGround();
+		//me.createGround();
 	},
 
 	createBG: function(){
@@ -387,16 +456,19 @@ BasicGame.Main.prototype = {
 		me.scoreText.setText(me.score.toString() + 'm');
 	},
 
-	createPipe: function(){
+	createBlocks: function(){
 		this.pipes = game.add.group(); // Create a group  
+		this.blocks = game.add.group();
 	},
 
-	destroyPipe: function(){
+	destroyBlocks: function(){
 		if (this.pipes && this.pipes.length > 0)
 			this.pipes.destroy();
+		if (this.blocks && this.blocks.length > 0)
+			this.blocks.destroy();
 	},
 
-	generateSinglePipe: function(x, y, frame, speed){
+	generateSinglePipe: function(x, y, frame){
 		var me = this;
 
 		// Get the first dead pipe of our group
@@ -420,7 +492,7 @@ BasicGame.Main.prototype = {
 	    me.game.physics.arcade.enable(pipe);
 
 	    // Add velocity to the pipe to make it move left
-	    pipe.body.velocity.x = speed; 
+	    pipe.body.velocity.x = me.mapVelX; 
 
 	    // Kill the pipe when it's no longer visible 
 	    pipe.checkWorldBounds = true;
@@ -439,18 +511,18 @@ BasicGame.Main.prototype = {
 		if (me.mode === 0){ // flappy
 			var y_offset = me.game.rnd.integerInRange(me.game.height * -0.1, me.game.height * -0.45);
 
-			var topPipe = me.generateSinglePipe(startPos, y_offset, 0, me.mapVelX);
+			var topPipe = me.generateSinglePipe(startPos, y_offset, 0);
 			me.pipes.add(topPipe);
 
 			var gap = topPipe.width + me.cha.width * 9;
 
-			var bottomPipe = me.generateSinglePipe(startPos, gap + y_offset, 1, me.mapVelX);
+			var bottomPipe = me.generateSinglePipe(startPos, gap + y_offset, 1);
 			me.pipes.add(bottomPipe);
 		}
 		else { // dash
 			var y_offset = me.game.height - me.game.height * 0.165;
 
-			var topPipe = me.generateSinglePipe(startPos, y_offset, 0, me.mapVelX);
+			var topPipe = me.generateSinglePipe(startPos, y_offset, 0);
 			me.pipes.add(topPipe);
 		}
 	},
@@ -459,10 +531,16 @@ BasicGame.Main.prototype = {
 		var me = this;
 
 		me.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR);
-  		me.cha.destroy();
-  		me.pipes.destroy();
-  		me.ground.destroy();
-  		me.bg.destroy();
+		if (me.cha)
+  			me.cha.destroy();
+  		if (me.pipes)
+  			me.pipes.destroy();
+  		if (me.ground)
+  			me.ground.destroy();
+  		if (me.bg)
+  			me.bg.destroy();
+  		if (me.blocks)
+  			me.blocks.destroy();
 	},
 
 	gameOver: function(){

@@ -9,9 +9,7 @@ BasicGame.Preload.prototype = {
 		this.load.image('bg_sky_flappy', 'assets/bg_sky_flappy.png');
 		this.load.image('bg_sky_dash', 'assets/bg_sky_dash.png');
 
-		var originalImageWidth = 54;
-		var targetImageWidth = this.game.height / 8.0;
-		BasicGame.blockSize = originalImageWidth * (targetImageWidth / originalImageWidth);
+		var originalImageWidth;
 
 		if(window.devicePixelRatio >= 3)
 		{
@@ -32,6 +30,7 @@ BasicGame.Preload.prototype = {
 		 	this.load.spritesheet('cha_flappy', 'assets/cha_flappy@3x.png', 34*3, 24*3, 3);
 
 		 	this.load.image('block', 'assets/block@3x.png');
+		 	originalImageWidth = 50 * 3;
 
 		}
 		else if(window.devicePixelRatio >= 2)
@@ -53,6 +52,7 @@ BasicGame.Preload.prototype = {
 		 	this.load.spritesheet('cha_flappy', 'assets/cha_flappy@2x.png', 34*2, 24*2, 3);
 
 		 	this.load.image('block', 'assets/block@2x.png');
+		 	originalImageWidth = 50 * 2;
 
 		}
 		else 
@@ -74,7 +74,15 @@ BasicGame.Preload.prototype = {
 		 	this.load.spritesheet('cha_flappy', 'assets/cha_flappy.png', 34, 24, 3);
 
 		 	this.load.image('block', 'assets/block.png');
+		 	originalImageWidth = 50;
+
 		} 
+
+		// get right width
+		BasicGame.blockSize = this.game.height/8.0;
+		BasicGame.blockSpriteScale = (BasicGame.blockSize / originalImageWidth);
+		
+		
 
 		this.load.audio('flap', 'assets/flap.wav');
 		this.load.audio('hit', 'assets/hit.wav');
