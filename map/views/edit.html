@@ -78,12 +78,12 @@
 		
 		<form class="ui form">
 		  <div class="field">
-		    <input type="text" name="map-name" placeholder="Map Name">
+		    <input type="text" ng-model="map.name" name="map-name" placeholder="Map Name">
 		  </div>
 		  <div class="field">
-		    <input type="text" name="creator-name" placeholder="Creator Name">
+		    <input type="text" ng-model="map.author" name="creator-name" placeholder="Author Name">
 		  </div>
-		  <button class="ui inverted teal button">Submit</button>
+		  <button ng-click="submitMapData()" class="ui inverted teal button">Submit</button>
 		</form>
 	</section>
 

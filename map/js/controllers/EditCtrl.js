@@ -1,7 +1,8 @@
-angular.module('EditCtrl', []).controller('EditController', function($scope) {
+angular.module('EditCtrl', []).controller('EditController', function($scope, $http) {
 
 	$scope.tagline = 'Nothing beats a pocket protector!';
 	$scope.paintColor = undefined;
+	$scope.map = {};
 
 	$scope.row1 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45];
 	$scope.row2 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45];
@@ -13,13 +14,40 @@ angular.module('EditCtrl', []).controller('EditController', function($scope) {
 	$scope.row8 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45];
 
 	$scope.runPreview = function(){
-
 		var mapData = transpose($scope.mapData);
-		console.log(mapData);
+		//console.log(mapData);
 		window.localStorage.mapData = JSON.stringify(mapData);
-
 		window.location.href = "http://kingsl-tob.herokuapp.com/";
+	}
 
+	$scope.submitMapData = function(){
+		$http.get('/api/maps/counts')
+        .success(function(count){
+        	console.log("count:", count);
+        	$scope.count = count; //  let's use this later
+        	swal({
+		        title: "Training..",   
+		        text: "<p>You create<span style='color:#F8BB86'>" + $scope.map.name + "!</span></p>",   
+		        timer: 10000,
+		        html: true
+		      })
+        	//swal({   title: "Uploading",   text: "Thanks for teaching lindsay!",   timer: 2400,   showConfirmButton: false });
+        })
+        .error(function(err, b, c, d){
+        	console.log('count req failed', err, b, c, d);
+        })
+
+        var mapData = transpose($scope.mapData);
+        var mapDataStr = JSON.stringify(mapData);
+        $http.post('/api/maps/posts', { 'author':$scope.map.author , 'name':$scope.map.name , 'data':mapDataStr } )
+        .success(function(post){
+        	console.log("uploaded.");
+        	console.log('DB created', post);
+        })
+        .error(function(err, b, c, d){
+        	console.log("upload failed.");
+        	console.log('DB failed', err, b, c, d);
+        })
 	}
 
 	$scope.setBlockColor = function(){
