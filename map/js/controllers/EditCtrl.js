@@ -26,8 +26,8 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
         	console.log("count:", count);
         	$scope.count = count; //  let's use this later
         	swal({
-		        title: "Training..",   
-		        text: "<p>You create<span style='color:#F8BB86'>" + $scope.map.name + "!</span></p>",   
+		        title: "Uploading..",   
+		        text: "<p>You create map '<span style='color:#F8BB86'>" + $scope.map.name + "'!</span></p>",   
 		        timer: 10000,
 		        html: true
 		      })
