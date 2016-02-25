@@ -5,8 +5,14 @@ var url = require('url');
 module.exports = function(app) {
 
 	// server routes ===========================================================
-	// handle things like api calls
+	
+	// make local http GET available!
+	app.get('/map/*', function(req, res) {
+		res.sendfile('./map/index.html');
+	});
 
+
+	// handle things like api calls
 	app.get('/api/maps/gallery', function(req, res, next){
 		var parts = url.parse(req.url, true);
 		var query = parts.query;
