@@ -51,15 +51,15 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 	}
 
 	$scope.setBlockColor = function(){
-		$scope.paintColor = '#b8d000';		
+		$scope.paintColor = '#00CDCD';		
 	}
 
 	$scope.setTrapColor = function(){
-		$scope.paintColor = '#479c9d';		
+		$scope.paintColor = '#7F00FF';		
 	}
 
 	$scope.setEraser = function(){
-		$scope.paintColor = '#474646';
+		$scope.paintColor = '#800020';
 	}
 
 	$scope.setBloodColor = function(){
