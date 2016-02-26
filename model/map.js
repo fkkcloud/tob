@@ -8,7 +8,9 @@ var schema = new mongoose.Schema({
 	data    : {type : String, default: '', required: true},
 	author  : {type : String, default: '', required: true},
 	name    : {type : String, default: '', required: true},
-	rate    : {type : Number, default: 0, required: false},
+	rate    : {type : Number, default: 0,  required: false},
+	width   : {type : Number, default: 0,  required: true},
+	height  : {type : Number, default: 0,  required: true},
 	date    : {type : Date, required: true, default: Date.now}
 });
 schema.plugin(mongoosePaginate);

@@ -1,3 +1,48 @@
-<div class="jumbotron text-center">
+<div>
+
+	<div class="gallery"> 
+	    <table>
+	        <div dir-paginate="item in items | itemsPerPage: itemsCountPerPage" total-items="totalPages" current-page="pagination.current">
+	        	<div class="item-box">
+	            	<!--<div class="item-image"><img ng-src="{{ item.img }}" width="100px" height="100px"/><div>-->
+	            	<div class="ui card">
+
+					  <div class="content">
+					  	<span class="left floated">
+					    	{{ item.name }}
+					    </span>
+					    <span class="right floated meta text-small">{{ item.date | date:'medium'}}</span>
+					  </div>
+
+					  <div>
+					    <img id="map-img" ng-src="{{ item.imgData }}" width="320" hegiht="57">
+					  </div>
+
+					  <div class="content">
+					    <span class="right floated">
+					     	<i class="heart outline like icon"></i>
+					     	{{ item.rate }} likes
+					    </span>
+					    <span class="left floated">
+					    	<i class="comment icon"></i>
+					    	{{ item.author }}
+					    </span>
+					  </div>
+
+					</div>
+	        	</div>
+
+	        	
+	    </table>
+
+	    <dir-pagination-controls 
+	    class="item-pagination" 
+	    on-page-change="pageChanged(newPageNumber)" 
+	    template-url="js/vendors/pagination/dirPagination.tpl.html">
+	    </dir-pagination-controls>
+
+	    <canvas id="canvas" width="320" height="57" style="display:none;"></canvas>
+	    
+	</div>
 
 </div>

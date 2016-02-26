@@ -19,7 +19,7 @@ module.exports = function(app) {
 
 		//console.log('page number:', query.page)
 
-		MapData.paginate({}, { page: query.page, limit: 9, sort: {date:-1} }, function(err, result) {
+		MapData.paginate({}, { page: query.page, limit: 4, sort: {date:-1} }, function(err, result) {
 			if (err) { return next(err) }
 			
 			// result.docs
@@ -54,7 +54,9 @@ module.exports = function(app) {
 		var mapData = new MapData({
 			author : req.body.author,
 			name   : req.body.name,
-			data   : req.body.data
+			data   : req.body.data,
+			width  : req.body.width,
+			height : req.body.height
 		})
 
         console.log('received mapData:', mapData);

@@ -1,8 +1,8 @@
 angular.module('EditCtrl', []).controller('EditController', function($scope, $http) {
 
-	$scope.tagline = 'Nothing beats a pocket protector!';
 	$scope.paintColor = undefined;
-	$scope.map = {};
+
+	$scope.paintMode = undefined;
 
 	$scope.row1 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45];
 	$scope.row2 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45];
@@ -16,6 +16,7 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 	$scope.runPreview = function(){
 		var mapData = transpose($scope.mapData);
 		//console.log(mapData);
+		window.localStorage.mapDataEditorCache = JSON.stringify($scope.mapData);
 		window.localStorage.mapData = JSON.stringify(mapData);
 		window.location.href = "http://kingsl-tob.herokuapp.com/";
 	}
@@ -39,7 +40,15 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 
         var mapData = transpose($scope.mapData);
         var mapDataStr = JSON.stringify(mapData);
-        $http.post('/api/maps/posts', { 'author':$scope.map.author , 'name':$scope.map.name , 'data':mapDataStr } )
+
+        var postData = { 
+        	'author':$scope.map.author , 
+        	'name':$scope.map.name , 
+        	'data':mapDataStr ,
+        	'width':$scope.map.width ,
+        	'height':$scope.map.height 
+        };
+        $http.post('/api/maps/posts',  postData)
         .success(function(post){
         	console.log("uploaded.");
         	console.log('DB created', post);
@@ -51,19 +60,23 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 	}
 
 	$scope.setBlockColor = function(){
-		$scope.paintColor = '#00CDCD';		
+		$scope.paintColor = '#00CDCD';
+		$scope.paintMode = 1;		
 	}
 
 	$scope.setTrapColor = function(){
-		$scope.paintColor = '#7F00FF';		
+		$scope.paintColor = '#7F00FF';
+		$scope.paintMode = 2;	
 	}
 
 	$scope.setEraser = function(){
 		$scope.paintColor = '#800020';
+		$scope.paintMode = 0;
 	}
 
 	$scope.setBloodColor = function(){
-		$scope.paintColor = '#ab483d';		
+		$scope.paintColor = '#ab483d';
+		$scope.paintMode = 3;		
 	}
 
 	$scope.reset = function(){
@@ -113,35 +126,35 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 	};
 
 	$scope.fill1 = function(evt, id){
-		$scope.mapData[0][id] = 1;
+			$scope.mapData[0][id] = $scope.paintMode;
 		applyColor(evt);
 	}
 	$scope.fill2 = function(evt, id){
-		$scope.mapData[1][id] = 1;
+		$scope.mapData[1][id] = $scope.paintMode;
 		applyColor(evt);
 	}
 	$scope.fill3 = function(evt, id){
-		$scope.mapData[2][id] = 1;
+		$scope.mapData[2][id] = $scope.paintMode;
 		applyColor(evt);
 	}
 	$scope.fill4 = function(evt, id){
-		$scope.mapData[3][id] = 1;
+		$scope.mapData[3][id] = $scope.paintMode;
 		applyColor(evt);
 	}
 	$scope.fill5 = function(evt, id){
-		$scope.mapData[4][id] = 1;
+		$scope.mapData[4][id] = $scope.paintMode;
 		applyColor(evt);
 	}
 	$scope.fill6 = function(evt, id){
-		$scope.mapData[5][id] = 1;
+		$scope.mapData[5][id] = $scope.paintMode;
 		applyColor(evt);
 	}
 	$scope.fill7 = function(evt, id){
-		$scope.mapData[6][id] = 1;
+		$scope.mapData[6][id] = $scope.paintMode;
 		applyColor(evt);
 	}
 	$scope.fill8 = function(evt, id){
-		$scope.mapData[7][id] = 1;
+		$scope.mapData[7][id] = $scope.paintMode;
 		applyColor(evt);
 	}
 });

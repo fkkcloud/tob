@@ -5,4 +5,10 @@ angular.module('MapApp',
 	'EditCtrl', 
 	'EditService', 
 	'MapsCtrl', 
-	'MapsService']);
+	'MapsService',
+	'angularUtils.directives.dirPagination'
+])
+
+.config(function(paginationTemplateProvider) {
+    paginationTemplateProvider.setPath('js/vendors/pagination/dirPagination.tpl.html');
+})

@@ -1,4 +1,4 @@
-body { padding-top:30px; }
+body { padding-top:30px; background-color: #222; text-align: center; }
 
 .gap { display:block; width:1px; height:1px; margin: 18px; }
 @media (max-width: 860px) and (min-width:690px) {
@@ -24,9 +24,6 @@ body { padding-top:30px; }
     width:7px;height:7px; margin-left:1px; margin-right:1px;
   }
 }
-
-
-.page { background-color: #222; text-align: center; width:100%; height:100%; }
 
 #map-make {
 	width:860px;
@@ -58,4 +55,37 @@ body { padding-top:30px; }
 #map-manage {
 	margin: auto;
 	width: 300px;
+}
+
+/* Gallery stuff */
+
+.gallery {
+  margin: auto;
+  width: 740px;
+}
+@media only screen and (max-width: 680px) {
+    .gallery {
+        width: 300px;
+    }
+}
+
+.item-control {
+  height: 10px !important;
+  width: 290px !important;
+  margin: 0 auto !important;
+}
+@media only screen and (max-width: 680px) {
+    .item-control {
+        width: 240px !important;
+    }
+}
+
+.item-box {
+  width: 360px;
+  margin: 12px 4px;
+  float:left; 
+}
+
+.text-small {
+  font-size: 12px !important;
 }

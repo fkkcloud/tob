@@ -10,7 +10,13 @@
 
 	<!-- CSS -->
 	<link rel="stylesheet" href="css/style.css"> <!-- custom styles -->
+
+	<!-- bootstrap only for pagination -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	<!-- semantic UI for general -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
+
 
 	<!-- JS -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -21,6 +27,9 @@
 	<!-- SweetAlert -->
 	<link rel="stylesheet" href="js/vendors/sweetalert/sweetalert.css">
 	<script src="js/vendors/sweetalert/sweetalert.min.js"></script>
+
+	<!-- dirPagination -->
+	<script src="js/vendors/pagination/dirPagination.js"></script>
 	
 	<!-- ANGULAR CUSTOM -->
 	<script src="js/controllers/MainCtrl.js"></script>
@@ -34,8 +43,8 @@
 </head>
 
 <body ng-app="MapApp" ng-controller="MainController">
-<div class="page">
-	
+
+<div style="height:100%; background-color: #222;">
 	<!-- HEADER -->
 	<div class="ui gray three item inverted menu">
 	  <a class="item" href="/map/">Main</a>
@@ -44,8 +53,7 @@
 	</div>
 
 	<!-- ANGULAR DYNAMIC CONTENT -->
-	<div ng-view></div>
-
+	<div ng-view ></div>
 </div>
 </body>
 </html>
