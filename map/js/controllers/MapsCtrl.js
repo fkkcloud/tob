@@ -1,5 +1,7 @@
 angular.module('MapsCtrl', []).controller('MapsController', function($scope, $http) {
 
+    $scope.currentLoadedMaps = undefined;
+
     $scope.itemsCountPerPage = 4; // this should match however many results your API puts on one page
     $scope.totalPages = 0;
     getResultsPage(1);
@@ -14,6 +16,15 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
         getResultsPage(newPage);
     };
 
+    $scope.rating = function(id) {
+        var queryID = $scope.currentLoadedMaps[id]._id;
+        $scope.currentLoadedMaps[id].rate += 1;
+        $http.post('/api/maps/rate', { 'id' : queryID })
+        .then(function(result){
+            console.log('rated!');
+        });
+    }
+
     function getResultsPage(pageNumber) {
 
         // this is just an example, in reality this stuff should be in a service
@@ -21,10 +32,12 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
         .then(function(result) {
 
         	var items = result.data.pages;
+            $scope.currentLoadedMaps = items; // save locally for other interactivity e.g. rating
 
             for (var i = 0; i < items.length; i++){
 
                 var item = items[i];
+                console.log(item);
 
                 var mapData2DArray = JSON.parse(item.data);
                 

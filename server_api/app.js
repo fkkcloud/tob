@@ -57,19 +57,38 @@ module.exports = function(app) {
 			data   : req.body.data,
 			width  : req.body.width,
 			height : req.body.height
-		})
+		});
 
         console.log('received mapData:', mapData);
 
 		mapData.save(function(err, data){
 			if (err) { 
-				console.log('db save failed..')
-				return next(err) 
+				console.log('db save failed..');
+				return next(err);
 			}
 
-			console.log('map upload complete..')
+			console.log('map upload complete..');
 			res.json(201, data);
-		})
+		});
+	});
+
+	app.post('/api/maps/rate', function(req, res, next) {
+
+		var query = { _id : req.body.id }
+
+        console.log('received id:', query);
+
+    	var update = { $inc: { rate : 1 }};
+
+		MapData.update(query, update, function(err, data){
+			if (err) {
+				console.log('db update failed...');
+				return next(err);
+			}
+
+			console.log('map update complete!..');
+			res.json(200, data);
+		});
 	});
 
 };
