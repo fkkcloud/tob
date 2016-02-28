@@ -11,23 +11,23 @@ BasicGame.GameOver.prototype = {
   		var scoreFont = fontSize + "px Verdana";
 
   		me.labelGameOver = me.game.add.text(me.game.world.centerX,
-  			30 * window.devicePixelRatio, "You DIED!", {font: scoreFont, fill: "#fff"});
+  			me.game.world.height * 0.1, "You DIED!", {font: scoreFont, fill: "#fff"});
   		me.labelGameOver.anchor.setTo(0.5, 0);
 
   		me.labelFinalScore = me.game.add.text(me.game.world.centerX,
-  			100 * window.devicePixelRatio, me.score + 'm', {font: scoreFont, fill:"#fff"});
+  			me.game.world.height * 0.2, me.score + 'm', {font: scoreFont, fill:"#fff"});
   		me.labelFinalScore.anchor.setTo(0.5, 0);
 
   		me.labelHighScoreText = me.game.add.text(me.game.world.centerX,
-  			200 * window.devicePixelRatio, "BEST", {font: scoreFont, fill: "#fff"});
+  			me.game.world.height * 0.3, "BEST", {font: scoreFont, fill: "#fff"});
   		me.labelHighScoreText.anchor.setTo(0.5, 0);
 
   		me.labelHighScore = me.game.add.text(me.game.world.centerX,
-  			270 * window.devicePixelRatio, me.highScore + 'm', {font: scoreFont, fill: "#fff"});
+  			me.game.world.height * 0.4, me.highScore + 'm', {font: scoreFont, fill: "#fff"});
   		me.labelHighScore.anchor.setTo(0.5, 0);
 
   		var restartButton = me.game.add.button(me.game.world.centerX,
-  			me.game.world.height - 200, "restart", me.restartGame, me);
+  			me.game.world.height * 0.76, "restart", me.restartGame, me);
   		restartButton.anchor.setTo(0.5, 0.5);
 
 	},
@@ -60,7 +60,7 @@ BasicGame.GameOver.prototype = {
 
 		var me = this;
 
-		var sprite = me.game.add.sprite(0, 0, 'bg_sky_flappy');
+		var sprite = me.game.add.sprite(0, 0, 'bg_sky_vamp');
 		
 		var scale = me.game.width / sprite.width * 1.1;
 		

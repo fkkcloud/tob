@@ -10,22 +10,20 @@ BasicGame.Main.prototype = {
 		// score variable
 		me.score = 0;
 		me.mode = 0; // 0 for flappy, 1 for dash
+
+		/* character position between map modes */
 		me.lastChaPos = {};
 		me.lastChaPos.x = me.game.width * 0.2;
 		me.lastChaPos.y = me.game.height * 0.5;
+
+		/* is player on ground */
 		me.chaOnGround = false;
 
-		me.currentMapXPos = 0;
 		me.mapSpeed = 2;
-		me.currentColumnId = 0;
-		me.prevColumnId = 0;
 		me.mapVelX = -1 * me.mapSpeed * BasicGame.blockSize;
 
-		me.xTester = me.game.add.sprite(0, 0, 'block');
-		me.game.physics.arcade.enable(me.xTester);
-	    me.xTester.body.velocity.x = -me.mapVelX; 
-	    me.xTester.outOfBoundsKill = false;
-	    me.xTester.body.immovable = true;
+		me.currentColumnId = 0;
+		me.prevColumnId = 0;
 
 		// sound setup
 		me.flapSound = me.game.add.audio('flap');
@@ -34,11 +32,19 @@ BasicGame.Main.prototype = {
 		// enable physics
 		me.game.physics.startSystem(Phaser.Physics.ARCADE);
 
+		/* track the map x position */
+		me.currentMapXPos = 0;
+		me.xTester = me.game.add.sprite(0, 0, 'open_none');
+		me.game.physics.arcade.enable(me.xTester);
+	    me.xTester.body.velocity.x = -me.mapVelX; 
+	    me.xTester.outOfBoundsKill = false;
+	    me.xTester.body.immovable = true;
+
 		// timers - score
    	 	me.scoreCounter = me.game.time.events.loop(Phaser.Timer.SECOND * 1.0, me.getScore, me);
 
-		// start with flappy mode
-		me.runFlappyMode();
+		// start with vamp mode
+		me.runVampMode();
 
 		// set up player key input binds
    	 	me.setupPlayerControl();
@@ -50,14 +56,13 @@ BasicGame.Main.prototype = {
 	update: function() {
 		var me = this;
 
-		//console.log(me.xTester.position.x);
-		me.currentMapXPos = me.xTester.position.x;//+= 1 * me.mapSpeed;
+		// update current map x pos
+		me.currentMapXPos = me.xTester.position.x;
+
+		// draw map - blocks, traps, bloods and so on..
 		if (me.isColumnNeedUpdate()){
-			//me.generatePipes();
 			me.generateMapColumn();
 		}
-
-		me.game.physics.arcade.collide(me.ground, me.cha);
 
 		// cha angle default
 		if(me.cha.angle < me.defaultAngle) {
@@ -70,7 +75,6 @@ BasicGame.Main.prototype = {
 		me.chaOnGround = false;
 
 		// loop through blocks
-		// loop through pipes
 		for (var i = 0; i < me.blocks.children.length; i++){
 			
 			var block = me.blocks.children[i];
@@ -81,16 +85,22 @@ BasicGame.Main.prototype = {
 		if (!me.chaOnGround)
 			me.cha.body.velocity.x = 0;
 
-		// loop through pipes
-		for (var i = 0; i < me.pipes.children.length; i++){
-			
-			var pipe = me.pipes.children[i];
-
-			me.game.physics.arcade.collide(me.cha, pipe, me.deathHandler, null, me);	
-		}
-
 		// debug text
 		me.debugText.setText(me.currentColumnId);
+	},
+
+/*
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+blocks
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+*/
+	createBlocks: function(){
+		this.blocks = game.add.group();
+	},
+
+	destroyBlocks: function(){
+		if (this.blocks && this.blocks.length > 0)
+			this.blocks.destroy();
 	},
 
 	blockCollisionHandler: function(){
@@ -177,7 +187,7 @@ BasicGame.Main.prototype = {
 				// leave space
 				continue;
 			} else if (imgId == 1){
-				imgStr = 'block'; //me.getBlockImage(me.currentColumnId, i);
+				imgStr = me.getBlockImage(me.currentColumnId, i);
 			}
 			else if (imgId == 2){
 				imgStr = 'trap';
@@ -192,34 +202,53 @@ BasicGame.Main.prototype = {
 
 	getBlockImage: function(column_id, row_id){
 
-		var up = (BasicGame.mapData[column_id][row_id-1] > 0);
-		var down = (BasicGame.mapData[column_id][row_id+1] > 0);
-		var left = (BasicGame.mapData[column_id-1][row_id] > 0);
-		var right = (BasicGame.mapData[column_id+1][row_id] > 0);
+		var up ;
+		if (BasicGame.mapData[column_id][row_id-1] == undefined)
+			up = 0;
+		else
+			up = (BasicGame.mapData[column_id][row_id-1] > 0);
+
+		var down;
+		if (BasicGame.mapData[column_id][row_id+1] == undefined)
+			down = 0;
+		else
+			down = (BasicGame.mapData[column_id][row_id+1] > 0);
+
+		var left;
+		if (BasicGame.mapData[column_id-1] == undefined)
+			left = 0;
+		else
+			left = (BasicGame.mapData[column_id-1][row_id] > 0);
+
+		var right;
+		if (BasicGame.mapData[column_id+1] == undefined)
+			right = 0;
+		else
+			right = (BasicGame.mapData[column_id+1][row_id] > 0);
 
 		// all open
 		if (up && down && left && right)
-			return 'open-all';
+			return 'open_all';
 
 		// 3 open
 		else if (up && !down && left && right)
-			return 'close_down';
+			return 'open_up_left_right';
 		else if (up && down && !left && right)
-			return 'close_left';
+			return 'open_up_down_right';
 		else if (up && down && left && !right)
-			return 'close_right';
+			return 'open_up_down_left';
 		else if (!up && down && left && right)
-			return 'close_up';
+			return 'open_down_left_right'; /*없음*/
 
 		// 2 open
 		else if (!up && !down && left && right)
-			return 'close_up_down';
+			return 'open_left_right'; /*없음*/
 		else if (up && down && !left && !right)
-			return 'close_left_right';
+			return 'open_up_down'; /*없음*/
 		else if (!up && down && left && !right)
-			return 'close_up_right';
+			return 'open_down_left';
 		else if (up && !down && !left && right)
-			return 'close_down_left';
+			return 'open_up_right';
 
 		// 1 open
 		else if (up && !down && !left && !right)
@@ -233,14 +262,19 @@ BasicGame.Main.prototype = {
 
 		// all closed
 		else if (!up && !down && !left && !right)
-			return 'close_all'
+			return 'open_none'
 	},		
 
-	runFlappyMode: function(){
-		console.log('/////// RUN FLAPPY MODE ///////');
+/*
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Mode
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+*/
+	runBatMode: function(){
+		console.log('/////// RUN Bar MODE ///////');
 		var me = this;
 
-		me.destroyDashMode();
+		me.destroyVampMode();
 
 		me.mode = 0;
 		me.defaultAngle = 90;
@@ -249,21 +283,21 @@ BasicGame.Main.prototype = {
 
 		//me.pipeGenerator = me.game.time.events.loop(Phaser.Timer.SECOND * 2.0, me.generatePipes, me);
 
-		//me.game.time.events.add(10000, me.runDashMode, this);
+		//me.game.time.events.add(10000, me.runVampMode, this);
 	},
 
-	destroyFlappyMode: function(){
+	destroyBatMode: function(){
 		var me = this;
 
-		me.game.time.events.remove(me.pipeGenerator);
-		me.destroyPipe();
+		//me.game.time.events.remove(me.pipeGenerator);
+		me.destroyBlocks();
 	},
 
-	runDashMode: function(){
-		console.log('/////// RUN DASH MODE ///////');
+	runVampMode: function(){
+		console.log('/////// RUN Vamp MODE ///////');
 		var me = this;
 
-		me.destroyFlappyMode();
+		me.destroyBatMode();
 
 		me.mode = 1;
 		me.defaultAngle = 0;
@@ -272,13 +306,13 @@ BasicGame.Main.prototype = {
 
 		//me.pipeGenerator = me.game.time.events.loop(Phaser.Timer.SECOND * 2.75, me.generatePipes, me);
 
-		me.game.time.events.add(10000, me.runFlappyMode, this);
+		//me.game.time.events.add(10000, me.runBatMode, this);
 	},
 
-	destroyDashMode: function(){
+	destroyVampMode: function(){
 		var me = this;
 
-		me.game.time.events.remove(me.pipeGenerator);
+		//me.game.time.events.remove(me.pipeGenerator); // random generator
 		me.destroyBlocks();
 	},
 
@@ -292,10 +326,12 @@ BasicGame.Main.prototype = {
 		me.createScoreHUD();
 
 		me.createBlocks();
-
-		//me.createGround();
 	},
-
+/*
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+BG
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+*/
 	createBG: function(){
 		var me = this;
 
@@ -303,10 +339,12 @@ BasicGame.Main.prototype = {
 			me.bg.destroy();
 
 		var bg_img_key;
-		if (me.mode == 0)
-			bg_img_key = 'bg_sky_flappy';
-		else
-			bg_img_key = 'bg_sky_dash';
+		if (me.mode == 0){
+			//bg_img_key = 'bg_sky_bat';
+		}
+		else {
+			bg_img_key = 'bg_sky_vamp';
+		}
 
 		me.bg = me.game.add.sprite(0, 0, bg_img_key);
 		
@@ -315,37 +353,11 @@ BasicGame.Main.prototype = {
 		me.bg.scale.setTo(scale, scale);
 	},
 
-	createGround: function(){
-		var me = this;
-
-		if (me.ground)
-			me.ground.destroy();
-
-		var ground_img_key;
-		if (me.mode == 0)
-			ground_img_key = 'bg_ground_flappy';
-		else
-			ground_img_key = 'bg_ground_dash';
-
-		var groundWidth = me.game.width;
-		var groundHeight = me.game.height * 0.1;
-
-	    me.ground = me.game.add.tileSprite(
-	    	0, // x
-	    	me.game.height - groundHeight, // y
-	    	groundWidth, // width
-	    	groundHeight, //height
-	    	ground_img_key// key
-	    	);
-
-	    me.ground.autoScroll(-200, 0);
-	    
-    	//Enable physics for the building
-		me.game.physics.arcade.enable(me.ground);
-		me.ground.physicsType = Phaser.SPRITE;
-		me.ground.body.immovable = true;
-	},
-
+/*
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Player
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+*/
 	createPlayer: function(){
 		var me = this;
 
@@ -353,16 +365,18 @@ BasicGame.Main.prototype = {
 			me.cha.destroy();
 
 		var cha_img_key;
-		if (me.mode === 0)
-			cha_img_key = 'cha_flappy';
-		else
-			cha_img_key = 'cha_dash';
+		if (me.mode === 0){
+			//cha_img_key = 'cha_bat';
+		}
+		else {
+			cha_img_key = 'cha_vamp';
+		}
 
 		me.cha = me.game.add.sprite(me.lastChaPos.x, me.lastChaPos.y, cha_img_key);
 
 		// add and play animations
 		me.cha.animations.add('flap');
-		me.cha.animations.play('flap', 12, true);
+		me.cha.animations.play('flap', 8, true);
 
 		me.game.physics.arcade.enable(me.cha);
 
@@ -372,10 +386,12 @@ BasicGame.Main.prototype = {
 		me.cha.scale.setTo(1.4, 1.4);
 
 		//Make the player fall by applying gravity 
-		me.cha.body.gravity.y = 800;
+		me.cha.body.gravity.y = 1200;
 
         //Make the player collide with the game boundaries
 		me.cha.body.collideWorldBounds = false; 
+		me.cha.checkWorldBounds = true;
+        me.cha.events.onOutOfBounds.add(me.deathHandler, this);
 
 		//Make the player bounce a little 
 		me.cha.body.bounce.y = 0.15;
@@ -385,6 +401,11 @@ BasicGame.Main.prototype = {
 			me.jump();
 	},
 
+/*
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+HUD - score
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+*/
 	createScoreHUD: function(){
 		var me = this;
 
@@ -397,6 +418,11 @@ BasicGame.Main.prototype = {
     	me.scoreText.visible = true;
 	},
 
+/*
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+HUD - debug
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+*/
 	createDebugHUD: function(){
 		var me = this;
 
@@ -406,6 +432,12 @@ BasicGame.Main.prototype = {
     	me.debugText.visible = true;
 	},
 
+
+/*
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Control - player
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+*/
 	setupPlayerControl: function(){
 		var me = this;
 
@@ -415,6 +447,24 @@ BasicGame.Main.prototype = {
 		jumpKey.onDown.add(me.jump, me);
 
 		me.input.onDown.add(me.jump, me);
+	},
+
+	jump: function(){
+		var me = this;
+
+		// if its not flappy mode and not on ground, no jump available!
+		//if (me.mode !== 0 && !me.chaOnGround)
+		//	return;
+
+		if (me.mode === 0)
+			me.cha.body.velocity.y = -360;
+		else
+			me.cha.body.velocity.y = -620;
+
+		me.game.add.tween(me.cha).to({angle: -40}, 100).start();
+
+		if (BasicGame.sound)
+			me.flapSound.play();
 	},
 
 	deathHandler: function(){
@@ -431,24 +481,11 @@ BasicGame.Main.prototype = {
 
 	},
 
-	jump: function(){
-		var me = this;
-
-		// if its not flappy mode and not on ground, no jump available!
-		if (me.mode !== 0 && !me.chaOnGround)
-			return;
-
-		if (me.mode === 0)
-			me.cha.body.velocity.y = -360;
-		else
-			me.cha.body.velocity.y = -620;
-
-		me.game.add.tween(me.cha).to({angle: -40}, 100).start();
-
-		if (BasicGame.sound)
-			me.flapSound.play();
-	},
-
+/*
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+score
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+*/
 	getScore: function(){
 		var me = this;
 
@@ -456,76 +493,11 @@ BasicGame.Main.prototype = {
 		me.scoreText.setText(me.score.toString() + 'm');
 	},
 
-	createBlocks: function(){
-		this.pipes = game.add.group(); // Create a group  
-		this.blocks = game.add.group();
-	},
-
-	destroyBlocks: function(){
-		if (this.pipes && this.pipes.length > 0)
-			this.pipes.destroy();
-		if (this.blocks && this.blocks.length > 0)
-			this.blocks.destroy();
-	},
-
-	generateSinglePipe: function(x, y, frame){
-		var me = this;
-
-		// Get the first dead pipe of our group
-	    var pipe = me.pipes.getFirstDead();
-
-	    if (!pipe){
-	    	console.log('allocating new pipe, total allocated:', this.pipes.length); // debug memory
-
-	    	var blockKey;
-	    	if (me.mode === 0)
-	    		blockKey = 'pipe';
-	    	else
-	    		blockKey = 'crate';
-
-	    	pipe = me.game.add.sprite(x, y, blockKey, frame);
-	    }
-
-	    // Set the new position of the pipe
-	    pipe.reset(x, y);
-
-	    me.game.physics.arcade.enable(pipe);
-
-	    // Add velocity to the pipe to make it move left
-	    pipe.body.velocity.x = me.mapVelX; 
-
-	    // Kill the pipe when it's no longer visible 
-	    pipe.checkWorldBounds = true;
-	    pipe.outOfBoundsKill = true;
-
-	    pipe.body.immovable = true;
-
-	    return pipe;
-	},
-
-	generatePipes: function(){
-		var me = this;
-
-		var startPos = me.game.width;
-
-		if (me.mode === 0){ // flappy
-			var y_offset = me.game.rnd.integerInRange(me.game.height * -0.1, me.game.height * -0.45);
-
-			var topPipe = me.generateSinglePipe(startPos, y_offset, 0);
-			me.pipes.add(topPipe);
-
-			var gap = topPipe.width + me.cha.width * 9;
-
-			var bottomPipe = me.generateSinglePipe(startPos, gap + y_offset, 1);
-			me.pipes.add(bottomPipe);
-		}
-		else { // dash
-			var y_offset = me.game.height - me.game.height * 0.165;
-
-			var topPipe = me.generateSinglePipe(startPos, y_offset, 0);
-			me.pipes.add(topPipe);
-		}
-	},
+/*
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+GAME STATE
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+*/
 
 	shutdown:function(){
 		var me = this;
@@ -533,8 +505,6 @@ BasicGame.Main.prototype = {
 		me.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR);
 		if (me.cha)
   			me.cha.destroy();
-  		if (me.pipes)
-  			me.pipes.destroy();
   		if (me.ground)
   			me.ground.destroy();
   		if (me.bg)

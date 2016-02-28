@@ -10,8 +10,6 @@ BasicGame.GameTitle.prototype = {
 
 		me.createBG();
 
-		me.createGround();
-
 		me.createLogo();
 
 		me.createInstructions();
@@ -27,29 +25,11 @@ BasicGame.GameTitle.prototype = {
 	createBG: function(){
 		var me = this;
 
-		var sprite = me.game.add.sprite(0, 0, 'bg_sky_flappy');
+		var sprite = me.game.add.sprite(0, 0, 'bg_sky_vamp');
 		
 		var scale = me.game.width / sprite.width * 1.1;
 		
 		sprite.scale.setTo(scale, scale);
-	},
-
-	createGround: function(){
-
-		var me = this;
-
-		var groundWidth = me.game.width;
-		var groundHeight = me.game.height * 0.1;
-
-	    me.ground = me.game.add.tileSprite(
-	    	0, // x
-	    	me.game.height - groundHeight, // y
-	    	groundWidth, // width
-	    	groundHeight, //height
-	    	'bg_ground_flappy' // key
-	    	);
-
-	    this.ground.autoScroll(-200, 0);
 	},
 
 	startGame: function(){
@@ -62,16 +42,10 @@ BasicGame.GameTitle.prototype = {
 		this.title = this.game.add.sprite(0, 0, 'title');
 		this.titleGroup.add(this.title);
 
-		this.bird = this.game.add.sprite(this.game.width * 0.42, 0, 'cha_flappy');
-		this.titleGroup.add(this.bird);
+		this.titleGroup.x = this.game.width * 0.5 - this.title.width * 0.5;
+		this.titleGroup.y = this.game.height * 0.25;
 
-		this.bird.animations.add('flap');
-		this.bird.animations.play('flap', 12, true);
-
-		this.titleGroup.x = this.game.width * 0.25;
-		this.titleGroup.y = this.game.height * 0.23;
-
-		this.game.add.tween(this.titleGroup).to({y:this.game.height * 0.26}, 350, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
+		this.game.add.tween(this.titleGroup).to({y:this.game.height * 0.27}, 350, Phaser.Easing.Linear.NONE, true, 0, 5000, true);
 	},
 
 	createInstructions: function(){
