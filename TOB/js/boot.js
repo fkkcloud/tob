@@ -10,6 +10,7 @@ BasicGame = {
     orientated: false,
 
     blockSize: 0,
+    preStageUnits: 0,
 
     mapData: [],
 

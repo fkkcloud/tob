@@ -128,6 +128,9 @@ BasicGame.Preload.prototype = {
 		BasicGame.blockSize = this.game.height/8.0;
 		BasicGame.blockSpriteScale = (BasicGame.blockSize / originalImageWidth);
 
+		BasicGame.preStageUnits = this.game.width/ (BasicGame.blockSize * 1.0);
+		console.log('preStageInit:', BasicGame.preStageUnits);
+
 		this.load.audio('flap', 'assets/flap.wav');
 		this.load.audio('hit', 'assets/hit.wav');
 	},

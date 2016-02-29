@@ -10,7 +10,7 @@ BasicGame.Main.prototype = {
 
 		// score variable
 		me.score = 0;
-		me.mode = 0; // 0 for flappy, 1 for dash
+		me.mode = 1; // 0 for flappy, 1 for dash
 
 		/* character position between map modes */
 		me.lastChaPos = {};
@@ -52,6 +52,9 @@ BasicGame.Main.prototype = {
 
    	 	// debug
 		me.createDebugHUD();
+
+		// pre stage
+		me.createPreStage();
 	},
 
 	update: function() {
@@ -79,8 +82,19 @@ BasicGame.Main.prototype = {
 		for (var i = 0; i < me.blocks.children.length; i++){
 			
 			var block = me.blocks.children[i];
-
 			me.game.physics.arcade.collide(me.cha, block, me.blockCollisionHandler, null, me);	
+		}
+		// loop through traps
+		for (var i = 0; i < me.traps.children.length; i++){
+			
+			var block = me.traps.children[i];
+			me.game.physics.arcade.collide(me.cha, block, me.deathHandler, null, me);	
+		}
+		// loop through bloods
+		for (var i = 0; i < me.bloods.children.length; i++){
+			
+			//var block = me.bloods.children[i];
+			//me.game.physics.arcade.collide(me.cha, block, me.bloodCollisionHandler, null, me);	
 		}
 
 		if (!me.chaOnGround)
@@ -90,20 +104,40 @@ BasicGame.Main.prototype = {
 		me.debugText.setText(me.currentColumnId);
 	},
 
+
+	createPreStage: function(){
+		var me = this;
+
+		var preUnitCount = BasicGame.preStageUnits;
+		for (var i = 0; i < preUnitCount; i++){
+			me.generateSingleBlock(me.game.width - i * BasicGame.blockSize, me.game.height - BasicGame.blockSize, 'open_up', 1)
+		}
+	},
 /*
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-blocks
+blocks - memory
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 */
 	createBlocks: function(){
 		this.blocks = game.add.group();
+		this.bloods = game.add.group();
+		this.traps = game.add.group();
 	},
 
 	destroyBlocks: function(){
 		if (this.blocks && this.blocks.length > 0)
 			this.blocks.destroy();
+		if (this.bloods && this.bloods.length > 0)
+			this.bloods.destroy();
+		if (this.traps && this.traps.length > 0)
+			this.traps.destroy();
 	},
 
+/*
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+blocks - event handlers
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+*/
 	blockCollisionHandler: function(){
 		var me = this;
 
@@ -111,6 +145,37 @@ blocks
 		me.cha.body.velocity.x = -me.mapVelX;
 	},
 
+	deathHandler: function(){
+		var me = this;
+
+		if (BasicGame.sound)
+			me.hitSound.play();
+
+		me.cha.animations.stop('flap');
+
+		me.cha.body.velocity.y = -800;
+
+		me.game.add.tween(me.cha).to({angle: -160}, 60).start();
+
+		//Wait a couple of seconds and then trigger the game over screen
+		me.game.time.events.add(Phaser.Timer.SECOND * 0.2, function(){ 
+			//Send score to game over screen 
+			me.game.state.start('GameOver', true, false, me.score.toString());
+		}, me);
+
+	},
+
+	bloodCollisionHandler: function(){
+		var me = this;
+
+		// have to have rewards or something here
+	},
+
+/*
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+blocks - generations
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+*/
 	isColumnNeedUpdate: function(){
 		var me = this;
 
@@ -126,11 +191,19 @@ blocks
 		return false;
 	},
 
-	generateSingleBlock: function(x, y, imgStr){
+	generateSingleBlock: function(x, y, imgStr, imgId){
 		var me = this;
 
+		var block;
+
 		// Get the first dead pipe of our group
-	    var block = me.blocks.getFirstDead();
+		if (imgId === 1)
+	    	block = me.blocks.getFirstDead();
+	    else if (imgId === 2)
+	    	block = me.traps.getFirstDead();
+	    else if (imgId === 3)
+	    	block = me.bloods.getFirstDead();
+	    
 
 	    if (!block){
 	    	//console.log('allocating new block, total allocated:', me.blocks.length); // debug memory
@@ -165,7 +238,12 @@ blocks
 
 	    block.scale.setTo(BasicGame.blockSpriteScale, BasicGame.blockSpriteScale);
 
-	    me.blocks.add(block);
+	    if (imgId === 1)
+	    	me.blocks.add(block);
+	    else if (imgId === 2)
+	    	me.traps.add(block);
+	    else if (imgId === 3)
+	    	me.bloods.add(block);
 
 	    return block;
 	},
@@ -189,17 +267,17 @@ blocks
 			if (imgId == 0){ // if its 0, just leave space
 				// leave space
 				continue;
-			} else if (imgId == 1){
+			} else if (imgId === 1){
 				imgStr = me.getBlockImage(me.currentColumnId, i);
 			}
-			else if (imgId == 2){
+			else if (imgId === 2){
 				imgStr = 'trap';
 			}
-			else if (imgId == 3){
+			else if (imgId === 3){
 				imgStr = 'blood';
 			}
 
-			me.generateSingleBlock(x, y, imgStr);
+			me.generateSingleBlock(x, y, imgStr, imgId);
 		}
 	},
 
@@ -237,7 +315,7 @@ blocks
 			right = (BasicGame.mapData[column_id+1][row_id] > 0);
 		}
 
-		console.log(up, down, left, right);
+		//console.log(up, down, left, right);
 
 		// all open
 		if (up && down && left && right){
@@ -481,32 +559,18 @@ Control - player
 		var me = this;
 
 		// if its not flappy mode and not on ground, no jump available!
-		//if (me.mode !== 0 && !me.chaOnGround)
-		//	return;
+		if (me.mode !== 0 && !me.chaOnGround)
+			return;
 
 		if (me.mode === 0)
-			me.cha.body.velocity.y = -360;
+			me.cha.body.velocity.y = -920;
 		else
-			me.cha.body.velocity.y = -620;
+			me.cha.body.velocity.y = -920;
 
 		me.game.add.tween(me.cha).to({angle: -40}, 100).start();
 
 		if (BasicGame.sound)
 			me.flapSound.play();
-	},
-
-	deathHandler: function(){
-		var me = this;
-
-		if (BasicGame.sound)
-			me.hitSound.play();
-
-		//Wait a couple of seconds and then trigger the game over screen
-		me.game.time.events.add(Phaser.Timer.SECOND * 0.3, function(){ 
-			//Send score to game over screen 
-			me.game.state.start('GameOver', true, false, me.score.toString());
-		}, me);
-
 	},
 
 /*
@@ -544,6 +608,7 @@ GAME STATE
 	gameOver: function(){
 		var me = this;
 
+		me.shutdown();
 		me.game.state.start('GameOver');
 	},
 
