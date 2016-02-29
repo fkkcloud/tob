@@ -15,7 +15,7 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 	});
 
 	$scope.paintColor = undefined;
-	
+
 	$scope.paintMode = undefined;
 
 	$scope.row1 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45];
@@ -38,8 +38,8 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 
 	$scope.runPreview = function(){
 		window.localStorage.mapData = JSON.stringify($scope.mapData);
-		//window.location.href = "http://kingsl-tob.herokuapp.com/";
-		window.location.href = "http://localhost:4000/";
+		window.location.href = "http://kingsl-tob.herokuapp.com/";
+		//window.location.href = "http://localhost:4000/";
 		preview = true;
 	}
 

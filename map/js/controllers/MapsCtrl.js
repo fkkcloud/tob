@@ -51,7 +51,6 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
                 var y = 0;
 
                 //console.log(item.width, item.height);
-
                 for (var j = 0; j < data.length; j += 4) {
                     
                     var currMapID = mapData2DArray[x][y];
@@ -59,11 +58,11 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
                     if (currMapID === 0) // nothing
                         color = [10, 10, 10];
                     else if (currMapID === 1) // block
-                        color = [255, 0, 0];
+                        color = [0, 205, 205];
                     else if (currMapID === 2) // trap
-                        color = [0, 0, 255];
+                        color = [127, 0, 255];
                     else if (currMapID === 3) // trap
-                        color = [0, 255, 0];
+                        color = [171, 72, 61];
 
                     data[j]     = color[0]; // red
                     data[j + 1] = color[1]; // green
