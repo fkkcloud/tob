@@ -4,11 +4,6 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 
 		// home page
 		.when('/', {
-			templateUrl: 'views/home.html',
-			controller: 'MainController'
-		})
-
-		.when('/maps', {
 			templateUrl: 'views/maps.html',
 			controller: 'MapsController'
 		})

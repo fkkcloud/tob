@@ -8,6 +8,8 @@ BasicGame.Preload.prototype = {
 
 		var originalImageWidth;
 
+		this.load.image('fullButton', 'assets/full_screen.png');
+
 		if(window.devicePixelRatio >= 3)
 		{
 			

@@ -70,18 +70,21 @@
 				var height = (isMobile) ? (height) : (375 * window.devicePixelRatio);
 				
 				var div;
-				if (isMobile)
+				if (isMobile){
 					div = 'mobile-game';
-				else
+				}
+				else{
 					div = 'desktop-game';
+				}
 
 				document.getElementById(div).style.display = "block";
 
 				//Create a new game that fills the screen
 				game = new Phaser.Game(width, height, Phaser.AUTO, div);
 
-				BasicGame.mapData = //JSON.parse(window.localStorage.mapData);
+				BasicGame.mapData = JSON.parse(window.localStorage.mapData);
 				
+				/*
 				[
 
 				[0, 0, 0, 0, 1, 0, 0, 1]
@@ -101,10 +104,10 @@
 			    , [0, 0, 0, 0, 1, 0, 0, 1]
 			    , [0, 0, 0, 0, 0, 0, 0, 1]
 			    , [1, 1, 1, 1, 1, 1, 1, 1]
-			    
+
 			    ];
 
-			    console.log(BasicGame.mapData);
+			    */
 				
 				//Add all states
 				game.state.add("Boot", BasicGame.Boot);

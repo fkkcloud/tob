@@ -5,6 +5,7 @@ BasicGame.Main = function(game){
 BasicGame.Main.prototype = {
 
 	create: function() {
+
 		var me = this;
 
 		// score variable
@@ -132,7 +133,7 @@ blocks
 	    var block = me.blocks.getFirstDead();
 
 	    if (!block){
-	    	console.log('allocating new block, total allocated:', me.blocks.length); // debug memory
+	    	//console.log('allocating new block, total allocated:', me.blocks.length); // debug memory
 
 	    	/*
 	    	var blockKey;
@@ -161,6 +162,8 @@ blocks
 	    block.outOfBoundsKill = true;
 
 	    block.body.immovable = true;
+
+	    block.scale.setTo(BasicGame.blockSpriteScale, BasicGame.blockSpriteScale);
 
 	    me.blocks.add(block);
 
@@ -203,66 +206,90 @@ blocks
 	getBlockImage: function(column_id, row_id){
 
 		var up ;
-		if (BasicGame.mapData[column_id][row_id-1] == undefined)
-			up = 0;
-		else
+		if (BasicGame.mapData[column_id][row_id-1] == undefined){
+			up = 1;
+		}
+		else{
 			up = (BasicGame.mapData[column_id][row_id-1] > 0);
+		}
 
 		var down;
-		if (BasicGame.mapData[column_id][row_id+1] == undefined)
-			down = 0;
-		else
+		if (BasicGame.mapData[column_id][row_id+1] == undefined){
+			down = 1;
+		}
+		else{
 			down = (BasicGame.mapData[column_id][row_id+1] > 0);
+		}
 
 		var left;
-		if (BasicGame.mapData[column_id-1] == undefined)
-			left = 0;
-		else
+		if (BasicGame.mapData[column_id-1] == undefined){
+			left = 1;
+		}
+		else{
 			left = (BasicGame.mapData[column_id-1][row_id] > 0);
+		}
 
 		var right;
-		if (BasicGame.mapData[column_id+1] == undefined)
-			right = 0;
-		else
+		if (BasicGame.mapData[column_id+1] == undefined){
+			right = 1;
+		}
+		else{
 			right = (BasicGame.mapData[column_id+1][row_id] > 0);
+		}
+
+		console.log(up, down, left, right);
 
 		// all open
-		if (up && down && left && right)
-			return 'open_all';
+		if (up && down && left && right){
+			return 'open_none';
+		}
 
 		// 3 open
-		else if (up && !down && left && right)
-			return 'open_up_left_right';
-		else if (up && down && !left && right)
-			return 'open_up_down_right';
-		else if (up && down && left && !right)
-			return 'open_up_down_left';
-		else if (!up && down && left && right)
-			return 'open_down_left_right'; /*없음*/
+		else if (up && !down && left && right){
+			return 'open_down';
+		}
+		else if (up && down && !left && right){
+			return 'open_left';
+		}
+		else if (up && down && left && !right){
+			return 'open_right';
+		}
+		else if (!up && down && left && right){
+			return 'open_up'; /*없음*/
+		}
 
 		// 2 open
-		else if (!up && !down && left && right)
-			return 'open_left_right'; /*없음*/
-		else if (up && down && !left && !right)
+		else if (!up && !down && left && right){
 			return 'open_up_down'; /*없음*/
-		else if (!up && down && left && !right)
-			return 'open_down_left';
-		else if (up && !down && !left && right)
+		}
+		else if (up && down && !left && !right){
+			return 'open_left_right'; /*없음*/
+		}
+		else if (!up && down && left && !right){
 			return 'open_up_right';
+		}
+		else if (up && !down && !left && right){
+			return 'open_down_left';
+		}
 
 		// 1 open
-		else if (up && !down && !left && !right)
-			return 'open_up';
-		else if (!up && down && !left && !right)
-			return 'open_down';
-		else if (!up && !down && left && !right)
-			return 'open_left';
-		else if (!up && !down && !left && right)
-			return 'open_down_right';
+		else if (up && !down && !left && !right){
+			return 'open_down_left_right';
+		}
+		else if (!up && down && !left && !right){
+			return 'open_up_left_right';
+		}
+		else if (!up && !down && left && !right){
+			return 'open_up_down_right';
+		}
+		else if (!up && !down && !left && right){
+			return 'open_up_down_left';
+		}
 
 		// all closed
-		else if (!up && !down && !left && !right)
-			return 'open_none'
+		else if (!up && !down && !left && !right){
+			return 'open_all'
+		}
 	},		
 
 /*
@@ -383,7 +410,7 @@ Player
 		// set the sprite's anchor to the center
 		me.cha.anchor.setTo(0.5, 0.5);
 
-		me.cha.scale.setTo(1.4, 1.4);
+		me.cha.scale.setTo(1.1, 1.1);
 
 		//Make the player fall by applying gravity 
 		me.cha.body.gravity.y = 1200;
@@ -397,6 +424,7 @@ Player
 		me.cha.body.bounce.y = 0.15;
 		me.cha.body.bounce.x = 0.15;
 
+		// when char is initiated, make it jump once!
 		if (me.jump)
 			me.jump();
 	},

@@ -1,5 +1,19 @@
 angular.module('EditCtrl', []).controller('EditController', function($scope, $http) {
 
+	var preview = false;
+
+	$scope.$on('$locationChangeStart', function( event ) {
+		
+		// except when you do preview
+		if (preview)
+			return;
+
+	    var answer = confirm("You will lose all the saved mapData, is that okay? (Submit your map before you leave)")
+	    if (!answer) {
+	        event.preventDefault();
+	    }
+	});
+
 	$scope.paintColor = undefined;
 
 	$scope.paintMode = undefined;
@@ -13,12 +27,19 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 	$scope.row7 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45];
 	$scope.row8 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45];
 
+	$scope.reset = function(){
+		console.log('reset');
+		$( ".pixel" ).each(function( index ) {
+		  $( this ).css('background-color', '#474646');
+		});
+		$scope.resetMapData();
+	}
+	$scope.reset();
+
 	$scope.runPreview = function(){
-		var mapData = transpose($scope.mapData);
-		//console.log(mapData);
-		window.localStorage.mapDataEditorCache = JSON.stringify($scope.mapData);
-		window.localStorage.mapData = JSON.stringify(mapData);
+		window.localStorage.mapData = JSON.stringify($scope.mapData);
 		window.location.href = "http://kingsl-tob.herokuapp.com/";
+		preview = true;
 	}
 
 	$scope.submitMapData = function(){
@@ -38,8 +59,7 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
         	console.log('count req failed', err, b, c, d);
         })
 
-        var mapData = transpose($scope.mapData);
-        var mapDataStr = JSON.stringify(mapData);
+        var mapDataStr = JSON.stringify($scope.mapData);
 
         var postData = { 
         	'author':$scope.map.author , 
@@ -79,11 +99,6 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 		$scope.paintMode = 3;		
 	}
 
-	$scope.reset = function(){
-		$( ".pixel" ).each(function( index ) {
-		  $( this ).css('background-color', '#474646');
-		});
-	}
 
 	function applyColor(evt){
 		if ($scope.paintColor == undefined){
@@ -92,6 +107,40 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 		angular.element(evt.currentTarget).css('background-color', $scope.paintColor);
 	}
 
+	$scope.fill1 = function(evt, id){
+		$scope.mapData[id][0] = $scope.paintMode;
+		applyColor(evt);
+	}
+	$scope.fill2 = function(evt, id){
+		$scope.mapData[id][1] = $scope.paintMode;
+		applyColor(evt);
+	}
+	$scope.fill3 = function(evt, id){
+		$scope.mapData[id][2] = $scope.paintMode;
+		applyColor(evt);
+	}
+	$scope.fill4 = function(evt, id){
+		$scope.mapData[id][3] = $scope.paintMode;
+		applyColor(evt);
+	}
+	$scope.fill5 = function(evt, id){
+		$scope.mapData[id][4] = $scope.paintMode;
+		applyColor(evt);
+	}
+	$scope.fill6 = function(evt, id){
+		$scope.mapData[id][5] = $scope.paintMode;
+		applyColor(evt);
+	}
+	$scope.fill7 = function(evt, id){
+		$scope.mapData[id][6] = $scope.paintMode;
+		applyColor(evt);
+	}
+	$scope.fill8 = function(evt, id){
+		$scope.mapData[id][7] = $scope.paintMode;
+		applyColor(evt);
+	}
+
+	/*
 	function transpose(a) {
 
 	  // Calculate the width and height of the Array
@@ -101,11 +150,11 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 	  // In case it is a zero matrix, no transpose routine needed.
 	  if(h === 0 || w === 0) { return []; }
 
-	  /**
-	   * @var {Number} i Counter
-	   * @var {Number} j Counter
-	   * @var {Array} t Transposed data is stored in this array.
-	   */
+	  
+	   	// @var {Number} i Counter
+	  	// @var {Number} j Counter
+	   	// @var {Array} t Transposed data is stored in this array.
+	   
 	  var i, j, t = [];
 
 	  // Loop through every item in the outer array (height)
@@ -123,38 +172,5 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 	  }
 
 	  return t;
-	};
-
-	$scope.fill1 = function(evt, id){
-			$scope.mapData[0][id] = $scope.paintMode;
-		applyColor(evt);
-	}
-	$scope.fill2 = function(evt, id){
-		$scope.mapData[1][id] = $scope.paintMode;
-		applyColor(evt);
-	}
-	$scope.fill3 = function(evt, id){
-		$scope.mapData[2][id] = $scope.paintMode;
-		applyColor(evt);
-	}
-	$scope.fill4 = function(evt, id){
-		$scope.mapData[3][id] = $scope.paintMode;
-		applyColor(evt);
-	}
-	$scope.fill5 = function(evt, id){
-		$scope.mapData[4][id] = $scope.paintMode;
-		applyColor(evt);
-	}
-	$scope.fill6 = function(evt, id){
-		$scope.mapData[5][id] = $scope.paintMode;
-		applyColor(evt);
-	}
-	$scope.fill7 = function(evt, id){
-		$scope.mapData[6][id] = $scope.paintMode;
-		applyColor(evt);
-	}
-	$scope.fill8 = function(evt, id){
-		$scope.mapData[7][id] = $scope.paintMode;
-		applyColor(evt);
-	}
+	};*/
 });

@@ -15,7 +15,6 @@ BasicGame.GameTitle.prototype = {
 		me.createInstructions();
 
 		me.createButtons();
-
 	},
 
 	update: function() {
@@ -34,6 +33,21 @@ BasicGame.GameTitle.prototype = {
 
 	startGame: function(){
 		this.game.state.start("Main");
+	},
+
+	fullScreen: function(){
+		var doc = window.document;
+		  var docEl = doc.documentElement;
+
+		  var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+		  var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+
+		  if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+		    requestFullScreen.call(docEl);
+		  }
+		  else {
+		    cancelFullScreen.call(doc);
+		  }
 	},
 
 	createLogo: function(){
@@ -67,7 +81,8 @@ BasicGame.GameTitle.prototype = {
 			{font:subHeadingFont, fill:'#c0392b'});
 		instructionLabel2.anchor.setTo(0.5, 1);
 		instructionLabel2.align = 'center';
-	*/
+		*/
+
 		instructionLabel3 = me.game.add.text(me.game.world.centerX,
 			me.game.world.centerY + 100 * window.devicePixelRatio, window.innerWidth,
 			{font:subHeadingFont, fill:"#000"});
@@ -79,6 +94,9 @@ BasicGame.GameTitle.prototype = {
 	createButtons: function(){
 		this.startButton = this.game.add.button(this.game.width * 0.5, this.game.world.height * 0.7, 'startButton', this.startGame, this);
 		this.startButton.anchor.setTo(0.5, 0.5);
+
+		//this.fullButton = this.game.add.button(this.game.width * 0.8, this.game.world.height * 0.1, 'fullButton', this.fullScreen, this);
+		//this.fullButton.anchor.setTo(0.5, 0.5);
 	}
 
 }
