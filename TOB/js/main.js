@@ -543,7 +543,7 @@ Player
 		var me = this;
 		var anim = me.game.add.sprite(x, y, 'fx_spawn');
 		var scale = me.game.height / anim.height;
-		anim.scale.setTo(scale, scale);
+		anim.scale.setTo(scale * 1.2, scale);
 		anim.animations.add('spawn');
 		anim.animations.play('spawn', 12, false, true);
 	},
