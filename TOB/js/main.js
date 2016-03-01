@@ -20,7 +20,7 @@ BasicGame.Main.prototype = {
 		/* is player on ground */
 		me.chaOnGround = false;
 
-		me.mapSpeed = 2;
+		me.mapSpeed = 6 * 1/window.devicePixelRatio;
 		me.mapVelX = -1 * me.mapSpeed * BasicGame.blockSize;
 
 		me.currentColumnId = 0;
@@ -55,6 +55,9 @@ BasicGame.Main.prototype = {
 
 		// pre stage
 		me.createPreStage();
+
+		me.playFXPlayerSpawn(me.cha.x - me.cha.width * 1.7, 0, 1.45);
+		me.cha.body.velocity.y = + 7000 * 1/window.devicePixelRatio;
 	},
 
 	update: function() {
@@ -82,7 +85,11 @@ BasicGame.Main.prototype = {
 		for (var i = 0; i < me.blocks.children.length; i++){
 			
 			var block = me.blocks.children[i];
-			me.game.physics.arcade.collide(me.cha, block, me.blockCollisionHandler, null, me);	
+			me.game.physics.arcade.collide(me.cha, block, me.blockCollisionHandler, null, me);
+
+			if (block.body.touching.left){ // this is the death trigger
+				me.deathHandler();
+			}
 		}
 		// loop through traps
 		for (var i = 0; i < me.traps.children.length; i++){
@@ -97,8 +104,13 @@ BasicGame.Main.prototype = {
 			//me.game.physics.arcade.collide(me.cha, block, me.bloodCollisionHandler, null, me);	
 		}
 
-		if (!me.chaOnGround)
+		if (!me.chaOnGround){
+			if (me.groundFX){
+				me.game.time.events.remove(me.groundFX);
+				me.groundFX = undefined;
+			}
 			me.cha.body.velocity.x = 0;
+		}
 
 		// debug text
 		me.debugText.setText(me.currentColumnId);
@@ -143,6 +155,11 @@ blocks - event handlers
 
 		me.chaOnGround = true;
 		me.cha.body.velocity.x = -me.mapVelX;
+
+		if (!me.groundFX){
+			me.playFXPlayerRun();
+			me.groundFX = me.game.time.events.loop(Phaser.Timer.SECOND * 0.4, me.playFXPlayerRun, me);
+		}
 	},
 
 	deathHandler: function(){
@@ -151,11 +168,14 @@ blocks - event handlers
 		if (BasicGame.sound)
 			me.hitSound.play();
 
+		var animationScale = 1.8;
+		me.playFXPlayerDeath(me.cha.x - me.cha.width * animationScale * 0.9, me.cha.y - me.cha.height * animationScale * 0.8, animationScale);
+
 		me.cha.animations.stop('flap');
 
-		me.cha.body.velocity.y = -800;
+		me.cha.body.velocity.y = -2200 * 1/window.devicePixelRatio;
 
-		me.game.add.tween(me.cha).to({angle: -160}, 60).start();
+		me.game.add.tween(me.cha).to({angle: -100}, 60).start();
 
 		//Wait a couple of seconds and then trigger the game over screen
 		me.game.time.events.add(Phaser.Timer.SECOND * 0.2, function(){ 
@@ -507,6 +527,32 @@ Player
 			me.jump();
 	},
 
+	playFXPlayerDeath(x, y, scale){
+		var me = this;
+		var anim = me.game.add.sprite(x, y, 'fx_death');
+		anim.scale.setTo(scale, scale);
+		anim.animations.add('death');
+		anim.animations.play('death', 32, false, true);
+	},
+
+	playFXPlayerSpawn(x, y, scale){
+		var me = this;
+		var anim = me.game.add.sprite(x, y, 'fx_spawn');
+		anim.scale.setTo(scale, scale);
+		anim.animations.add('spawn');
+		anim.animations.play('spawn', 12, false, true);
+	},
+
+	playFXPlayerRun(){
+		var me = this;
+		var anim = me.game.add.sprite(me.cha.x - me.cha.width, me.cha.y, 'fx_run');
+		anim.scale.setTo(1.5, 1.5);
+		anim.animations.add('runSmoke');
+		anim.animations.play('runSmoke', 10, false, true);
+		me.game.physics.arcade.enable(anim);
+		anim.body.velocity.x = me.mapVelX;
+	},
+
 /*
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 HUD - score
@@ -563,9 +609,9 @@ Control - player
 			return;
 
 		if (me.mode === 0)
-			me.cha.body.velocity.y = -920;
+			me.cha.body.velocity.y = -1500 * 1/window.devicePixelRatio;
 		else
-			me.cha.body.velocity.y = -920;
+			me.cha.body.velocity.y = -1500 * 1/window.devicePixelRatio;
 
 		me.game.add.tween(me.cha).to({angle: -40}, 100).start();
 

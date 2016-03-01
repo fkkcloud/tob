@@ -12,7 +12,6 @@ BasicGame.Preload.prototype = {
 
 		if(window.devicePixelRatio >= 3)
 		{
-			
 	    	this.load.image('bg_sky_vamp', 'assets/bg_ground_vamp@3.png');
 	    	//this.load.image('bg_sky_bat', 'assets/bg_ground_bat@3x.png');
 
@@ -45,6 +44,10 @@ BasicGame.Preload.prototype = {
 			this.load.image('open_up_left_right', 'assets/open_up_left_right@3.png');
 			this.load.image('open_up_left', 'assets/open_up_left@3.png');
 			this.load.image('open_up_right', 'assets/open_up_right@3.png');
+
+			this.load.spritesheet('fx_death', 'assets/FX_die@3.png', 220, 275, 10);
+			this.load.spritesheet('fx_spawn', 'assets/FX_spawn@3.png', 400, 750, 12);
+			this.load.spritesheet('fx_run', 'assets/FX_run@3.png', 150, 75, 8);
 
 		 	originalImageWidth = 47 * 3;
 		}
@@ -84,6 +87,10 @@ BasicGame.Preload.prototype = {
 			this.load.image('open_up_left', 'assets/open_up_left@2.png');
 			this.load.image('open_up_right', 'assets/open_up_right@2.png');
 
+			this.load.spritesheet('fx_death', 'assets/FX_die@2.png', 146, 183, 10);
+			this.load.spritesheet('fx_spawn', 'assets/FX_spawn@2.png', 266, 500, 12);
+			this.load.spritesheet('fx_run', 'assets/FX_run@2.png', 100, 50, 8);
+
 		 	originalImageWidth = 47 * 2;
 		}
 		else 
@@ -120,6 +127,10 @@ BasicGame.Preload.prototype = {
 			this.load.image('open_up_left_right', 'assets/open_up_left_right.png');
 			this.load.image('open_up_left', 'assets/open_up_left.png');
 			this.load.image('open_up_right', 'assets/open_up_right.png');
+
+			this.load.spritesheet('fx_death', 'assets/FX_die.png', 72, 91, 10);
+			this.load.spritesheet('fx_spawn', 'assets/FX_spawn.png', 133, 250, 12);
+			this.load.spritesheet('fx_run', 'assets/FX_run.png', 50, 25, 8);
 
 		 	originalImageWidth = 47;
 		} 
