@@ -20,6 +20,8 @@ BasicGame.Main.prototype = {
 		/* is player on ground */
 		me.chaOnGround = false;
 
+		me.chaDead = false;
+
 		me.mapSpeed = 6 * 1/window.devicePixelRatio;
 		me.mapVelX = -1 * me.mapSpeed * BasicGame.blockSize;
 
@@ -56,7 +58,7 @@ BasicGame.Main.prototype = {
 		// pre stage
 		me.createPreStage();
 
-		me.playFXPlayerSpawn(me.cha.x - me.cha.width * 1.7, 0, 1.45);
+		me.playFXPlayerSpawn(me.cha.x - me.cha.width * 1.7, -BasicGame.blockSize);
 		me.cha.body.velocity.y = + 7000 * 1/window.devicePixelRatio;
 	},
 
@@ -87,7 +89,7 @@ BasicGame.Main.prototype = {
 			var block = me.blocks.children[i];
 			me.game.physics.arcade.collide(me.cha, block, me.blockCollisionHandler, null, me);
 
-			if (block.body.touching.left){ // this is the death trigger
+			if (block.body.touching.left && !me.chaDead){ // this is the death trigger
 				me.deathHandler();
 			}
 		}
@@ -164,6 +166,8 @@ blocks - event handlers
 
 	deathHandler: function(){
 		var me = this;
+
+		me.chaDead = true;
 
 		if (BasicGame.sound)
 			me.hitSound.play();
@@ -535,9 +539,10 @@ Player
 		anim.animations.play('death', 32, false, true);
 	},
 
-	playFXPlayerSpawn(x, y, scale){
+	playFXPlayerSpawn(x, y){
 		var me = this;
 		var anim = me.game.add.sprite(x, y, 'fx_spawn');
+		var scale = me.game.height / anim.height;
 		anim.scale.setTo(scale, scale);
 		anim.animations.add('spawn');
 		anim.animations.play('spawn', 12, false, true);
