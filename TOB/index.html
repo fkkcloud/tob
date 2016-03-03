@@ -106,7 +106,7 @@
 
 			    console.log('loaded custom map data:', window.localStorage.mapData);
 
-				var mapData = (window.localStorage.mapData != 'undefined') ? JSON.parse(window.localStorage.mapData) : tempMapData;
+				var mapData = (window.localStorage.mapData == undefined || window.localStorage.mapData == 'undefined') ?  tempMapData : JSON.parse(window.localStorage.mapData);
 
 				BasicGame.mapData = mapData;
 				
