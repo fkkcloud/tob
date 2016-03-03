@@ -53,7 +53,7 @@ BasicGame.Main.prototype = {
    	 	me.setupPlayerControl();
 
    	 	// debug
-		me.createDebugHUD();
+		//me.createDebugHUD();
 
 		// pre stage
 		me.createPreStage();
@@ -115,7 +115,7 @@ BasicGame.Main.prototype = {
 		}
 
 		// debug text
-		me.debugText.setText(window.devicePixelRatio)// (me.currentColumnId);
+		//me.debugText.setText(window.devicePixelRatio)// (me.currentColumnId);
 	},
 
 
