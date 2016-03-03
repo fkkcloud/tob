@@ -6,8 +6,8 @@ angular.module('MainCtrl', []).controller('MainController', function($scope) {
 	$scope.map.width = 45;
 	$scope.map.height = 8;
 
-	$scope.href_game = "http://localhost:4000/";
-	//$scope.href_game = "http://kingsl-tob.herokuapp.com/";
+	//$scope.href_game = "http://localhost:4000/";
+	$scope.href_game = "http://kingsl-tob.herokuapp.com/";
 
 	$scope.mapData = 
 		[
