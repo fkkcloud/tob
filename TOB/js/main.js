@@ -512,7 +512,7 @@ Player
 		// set the sprite's anchor to the center
 		me.cha.anchor.setTo(0.5, 0.5);
 
-		me.cha.scale.setTo(1.1, 1.1);
+		//me.cha.scale.setTo(1.1, 1.1 );
 
 		//Make the player fall by applying gravity 
 		me.cha.body.gravity.y = 1200 * window.devicePixelRatio;

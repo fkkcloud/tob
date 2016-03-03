@@ -25,6 +25,11 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
         });
     }
 
+    $scope.startMap = function(id) {
+        window.localStorage.mapData = $scope.currentLoadedMaps[id].data;
+        window.location.href = $scope.href_game;
+    }
+
     function getResultsPage(pageNumber) {
 
         // this is just an example, in reality this stuff should be in a service
