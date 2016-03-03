@@ -177,7 +177,7 @@ blocks - event handlers
 
 		me.cha.animations.stop('flap');
 
-		me.cha.body.velocity.y = -2200 * 1/window.devicePixelRatio;
+		me.cha.body.velocity.y = -1200 * window.devicePixelRatio;
 
 		me.game.add.tween(me.cha).to({angle: -100}, 60).start();
 
