@@ -104,9 +104,9 @@
 
 			    ];
 
-				var mapData = (window.localStorage.mapData != undefined) ? window.localStorage.mapData : tempMapData;
+				var mapData = (window.localStorage.mapData != undefined) ? JSON.parse(window.localStorage.mapData) : tempMapData;
 
-				BasicGame.mapData = JSON.parse(mapData);
+				BasicGame.mapData = mapData;
 				
 				/*
 				;
