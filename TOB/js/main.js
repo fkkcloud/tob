@@ -523,12 +523,8 @@ Player
         me.cha.events.onOutOfBounds.add(me.deathHandler, this);
 
 		//Make the player bounce a little 
-		me.cha.body.bounce.y = 0.15;
-		me.cha.body.bounce.x = 0.15;
-
-		// when char is initiated, make it jump once!
-		if (me.jump)
-			me.jump();
+		//me.cha.body.bounce.y = 0.15;
+		//me.cha.body.bounce.x = 0.15;
 	},
 
 	playFXPlayerDeath(x, y, scale){
@@ -612,6 +608,8 @@ Control - player
 		// if its not flappy mode and not on ground, no jump available!
 		if (me.mode !== 0 && !me.chaOnGround)
 			return;
+
+		me.chaOnGround = false;
 
 		if (me.mode === 0)
 			me.cha.body.velocity.y = -400 * window.devicePixelRatio;
