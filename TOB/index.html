@@ -82,10 +82,7 @@
 				//Create a new game that fills the screen
 				game = new Phaser.Game(width, height, Phaser.AUTO, div);
 
-				BasicGame.mapData = JSON.parse(window.localStorage.mapData);
-				
-				/*
-				[
+				var tempMapData = [
 
 				[0, 0, 0, 0, 1, 0, 0, 1]
 			    , [0, 0, 0, 0, 0, 0, 0, 1]
@@ -106,6 +103,13 @@
 			    , [1, 1, 1, 1, 1, 1, 1, 1]
 
 			    ];
+
+				var mapData = (window.localStorage.mapData != undefined) ? window.localStorage.mapData : tempMapData;
+
+				BasicGame.mapData = JSON.parse(mapData);
+				
+				/*
+				;
 
 			    */
 				
