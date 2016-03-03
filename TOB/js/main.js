@@ -22,8 +22,8 @@ BasicGame.Main.prototype = {
 
 		me.chaDead = false;
 
-		me.mapSpeed = 6 * 1/window.devicePixelRatio;
-		me.mapVelX = -1 * me.mapSpeed * BasicGame.blockSize;
+		me.mapSpeed = 300 * window.devicePixelRatio;
+		me.mapVelX = -1 * me.mapSpeed;
 
 		me.currentColumnId = 0;
 		me.prevColumnId = 0;
@@ -59,7 +59,7 @@ BasicGame.Main.prototype = {
 		me.createPreStage();
 
 		me.playFXPlayerSpawn(me.cha.x - me.cha.width * 1.7, -BasicGame.blockSize);
-		me.cha.body.velocity.y = + 7000 * 1/window.devicePixelRatio;
+		me.cha.body.velocity.y = + 3000 * window.devicePixelRatio;
 	},
 
 	update: function() {
@@ -115,7 +115,7 @@ BasicGame.Main.prototype = {
 		}
 
 		// debug text
-		me.debugText.setText(me.currentColumnId);
+		me.debugText.setText(window.devicePixelRatio)// (me.currentColumnId);
 	},
 
 
@@ -515,7 +515,7 @@ Player
 		me.cha.scale.setTo(1.1, 1.1);
 
 		//Make the player fall by applying gravity 
-		me.cha.body.gravity.y = 1200;
+		me.cha.body.gravity.y = 1200 * window.devicePixelRatio;
 
         //Make the player collide with the game boundaries
 		me.cha.body.collideWorldBounds = false; 
@@ -614,9 +614,9 @@ Control - player
 			return;
 
 		if (me.mode === 0)
-			me.cha.body.velocity.y = -1500 * 1/window.devicePixelRatio;
+			me.cha.body.velocity.y = -400 * window.devicePixelRatio;
 		else
-			me.cha.body.velocity.y = -1500 * 1/window.devicePixelRatio;
+			me.cha.body.velocity.y = -400 * window.devicePixelRatio;
 
 		me.game.add.tween(me.cha).to({angle: -40}, 100).start();
 
