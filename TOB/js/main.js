@@ -68,7 +68,7 @@ BasicGame.Main.prototype = {
 		// update current map x pos
 		me.currentMapXPos = me.xTester.position.x;
 
-		// draw map - blocks, traps, bloods and so on..
+		// draw map - blocks, bloods and so on..
 		if (me.isColumnNeedUpdate()){
 			me.generateMapColumn();
 		}
@@ -92,12 +92,6 @@ BasicGame.Main.prototype = {
 			if (block.body.touching.left && !me.chaDead){ // this is the death trigger
 				me.deathHandler();
 			}
-		}
-		// loop through traps
-		for (var i = 0; i < me.traps.children.length; i++){
-			
-			var block = me.traps.children[i];
-			me.game.physics.arcade.collide(me.cha, block, me.deathHandler, null, me);	
 		}
 		// loop through bloods
 		for (var i = 0; i < me.bloods.children.length; i++){
@@ -135,7 +129,6 @@ blocks - memory
 	createBlocks: function(){
 		this.blocks = game.add.group();
 		this.bloods = game.add.group();
-		this.traps = game.add.group();
 	},
 
 	destroyBlocks: function(){
@@ -143,8 +136,6 @@ blocks - memory
 			this.blocks.destroy();
 		if (this.bloods && this.bloods.length > 0)
 			this.bloods.destroy();
-		if (this.traps && this.traps.length > 0)
-			this.traps.destroy();
 	},
 
 /*
@@ -223,8 +214,6 @@ blocks - generations
 		// Get the first dead pipe of our group
 		if (imgId === 1)
 	    	block = me.blocks.getFirstDead();
-	    else if (imgId === 2)
-	    	block = me.traps.getFirstDead();
 	    else if (imgId === 3)
 	    	block = me.bloods.getFirstDead();
 	    
@@ -264,8 +253,6 @@ blocks - generations
 
 	    if (imgId === 1)
 	    	me.blocks.add(block);
-	    else if (imgId === 2)
-	    	me.traps.add(block);
 	    else if (imgId === 3)
 	    	me.bloods.add(block);
 
@@ -293,9 +280,6 @@ blocks - generations
 				continue;
 			} else if (imgId === 1){
 				imgStr = me.getBlockImage(me.currentColumnId, i);
-			}
-			else if (imgId === 2){
-				imgStr = 'trap';
 			}
 			else if (imgId === 3){
 				imgStr = 'blood';
@@ -551,7 +535,7 @@ Player
 		anim.animations.add('runSmoke');
 		anim.animations.play('runSmoke', 10, false, true);
 		me.game.physics.arcade.enable(anim);
-		anim.body.velocity.x = me.mapVelX;
+		anim.body.velocity.x = me.mapVelX * 0.386;
 	},
 
 /*

@@ -24,8 +24,6 @@ BasicGame.Preload.prototype = {
 		 	this.load.spritesheet('cha_vamp', 'assets/cha_vamp@3.png', 50*3, 75*3, 3);
 		 	//this.load.spritesheet('cha_bat', 'assets/cha_bat@3x.png', 34*3, 24*3, 3);
 
-		 	this.load.image('trap', 'assets/trap@3.png');
-
 		 	this.load.image('blood', 'assets/blood@3.png');
 
 			this.load.image('open_all', 'assets/open_all@3.png');
@@ -66,8 +64,6 @@ BasicGame.Preload.prototype = {
 		 	this.load.spritesheet('cha_vamp', 'assets/cha_vamp@2.png', 50*2, 75*2, 3);
 		 	//this.load.spritesheet('cha_bat', 'assets/cha_bat@2x.png', 34*2, 24*2, 3);
 
-		 	this.load.image('trap', 'assets/trap@2.png');
-
 		 	this.load.image('blood', 'assets/blood@2.png');
 
 		 	this.load.image('open_all', 'assets/open_all@2.png');
@@ -106,8 +102,6 @@ BasicGame.Preload.prototype = {
 
 		 	this.load.spritesheet('cha_vamp', 'assets/cha_vamp.png', 50, 75, 3);
 		 	//this.load.spritesheet('cha_bat', 'assets/cha_bat.png', 34, 24, 3);
-
-		 	this.load.image('trap', 'assets/trap.png');
 
 		 	this.load.image('blood', 'assets/blood.png');
 

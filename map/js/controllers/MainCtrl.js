@@ -6,8 +6,12 @@ angular.module('MainCtrl', []).controller('MainController', function($scope) {
 	$scope.map.width = 45;
 	$scope.map.height = 8;
 
+	$scope.bloodColor = '#800020';
+	$scope.blockColor = '#00CDCD';
+	$scope.emptyColor = '#474646';
+
 	//$scope.href_game = "http://localhost:4000/";
-	$scope.href_game = "http://kingsl-tob.herokuapp.com/";
+	$scope.href_game = (document.location.hostname == "localhost" || document.location.hostname == "192.168.0.10") ? "http://192.168.0.10:4000/" : "http://kingsl-tob.herokuapp.com/";
 
 	$scope.mapData = 
 		[
@@ -74,6 +78,25 @@ angular.module('MainCtrl', []).controller('MainController', function($scope) {
 			}
 		}
 	}
-	$scope.resetMapData();
+
+	$scope.loadMapDataFromLocalStorage = function(){
+		if (window.localStorage.mapData == undefined || window.localStorage.mapData == 'undefined')
+			return false;
+
+		$scope.mapData = JSON.parse(window.localStorage.mapData);
+		console.log($scope.mapData);
+		return true;
+	}
+
+	$scope.saveMapDataToLocalStorage = function(){
+		window.localStorage.mapData = JSON.stringify($scope.mapData);
+	}
+
+	$scope.resetMapDataFromLocalStorage = function(){
+		if (window.localStorage.mapData == undefined || window.localStorage.mapData == 'undefined')
+			return;
+
+		window.localStorage.mapData = undefined;
+	}
 
 });
