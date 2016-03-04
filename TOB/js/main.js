@@ -118,7 +118,7 @@ BasicGame.Main.prototype = {
 
 		var preUnitCount = BasicGame.preStageUnits;
 		for (var i = 0; i < preUnitCount; i++){
-			me.generateSingleBlock(me.game.width - i * BasicGame.blockSize, me.game.height - BasicGame.blockSize, 'open_up', 1)
+			me.generateSingleBlock(me.game.width + 3 * window.devicePixelRatio - i * BasicGame.blockSize, me.game.height - BasicGame.blockSize, 'open_up', 1)
 		}
 	},
 /*
@@ -233,6 +233,7 @@ blocks - generations
 	    }
 	    else {
 	    	// Set the new position of the pipe
+	    	block.loadTexture(imgStr);
 	    	block.reset(x, y);	
 	    }
 
@@ -324,6 +325,7 @@ blocks - generations
 		}
 
 		//console.log(up, down, left, right);
+		//return 'open_none';
 
 		// all open
 		if (up && down && left && right){

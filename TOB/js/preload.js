@@ -32,11 +32,14 @@ BasicGame.Preload.prototype = {
 			this.load.image('open_down', 'assets/open_down@3.png');
 			this.load.image('open_down_left', 'assets/open_down_left@3.png');
 			this.load.image('open_down_right', 'assets/open_down_right@3.png');
-			
+			this.load.image('open_down_left_right', 'assets/open_down_left_right@3.png');
+
 			this.load.image('open_left', 'assets/open_left@3.png');
 			this.load.image('open_right', 'assets/open_right@3.png');
+			this.load.image('open_left_right', 'assets/open_left_right@3.png');
 
 			this.load.image('open_up', 'assets/open_up@3.png');
+			this.load.image('open_up_down', 'assets/open_up_down@3.png');
 			this.load.image('open_up_down_left', 'assets/open_up_down_left@3.png');
 			this.load.image('open_up_down_right', 'assets/open_up_down_right@3.png');
 			this.load.image('open_up_left_right', 'assets/open_up_left_right@3.png');
@@ -72,11 +75,14 @@ BasicGame.Preload.prototype = {
 			this.load.image('open_down', 'assets/open_down@2.png');
 			this.load.image('open_down_left', 'assets/open_down_left@2.png');
 			this.load.image('open_down_right', 'assets/open_down_right@2.png');
+			this.load.image('open_down_left_right', 'assets/open_down_left_right@2.png');
 			
 			this.load.image('open_left', 'assets/open_left@2.png');
 			this.load.image('open_right', 'assets/open_right@2.png');
+			this.load.image('open_left_right', 'assets/open_left_right@2.png');
 
 			this.load.image('open_up', 'assets/open_up@2.png');
+			this.load.image('open_up_down', 'assets/open_up_down@2.png');
 			this.load.image('open_up_down_left', 'assets/open_up_down_left@2.png');
 			this.load.image('open_up_down_right', 'assets/open_up_down_right@2.png');
 			this.load.image('open_up_left_right', 'assets/open_up_left_right@2.png');
@@ -111,11 +117,14 @@ BasicGame.Preload.prototype = {
 			this.load.image('open_down', 'assets/open_down.png');
 			this.load.image('open_down_left', 'assets/open_down_left.png');
 			this.load.image('open_down_right', 'assets/open_down_right.png');
+			this.load.image('open_down_left_right', 'assets/open_down_left_right.png');
 			
 			this.load.image('open_left', 'assets/open_left.png');
 			this.load.image('open_right', 'assets/open_right.png');
+			this.load.image('open_left_right', 'assets/open_left_right.png');
 
 			this.load.image('open_up', 'assets/open_up.png');
+			this.load.image('open_up_down', 'assets/open_up_down.png');
 			this.load.image('open_up_down_left', 'assets/open_up_down_left.png');
 			this.load.image('open_up_down_right', 'assets/open_up_down_right.png');
 			this.load.image('open_up_left_right', 'assets/open_up_left_right.png');
@@ -131,7 +140,7 @@ BasicGame.Preload.prototype = {
 
 		// get right width
 		BasicGame.blockSize = this.game.height/8.0;
-		BasicGame.blockSpriteScale = (BasicGame.blockSize / originalImageWidth);
+		BasicGame.blockSpriteScale = (BasicGame.blockSize / originalImageWidth) * 1.1;
 
 		BasicGame.preStageUnits = this.game.width/ (BasicGame.blockSize * 1.0);
 		console.log('preStageInit:', BasicGame.preStageUnits);
