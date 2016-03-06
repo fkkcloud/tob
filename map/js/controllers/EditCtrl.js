@@ -8,6 +8,9 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 
 	$scope.paintMode = undefined;
 
+	$scope.isDrawing = false;
+
+
 	$scope.row1 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45];
 	$scope.row2 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45];
 	$scope.row3 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45];
@@ -209,6 +212,21 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 		applyColor(evt);
 		$scope.saveMapDataToLocalStorage();
 	}
+
+	document.onmousedown = onmousedown;
+	document.onmousemove = onmousemove;
+	document.onmouseup = onmouseup;
+
+	function onmousedown(){
+		//console.log('start drawing');
+		$scope.isDrawing = true;
+	};
+
+	function onmouseup(){
+		//console.log('done drawing');
+		$scope.isDrawing = false
+	}
+		
 
 	/*
 	function transpose(a) {

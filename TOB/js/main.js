@@ -9,8 +9,10 @@ BasicGame.Main.prototype = {
 		var me = this;
 
 		// score variable
+		me.BATMODE = 0;
+		me.VAMPMODE = 1;
 		me.score = 0;
-		me.mode = 1; // 0 for flappy, 1 for dash
+		me.mode = me.BATMODE; // 0 for flappy, 1 for dash
 
 		/* character position between map modes */
 		me.lastChaPos = {};
@@ -86,27 +88,39 @@ BasicGame.Main.prototype = {
 		for (var i = 0; i < me.blocks.children.length; i++){
 			
 			var block = me.blocks.children[i];
-			me.game.physics.arcade.collide(me.cha, block, me.blockCollisionHandler, null, me);
+			me.game.physics.arcade.collide(me.cha, block, null, null, me);
 
+			if (block.body.touching.up){
+				me.collisionDetected = true;
+			}
 			if (block.body.touching.left && !me.chaDead){ // this is the death trigger
 				me.deathHandler();
 			}
 		}
 		me.chaOnGround = me.collisionDetected;
 
-		// loop through bloods
-		for (var i = 0; i < me.bloods.children.length; i++){
-			
-			//var block = me.bloods.children[i];
-			//me.game.physics.arcade.collide(me.cha, block, me.bloodCollisionHandler, null, me);	
-		}
-
 		if (!me.chaOnGround){
+			// deactivate run FX
 			if (me.groundFX){
 				me.game.time.events.remove(me.groundFX);
 				me.groundFX = undefined;
 			}
 			me.cha.body.velocity.x = 0;
+		}
+		else {
+			// activate run FX
+			if (!me.groundFX){
+				me.playFXPlayerRun();
+				me.groundFX = me.game.time.events.loop(Phaser.Timer.SECOND * 0.4, me.playFXPlayerRun, me);
+			}
+			me.cha.body.velocity.x = -me.mapVelX;
+		}
+
+		// loop through bloods
+		for (var i = 0; i < me.bloods.children.length; i++){
+			var block = me.bloods.children[i];
+			me.game.physics.arcade.overlap(me.cha, block, me.bloodOverlapHandler, null, me);	
+			
 		}
 
 		// debug text
@@ -144,18 +158,6 @@ blocks - memory
 blocks - event handlers
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 */
-	blockCollisionHandler: function(){
-		var me = this;
-
-		me.collisionDetected = true;
-
-		me.cha.body.velocity.x = -me.mapVelX;
-
-		if (!me.groundFX){
-			me.playFXPlayerRun();
-			me.groundFX = me.game.time.events.loop(Phaser.Timer.SECOND * 0.4, me.playFXPlayerRun, me);
-		}
-	},
 
 	deathHandler: function(){
 		var me = this;
@@ -183,8 +185,9 @@ blocks - event handlers
 
 	},
 
-	bloodCollisionHandler: function(){
+	bloodOverlapHandler: function(){
 		var me = this;
+
 
 		// have to have rewards or something here
 	},
@@ -250,15 +253,20 @@ blocks - generations
 	    // Kill the pipe when it's no longer visible 
 	    block.checkWorldBounds = true;
 	    block.outOfBoundsKill = true;
+	    
 
 	    block.body.immovable = true;
 
 	    block.scale.setTo(BasicGame.blockSpriteScale, BasicGame.blockSpriteScale);
 
-	    if (imgId === 1)
+	    if (imgId === 1){
+	    	block.body.checkCollision.down = false;
+			block.body.checkCollision.right = false;	
 	    	me.blocks.add(block);
-	    else if (imgId === 3)
+	    }
+	    else if (imgId === 3){
 	    	me.bloods.add(block);
+	    }
 
 	    return block;
 	},
@@ -300,7 +308,7 @@ blocks - generations
 			up = 1;
 		}
 		else{
-			up = (BasicGame.mapData[column_id][row_id-1] > 0);
+			up = (BasicGame.mapData[column_id][row_id-1] === 1);
 		}
 
 		var down;
@@ -308,7 +316,7 @@ blocks - generations
 			down = 1;
 		}
 		else{
-			down = (BasicGame.mapData[column_id][row_id+1] > 0);
+			down = (BasicGame.mapData[column_id][row_id+1] === 1);
 		}
 
 		var left;
@@ -316,7 +324,7 @@ blocks - generations
 			left = 1;
 		}
 		else{
-			left = (BasicGame.mapData[column_id-1][row_id] > 0);
+			left = (BasicGame.mapData[column_id-1][row_id] === 1);
 		}
 
 		var right;
@@ -324,7 +332,7 @@ blocks - generations
 			right = 1;
 		}
 		else{
-			right = (BasicGame.mapData[column_id+1][row_id] > 0);
+			right = (BasicGame.mapData[column_id+1][row_id] === 1);
 		}
 
 		//console.log(up, down, left, right);
@@ -397,7 +405,7 @@ Mode
 
 		me.destroyVampMode();
 
-		me.mode = 0;
+		me.mode = me.BATMODE;
 		me.defaultAngle = 90;
 
 		me.recreateStage();
@@ -420,7 +428,7 @@ Mode
 
 		me.destroyBatMode();
 
-		me.mode = 1;
+		me.mode = me.VAMPMODE;
 		me.defaultAngle = 0;
 
 		me.recreateStage();
@@ -459,13 +467,7 @@ BG
 		if (me.bg)
 			me.bg.destroy();
 
-		var bg_img_key;
-		if (me.mode == 0){
-			//bg_img_key = 'bg_sky_bat';
-		}
-		else {
-			bg_img_key = 'bg_sky_vamp';
-		}
+		var bg_img_key = 'bg_sky_vamp';
 
 		me.bg = me.game.add.sprite(0, 0, bg_img_key);
 		
@@ -485,13 +487,7 @@ Player
 		if (me.cha)
 			me.cha.destroy();
 
-		var cha_img_key;
-		if (me.mode === 0){
-			//cha_img_key = 'cha_bat';
-		}
-		else {
-			cha_img_key = 'cha_vamp';
-		}
+		var cha_img_key = 'cha_vamp';
 
 		me.cha = me.game.add.sprite(me.lastChaPos.x, me.lastChaPos.y, cha_img_key);
 
@@ -599,18 +595,12 @@ Control - player
 	jump: function(){
 		var me = this;
 
-		// if its not flappy mode and not on ground, no jump available!
-		if (me.mode !== 0 && !me.chaOnGround)
+		if (me.mode === me.VAMPMODE && !me.chaOnGround)
 			return;
 
-		me.chaOnGround = false;
+		me.cha.body.velocity.y = -400 * window.devicePixelRatio;
 
-		if (me.mode === 0)
-			me.cha.body.velocity.y = -400 * window.devicePixelRatio;
-		else
-			me.cha.body.velocity.y = -400 * window.devicePixelRatio;
-
-		me.game.add.tween(me.cha).to({angle: -40}, 100).start();
+		me.game.add.tween(me.cha).to({angle: -20}, 100).start();
 
 		if (BasicGame.sound)
 			me.flapSound.play();
