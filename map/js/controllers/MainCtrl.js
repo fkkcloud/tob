@@ -84,7 +84,7 @@ angular.module('MainCtrl', []).controller('MainController', function($scope) {
 			return false;
 
 		$scope.mapData = JSON.parse(window.localStorage.mapData);
-		console.log($scope.mapData);
+		//console.log($scope.mapData);
 		return true;
 	}
 

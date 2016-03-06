@@ -35,6 +35,8 @@ module.exports = function(app) {
 			data.pages = result.docs;
 			data.perpage = result.page;
 
+			console.log(data);
+
 		  	res.json(data);
 		});
 	});
