@@ -81,9 +81,8 @@ BasicGame.Main.prototype = {
 		me.lastChaPos.x = me.cha.x;
 		me.lastChaPos.y = me.cha.y;
 
-		me.chaOnGround = false;
-
 		// loop through blocks
+		me.collisionDetected = false;
 		for (var i = 0; i < me.blocks.children.length; i++){
 			
 			var block = me.blocks.children[i];
@@ -93,6 +92,8 @@ BasicGame.Main.prototype = {
 				me.deathHandler();
 			}
 		}
+		me.chaOnGround = me.collisionDetected;
+
 		// loop through bloods
 		for (var i = 0; i < me.bloods.children.length; i++){
 			
@@ -146,7 +147,8 @@ blocks - event handlers
 	blockCollisionHandler: function(){
 		var me = this;
 
-		me.chaOnGround = true;
+		me.collisionDetected = true;
+
 		me.cha.body.velocity.x = -me.mapVelX;
 
 		if (!me.groundFX){
@@ -168,9 +170,10 @@ blocks - event handlers
 
 		me.cha.animations.stop('flap');
 
-		me.cha.body.velocity.y = -1200 * window.devicePixelRatio;
+		//me.cha.body.velocity.x = -100 * window.devicePixelRatio;
+		//me.cha.body.velocity.y = -200 * window.devicePixelRatio;
 
-		me.game.add.tween(me.cha).to({angle: -100}, 60).start();
+		me.game.add.tween(me.cha).to({angle: -30}, 60).start();
 
 		//Wait a couple of seconds and then trigger the game over screen
 		me.game.time.events.add(Phaser.Timer.SECOND * 0.2, function(){ 
@@ -359,6 +362,9 @@ blocks - generations
 		else if (up && !down && !left && right){
 			return 'open_down_left';
 		}
+		else if (!up && down && !left && right){
+			return 'open_up_left';
+		}
 
 		// 1 open
 		else if (up && !down && !left && !right){
@@ -519,6 +525,8 @@ Player
 		anim.scale.setTo(scale, scale);
 		anim.animations.add('death');
 		anim.animations.play('death', 32, false, true);
+		me.game.physics.arcade.enable(anim);
+		anim.body.velocity.x = me.mapVelX * 0.686;
 	},
 
 	playFXPlayerSpawn(x, y){
