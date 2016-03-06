@@ -10,6 +10,10 @@ angular.module('MainCtrl', []).controller('MainController', function($scope) {
 	$scope.blockColor = '#00CDCD';
 	$scope.emptyColor = '#474646';
 
+	console.log(window.localStorage.ratedMapIds);
+	if (!window.localStorage.ratedMapIds || window.localStorage.ratedMapIds == undefined || window.localStorage.ratedMapIds == 'undefined')
+		window.localStorage.ratedMapIds = [];
+
 	//$scope.href_game = "http://localhost:4000/";
 	$scope.href_game = (document.location.hostname == "localhost" || document.location.hostname == "192.168.0.10") ? "http://192.168.0.10:4000/" : "http://kingsl-tob.herokuapp.com/";
 

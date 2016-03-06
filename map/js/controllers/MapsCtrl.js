@@ -18,6 +18,15 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
 
     $scope.rating = function(id) {
         var queryID = $scope.currentLoadedMaps[id]._id;
+
+        if (isDuplicatedRating(queryID)){
+            swal("Don't try to rate it multiple times man!", null, "warning")
+            return;
+        }
+
+        // make sure browser remember user rated this once
+        window.localStorage.ratedMapIds.push(id);
+
         $scope.currentLoadedMaps[id].rate += 1;
         $http.post('/api/maps/rate', { 'id' : queryID })
         .then(function(result){
@@ -28,6 +37,16 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
     $scope.startMap = function(id) {
         window.localStorage.mapData = $scope.currentLoadedMaps[id].data;
         window.location.href = $scope.href_game;
+    }
+
+    function isDuplicatedRating(id) {
+        var ratedMapIds = window.localStorage.ratedMapIds;
+        for (var i = 0; i < ratedMapIds.length; i++){
+            var ratedMapId = ratedMapIds[i];
+            if (ratedMapId == id)
+                return true;
+        }
+        return false;
     }
 
     function getResultsPage(pageNumber) {

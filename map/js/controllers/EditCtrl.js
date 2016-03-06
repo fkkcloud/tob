@@ -90,7 +90,12 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 			isMapDataValid = true;
 
 		if (!isMapDataValid){
-			swal("Design your map!", "There should some design into this map!", "warning")
+			swal("There should some design into this map!", null,"warning")
+			return;
+		}
+
+		if ($scope.map.name.length < 3 || $scope.map.author.length < 3){
+			swal("Please name the map and author name more properly!", null,"warning")
 			return;
 		}
 
@@ -108,21 +113,13 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 	    	function(isConfirm){   
 	    		if (isConfirm) { 
 	    			// submitting map to server!
-	    			$http.get('/api/maps/counts')
-			        .success(function(count){
-			        	console.log("count:", count);
-			        	$scope.count = count; //  let's use this later
-			        	swal({
-					        title: "Uploading..",   
-					        text: "<p>You create map called '<span style='color:#F8BB86'>" + $scope.map.name + "'!</span></p>",   
-					        timer: 10000,
-					        html: true
-					      })
-			        	//swal({   title: "Uploading",   text: "Thanks for teaching lindsay!",   timer: 2400,   showConfirmButton: false });
-			        })
-			        .error(function(err, b, c, d){
-			        	console.log('count req failed', err, b, c, d);
-			        })
+		        	swal({
+				        title: "Uploading..",   
+				        text: "<p>You create map called '<span style='color:#F8BB86'>" + $scope.map.name + "'!</span></p>",   
+				        timer: 3000,
+				        html: true,
+				        showConfirmButton: false,
+				    })
 
 			        var mapDataStr = JSON.stringify($scope.mapData);
 
@@ -133,7 +130,8 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 			        	'width':$scope.map.width ,
 			        	'height':$scope.map.height 
 			        };
-			        $http.post('/api/maps/posts',  postData)
+
+			        $http.post('/api/maps/posts', postData)
 			        .success(function(post){
 			        	console.log("uploaded.");
 			        	console.log('DB created', post);
