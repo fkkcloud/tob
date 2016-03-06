@@ -50,7 +50,9 @@ BasicGame.Main.prototype = {
    	 	//me.scoreCounter = me.game.time.events.loop(Phaser.Timer.SECOND * 1.0, me.getScore, me);
 
 		// start with vamp mode
-		me.runBatMode();
+		me.createStage();
+		me.runVampMode();
+		me.createPlayer();
 
 		// set up player key input binds
    	 	me.setupPlayerControl();
@@ -121,6 +123,10 @@ BasicGame.Main.prototype = {
 			me.game.physics.arcade.overlap(me.cha, block, function(cha, blood){
 				blood.destroy();
 				me.bloodCount += 1;
+				if (me.bloodCount > 4){
+					me.runBatMode();
+					me.createPlayer();
+				}
 			}, null, me);	
 			
 		}
@@ -399,54 +405,24 @@ Mode
 		console.log('/////// RUN Bar MODE ///////');
 		var me = this;
 
-		me.destroyVampMode();
-
 		me.mode = me.BATMODE;
 		me.defaultAngle = 45;
-
-		me.recreateStage();
-
-		//me.pipeGenerator = me.game.time.events.loop(Phaser.Timer.SECOND * 2.0, me.generatePipes, me);
-
-		//me.game.time.events.add(10000, me.runVampMode, this);
-	},
-
-	destroyBatMode: function(){
-		var me = this;
-
-		//me.game.time.events.remove(me.pipeGenerator);
-		me.destroyBlocks();
 	},
 
 	runVampMode: function(){
 		console.log('/////// RUN Vamp MODE ///////');
 		var me = this;
 
-		me.destroyBatMode();
-
 		me.mode = me.VAMPMODE;
 		me.defaultAngle = 0;
-
-		me.recreateStage();
-
-		//me.pipeGenerator = me.game.time.events.loop(Phaser.Timer.SECOND * 2.75, me.generatePipes, me);
-
-		//me.game.time.events.add(10000, me.runBatMode, this);
 	},
 
-	destroyVampMode: function(){
-		var me = this;
-
-		//me.game.time.events.remove(me.pipeGenerator); // random generator
-		me.destroyBlocks();
-	},
-
-	recreateStage: function(){
+	createStage: function(){
 		var me = this;
 
 		me.createBG();
 
-		me.createPlayer();
+		//me.createPlayer();
 
 		//me.createScoreHUD();
 
