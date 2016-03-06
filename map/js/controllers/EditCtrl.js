@@ -116,7 +116,7 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 		        	swal({
 				        title: "Uploading..",   
 				        text: "<p>You create map called '<span style='color:#F8BB86'>" + $scope.map.name + "'!</span></p>",   
-				        timer: 3000,
+				        timer: 1500,
 				        html: true,
 				        showConfirmButton: false,
 				    })

@@ -11,8 +11,10 @@ angular.module('MainCtrl', []).controller('MainController', function($scope) {
 	$scope.emptyColor = '#474646';
 
 	console.log(window.localStorage.ratedMapIds);
-	if (!window.localStorage.ratedMapIds || window.localStorage.ratedMapIds == undefined || window.localStorage.ratedMapIds == 'undefined')
-		window.localStorage.ratedMapIds = [];
+	if (!window.localStorage.ratedMapIds || window.localStorage.ratedMapIds == null || window.localStorage.ratedMapIds == undefined || window.localStorage.ratedMapIds == 'undefined'){
+		var newArray = {'data':['1234567890']};
+		window.localStorage.ratedMapIds = JSON.stringify(newArray);
+	}
 
 	//$scope.href_game = "http://localhost:4000/";
 	$scope.href_game = (document.location.hostname == "localhost" || document.location.hostname == "192.168.0.10") ? "http://192.168.0.10:4000/" : "http://kingsl-tob.herokuapp.com/";

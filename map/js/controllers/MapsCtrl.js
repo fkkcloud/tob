@@ -25,7 +25,9 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
         }
 
         // make sure browser remember user rated this once
-        window.localStorage.ratedMapIds.push(id);
+        var idArray = JSON.parse(window.localStorage.ratedMapIds);
+        idArray.data.push(queryID);
+        window.localStorage.ratedMapIds = JSON.stringify(idArray);
 
         $scope.currentLoadedMaps[id].rate += 1;
         $http.post('/api/maps/rate', { 'id' : queryID })
@@ -40,9 +42,9 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
     }
 
     function isDuplicatedRating(id) {
-        var ratedMapIds = window.localStorage.ratedMapIds;
-        for (var i = 0; i < ratedMapIds.length; i++){
-            var ratedMapId = ratedMapIds[i];
+        var ratedMapIds = JSON.parse(window.localStorage.ratedMapIds);
+        for (var i = 0; i < ratedMapIds.data.length; i++){
+            var ratedMapId = ratedMapIds.data[i];
             if (ratedMapId == id)
                 return true;
         }
