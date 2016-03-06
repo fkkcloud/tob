@@ -11,7 +11,7 @@
 					  	<span class="left floated">
 					    	{{ item.name }}
 					    </span>
-					    <span class="right floated meta text-small">{{ item.date | date:'medium'}}</span>
+					    <span class="right floated meta text-small">{{ item.date | date:'short'}}</span>
 					  </div>
 
 					  <div>
@@ -20,11 +20,11 @@
 
 					  <div class="content">
 					    <span class="right floated">
-					     	<i ng-click="rating($index)" class="heart outline like icon"></i>
+					     	<i ng-click="rating($index)" class="heart like icon"></i>
 					     	{{ item.rate }} likes
 					    </span>
 					    <span class="left floated">
-					    	<i class="comment icon"></i>
+					    	<i class="spy icon"></i>
 					    	{{ item.author }}
 					    </span>
 					  </div>
