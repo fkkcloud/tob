@@ -14,6 +14,8 @@ BasicGame.Main.prototype = {
 		me.score = 0;
 		me.mode = me.BATMODE; // 0 for flappy, 1 for dash
 
+		me.bloodCount = 0;
+
 		/* character position between map modes */
 		me.lastChaPos = {};
 		me.lastChaPos.x = me.game.width * 0.2;
@@ -24,7 +26,7 @@ BasicGame.Main.prototype = {
 
 		me.chaDead = false;
 
-		me.mapSpeed = 300 * window.devicePixelRatio;
+		me.mapSpeed = 280 * window.devicePixelRatio;
 		me.mapVelX = -1 * me.mapSpeed;
 
 		me.currentColumnId = 0;
@@ -46,7 +48,7 @@ BasicGame.Main.prototype = {
 	    me.xTester.body.immovable = true;
 
 		// timers - score
-   	 	me.scoreCounter = me.game.time.events.loop(Phaser.Timer.SECOND * 1.0, me.getScore, me);
+   	 	//me.scoreCounter = me.game.time.events.loop(Phaser.Timer.SECOND * 1.0, me.getScore, me);
 
 		// start with vamp mode
 		me.runVampMode();
@@ -55,7 +57,7 @@ BasicGame.Main.prototype = {
    	 	me.setupPlayerControl();
 
    	 	// debug
-		//me.createDebugHUD();
+		me.createDebugHUD();
 
 		// pre stage
 		me.createPreStage();
@@ -105,7 +107,6 @@ BasicGame.Main.prototype = {
 				me.game.time.events.remove(me.groundFX);
 				me.groundFX = undefined;
 			}
-			me.cha.body.velocity.x = 0;
 		}
 		else {
 			// activate run FX
@@ -113,18 +114,20 @@ BasicGame.Main.prototype = {
 				me.playFXPlayerRun();
 				me.groundFX = me.game.time.events.loop(Phaser.Timer.SECOND * 0.4, me.playFXPlayerRun, me);
 			}
-			me.cha.body.velocity.x = -me.mapVelX;
 		}
 
 		// loop through bloods
 		for (var i = 0; i < me.bloods.children.length; i++){
 			var block = me.bloods.children[i];
-			me.game.physics.arcade.overlap(me.cha, block, me.bloodOverlapHandler, null, me);	
+			me.game.physics.arcade.overlap(me.cha, block, function(cha, blood){
+				blood.destroy();
+				me.bloodCount += 1;
+			}, null, me);	
 			
 		}
 
 		// debug text
-		//me.debugText.setText(window.devicePixelRatio)// (me.currentColumnId);
+		me.debugText.setText(me.bloodCount)// (me.currentColumnId);
 	},
 
 
@@ -133,7 +136,7 @@ BasicGame.Main.prototype = {
 
 		var preUnitCount = BasicGame.preStageUnits;
 		for (var i = 0; i < preUnitCount; i++){
-			me.generateSingleBlock(me.game.width + 3 * window.devicePixelRatio - i * BasicGame.blockSize, me.game.height - BasicGame.blockSize, 'open_up', 1)
+			me.generateSingleBlock(me.game.width + 4 * window.devicePixelRatio - i * BasicGame.blockSize, me.game.height - BasicGame.blockSize, 'open_up', 1)
 		}
 	},
 /*
@@ -183,13 +186,6 @@ blocks - event handlers
 			me.game.state.start('GameOver', true, false, me.score.toString());
 		}, me);
 
-	},
-
-	bloodOverlapHandler: function(){
-		var me = this;
-
-
-		// have to have rewards or something here
 	},
 
 /*
@@ -248,7 +244,8 @@ blocks - generations
 	    // Add velocity to the pipe to make it move left
 	    block.body.velocity.x = me.mapVelX;
 
-	    block.friction = 0;
+	    block.body.friction.x = 0;
+
 
 	    // Kill the pipe when it's no longer visible 
 	    block.checkWorldBounds = true;
@@ -261,7 +258,7 @@ blocks - generations
 
 	    if (imgId === 1){
 	    	block.body.checkCollision.down = false;
-			block.body.checkCollision.right = false;	
+			block.body.checkCollision.right = false;
 	    	me.blocks.add(block);
 	    }
 	    else if (imgId === 3){
@@ -329,7 +326,7 @@ blocks - generations
 
 		var right;
 		if (BasicGame.mapData[column_id+1] == undefined){
-			right = 1;
+			right = 0;
 		}
 		else{
 			right = (BasicGame.mapData[column_id+1][row_id] === 1);
@@ -452,7 +449,7 @@ Mode
 
 		me.createPlayer();
 
-		me.createScoreHUD();
+		//me.createScoreHUD();
 
 		me.createBlocks();
 	},
