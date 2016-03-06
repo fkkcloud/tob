@@ -12,7 +12,6 @@ BasicGame.Main.prototype = {
 		me.BATMODE = 0;
 		me.VAMPMODE = 1;
 		me.score = 0;
-		me.mode = me.BATMODE; // 0 for flappy, 1 for dash
 
 		me.bloodCount = 0;
 
@@ -51,7 +50,7 @@ BasicGame.Main.prototype = {
    	 	//me.scoreCounter = me.game.time.events.loop(Phaser.Timer.SECOND * 1.0, me.getScore, me);
 
 		// start with vamp mode
-		me.runVampMode();
+		me.runBatMode();
 
 		// set up player key input binds
    	 	me.setupPlayerControl();
@@ -403,7 +402,7 @@ Mode
 		me.destroyVampMode();
 
 		me.mode = me.BATMODE;
-		me.defaultAngle = 90;
+		me.defaultAngle = 45;
 
 		me.recreateStage();
 
@@ -484,7 +483,11 @@ Player
 		if (me.cha)
 			me.cha.destroy();
 
-		var cha_img_key = 'cha_vamp';
+		var cha_img_key;
+		if (me.mode === me.VAMPMODE)
+			cha_img_key = 'cha_vamp';
+		else if (me.mode === me.BATMODE)
+			cha_img_key = 'cha_bat';
 
 		me.cha = me.game.add.sprite(me.lastChaPos.x, me.lastChaPos.y, cha_img_key);
 
@@ -539,6 +542,17 @@ Player
 		anim.animations.play('runSmoke', 10, false, true);
 		me.game.physics.arcade.enable(anim);
 		anim.body.velocity.x = me.mapVelX * 0.386;
+	},
+
+	playFXPlayerFly(){
+		var me = this;
+		var anim = me.game.add.sprite(me.cha.x - me.cha.width * 0.5, me.cha.y - me.cha.height * 0.2, 'fx_run');
+		anim.scale.setTo(1.25, 1.25);
+		anim.animations.add('runSmoke');
+		anim.animations.play('runSmoke', 10, false, true);
+		anim.angle = -45;
+		me.game.physics.arcade.enable(anim);
+		anim.body.velocity.x = me.mapVelX * 0.286;
 	},
 
 /*
@@ -598,6 +612,9 @@ Control - player
 		me.cha.body.velocity.y = -400 * window.devicePixelRatio;
 
 		me.game.add.tween(me.cha).to({angle: -20}, 100).start();
+
+		if (me.mode === me.BATMODE)
+			me.playFXPlayerFly();
 
 		if (BasicGame.sound)
 			me.flapSound.play();

@@ -13,7 +13,6 @@ BasicGame.Preload.prototype = {
 		if(window.devicePixelRatio >= 3)
 		{
 	    	this.load.image('bg_sky_vamp', 'assets/bg_ground_vamp@3.png');
-	    	//this.load.image('bg_sky_bat', 'assets/bg_ground_bat@3x.png');
 
 	    	this.load.image('title', 'assets/title@3.png');
 
@@ -22,7 +21,7 @@ BasicGame.Preload.prototype = {
 		 	this.load.image('restart', 'assets/restart@3.png');
 
 		 	this.load.spritesheet('cha_vamp', 'assets/cha_vamp@3.png', 50*3, 75*3, 3);
-		 	//this.load.spritesheet('cha_bat', 'assets/cha_bat@3x.png', 34*3, 24*3, 3);
+		 	this.load.spritesheet('cha_bat', 'assets/cha_bat@3.png', 225, 250, 3);
 
 		 	this.load.image('blood', 'assets/blood@3.png');
 
@@ -56,7 +55,6 @@ BasicGame.Preload.prototype = {
 		{
 
 	    	this.load.image('bg_sky_vamp', 'assets/bg_ground_vamp@2.png');
-	    	//this.load.image('bg_sky_bat', 'assets/bg_ground_bat@2x.png');
 
 	    	this.load.image('title', 'assets/title@2.png');
 
@@ -65,7 +63,7 @@ BasicGame.Preload.prototype = {
 		 	this.load.image('restart', 'assets/restart@2.png');
 
 		 	this.load.spritesheet('cha_vamp', 'assets/cha_vamp@2.png', 50*2, 75*2, 3);
-		 	//this.load.spritesheet('cha_bat', 'assets/cha_bat@2x.png', 34*2, 24*2, 3);
+		 	this.load.spritesheet('cha_bat', 'assets/cha_bat@2.png', 150, 167, 3);
 
 		 	this.load.image('blood', 'assets/blood@2.png');
 
@@ -107,7 +105,7 @@ BasicGame.Preload.prototype = {
 		 	this.load.image('restart', 'assets/restart.png');
 
 		 	this.load.spritesheet('cha_vamp', 'assets/cha_vamp.png', 50, 75, 3);
-		 	//this.load.spritesheet('cha_bat', 'assets/cha_bat.png', 34, 24, 3);
+		 	this.load.spritesheet('cha_bat', 'assets/cha_bat.png', 75, 84, 3);
 
 		 	this.load.image('blood', 'assets/blood.png');
 
