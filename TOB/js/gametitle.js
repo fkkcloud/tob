@@ -12,6 +12,8 @@ BasicGame.GameTitle.prototype = {
 
 		me.createLogo();
 
+		me.createCopyrights();
+
 		me.createInstructions();
 
 		me.createButtons();
@@ -45,10 +47,20 @@ BasicGame.GameTitle.prototype = {
 		this.title = this.game.add.sprite(0, 0, 'title');
 		this.titleGroup.add(this.title);
 
-		this.titleGroup.x = this.game.width * 0.5 - this.title.width * 0.5;
-		this.titleGroup.y = this.game.height * 0.25;
+		this.titleGroup.x = this.game.width * 0.63 - this.title.width * 0.63;
+		this.titleGroup.y = this.game.height * 0.1;
 
-		this.game.add.tween(this.titleGroup).to({y:this.game.height * 0.27}, 350, Phaser.Easing.Linear.NONE, true, 0, 5000, true);
+		this.game.add.tween(this.titleGroup).to({y:this.game.height * 0.12}, 600, Phaser.Easing.Linear.NONE, true, 0, 5000, true);
+	},
+
+	createCopyrights: function(){
+		this.titleGroup = this.game.add.group();
+
+		this.title = this.game.add.sprite(0, 0, 'copyrights');
+		this.titleGroup.add(this.title);
+
+		this.titleGroup.x = this.game.width * 0.5 - this.title.width * 0.5;
+		this.titleGroup.y = this.game.height * 0.9;
 	},
 
 	createInstructions: function(){
@@ -82,10 +94,10 @@ BasicGame.GameTitle.prototype = {
 	},
 
 	createButtons: function(){
-		this.startButton = this.game.add.button(this.game.width * 0.25, this.game.world.height * 0.7, 'startButton', this.startGame, this);
+		this.startButton = this.game.add.button(this.game.width * 0.65, this.game.world.height * 0.8, 'startButton', this.startGame, this);
 		this.startButton.anchor.setTo(0.5, 0.5);
 
-		this.startButton = this.game.add.button(this.game.width * 0.75, this.game.world.height * 0.7, 'startButton', this.gotoMaps, this);
+		this.startButton = this.game.add.button(this.game.width * 0.85, this.game.world.height * 0.8, 'startButton', this.gotoMaps, this);
 		this.startButton.anchor.setTo(0.5, 0.5);
 	}
 

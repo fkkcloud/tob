@@ -16,6 +16,8 @@ BasicGame.Preload.prototype = {
 
 	    	this.load.image('title', 'assets/title@3.png');
 
+	    	this.load.image('copyrights', 'assets/copyrights@3.png');
+
 	    	this.load.image('startButton', 'assets/start-button@x.png');
 
 		 	this.load.image('restart', 'assets/restart@3.png');
@@ -59,6 +61,8 @@ BasicGame.Preload.prototype = {
 
 	    	this.load.image('title', 'assets/title@2.png');
 
+	    	this.load.image('copyrights', 'assets/copyrights@2.png');
+
 	    	this.load.image('startButton', 'assets/start-button@2.png');
 
 		 	this.load.image('restart', 'assets/restart@2.png');
@@ -101,6 +105,8 @@ BasicGame.Preload.prototype = {
 		    //this.load.image('bg_sky_bat', 'assets/bg_ground_bat.png');
 
 		    this.load.image('title', 'assets/title.png');
+
+		    this.load.image('copyrights', 'assets/copyrights.png');
 
 		    this.load.image('startButton', 'assets/start-button.png');
 
