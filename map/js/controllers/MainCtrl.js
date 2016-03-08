@@ -10,7 +10,6 @@ angular.module('MainCtrl', []).controller('MainController', function($scope) {
 	$scope.blockColor = '#00CDCD';
 	$scope.emptyColor = '#474646';
 
-	console.log(window.localStorage.ratedMapIds);
 	if (!window.localStorage.ratedMapIds || window.localStorage.ratedMapIds == null || window.localStorage.ratedMapIds == undefined || window.localStorage.ratedMapIds == 'undefined'){
 		var newArray = {'data':['1234567890']};
 		window.localStorage.ratedMapIds = JSON.stringify(newArray);

@@ -47,7 +47,6 @@ BasicGame.Boot.prototype = {
             this.scale.leaveIncorrectOrientation.add(this.leaveIncorrectOrientation, this);
         }
 
-        this.scale.setScreenSize(true);
 	},
 
 	preload: function(){

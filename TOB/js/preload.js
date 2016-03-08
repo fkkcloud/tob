@@ -24,6 +24,7 @@ BasicGame.Preload.prototype = {
 		 	this.load.spritesheet('cha_bat', 'assets/cha_bat@3.png', 225, 250, 3);
 
 		 	this.load.image('blood', 'assets/blood@3.png');
+		 	this.load.image('bloodbits', 'assets/bloodbit@3.png');
 
 			this.load.image('open_all', 'assets/open_all@3.png');
 			this.load.image('open_none', 'assets/open_none@3.png');
@@ -66,6 +67,7 @@ BasicGame.Preload.prototype = {
 		 	this.load.spritesheet('cha_bat', 'assets/cha_bat@2.png', 150, 167, 3);
 
 		 	this.load.image('blood', 'assets/blood@2.png');
+		 	this.load.image('bloodbits', 'assets/bloodbit@2.png');
 
 		 	this.load.image('open_all', 'assets/open_all@2.png');
 			this.load.image('open_none', 'assets/open_none@2.png');
@@ -108,6 +110,7 @@ BasicGame.Preload.prototype = {
 		 	this.load.spritesheet('cha_bat', 'assets/cha_bat.png', 75, 84, 3);
 
 		 	this.load.image('blood', 'assets/blood.png');
+		 	this.load.image('bloodbits', 'assets/bloodbit.png');
 
 		 	this.load.image('open_all', 'assets/open_all.png');
 			this.load.image('open_none', 'assets/open_none.png');

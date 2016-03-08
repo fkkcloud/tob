@@ -84,7 +84,7 @@ BasicGame.Main.prototype = {
 		}
 
 		me.lastChaPos.x = me.cha.x;
-		me.lastChaPos.y = me.cha.y;
+		me.lastChaPos.y = me.cha.y - me.cha.y * 0.125;
 
 		// loop through blocks
 		me.collisionDetected = false;
@@ -406,7 +406,7 @@ Mode
 		var me = this;
 
 		me.mode = me.BATMODE;
-		me.defaultAngle = 45;
+		me.defaultAngle = 5;
 	},
 
 	runVampMode: function(){
@@ -472,6 +472,15 @@ Player
 		me.cha.animations.play('flap', 8, true);
 
 		me.game.physics.arcade.enable(me.cha);
+
+		if (me.mode === me.VAMPMODE){
+			me.cha.body.width = me.cha.body.sourceWidth * 0.7;
+			me.cha.body.height = me.cha.body.sourceHeight * 0.98;
+		}
+		else if (me.mode === me.BATMODE){
+			me.cha.body.width = me.cha.body.sourceWidth * 0.86;
+			me.cha.body.height = me.cha.body.sourceHeight * 0.6;
+		}
 
 		// set the sprite's anchor to the center
 		me.cha.anchor.setTo(0.5, 0.5);
