@@ -59,6 +59,11 @@
 
 			function doOnOrientationChange()
 			{
+				if (!window.mobilecheck()){
+					initGame();
+					return;
+				}
+
 			    switch(window.orientation) 
 			    {  
 			      	case -90:
