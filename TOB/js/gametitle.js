@@ -2,21 +2,6 @@ BasicGame.GameTitle = function(game){};
 
 BasicGame.GameTitle.prototype = {
 
-	toggleFullScreen: function() {
-	  var doc = window.document;
-	  var docEl = doc.documentElement;
-
-	  var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
-	  var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
-
-	  if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
-	    requestFullScreen.call(docEl);
-	  }
-	  else {
-	    cancelFullScreen.call(doc);
-	  }
-	},
-
 	create: function(){
 		var me = this;
 
@@ -52,21 +37,6 @@ BasicGame.GameTitle.prototype = {
 
 	gotoMaps: function(){
 		window.location.href = "http://kingsl-tob.herokuapp.com/map";
-	},
-
-	fullScreen: function(){
-		var doc = window.document;
-		  var docEl = doc.documentElement;
-
-		  var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
-		  var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
-
-		  if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
-		    requestFullScreen.call(docEl);
-		  }
-		  else {
-		    cancelFullScreen.call(doc);
-		  }
 	},
 
 	createLogo: function(){
@@ -117,9 +87,6 @@ BasicGame.GameTitle.prototype = {
 
 		this.startButton = this.game.add.button(this.game.width * 0.75, this.game.world.height * 0.7, 'startButton', this.gotoMaps, this);
 		this.startButton.anchor.setTo(0.5, 0.5);
-
-		//this.fullButton = this.game.add.button(this.game.width * 0.8, this.game.world.height * 0.1, 'fullButton', this.fullScreen, this);
-		//this.fullButton.anchor.setTo(0.5, 0.5);
 	}
 
 }
