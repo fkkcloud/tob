@@ -57,8 +57,38 @@
     <script type="text/javascript">
 		(function() {
 
+			function doOnOrientationChange()
+			{
+			    switch(window.orientation) 
+			    {  
+			      	case -90:
+			      	case 90:
+			      		if (!BasicGame.isGameInit){
+			      			document.getElementById('orientation').style.display = 'none';
+			       			initGame();
+			       		}
+			        	break; 
+			      	default:
+			      		if (!BasicGame.isGameInit){
+			      			document.getElementById('orientation').style.display = 'block';
+			        		alert('Game Only Works for Landscape!');
+			      		}
+			        	break; 
+			    }
+			}
+
+			window.addEventListener('orientationchange', doOnOrientationChange);
+
+			  
+
+
 			window.onload = function(){
 
+			  	// Initial execution if needed
+			 	doOnOrientationChange();
+			}
+
+			function initGame() {
 				var isMobile = window.mobilecheck();
 
 				var aspectRatio = (window.innerWidth * 1.0) / window.innerHeight;
@@ -114,6 +144,7 @@
 				;
 
 			    */
+			    BasicGame.isGameInit = true;
 				
 				//Add all states
 				game.state.add("Boot", BasicGame.Boot);

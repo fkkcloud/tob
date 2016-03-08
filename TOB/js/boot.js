@@ -16,6 +16,8 @@ BasicGame = {
 
     blockSpriteScale: 1,
 
+    isGameInit: false,
+
 };
 
 BasicGame.Boot = function(game){
@@ -38,7 +40,7 @@ BasicGame.Boot.prototype = {
         else
         {
             this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-            //this.scale.setMinMax(667, 335, 1334, 750);
+            //this.scale.setMinMax(667, 375, 1334, 750);
             this.scale.pageAlignHorizontally = false;
             this.scale.pageAlignVertically = true;
             this.scale.forceOrientation(true, false);
@@ -80,7 +82,6 @@ BasicGame.Boot.prototype = {
         BasicGame.orientated = true;
 
         document.getElementById('orientation').style.display = 'none';
-
     }
 
 }
