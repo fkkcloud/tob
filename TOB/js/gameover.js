@@ -10,10 +10,12 @@ BasicGame.GameOver.prototype = {
   		var fontSize = 25 * window.devicePixelRatio;
   		var scoreFont = fontSize + "px Verdana";
 
+  		
   		me.labelGameOver = me.game.add.text(me.game.world.centerX,
-  			me.game.world.height * 0.1, "You DIED!", {font: scoreFont, fill: "#fff"});
+  			me.game.world.height * 0.1, "Is that all you got?!", {font: scoreFont, fill: "#fff"});
   		me.labelGameOver.anchor.setTo(0.5, 0);
 
+  		/*
   		me.labelFinalScore = me.game.add.text(me.game.world.centerX,
   			me.game.world.height * 0.2, me.score + 'm', {font: scoreFont, fill:"#fff"});
   		me.labelFinalScore.anchor.setTo(0.5, 0);
@@ -25,9 +27,10 @@ BasicGame.GameOver.prototype = {
   		me.labelHighScore = me.game.add.text(me.game.world.centerX,
   			me.game.world.height * 0.4, me.highScore + 'm', {font: scoreFont, fill: "#fff"});
   		me.labelHighScore.anchor.setTo(0.5, 0);
+  		*/
 
   		var restartButton = me.game.add.button(me.game.world.centerX,
-  			me.game.world.height * 0.76, "restart", me.restartGame, me);
+  			me.game.world.height * 0.5, "restart", me.restartGame, me);
   		restartButton.anchor.setTo(0.5, 0.5);
 
 	},
