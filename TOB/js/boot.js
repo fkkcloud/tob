@@ -52,7 +52,7 @@ BasicGame.Boot.prototype = {
 	},
 
 	preload: function(){
-
+        this.load.image('loadingBar', 'assets/bar.png');
 	},
 	
   	create: function(){

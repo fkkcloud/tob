@@ -66,17 +66,20 @@ BasicGame.GameTitle.prototype = {
 	createInstructions: function(){
 		var me = this;
 
-		var fontSize = 25 * window.devicePixelRatio;
+		var fontSize = 18 * window.devicePixelRatio;
 
 		var headingFont = fontSize + "px Arial";
-		var subHeadingFont = (fontSize * 0.5) + "px Arial";
 		
-		/*
-		instructionLabel = me.game.add.text(me.game.world.centerX,
-			me.game.world.centerY, "TAP TO JUMP", {font: headingFont, fill: "#000"});
-		instructionLabel.anchor.setTo(0.5, 1);
-		instructionLabel.align = 'center';
+		instructionLabel = me.game.add.text(me.game.world.width * 0.58,
+			me.game.world.height * 0.65, 
+			window.localStorage.mapName, 
+			{	font: headingFont, 
+				fill: "#fff", 
+				align: 'right',
+			});
+		//instructionLabel.anchor.setTo(0.5, 1);
 
+		/*
 		instructionLabel2 = me.game.add.text(me.game.world.centerX,
 			me.game.world.centerY + 50 * window.devicePixelRatio, "AVOID NASTY SQUARE",
 			{font:subHeadingFont, fill:'#c0392b'});

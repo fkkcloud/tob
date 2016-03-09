@@ -232,7 +232,7 @@ blocks - generations
 
 	    if (!block){
 	    	//console.log('allocating new block, total allocated:', me.blocks.length); // debug memory
-
+	    	
 	    	/*
 	    	var blockKey;
 	    	if (me.mode === 0)
@@ -277,7 +277,6 @@ blocks - generations
 
 	    return block;
 	},
-
 
 	generateMapColumn: function(){
 		var me = this;

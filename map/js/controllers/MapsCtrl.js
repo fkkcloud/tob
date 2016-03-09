@@ -4,7 +4,11 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
 
     $scope.itemsCountPerPage = 4; // this should match however many results your API puts on one page
     $scope.totalPages = 0;
-    getResultsPage(1);
+
+    setTimeout(function(){
+        getResultsPage(1);
+    }, 150)
+    
 
     $scope.pagination = {
         current: 1
@@ -38,6 +42,7 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
 
     $scope.startMap = function(id) {
         window.localStorage.mapData = $scope.currentLoadedMaps[id].data;
+        window.localStorage.mapName = $scope.currentLoadedMaps[id].name;
         window.location.href = $scope.href_game;
     }
 

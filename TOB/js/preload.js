@@ -4,6 +4,10 @@ BasicGame.Preload.prototype = {
 
 	preload: function(){ 
 
+		this.preloadBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'loadingBar');
+		this.preloadBar.anchor.setTo(0.5);
+		this.load.setPreloadSprite(this.preloadBar);
+
 		this.load.bitmapFont('flappyfont', 'assets/fonts/flappyfont/flappyfont.png', 'assets/fonts/flappyfont/flappyfont.fnt');  
 
 		var originalImageWidth;
