@@ -121,11 +121,17 @@ BasicGame.Main.prototype = {
 		for (var i = 0; i < me.bloods.children.length; i++){
 			var block = me.bloods.children[i];
 			me.game.physics.arcade.overlap(me.cha, block, function(cha, blood){
+
+				me.playFXEatBlood(blood.x, blood.y);
 				blood.destroy();
 				me.bloodCount += 1;
+
 				if (me.bloodCount > 4){
+					
 					me.runBatMode();
 					me.createPlayer();
+					me.playFXTransform();
+
 				}
 			}, null, me);	
 			
@@ -175,8 +181,7 @@ blocks - event handlers
 		if (BasicGame.sound)
 			me.hitSound.play();
 
-		var animationScale = 1.8;
-		me.playFXPlayerDeath(me.cha.x - me.cha.width * animationScale * 0.9, me.cha.y - me.cha.height * animationScale * 0.8, animationScale);
+		me.playFXPlayerDeath();
 
 		me.cha.animations.stop('flap');
 
@@ -500,14 +505,14 @@ Player
 		//me.cha.body.bounce.x = 0.15;
 	},
 
-	playFXPlayerDeath(x, y, scale){
+	playFXPlayerDeath(){
 		var me = this;
-		var anim = me.game.add.sprite(x, y, 'fx_death');
-		anim.scale.setTo(scale, scale);
+		var anim = me.game.add.sprite(me.cha.x - me.cha.width, me.cha.y - me.cha.height, 'fx_death');
+		anim.scale.setTo(1.6, 1.6);
 		anim.animations.add('death');
-		anim.animations.play('death', 32, false, true);
+		anim.animations.play('death', 18, false, true);
 		me.game.physics.arcade.enable(anim);
-		anim.body.velocity.x = me.mapVelX * 0.686;
+		anim.body.velocity.x = me.mapVelX;
 	},
 
 	playFXPlayerSpawn(x, y){
@@ -517,6 +522,26 @@ Player
 		anim.scale.setTo(scale, scale);
 		anim.animations.add('spawn');
 		anim.animations.play('spawn', 12, false, true);
+	},
+
+	playFXEatBlood(x, y){
+		var me = this;
+		var anim = me.game.add.sprite(x, y, 'blood_eat');
+		anim.animations.add('eatBlood');
+		anim.animations.play('eatBlood', 12, false, true);
+		anim.scale.setTo(1.3, 1.3);
+		me.game.physics.arcade.enable(anim);
+		anim.body.velocity.x = me.mapVelX;
+	},
+
+	playFXTransform(){
+		var me = this;
+		var anim = me.game.add.sprite(me.cha.x - me.cha.width, me.cha.y - me.cha.height, 'transform');
+		anim.animations.add('transformation');
+		anim.animations.play('transformation', 24, false, true);
+		anim.scale.setTo(1.5, 1.5);
+		me.game.physics.arcade.enable(anim);
+		anim.body.velocity.x = me.mapVelX * 0.186;
 	},
 
 	playFXPlayerRun(){
