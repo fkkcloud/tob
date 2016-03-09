@@ -53,6 +53,12 @@ BasicGame.Boot.prototype = {
 
 	preload: function(){
         this.load.image('loadingBar', 'assets/bar.png');
+        if(window.devicePixelRatio >= 3)
+            this.load.image('kingsl_logo', 'assets/kingsl_logo@3.png');
+        else if(window.devicePixelRatio >= 2)
+            this.load.image('kingsl_logo', 'assets/kingsl_logo@2.png');
+        else
+            this.load.image('kingsl_logo', 'assets/kingsl_logo.png');
 	},
 	
   	create: function(){

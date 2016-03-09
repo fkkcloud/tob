@@ -4,7 +4,11 @@ BasicGame.Preload.prototype = {
 
 	preload: function(){ 
 
-		this.preloadBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'loadingBar');
+		
+		this.kingslLogo = this.add.sprite(this.game.world.centerX, this.game.world.height * 0.4, 'kingsl_logo');
+		this.kingslLogo.anchor.setTo(0.5);
+
+		this.preloadBar = this.add.sprite(this.game.world.centerX, this.game.world.height * 0.6, 'loadingBar');
 		this.preloadBar.anchor.setTo(0.5);
 		this.load.setPreloadSprite(this.preloadBar);
 
