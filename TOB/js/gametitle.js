@@ -21,16 +21,21 @@ BasicGame.GameTitle.prototype = {
 
 	update: function() {
 		var me = this;
+
+		this.bg_sky.tilePosition.x -= 0.3;
+
+		this.bg_castle.tilePosition.x -= 0.5;
 	},
 
 	createBG: function(){
 		var me = this;
 
-		var sprite = me.game.add.sprite(0, 0, 'bg_sky_vamp');
-		
-		var scale = me.game.width / sprite.width * 1.1;
-		
-		sprite.scale.setTo(scale, scale);
+		var bg_sky_img_cache = game.cache.getImage("bg_sky");
+		this.bg_sky = game.add.tileSprite(0, 0, bg_sky_img_cache.width, bg_sky_img_cache.height, "bg_sky");
+
+		var bg_castle_img_cache = game.cache.getImage("bg_castle");
+		var castle_height = this.game.height - bg_castle_img_cache.height;
+		this.bg_castle = game.add.tileSprite(0, castle_height, bg_castle_img_cache.width, bg_castle_img_cache.height, "bg_castle");
 	},
 
 	startGame: function(){
@@ -42,15 +47,12 @@ BasicGame.GameTitle.prototype = {
 	},
 
 	createLogo: function(){
-		this.titleGroup = this.game.add.group();
 
-		this.title = this.game.add.sprite(0, 0, 'title');
-		this.titleGroup.add(this.title);
+		this.title = this.game.add.sprite(this.game.width * 0.4, this.game.height * 0.05, 'title');
+		this.title.scale.setTo(1.6, 1.6);
+		this.title.animations.add('titleAnim');
+		this.title.animations.play('titleAnim', 12, true, true);
 
-		this.titleGroup.x = this.game.width * 0.63 - this.title.width * 0.63;
-		this.titleGroup.y = this.game.height * 0.1;
-
-		this.game.add.tween(this.titleGroup).to({y:this.game.height * 0.12}, 600, Phaser.Easing.Linear.NONE, true, 0, 5000, true);
 	},
 
 	createCopyrights: function(){

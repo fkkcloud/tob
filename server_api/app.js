@@ -74,13 +74,32 @@ module.exports = function(app) {
 		});
 	});
 
-	app.post('/api/maps/rate', function(req, res, next) {
+	app.post('/api/maps/inc_rate', function(req, res, next) {
 
 		var query = { _id : req.body.id }
 
         console.log('received id:', query);
 
     	var update = { $inc: { rate : 1 }};
+
+		MapData.update(query, update, function(err, data){
+			if (err) {
+				console.log('db update failed...');
+				return next(err);
+			}
+
+			console.log('map update complete!..');
+			res.json(200, data);
+		});
+	});
+
+	app.post('/api/maps/inc_playcount', function(req, res, next) {
+
+		var query = { _id : req.body.id }
+
+        console.log('received id:', query);
+
+    	var update = { $inc: { playcount : 1 }};
 
 		MapData.update(query, update, function(err, data){
 			if (err) {

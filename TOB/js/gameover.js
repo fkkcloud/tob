@@ -10,7 +10,6 @@ BasicGame.GameOver.prototype = {
   		var fontSize = 25 * window.devicePixelRatio;
   		var scoreFont = fontSize + "px Verdana";
 
-  		
   		me.labelGameOver = me.game.add.text(me.game.world.centerX,
   			me.game.world.height * 0.1, "Is that all you got?!", {font: scoreFont, fill: "#fff"});
   		me.labelGameOver.anchor.setTo(0.5, 0);
@@ -63,12 +62,12 @@ BasicGame.GameOver.prototype = {
 
 		var me = this;
 
-		var sprite = me.game.add.sprite(0, 0, 'bg_sky_vamp');
+		var bg_sky = game.add.tileSprite(0, 0, 2088, 739, "bg_sky");
 		
-		var scale = me.game.width / sprite.width * 1.1;
-		
-		sprite.scale.setTo(scale, scale);
+		//var scale = me.game.width / sprite.width * 1.1;
+		//sprite.scale.setTo(scale, scale);
 
 	},
+
 	
 }

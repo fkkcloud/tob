@@ -34,7 +34,7 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
         window.localStorage.ratedMapIds = JSON.stringify(idArray);
 
         $scope.currentLoadedMaps[id].rate += 1;
-        $http.post('/api/maps/rate', { 'id' : queryID })
+        $http.post('/api/maps/inc_rate', { 'id' : queryID })
         .then(function(result){
             console.log('rated!');
         });
@@ -43,7 +43,14 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
     $scope.startMap = function(id) {
         window.localStorage.mapData = $scope.currentLoadedMaps[id].data;
         window.localStorage.mapName = $scope.currentLoadedMaps[id].name;
-        window.location.href = $scope.href_game;
+
+        var queryID = $scope.currentLoadedMaps[id]._id;
+        $http.post('/api/maps/inc_playcount', { 'id' : queryID })
+        .then(function(result){
+            console.log('rated!');
+            window.location.href = $scope.href_game;
+        });
+        
     }
 
     function isDuplicatedRating(id) {

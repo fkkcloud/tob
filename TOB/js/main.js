@@ -58,10 +58,13 @@ BasicGame.Main.prototype = {
    	 	me.setupPlayerControl();
 
    	 	// debug
-		me.createDebugHUD();
+		//me.createDebugHUD();
 
 		// pre stage
 		me.createPreStage();
+
+		// create UI
+		me.createUI();
 
 		me.playFXPlayerSpawn(me.cha.x - me.cha.width * 1.7, -BasicGame.blockSize);
 		me.cha.body.velocity.y = + 3000 * window.devicePixelRatio;
@@ -126,8 +129,19 @@ BasicGame.Main.prototype = {
 				blood.destroy();
 				me.bloodCount += 1;
 
-				if (me.bloodCount > 4){
-					
+				if (me.bloodCount === 1)
+					this.bloodfill1.animations.play('fill1', 16, false, false);
+				else if (me.bloodCount === 2)
+					this.bloodfill2.animations.play('fill2', 16, false, false);
+				else if (me.bloodCount === 3)
+					this.bloodfill3.animations.play('fill3', 16, false, false);
+				else if (me.bloodCount === 4)
+					this.bloodfill4.animations.play('fill4', 16, false, false);
+				else if (me.bloodCount === 5)
+					this.bloodfill5.animations.play('fill5', 16, false, false);
+
+				if (me.mode !== me.BATMODE && me.bloodCount > 4){
+
 					me.runBatMode();
 					me.createPlayer();
 					me.playFXTransform();
@@ -137,8 +151,10 @@ BasicGame.Main.prototype = {
 			
 		}
 
+		me.updateBG();
+
 		// debug text
-		me.debugText.setText(me.bloodCount)// (me.currentColumnId);
+		//me.debugText.setText(me.bloodCount)// (me.currentColumnId);
 	},
 
 
@@ -184,6 +200,11 @@ blocks - event handlers
 		me.playFXPlayerDeath();
 
 		me.cha.animations.stop('flap');
+		me.game.time.events.add(Phaser.Timer.SECOND * 0.2, function(){ 
+			//Send score to game over screen 
+			me.cha.destroy();
+		}, me);
+		
 
 		//me.cha.body.velocity.x = -100 * window.devicePixelRatio;
 		//me.cha.body.velocity.y = -200 * window.devicePixelRatio;
@@ -191,7 +212,7 @@ blocks - event handlers
 		me.game.add.tween(me.cha).to({angle: -30}, 60).start();
 
 		//Wait a couple of seconds and then trigger the game over screen
-		me.game.time.events.add(Phaser.Timer.SECOND * 0.2, function(){ 
+		me.game.time.events.add(Phaser.Timer.SECOND * 0.4, function(){ 
 			//Send score to game over screen 
 			me.game.state.start('GameOver', true, false, me.score.toString());
 		}, me);
@@ -232,7 +253,7 @@ blocks - generations
 
 	    if (!block){
 	    	//console.log('allocating new block, total allocated:', me.blocks.length); // debug memory
-	    	
+
 	    	/*
 	    	var blockKey;
 	    	if (me.mode === 0)
@@ -440,16 +461,24 @@ BG
 	createBG: function(){
 		var me = this;
 
-		if (me.bg)
-			me.bg.destroy();
+		if (me.bg_sky)
+			me.bg_sky.destroy();
 
-		var bg_img_key = 'bg_sky_vamp';
+		if (me.bg_castle)
+			me.bg_castle.destroy();
 
-		me.bg = me.game.add.sprite(0, 0, bg_img_key);
-		
-		var scale = me.game.width / me.bg.width * 1.1;
-		
-		me.bg.scale.setTo(scale, scale);
+		var bg_sky_img_cache = game.cache.getImage("bg_sky");
+		this.bg_sky = game.add.tileSprite(0, 0, bg_sky_img_cache.width, bg_sky_img_cache.height, "bg_sky");
+
+		var bg_castle_img_cache = game.cache.getImage("bg_castle");
+		var castle_height = this.game.height - bg_castle_img_cache.height;
+		this.bg_castle = game.add.tileSprite(0, castle_height, bg_castle_img_cache.width, bg_castle_img_cache.height, "bg_castle");
+	},
+
+	updateBG: function(){
+		this.bg_sky.tilePosition.x -= 0.3;
+
+		this.bg_castle.tilePosition.x -= 0.5;
 	},
 
 /*
@@ -509,7 +538,7 @@ Player
 		var anim = me.game.add.sprite(me.cha.x - me.cha.width, me.cha.y - me.cha.height, 'fx_death');
 		anim.scale.setTo(1.6, 1.6);
 		anim.animations.add('death');
-		anim.animations.play('death', 18, false, true);
+		anim.animations.play('death', 12, false, true);
 		me.game.physics.arcade.enable(anim);
 		anim.body.velocity.x = me.mapVelX;
 	},
@@ -569,6 +598,30 @@ Player
 HUD - score
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 */
+	createUI: function(){
+		
+
+		var bloodFillHeight = this.game.height * 0.064;
+		var bloodFillWidthDelta = 0.059;
+
+		this.bloodfill1 = this.game.add.sprite(this.game.width * 0.62, bloodFillHeight, 'blood_fill');
+		this.bloodfill1.animations.add('fill1');
+
+		this.bloodfill2 = this.game.add.sprite(this.game.width * (0.62 + bloodFillWidthDelta), bloodFillHeight, 'blood_fill');
+		this.bloodfill2.animations.add('fill2');
+
+		this.bloodfill3 = this.game.add.sprite(this.game.width * (0.62 + bloodFillWidthDelta * 2), bloodFillHeight, 'blood_fill');
+		this.bloodfill3.animations.add('fill3');
+
+		this.bloodfill4 = this.game.add.sprite(this.game.width * (0.62 + bloodFillWidthDelta * 3), bloodFillHeight, 'blood_fill');
+		this.bloodfill4.animations.add('fill4');
+
+		this.bloodfill5 = this.game.add.sprite(this.game.width * (0.62 + bloodFillWidthDelta * 4), bloodFillHeight, 'blood_fill');
+		this.bloodfill5.animations.add('fill5');
+
+		var anim = this.game.add.sprite(this.game.width * 0.54, this.game.height * 0.025, 'ui_bloodbar');
+	},
+
 	createScoreHUD: function(){
 		var me = this;
 

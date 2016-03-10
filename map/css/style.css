@@ -84,3 +84,7 @@ body { padding-top:30px; background-color: #222; text-align: center; }
 .text-small {
   font-size: 12px !important;
 }
+
+.right-margin {
+  margin-right: 7px;
+}

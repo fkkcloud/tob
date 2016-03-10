@@ -18,9 +18,12 @@ BasicGame.Preload.prototype = {
 
 		if(window.devicePixelRatio >= 3)
 		{
-	    	this.load.image('bg_sky_vamp', 'assets/bg_ground_vamp@3.png');
+	    	this.load.image('bg_sky', 'assets/bg_sky@3.png');
+	    	this.load.image('bg_castle', 'assets/bg_castle@3.png');
+	    	this.load.image('bg_cloud_A', 'assets/bg_cloud_A@3.png');
+	    	this.load.image('bg_cloud_B', 'assets/bg_cloud_B@3.png');
 
-	    	this.load.image('title', 'assets/title@3.png');
+	    	this.load.spritesheet('title', 'assets/title@3.png', 621, 439, 3);
 
 	    	this.load.image('copyrights', 'assets/copyrights@3.png');
 
@@ -33,6 +36,9 @@ BasicGame.Preload.prototype = {
 
 		 	this.load.image('blood', 'assets/blood@3.png');
 		 	this.load.spritesheet('blood_eat', 'assets/blood_eat@3.png', 150, 150, 6);
+		 	this.load.spritesheet('blood_fill', 'assets/blood_fill@3.png', 110, 110, 12);
+
+		 	this.load.image('ui_bloodbar', 'assets/ui_bloodbar@3.png');
 
 		 	this.load.spritesheet('transform', 'assets/transform@3.png', 360, 360, 11);
 
@@ -65,9 +71,12 @@ BasicGame.Preload.prototype = {
 		else if(window.devicePixelRatio >= 2)
 		{
 
-	    	this.load.image('bg_sky_vamp', 'assets/bg_ground_vamp@2.png');
+	    	this.load.image('bg_sky', 'assets/bg_sky@2.png');
+	    	this.load.image('bg_castle', 'assets/bg_castle@2.png');
+	    	this.load.image('bg_cloud_A', 'assets/bg_cloud_A@2.png');
+	    	this.load.image('bg_cloud_B', 'assets/bg_cloud_B@2.png');
 
-	    	this.load.image('title', 'assets/title@2.png');
+	    	this.load.spritesheet('title', 'assets/title@2.png', 413, 292, 3);
 
 	    	this.load.image('copyrights', 'assets/copyrights@2.png');
 
@@ -80,6 +89,9 @@ BasicGame.Preload.prototype = {
 
 		 	this.load.image('blood', 'assets/blood@2.png');
 		 	this.load.spritesheet('blood_eat', 'assets/blood_eat@2.png', 100, 100, 6);
+		 	this.load.spritesheet('blood_fill', 'assets/blood_fill@2.png', 73, 73, 12);
+
+		 	this.load.image('ui_bloodbar', 'assets/ui_bloodbar@2.png');
 
 		 	this.load.spritesheet('transform', 'assets/transform@2.png', 240, 240, 11);
 
@@ -111,10 +123,13 @@ BasicGame.Preload.prototype = {
 		}
 		else 
 		{
-		    this.load.image('bg_sky_vamp', 'assets/bg_ground_vamp.png');
+		    this.load.image('bg_sky', 'assets/bg_sky.png');
+		    this.load.image('bg_castle', 'assets/bg_castle.png');
+	    	this.load.image('bg_cloud_A', 'assets/bg_cloud_A.png');
+	    	this.load.image('bg_cloud_B', 'assets/bg_cloud_B.png');
 		    //this.load.image('bg_sky_bat', 'assets/bg_ground_bat.png');
 
-		    this.load.image('title', 'assets/title.png');
+		    this.load.spritesheet('title', 'assets/title.png', 206, 146, 3);
 
 		    this.load.image('copyrights', 'assets/copyrights.png');
 
@@ -127,6 +142,9 @@ BasicGame.Preload.prototype = {
 
 		 	this.load.image('blood', 'assets/blood.png');
 		 	this.load.spritesheet('blood_eat', 'assets/blood_eat.png', 50, 50, 6);
+		 	this.load.spritesheet('blood_fill', 'assets/blood_fill.png', 36, 36, 12);
+
+		 	this.load.image('ui_bloodbar', 'assets/ui_bloodbar.png');
 
 		 	this.load.spritesheet('transform', 'assets/transform.png', 120, 120, 11);
 
