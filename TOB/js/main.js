@@ -212,7 +212,7 @@ blocks - event handlers
 		me.game.add.tween(me.cha).to({angle: -30}, 60).start();
 
 		//Wait a couple of seconds and then trigger the game over screen
-		me.game.time.events.add(Phaser.Timer.SECOND * 0.4, function(){ 
+		me.game.time.events.add(Phaser.Timer.SECOND * 0.22, function(){ 
 			//Send score to game over screen 
 			me.game.state.start('GameOver', true, false, me.score.toString());
 		}, me);
@@ -538,7 +538,7 @@ Player
 		var anim = me.game.add.sprite(me.cha.x - me.cha.width, me.cha.y - me.cha.height, 'fx_death');
 		anim.scale.setTo(1.6, 1.6);
 		anim.animations.add('death');
-		anim.animations.play('death', 12, false, true);
+		anim.animations.play('death', 14, false, true);
 		me.game.physics.arcade.enable(anim);
 		anim.body.velocity.x = me.mapVelX;
 	},

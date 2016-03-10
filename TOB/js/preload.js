@@ -34,6 +34,11 @@ BasicGame.Preload.prototype = {
 		 	this.load.spritesheet('cha_vamp', 'assets/cha_vamp@3.png', 50*3, 75*3, 3);
 		 	this.load.spritesheet('cha_bat', 'assets/cha_bat@3.png', 225, 250, 3);
 
+		 	this.load.image('btn_story', 'assets/btn_storymode@3.png');
+		 	this.load.image('btn_maplist', 'assets/btn_maplist@3.png');
+		 	this.load.image('btn_mapeditor', 'assets/btn_mapeditor@3.png');
+		 	this.load.image('btn_option', 'assets/btn_option@3.png');
+
 		 	this.load.image('blood', 'assets/blood@3.png');
 		 	this.load.spritesheet('blood_eat', 'assets/blood_eat@3.png', 150, 150, 6);
 		 	this.load.spritesheet('blood_fill', 'assets/blood_fill@3.png', 110, 110, 12);
@@ -87,6 +92,11 @@ BasicGame.Preload.prototype = {
 		 	this.load.spritesheet('cha_vamp', 'assets/cha_vamp@2.png', 50*2, 75*2, 3);
 		 	this.load.spritesheet('cha_bat', 'assets/cha_bat@2.png', 149, 166, 3);
 
+		 	this.load.image('btn_story', 'assets/btn_storymode@2.png');
+		 	this.load.image('btn_maplist', 'assets/btn_maplist@2.png');
+		 	this.load.image('btn_mapeditor', 'assets/btn_mapeditor@2.png');
+		 	this.load.image('btn_option', 'assets/btn_option@2.png');
+
 		 	this.load.image('blood', 'assets/blood@2.png');
 		 	this.load.spritesheet('blood_eat', 'assets/blood_eat@2.png', 100, 100, 6);
 		 	this.load.spritesheet('blood_fill', 'assets/blood_fill@2.png', 73, 73, 12);
@@ -139,6 +149,11 @@ BasicGame.Preload.prototype = {
 
 		 	this.load.spritesheet('cha_vamp', 'assets/cha_vamp.png', 50, 75, 3);
 		 	this.load.spritesheet('cha_bat', 'assets/cha_bat.png', 74, 83, 3);
+
+		 	this.load.image('btn_story', 'assets/btn_storymode.png');
+		 	this.load.image('btn_maplist', 'assets/btn_maplist.png');
+		 	this.load.image('btn_mapeditor', 'assets/btn_mapeditor.png');
+		 	this.load.image('btn_option', 'assets/btn_option.png');
 
 		 	this.load.image('blood', 'assets/blood.png');
 		 	this.load.spritesheet('blood_eat', 'assets/blood_eat.png', 50, 50, 6);

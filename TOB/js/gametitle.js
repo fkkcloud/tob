@@ -48,7 +48,7 @@ BasicGame.GameTitle.prototype = {
 
 	createLogo: function(){
 
-		this.title = this.game.add.sprite(this.game.width * 0.4, this.game.height * 0.05, 'title');
+		this.title = this.game.add.sprite(this.game.width * 0.4, this.game.height * 0.125, 'title');
 		this.title.scale.setTo(1.6, 1.6);
 		this.title.animations.add('titleAnim');
 		this.title.animations.play('titleAnim', 12, true, true);
@@ -72,8 +72,8 @@ BasicGame.GameTitle.prototype = {
 
 		var headingFont = fontSize + "px Arial";
 		
-		instructionLabel = me.game.add.text(me.game.world.width * 0.58,
-			me.game.world.height * 0.65, 
+		instructionLabel = me.game.add.text(me.game.world.width * 0.64,
+			me.game.world.height * 0.75, 
 			window.localStorage.mapName, 
 			{	font: headingFont, 
 				fill: "#fff", 
@@ -99,11 +99,13 @@ BasicGame.GameTitle.prototype = {
 	},
 
 	createButtons: function(){
-		this.startButton = this.game.add.button(this.game.width * 0.65, this.game.world.height * 0.8, 'startButton', this.startGame, this);
-		this.startButton.anchor.setTo(0.5, 0.5);
+		this.btn_story = this.game.add.button(0, this.game.world.height * 0.2, 'btn_story', this.startGame, this);
 
-		this.startButton = this.game.add.button(this.game.width * 0.85, this.game.world.height * 0.8, 'startButton', this.gotoMaps, this);
-		this.startButton.anchor.setTo(0.5, 0.5);
+		this.btn_maplist = this.game.add.button(0, this.game.world.height * 0.4, 'btn_maplist', this.gotoMaps, this);
+
+		this.btn_mapeditor = this.game.add.button(0, this.game.world.height * 0.55, 'btn_mapeditor', null, this);
+
+		this.btn_option = this.game.add.button(0, this.game.world.height * 0.7, 'btn_option', null, this);
 	}
 
 }
