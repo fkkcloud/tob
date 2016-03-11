@@ -212,14 +212,14 @@ blocks - event handlers
 
 		me.cha.animations.stop('flap');
 
-		me.game.time.events.add(Phaser.Timer.SECOND * 0.3, function(){ 
+		me.game.time.events.add(Phaser.Timer.SECOND * 0.25, function(){ 
 			//Send score to game over screen 
 			me.cha.destroy();
 		}, me);
 
 		//me.cha.body.velocity.x = -100 * window.devicePixelRatio;
 		//me.cha.body.velocity.y = -200 * window.devicePixelRatio;
-		//me.game.add.tween(me.cha).to({angle: -30}, 60).start();
+		me.game.add.tween(me.cha).to({angle: -10}, 60).start();
 
 		//Wait a couple of seconds and then trigger the game over screen
 		me.game.time.events.add(Phaser.Timer.SECOND * 0.5, function(){ 
@@ -561,10 +561,10 @@ Player
 
 	playFXPlayerDeath(){
 		var me = this;
-		var anim = me.game.add.sprite(me.cha.x - me.cha.width, me.cha.y - me.cha.height, 'fx_death');
-		anim.scale.setTo(1.6, 1.6);
+		var anim = me.game.add.sprite(me.cha.x - me.cha.width * 0.78, me.cha.y - me.cha.height * 0.5, 'fx_death');
+		anim.scale.setTo(1.32, 1.32);
 		anim.animations.add('death');
-		anim.animations.play('death', 14, false, true);
+		anim.animations.play('death', 16, false, true);
 		me.game.physics.arcade.enable(anim);
 		anim.body.velocity.x = me.mapVelX;
 	},
