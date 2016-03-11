@@ -201,23 +201,28 @@ blocks - event handlers
 
 		me.chaDead = true;
 
+		// make it stuck to the sticks
+		me.cha.body.gravity.y = 0;
+		me.cha.body.velocity.y = 0;
+
 		if (BasicGame.sound)
 			me.hitSound.play();
 
 		me.playFXPlayerDeath();
 
 		me.cha.animations.stop('flap');
-		me.game.time.events.add(Phaser.Timer.SECOND * 0.2, function(){ 
+
+		me.game.time.events.add(Phaser.Timer.SECOND * 0.3, function(){ 
 			//Send score to game over screen 
-			me.shutdown();
+			me.cha.destroy();
 		}, me);
-		
+
 		//me.cha.body.velocity.x = -100 * window.devicePixelRatio;
 		//me.cha.body.velocity.y = -200 * window.devicePixelRatio;
 		//me.game.add.tween(me.cha).to({angle: -30}, 60).start();
 
 		//Wait a couple of seconds and then trigger the game over screen
-		me.game.time.events.add(Phaser.Timer.SECOND * 0.22, function(){ 
+		me.game.time.events.add(Phaser.Timer.SECOND * 0.5, function(){ 
 			//Send score to game over screen 
 			me.game.state.start('GameOver', true, false, me.score.toString());
 		}, me);
