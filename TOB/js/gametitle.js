@@ -48,10 +48,8 @@ BasicGame.GameTitle.prototype = {
 
 	createLogo: function(){
 
-		this.title = this.game.add.sprite(this.game.width * 0.4, this.game.height * 0.125, 'title');
-		this.title.scale.setTo(1.6, 1.6);
-		this.title.animations.add('titleAnim');
-		this.title.animations.play('titleAnim', 12, true, true);
+		this.title = this.game.add.sprite(this.game.width * 0.375, this.game.height * 0.125, 'title');
+		this.title.scale.setTo(1.3, 1.3);
 
 	},
 
@@ -72,8 +70,8 @@ BasicGame.GameTitle.prototype = {
 
 		var headingFont = fontSize + "px Arial";
 		
-		instructionLabel = me.game.add.text(me.game.world.width * 0.64,
-			me.game.world.height * 0.75, 
+		instructionLabel = me.game.add.text(me.game.world.width * 0.7,
+			me.game.world.height * 0.8, 
 			window.localStorage.mapName, 
 			{	font: headingFont, 
 				fill: "#fff", 

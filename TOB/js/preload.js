@@ -23,7 +23,7 @@ BasicGame.Preload.prototype = {
 	    	this.load.image('bg_cloud_A', 'assets/bg_cloud_A@3.png');
 	    	this.load.image('bg_cloud_B', 'assets/bg_cloud_B@3.png');
 
-	    	this.load.spritesheet('title', 'assets/title@3.png', 621, 439, 3);
+	    	this.load.image('title', 'assets/title@3.png');
 
 	    	this.load.image('copyrights', 'assets/copyrights@3.png');
 
@@ -45,7 +45,7 @@ BasicGame.Preload.prototype = {
 
 		 	this.load.image('ui_bloodbar', 'assets/ui_bloodbar@3.png');
 
-		 	this.load.spritesheet('transform', 'assets/transform@3.png', 360, 360, 11);
+		 	this.load.spritesheet('transform', 'assets/transform@3.png', 360, 360, 6);
 
 			this.load.image('open_all', 'assets/open_all@3.png');
 			this.load.image('open_none', 'assets/open_none@3.png');
@@ -81,7 +81,7 @@ BasicGame.Preload.prototype = {
 	    	this.load.image('bg_cloud_A', 'assets/bg_cloud_A@2.png');
 	    	this.load.image('bg_cloud_B', 'assets/bg_cloud_B@2.png');
 
-	    	this.load.spritesheet('title', 'assets/title@2.png', 413, 292, 3);
+	    	this.load.image('title', 'assets/title@2.png');
 
 	    	this.load.image('copyrights', 'assets/copyrights@2.png');
 
@@ -103,7 +103,7 @@ BasicGame.Preload.prototype = {
 
 		 	this.load.image('ui_bloodbar', 'assets/ui_bloodbar@2.png');
 
-		 	this.load.spritesheet('transform', 'assets/transform@2.png', 240, 240, 11);
+		 	this.load.spritesheet('transform', 'assets/transform@2.png', 240, 240, 6);
 
 		 	this.load.image('open_all', 'assets/open_all@2.png');
 			this.load.image('open_none', 'assets/open_none@2.png');
@@ -139,7 +139,7 @@ BasicGame.Preload.prototype = {
 	    	this.load.image('bg_cloud_B', 'assets/bg_cloud_B.png');
 		    //this.load.image('bg_sky_bat', 'assets/bg_ground_bat.png');
 
-		    this.load.spritesheet('title', 'assets/title.png', 206, 146, 3);
+		    this.load.image('title', 'assets/title.png');
 
 		    this.load.image('copyrights', 'assets/copyrights.png');
 
@@ -161,7 +161,7 @@ BasicGame.Preload.prototype = {
 
 		 	this.load.image('ui_bloodbar', 'assets/ui_bloodbar.png');
 
-		 	this.load.spritesheet('transform', 'assets/transform.png', 120, 120, 11);
+		 	this.load.spritesheet('transform', 'assets/transform.png', 120, 120, 6);
 
 		 	this.load.image('open_all', 'assets/open_all.png');
 			this.load.image('open_none', 'assets/open_none.png');

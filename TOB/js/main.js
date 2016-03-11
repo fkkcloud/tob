@@ -15,10 +15,7 @@ BasicGame.Main.prototype = {
 
 		me.bloodCount = 0;
 
-		/* character position between map modes */
-		me.lastChaPos = {};
-		me.lastChaPos.x = me.game.width * 0.2;
-		me.lastChaPos.y = me.game.height * 0.5;
+		me.initBorn = true;
 
 		/* is player on ground */
 		me.chaOnGround = false;
@@ -52,10 +49,19 @@ BasicGame.Main.prototype = {
 		// start with vamp mode
 		me.createStage();
 		me.runVampMode();
-		me.createPlayer();
 
-		// set up player key input binds
-   	 	me.setupPlayerControl();
+		/* character position between map modes */
+		me.lastChaPos = {};
+		me.initX = me.game.width * 0.2;
+		me.initY = me.game.height * 0.5;
+		me.lastChaPos.x = me.game.width * 0.2;
+		me.lastChaPos.y = me.game.height * 0.5;
+
+		me.game.time.events.add(Phaser.Timer.SECOND * 0.25, function(){ 
+			me.createPlayer();
+	 		me.setupPlayerControl(); // set up player key input binds
+		}, me);
+		
 
    	 	// debug
 		//me.createDebugHUD();
@@ -66,8 +72,6 @@ BasicGame.Main.prototype = {
 		// create UI
 		me.createUI();
 
-		me.playFXPlayerSpawn(me.cha.x - me.cha.width * 1.7, -BasicGame.blockSize);
-		me.cha.body.velocity.y = + 3000 * window.devicePixelRatio;
 	},
 
 	update: function() {
@@ -82,12 +86,14 @@ BasicGame.Main.prototype = {
 		}
 
 		// cha angle default
-		if(me.cha.angle < me.defaultAngle) {
+		if(me.cha && me.cha.angle < me.defaultAngle) {
 		    me.cha.angle += 2.5;
 		}
 
-		me.lastChaPos.x = me.cha.x;
-		me.lastChaPos.y = me.cha.y - me.cha.y * 0.125;
+		if (me.cha){
+			me.lastChaPos.x = me.cha.x;
+			me.lastChaPos.y = me.cha.y - me.cha.y * 0.125;
+		}
 
 		// loop through blocks
 		me.collisionDetected = false;
@@ -202,7 +208,7 @@ blocks - event handlers
 		me.cha.animations.stop('flap');
 		me.game.time.events.add(Phaser.Timer.SECOND * 0.2, function(){ 
 			//Send score to game over screen 
-			me.cha.destroy();
+			me.shutdown();
 		}, me);
 		
 
@@ -498,7 +504,10 @@ Player
 		else if (me.mode === me.BATMODE)
 			cha_img_key = 'cha_bat';
 
-		me.cha = me.game.add.sprite(me.lastChaPos.x, me.lastChaPos.y, cha_img_key);
+		if (me.initBorn)
+			me.cha = me.game.add.sprite(me.initX, me.initY, cha_img_key);
+		else
+			me.cha = me.game.add.sprite(me.lastChaPos.x, me.lastChaPos.y, cha_img_key);
 
 		// add and play animations
 		me.cha.animations.add('flap');
@@ -518,7 +527,7 @@ Player
 		// set the sprite's anchor to the center
 		me.cha.anchor.setTo(0.5, 0.5);
 
-		//me.cha.scale.setTo(1.1, 1.1 );
+		me.cha.scale.setTo(1.1, 1.1 );
 
 		//Make the player fall by applying gravity 
 		me.cha.body.gravity.y = 1200 * window.devicePixelRatio;
@@ -531,6 +540,13 @@ Player
 		//Make the player bounce a little 
 		//me.cha.body.bounce.y = 0.15;
 		//me.cha.body.bounce.x = 0.15;
+
+		if (me.initBorn){
+			me.playFXPlayerSpawn(me.cha.x - me.cha.width * 1.7, -BasicGame.blockSize);
+			me.cha.body.velocity.y = + 700 * window.devicePixelRatio;
+		}
+
+		me.initBorn = false;
 	},
 
 	playFXPlayerDeath(){
@@ -564,10 +580,9 @@ Player
 
 	playFXTransform(){
 		var me = this;
-		var anim = me.game.add.sprite(me.cha.x - me.cha.width, me.cha.y - me.cha.height, 'transform');
+		var anim = me.game.add.sprite(me.cha.x - me.cha.width * 0.6, me.cha.y - me.cha.height * 0.65, 'transform');
 		anim.animations.add('transformation');
-		anim.animations.play('transformation', 24, false, true);
-		anim.scale.setTo(1.5, 1.5);
+		anim.animations.play('transformation', 12, false, true);
 		me.game.physics.arcade.enable(anim);
 		anim.body.velocity.x = me.mapVelX * 0.186;
 	},
@@ -712,6 +727,7 @@ GAME STATE
   			me.bg.destroy();
   		if (me.blocks)
   			me.blocks.destroy();
+  		me.lastChaPos = {};
 	},
 
 	gameOver: function(){
