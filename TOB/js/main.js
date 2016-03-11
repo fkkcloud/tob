@@ -51,13 +51,14 @@ BasicGame.Main.prototype = {
 		me.runVampMode();
 
 		/* character position between map modes */
-		me.lastChaPos = {};
 		me.initX = me.game.width * 0.2;
-		me.initY = me.game.height * 0.5;
+		me.initY = me.game.height * 0.3;
+
+		me.lastChaPos = {};
 		me.lastChaPos.x = me.game.width * 0.2;
 		me.lastChaPos.y = me.game.height * 0.5;
 
-		me.game.time.events.add(Phaser.Timer.SECOND * 0.25, function(){ 
+		me.game.time.events.add(Phaser.Timer.SECOND, function(){ 
 			me.createPlayer();
 	 		me.setupPlayerControl(); // set up player key input binds
 		}, me);
@@ -211,11 +212,9 @@ blocks - event handlers
 			me.shutdown();
 		}, me);
 		
-
 		//me.cha.body.velocity.x = -100 * window.devicePixelRatio;
 		//me.cha.body.velocity.y = -200 * window.devicePixelRatio;
-
-		me.game.add.tween(me.cha).to({angle: -30}, 60).start();
+		//me.game.add.tween(me.cha).to({angle: -30}, 60).start();
 
 		//Wait a couple of seconds and then trigger the game over screen
 		me.game.time.events.add(Phaser.Timer.SECOND * 0.22, function(){ 
@@ -433,7 +432,7 @@ Mode
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 */
 	runBatMode: function(){
-		console.log('/////// RUN Bar MODE ///////');
+		console.log('/////// RUN Bat MODE ///////');
 		var me = this;
 
 		me.mode = me.BATMODE;
@@ -492,7 +491,7 @@ BG
 Player
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 */
-	createPlayer: function(){
+	createPlayer: function(){		
 		var me = this;
 
 		if (me.cha)
@@ -527,7 +526,7 @@ Player
 		// set the sprite's anchor to the center
 		me.cha.anchor.setTo(0.5, 0.5);
 
-		me.cha.scale.setTo(1.1, 1.1 );
+		me.cha.scale.setTo(1.1, 1.1);
 
 		//Make the player fall by applying gravity 
 		me.cha.body.gravity.y = 1200 * window.devicePixelRatio;
@@ -538,12 +537,22 @@ Player
         me.cha.events.onOutOfBounds.add(me.deathHandler, this);
 
 		//Make the player bounce a little 
-		//me.cha.body.bounce.y = 0.15;
+		
 		//me.cha.body.bounce.x = 0.15;
 
 		if (me.initBorn){
-			me.playFXPlayerSpawn(me.cha.x - me.cha.width * 1.7, -BasicGame.blockSize);
-			me.cha.body.velocity.y = + 700 * window.devicePixelRatio;
+			
+			var vamp_img_cache = game.cache.getImage("cha_vamp");
+			me.createFXPlayerSpawn(me.initX - vamp_img_cache.width * 0.65, BasicGame.blockSize * -1);
+			me.playFXPlayerSpawn();
+
+			me.cha.body.velocity.y = + 1500 * window.devicePixelRatio;
+
+			me.cha.body.bounce.y = 0.15;
+
+			me.game.time.events.add(Phaser.Timer.SECOND, function(){ 
+				me.cha.body.bounce.y = 0.0;
+			}, me);
 		}
 
 		me.initBorn = false;
@@ -559,13 +568,16 @@ Player
 		anim.body.velocity.x = me.mapVelX;
 	},
 
-	playFXPlayerSpawn(x, y){
+	createFXPlayerSpawn(x, y){
 		var me = this;
-		var anim = me.game.add.sprite(x, y, 'fx_spawn');
-		var scale = me.game.height / anim.height;
-		anim.scale.setTo(scale, scale);
-		anim.animations.add('spawn');
-		anim.animations.play('spawn', 12, false, true);
+		me.spawnFX = me.game.add.sprite(x, y, 'fx_spawn');
+		var scale = me.game.height / me.spawnFX.height;
+		me.spawnFX .scale.setTo(scale, scale);
+		me.spawnFX .animations.add('spawn');
+	},
+
+	playFXPlayerSpawn(){
+		this.spawnFX .animations.play('spawn', 12, false, true);
 	},
 
 	playFXEatBlood(x, y){
@@ -719,6 +731,7 @@ GAME STATE
 		var me = this;
 
 		me.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR);
+
 		if (me.cha)
   			me.cha.destroy();
   		if (me.ground)
@@ -727,6 +740,7 @@ GAME STATE
   			me.bg.destroy();
   		if (me.blocks)
   			me.blocks.destroy();
+
   		me.lastChaPos = {};
 	},
 
