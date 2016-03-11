@@ -519,14 +519,14 @@ Player
 			me.cha.body.height = me.cha.body.sourceHeight * 0.98;
 		}
 		else if (me.mode === me.BATMODE){
-			me.cha.body.width = me.cha.body.sourceWidth * 0.86;
+			me.cha.body.width = me.cha.body.sourceWidth * 0.6;
 			me.cha.body.height = me.cha.body.sourceHeight * 0.6;
 		}
 
 		// set the sprite's anchor to the center
 		me.cha.anchor.setTo(0.5, 0.5);
 
-		me.cha.scale.setTo(1.1, 1.1);
+		//me.cha.scale.setTo(1.0, 1.0);
 
 		//Make the player fall by applying gravity 
 		me.cha.body.gravity.y = 1200 * window.devicePixelRatio;
