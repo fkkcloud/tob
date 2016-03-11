@@ -58,7 +58,7 @@ BasicGame.Main.prototype = {
 		me.lastChaPos.x = me.game.width * 0.2;
 		me.lastChaPos.y = me.game.height * 0.5;
 
-		me.game.time.events.add(Phaser.Timer.SECOND, function(){ 
+		me.game.time.events.add(Phaser.Timer.SECOND * 0.5, function(){ 
 			me.createPlayer();
 	 		me.setupPlayerControl(); // set up player key input binds
 		}, me);
@@ -577,7 +577,7 @@ Player
 	},
 
 	playFXPlayerSpawn(){
-		this.spawnFX .animations.play('spawn', 12, false, true);
+		this.spawnFX .animations.play('spawn', 18, false, true);
 	},
 
 	playFXEatBlood(x, y){
