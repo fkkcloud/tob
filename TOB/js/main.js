@@ -536,10 +536,6 @@ Player
 		me.cha.checkWorldBounds = true;
         me.cha.events.onOutOfBounds.add(me.deathHandler, this);
 
-		//Make the player bounce a little 
-		
-		//me.cha.body.bounce.x = 0.15;
-
 		if (me.initBorn){
 			
 			var vamp_img_cache = game.cache.getImage("cha_vamp");
