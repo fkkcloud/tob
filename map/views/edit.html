@@ -1,59 +1,40 @@
 <div>
-	<section id="map-make">
-		<div ng-repeat="row in row1">
-			<div ng-click="fill1($event, $index)" class="row1 pixel">
+	<section id='mapEditMaster'>
+	  	<div id="mapEditView">
+	  		<div class="mapEditEach">
+		    	<div ng-repeat="row in row1"><div ng-click="fill1($event, $index)" class="row1 pixel"></div></div>
+		    </div>
+		    <div class="gap"></div>
+		    <div class="mapEditEach">
+		    	<div ng-repeat="row in row2"><div ng-click="fill2($event, $index)" class="row2 pixel"></div></div>
+		    </div>
+		    <div class="gap"></div>
+		    <div class="mapEditEach">
+		    	<div ng-repeat="row in row3"><div ng-click="fill3($event, $index)" class="row3 pixel"></div></div>
+		    </div>
+		    <div class="gap"></div>
+		    <div class="mapEditEach">
+		    	<div ng-repeat="row in row4"><div ng-click="fill4($event, $index)" class="row4 pixel"></div></div>
+		    </div>
+		    <div class="gap"></div>
+		    <div class="mapEditEach">
+		    	<div ng-repeat="row in row5"><div ng-click="fill5($event, $index)" class="row5 pixel"></div></div>
+		    </div>
+			<div class="gap"></div>
+			<div class="mapEditEach">
+				<div ng-repeat="row in row6"><div ng-click="fill6($event, $index)" class="row6 pixel"></div></div>
 			</div>
-		</div>
-
-		<div class="gap"></div>
-
-		<div ng-repeat="row in row2">
-			<div ng-click="fill2($event, $index)" class="row2 pixel">
+			<div class="gap"></div>
+			<div class="mapEditEach">
+				<div ng-repeat="row in row7"><div ng-click="fill7($event, $index)" class="row7 pixel"></div></div>
 			</div>
-		</div>
-
-		<div class="gap"></div>
-
-		<div ng-repeat="row in row3">
-			<div ng-click="fill3($event, $index)" class="row3 pixel">
+			<div class="gap"></div>
+			<div class="mapEditEach">
+				<div ng-repeat="row in row8"><div ng-click="fill8($event, $index)" class="row8 pixel"></div></div>
 			</div>
-		</div>
-
-		<div class="gap"></div>
-
-		<div ng-repeat="row in row4">
-			<div ng-click="fill4($event, $index)" class="row4 pixel">
-			</div>
-		</div>
-
-		<div class="gap"></div>
-
-		<div ng-repeat="row in row5">
-			<div ng-click="fill5($event, $index)" class="row5 pixel">
-			</div>
-		</div>
-
-		<div class="gap"></div>
-
-		<div ng-repeat="row in row6">
-			<div ng-click="fill6($event, $index)" class="row6 pixel">
-			</div>
-		</div>
-
-		<div class="gap"></div>
-
-		<div ng-repeat="row in row7">
-			<div ng-click="fill7($event, $index)" class="row7 pixel">
-			</div>
-		</div>
-
-		<div class="gap"></div>
-
-		<div ng-repeat="row in row8">
-			<div ng-click="fill8($event, $index)" class="row8 pixel">
-			</div>
-		</div>
-	</section>
+			<div class="gap"></div>
+	  	</div>
+	</section>		
 
 	<section id="map-control">
 		<div class="ui icon buttons">

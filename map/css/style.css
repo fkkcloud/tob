@@ -25,22 +25,6 @@ body { padding-top:30px; background-color: #222; text-align: center; }
   }
 }
 
-#map-make {
-	width:860px;
-  	margin: auto;
-}
-@media (max-width: 860px) and (min-width:690px){
-  #map-make {
-    width:634px;
-    margin: auto;
-  }
-}
-@media (max-width: 690px) {
-  #map-make {
-    width:420px;
-    margin: auto;
-  }
-}
 
 #map-control {
 	width: 500px;
@@ -87,4 +71,68 @@ body { padding-top:30px; background-color: #222; text-align: center; }
 
 .right-margin {
   margin-right: 7px;
+}
+
+#mapEditMaster {
+  max-width: 860px;
+  height: 200px;
+  margin: 10px auto;
+  background: #111;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+@media (max-width: 860px) and (min-width:690px){
+  #mapEditMaster {
+    width:634px;
+    height: 155px;
+    margin: 10px auto;
+  }
+}
+@media (max-width: 690px) {
+  #mapEditMaster {
+    width:420px;
+    height: 90px;
+    margin: 10px auto;
+  }
+}
+
+#mapEditView {
+  float: left;
+  display: inline;
+}
+
+.mapEditEach {
+  width: 3780px;
+  margin-top:20px;
+  margin-right:40px;
+  margin-left:40px;
+}
+@media (max-width: 860px) and (min-width:690px){
+  .mapEditEach {
+    margin-top:15px;
+    width:2800px;
+  }
+}
+@media (max-width: 690px) {
+  .mapEditEach {
+    margin-top:8px;
+    width:1800px;
+  }
+}
+
+#map-make {
+  width:860px;
+    margin: auto;
+}
+@media (max-width: 860px) and (min-width:690px){
+  #map-make {
+    width:634px;
+    margin: auto;
+  }
+}
+@media (max-width: 690px) {
+  #map-make {
+    width:420px;
+    margin: auto;
+  }
 }

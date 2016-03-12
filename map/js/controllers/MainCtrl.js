@@ -3,7 +3,7 @@ angular.module('MainCtrl', []).controller('MainController', function($scope) {
 	// map data size 45 * 8 WIP
 	$scope.map = {};
 	
-	$scope.map.width = 45;
+	$scope.map.width = 200;
 	$scope.map.height = 8;
 
 	$scope.bloodColor = '#800020';
@@ -16,10 +16,18 @@ angular.module('MainCtrl', []).controller('MainController', function($scope) {
 	}
 
 	//$scope.href_game = "http://localhost:4000/";
-	$scope.href_game = (document.location.hostname == "localhost" || document.location.hostname == "192.168.0.10") ? "http://192.168.0.10:4000/" : "http://kingsl-tob.herokuapp.com/";
+	$scope.href_game = (document.location.hostname == "localhost" || document.location.hostname == "192.168.0.11") ? "http://192.168.0.11:4000/" : "http://kingsl-tob.herokuapp.com/";
 
-	$scope.mapData = 
-		[
+	function createMapData(){
+		var arr = [];
+		for (var i = 0; i < $scope.map.width; i++){
+			var col = [0, 0, 0, 0, 0, 0, 0, 0];
+			arr.push(col);
+		}
+		return arr;
+	}
+	$scope.mapData = createMapData();
+		/*[
 			[0, 0, 0, 0, 0, 0, 0, 0],
 			[0, 0, 0, 0, 0, 0, 0, 0],
 			[0, 0, 0, 0, 0, 0, 0, 0],
@@ -74,7 +82,7 @@ angular.module('MainCtrl', []).controller('MainController', function($scope) {
 			[0, 0, 0, 0, 0, 0, 0, 0],
 			[0, 0, 0, 0, 0, 0, 0, 0]
 
-		];	
+		];*/
 	
 	$scope.resetMapData = function(){
 		for (var i = 0; i < $scope.mapData.length; i++){

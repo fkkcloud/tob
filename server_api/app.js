@@ -35,7 +35,7 @@ module.exports = function(app) {
 			data.pages = result.docs;
 			data.perpage = result.page;
 
-			console.log(data);
+			//console.log(data);
 
 		  	res.json(data);
 		});
@@ -61,15 +61,15 @@ module.exports = function(app) {
 			height : req.body.height
 		});
 
-        console.log('received mapData:', mapData);
+        //console.log('received mapData:', mapData);
 
 		mapData.save(function(err, data){
 			if (err) { 
-				console.log('db save failed..');
+				//console.log('db save failed..');
 				return next(err);
 			}
 
-			console.log('map upload complete..');
+			//console.log('map upload complete..');
 			res.json(201, data);
 		});
 	});
@@ -78,17 +78,17 @@ module.exports = function(app) {
 
 		var query = { _id : req.body.id }
 
-        console.log('received id:', query);
+        //console.log('received id:', query);
 
     	var update = { $inc: { rate : 1 }};
 
 		MapData.update(query, update, function(err, data){
 			if (err) {
-				console.log('db update failed...');
+				//console.log('db update failed...');
 				return next(err);
 			}
 
-			console.log('map update complete!..');
+			//console.log('map update complete!..');
 			res.json(200, data);
 		});
 	});
@@ -97,17 +97,17 @@ module.exports = function(app) {
 
 		var query = { _id : req.body.id }
 
-        console.log('received id:', query);
+        //console.log('received id:', query);
 
     	var update = { $inc: { playcount : 1 }};
 
 		MapData.update(query, update, function(err, data){
 			if (err) {
-				console.log('db update failed...');
+				//console.log('db update failed...');
 				return next(err);
 			}
 
-			console.log('map update complete!..');
+			//console.log('map update complete!..');
 			res.json(200, data);
 		});
 	});
