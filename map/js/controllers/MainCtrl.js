@@ -85,6 +85,7 @@ angular.module('MainCtrl', []).controller('MainController', function($scope) {
 		];*/
 	
 	$scope.resetMapData = function(){
+		$scope.mapData = createMapData();
 		for (var i = 0; i < $scope.mapData.length; i++){
 			for (var j = 0; j < $scope.mapData[i].length; j++){
 				$scope.mapData[i][j] = 0;
