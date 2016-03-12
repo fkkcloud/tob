@@ -3,11 +3,11 @@
 	<div class="gallery"> 
 	    <table>
 	        <div dir-paginate="item in items | itemsPerPage: itemsCountPerPage" total-items="totalPages" current-page="pagination.current">
-	        	<div class="item-box text-responsive">
+	        	<div class="item-box">
 	            	<div class="ui container center aligned red card">
 
 					  <div class="content">
-					  	<span class="left floated">
+					  	<span class="left floated text-big">
 					    	{{ item.name }}
 					    </span>
 					    <span class="right floated meta text-small">{{ item.date | date:'short'}}</span>
@@ -18,15 +18,15 @@
 					  </div>
 
 					  <div class="content">
-					    <span class="right floated">
+					    <span class="right floated text-mid">
 					     	<i ng-click="rating($index)" class="thumbs up like icon"></i>
 					     	{{ item.rate }}
 					    </span>
-					    <span class="right floated right-margin">
+					    <span class="right floated right-margin text-mid">
 					     	<i class="checkered flag icon"></i>
 					     	{{ item.playcount }}
 					    </span>
-					    <span class="left floated">
+					    <span class="left floated text-mid">
 					    	<i class="spy icon"></i>
 					    	{{ item.author }}
 					    </span>

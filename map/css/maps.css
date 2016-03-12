@@ -21,13 +21,22 @@
 }
 @media (max-width: 780px) {
   .text-small {
-    font-size: 16px;
+    font-size: 16px !important;
   }
 }
 
-.text-responsive{}
+.text-big{
+  font-size: 18px;
+}
 @media (max-width: 780px) {
-  .text-responsive {
+  .text-big {
+    font-size: 32px;
+  }
+}
+
+.text-mid{}
+@media (max-width: 780px) {
+  .text-mid {
     font-size: 24px;
   }
 }
