@@ -46,6 +46,12 @@ BasicGame.GameTitle.prototype = {
 		window.location.href = "http://kingsl-tob.herokuapp.com/map";
 	},
 
+	gotoMapEditor: function(){
+		window.location.href = "http://kingsl-tob.herokuapp.com/map/edit";
+	},
+
+
+
 	createLogo: function(){
 
 		this.title = this.game.add.sprite(this.game.width * 0.375, this.game.height * 0.125, 'title');
@@ -101,7 +107,7 @@ BasicGame.GameTitle.prototype = {
 
 		this.btn_maplist = this.game.add.button(0, this.game.world.height * 0.4, 'btn_maplist', this.gotoMaps, this);
 
-		this.btn_mapeditor = this.game.add.button(0, this.game.world.height * 0.55, 'btn_mapeditor', null, this);
+		this.btn_mapeditor = this.game.add.button(0, this.game.world.height * 0.55, 'btn_mapeditor', this.gotoMapEditor, this);
 
 		this.btn_option = this.game.add.button(0, this.game.world.height * 0.7, 'btn_option', null, this);
 	}

@@ -28,14 +28,22 @@ BasicGame.GameOver.prototype = {
   		me.labelHighScore.anchor.setTo(0.5, 0);
   		*/
 
-  		var restartButton = me.game.add.button(me.game.world.centerX,
-  			me.game.world.height * 0.5, "restart", me.restartGame, me);
+  		var restartButton = me.game.add.button(me.game.world.width * 0.3,
+  			me.game.world.height * 0.5, "startButton", me.restartGame, me);
   		restartButton.anchor.setTo(0.5, 0.5);
+
+  		var menuButton = me.game.add.button(me.game.world.width * 0.7,
+  			me.game.world.height * 0.5, "restart", me.gotoMenu, me);
+  		menuButton.anchor.setTo(0.5, 0.5);
 
 	},
 
+	gotoMenu: function(){
+		this.game.state.start("GameTitle")
+	},
+
 	restartGame: function(){
-		this.game.state.start("GameTitle");
+		this.game.state.start("Main");
 	},
 
 	init: function(score){
