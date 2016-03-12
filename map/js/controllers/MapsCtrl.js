@@ -111,7 +111,7 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
                 }
 
                 var newCanvas = $("<canvas>")
-                    .attr("width", imageData.width)
+                    .attr("width", 45/*imageData.width*/)
                     .attr("height", imageData.height)[0];
 
                 newCanvas.getContext("2d").putImageData(imageData, 0, 0);

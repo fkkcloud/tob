@@ -5,9 +5,7 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 	});
 
 	$scope.paintColor = undefined;
-
 	$scope.paintMode = undefined;
-
 	$scope.isDrawing = false;
 
 	// create row data
