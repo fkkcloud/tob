@@ -3,9 +3,8 @@
 	<div class="gallery"> 
 	    <table>
 	        <div dir-paginate="item in items | itemsPerPage: itemsCountPerPage" total-items="totalPages" current-page="pagination.current">
-	        	<div class="item-box">
-	            	<!--<div class="item-image"><img ng-src="{{ item.img }}" width="100px" height="100px"/><div>-->
-	            	<div class="ui red card">
+	        	<div class="item-box text-responsive">
+	            	<div class="ui container center aligned red card">
 
 					  <div class="content">
 					  	<span class="left floated">
@@ -35,7 +34,6 @@
 
 					</div>
 	        	</div>
-
 	        	
 	    </table>
 

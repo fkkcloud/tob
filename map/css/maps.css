@@ -2,24 +2,37 @@
 
 .gallery {
   margin: auto;
-  width: 300px;
+  width: 100%;
 }
 
 .item-control {
   height: 10px !important;
-  width: 320px !important;
+  width: 100% !important;
   margin: 0 auto !important;
 }
 
 .item-box {
-  width: 420px;
-  margin: 24px 4px;
+  width: 100%;
+  margin: 24px auto !important;
 }
 
 .text-small {
   font-size: 12px !important;
 }
+@media (max-width: 780px) {
+  .text-small {
+    font-size: 16px;
+  }
+}
 
+.text-responsive{}
+@media (max-width: 780px) {
+  .text-responsive {
+    font-size: 24px;
+  }
+}
+
+/* in the card space between texts */
 .right-margin {
   margin-right: 7px;
 }

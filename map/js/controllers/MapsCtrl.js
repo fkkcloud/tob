@@ -91,7 +91,7 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
                     var currMapID = mapData2DArray[x][y];
                     var color;
                     if (currMapID === 0) // nothing
-                        color = [10, 10, 10];
+                        color = [255, 255, 255];
                     else if (currMapID === 1) // block
                         color = [0, 205, 205];
                     else if (currMapID === 3) // blood
