@@ -1,137 +1,14 @@
-body { padding-top:30px; background-color: #222; text-align: center; }
-
-.gap { display:block; width:1px; height:1px; margin: 18px; }
-@media (max-width: 860px) and (min-width:690px) {
-  .gap {
-  	width:1px; height:1px; margin: 13px;
-  }
-}
-@media (max-width: 690px) {
-  .gap {
-  	width:1px; height:1px; margin: 8px;
-  }
+body { 
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  //background-color: #222;
+  text-align: center; 
 }
 
-
-.pixel { width:16px;height:16px; margin-left:1px; margin-right:2px; background-color:#474646; float: left; }
-@media (max-width: 860px) and (min-width:690px) {
-  .pixel {
-    width:12px;height:12px; margin-left:1px; margin-right:1px;
-  }
-}
-@media (max-width: 690px) {
-  .pixel {
-    width:7px;height:7px; margin-left:1px; margin-right:1px;
-  }
-}
-
-
-#map-control {
-	width: 500px;
-	margin: 60px auto 10px;
-}
-
-#map-preview {
-	margin-top: 24px;
-	margin-bottom: 48px;
-}
-
-#map-manage {
-	margin: auto;
-	width: 300px;
-}
-
-/* Gallery stuff */
-
-.gallery {
-  margin: auto;
-  width: 300px;
-}
-
-.item-control {
-  height: 10px !important;
-  width: 290px !important;
-  margin: 0 auto !important;
-}
-@media only screen and (max-width: 680px) {
-    .item-control {
-        width: 240px !important;
-    }
-}
-
-.item-box {
-  width: 360px;
-  margin: 12px 4px;
-}
-
-.text-small {
-  font-size: 12px !important;
-}
-
-.right-margin {
-  margin-right: 7px;
-}
-
-#mapEditMaster {
-  max-width: 860px;
-  height: 200px;
-  margin: 10px auto;
-  background: #111;
-  overflow-x: scroll;
-  overflow-y: hidden;
-}
-@media (max-width: 860px) and (min-width:690px){
-  #mapEditMaster {
-    width:634px;
-    height: 155px;
-    margin: 10px auto;
-  }
-}
-@media (max-width: 690px) {
-  #mapEditMaster {
-    width:420px;
-    height: 90px;
-    margin: 10px auto;
-  }
-}
-
-#mapEditView {
-  float: left;
-  display: inline;
-}
-
-.mapEditEach {
-  width: 3820px;
-  margin-top:20px;
-  margin-right:40px;
-  margin-left:40px;
-}
-@media (max-width: 860px) and (min-width:690px){
-  .mapEditEach {
-    margin-top:15px;
-    width:2800px;
-  }
-}
-@media (max-width: 690px) {
-  .mapEditEach {
-    margin-top:8px;
-    width:1800px;
-  }
-}
-
-#map-make {
-  width:860px;
-    margin: auto;
-}
-@media (max-width: 860px) and (min-width:690px){
-  #map-make {
-    width:634px;
-    margin: auto;
-  }
-}
-@media (max-width: 690px) {
-  #map-make {
-    width:420px;
-    margin: auto;
-  }
+.bg {
+  overflow: auto;
+  height:100%;
+  margin: 0;
+  background-color: #222;
 }

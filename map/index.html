@@ -10,6 +10,8 @@
 
 	<!-- CSS -->
 	<link rel="stylesheet" href="css/style.css"> <!-- custom styles -->
+	<link rel="stylesheet" href="css/edit.css"> <!-- custom styles -->
+	<link rel="stylesheet" href="css/maps.css"> <!-- custom styles -->
 
 	<!-- bootstrap only for pagination -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -43,15 +45,16 @@
 
 <body ng-app="MapApp" ng-controller="MainController">
 
-<div style="height:100%; background-color: #222;">
-	<!-- HEADER -->
-	<div class="ui gray three item inverted menu">
-	  <a class="item" href="/map/">Maps</a>
-	  <a class="item" href="/map/edit">MapEditor</a>
-	</div>
+	<div class="bg">
 
-	<!-- ANGULAR DYNAMIC CONTENT -->
-	<div ng-view ></div>
-</div>
+		<!-- HEADER -->
+		<div class="ui gray large three item inverted menu">
+		  <a class="item" href="/map/">Maps</a>
+		  <a class="item" href="/map/edit">MapEditor</a>
+		</div>
+
+		<!-- ANGULAR DYNAMIC CONTENT -->
+		<div ng-view ></div>
+	</div>
 </body>
 </html>
