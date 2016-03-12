@@ -21,7 +21,7 @@
 }
 @media (max-width: 780px) {
   .text-small {
-    font-size: 16px !important;
+    font-size: 14px !important;
   }
 }
 
@@ -30,14 +30,14 @@
 }
 @media (max-width: 780px) {
   .text-big {
-    font-size: 32px;
+    font-size: 24px;
   }
 }
 
 .text-mid{}
 @media (max-width: 780px) {
   .text-mid {
-    font-size: 24px;
+    font-size: 18px;
   }
 }
 

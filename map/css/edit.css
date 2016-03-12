@@ -1,7 +1,7 @@
 
 #map-control {
-  width: 500px;
-  margin: 60px auto 10px;
+  width: 100%;
+  margin: 0 auto ;
 }
 
 #map-preview {
@@ -15,23 +15,23 @@
 }
 
 .gap { display:block; width:1px; height:1px; margin: 18px; }
-@media (max-width: 860px) and (min-width:690px) {
+@media (max-width: 860px) and (min-width:480px) {
   .gap {
     width:1px; height:1px; margin: 13px;
   }
 }
-@media (max-width: 690px) {
+@media (max-width: 480px) {
   .gap {
     width:1px; height:1px; margin: 8px;
   }
 }
 .pixel { width:16px;height:16px; margin-left:1px; margin-right:2px; background-color:#474646; float: left; }
-@media (max-width: 860px) and (min-width:690px) {
+@media (max-width: 860px) and (min-width:480px) {
   .pixel {
     width:12px;height:12px; margin-left:1px; margin-right:1px;
   }
 }
-@media (max-width: 690px) {
+@media (max-width: 480px) {
   .pixel {
     width:7px;height:7px; margin-left:1px; margin-right:1px;
   }
@@ -45,16 +45,16 @@
   overflow-x: scroll;
   overflow-y: hidden;
 }
-@media (max-width: 860px) and (min-width:690px){
+@media (max-width: 860px) and (min-width:480px){
   #mapEditMaster {
-    width:634px;
+    width:500px;
     height: 155px;
     margin: 10px auto;
   }
 }
-@media (max-width: 690px) {
+@media (max-width: 480px) {
   #mapEditMaster {
-    width:420px;
+    width:320px;
     height: 90px;
     margin: 10px auto;
   }
@@ -70,13 +70,13 @@
   margin-right:40px;
   margin-left:40px;
 }
-@media (max-width: 860px) and (min-width:690px){
+@media (max-width: 860px) and (min-width:480px){
   .mapEditEach {
     margin-top:15px;
     width:2800px;
   }
 }
-@media (max-width: 690px) {
+@media (max-width: 480px) {
   .mapEditEach {
     margin-top:8px;
     width:1800px;
