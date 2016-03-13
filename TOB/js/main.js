@@ -67,6 +67,8 @@ BasicGame.Main.prototype = {
    	 	// debug
 		//me.createDebugHUD();
 
+		me.createMapTitle();
+
 		// pre stage
 		me.createPreStage();
 
@@ -136,6 +138,7 @@ BasicGame.Main.prototype = {
 				blood.destroy();
 				me.bloodCount += 1;
 
+				/*
 				if (me.bloodCount === 1)
 					this.bloodfill1.animations.play('fill1', 16, false, false);
 				else if (me.bloodCount === 2)
@@ -146,7 +149,8 @@ BasicGame.Main.prototype = {
 					this.bloodfill4.animations.play('fill4', 16, false, false);
 				else if (me.bloodCount === 5)
 					this.bloodfill5.animations.play('fill5', 16, false, false);
-
+				*/
+				
 				if (me.mode !== me.BATMODE && me.bloodCount > 4){
 
 					me.runBatMode();
@@ -164,6 +168,30 @@ BasicGame.Main.prototype = {
 		//me.debugText.setText(me.bloodCount)// (me.currentColumnId);
 	},
 
+	createMapTitle: function(){
+		var me = this;
+
+		var fontSize = 24 * window.devicePixelRatio;
+
+		var headingFont = fontSize + "px Arial";
+		
+		me.mapTitle = me.game.add.text(me.game.world.centerX,
+			me.game.world.height * 0.3, 
+			window.localStorage.mapName, 
+			{	font: headingFont, 
+				fill: "#fff", 
+				align: 'right',
+			});
+		me.mapTitle.anchor.setTo(0.5, 0.5);
+
+		me.game.time.events.add(Phaser.Timer.SECOND * 2, function(){ 
+			//Send score to game over screen 
+			me.mapTitle.destroy();
+		}, me);
+
+
+
+	},
 
 	createPreStage: function(){
 		var me = this;
