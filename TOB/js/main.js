@@ -150,7 +150,7 @@ BasicGame.Main.prototype = {
 				else if (me.bloodCount === 5)
 					this.bloodfill5.animations.play('fill5', 16, false, false);
 				*/
-				
+
 				if (me.mode !== me.BATMODE && me.bloodCount > 4){
 
 					me.runBatMode();
@@ -171,7 +171,7 @@ BasicGame.Main.prototype = {
 	createMapTitle: function(){
 		var me = this;
 
-		var fontSize = 24 * window.devicePixelRatio;
+		var fontSize = 32 * window.devicePixelRatio;
 
 		var headingFont = fontSize + "px Arial";
 		
