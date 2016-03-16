@@ -46,12 +46,12 @@ module.exports = function(app) {
 		var parts = url.parse(req.url, true);
 		var query = parts.query;
 
-		console.log('page number:', query.mapid)
+		//console.log('page number:', query.mapid)
 
 		MapData.findOne({ _id: query.mapid }, function(err, result) {
 			if (err) { return next(err) }
 			
-			console.log(result);
+			//console.log(result);
 
 		  	res.json(result);
 		});
