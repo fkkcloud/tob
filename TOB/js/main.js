@@ -593,7 +593,7 @@ Player
 
 		// when it becomes bat, do a little fly
 		if (me.mode === me.BATMODE){
-			me.cha.body.velocity.y = -280 * window.devicePixelRatio;
+			me.cha.body.velocity.y = -140 * window.devicePixelRatio;
 			me.game.add.tween(me.cha).to({angle: -40}, 100).start();
 		}
 	},
