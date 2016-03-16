@@ -41,6 +41,10 @@ BasicGame.Preload.prototype = {
 
 		 	this.load.image('ui_bloodbar', 'assets/ui_bloodbar@3.png');
 
+		 	this.load.image('endpoint', 'assets/endpoint@3.png');
+
+		 	this.load.image('trap', 'assets/trap@3.png');
+
 		 	this.load.spritesheet('transform', 'assets/transform@3.png', 360, 360, 6);
 
 			this.load.image('open_all', 'assets/open_all@3.png');
@@ -97,6 +101,10 @@ BasicGame.Preload.prototype = {
 
 		 	this.load.image('ui_bloodbar', 'assets/ui_bloodbar@2.png');
 
+		 	this.load.image('endpoint', 'assets/endpoint@2.png');
+
+		 	this.load.image('trap', 'assets/trap@2.png');
+
 		 	this.load.spritesheet('transform', 'assets/transform@2.png', 240, 240, 6);
 
 		 	this.load.image('open_all', 'assets/open_all@2.png');
@@ -152,6 +160,10 @@ BasicGame.Preload.prototype = {
 		 	this.load.spritesheet('blood_fill', 'assets/blood_fill.png', 36, 36, 12);
 
 		 	this.load.image('ui_bloodbar', 'assets/ui_bloodbar.png');
+
+		 	this.load.image('endpoint', 'assets/endpoint.png');
+
+		 	this.load.image('trap', 'assets/trap.png');
 
 		 	this.load.spritesheet('transform', 'assets/transform.png', 120, 120, 6);
 

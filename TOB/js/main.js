@@ -88,7 +88,7 @@ BasicGame.Main.prototype = {
 			me.generateMapColumn();
 		}
 
-		// cha angle default
+		// cha angle default ------------------------------------------------------------------------------------------------------------------------------------------------
 		if(me.cha && me.cha.angle < me.defaultAngle) {
 		    me.cha.angle += 2.5;
 		}
@@ -98,7 +98,7 @@ BasicGame.Main.prototype = {
 			me.lastChaPos.y = me.cha.y - me.cha.y * 0.125;
 		}
 
-		// loop through blocks
+		// loop through blocks ------------------------------------------------------------------------------------------------------------------------------------------------
 		me.collisionDetected = false;
 		for (var i = 0; i < me.blocks.children.length; i++){
 			
@@ -129,8 +129,30 @@ BasicGame.Main.prototype = {
 			}
 		}
 
-		// loop through bloods
+		// loop through end points ------------------------------------------------------------------------------------------------------------------------------------------------
+		for (var i = 0; i < me.endPoints.children.length; i++){
+
+			var endPoint = me.endPoints.children[i];
+			me.game.physics.arcade.overlap(me.cha, endPoint, function(){
+				me.game.time.events.add(Phaser.Timer.SECOND * 0.1, function(){ 
+					//Send score to game over screen 
+					me.game.state.start('GameOver', true, false, me.score.toString());
+				}, me);
+			})
+		}
+
+		// loop through traps ------------------------------------------------------------------------------------------------------------------------------------------------
+		for (var i = 0; i < me.traps.children.length; i++){
+			
+			var trap = me.traps.children[i];
+			me.game.physics.arcade.collide(me.cha, trap, function(){
+				me.deathHandler();
+			}, null, me);
+		}
+
+		// loop through bloods ------------------------------------------------------------------------------------------------------------------------------------------------
 		for (var i = 0; i < me.bloods.children.length; i++){
+
 			var block = me.bloods.children[i];
 			me.game.physics.arcade.overlap(me.cha, block, function(cha, blood){
 
@@ -166,6 +188,7 @@ BasicGame.Main.prototype = {
 			
 		}
 
+		// ------------------------------------------------------------------------------------------------------------------------------------------------
 		me.updateBG();
 
 		// debug text
@@ -213,6 +236,8 @@ blocks - memory
 	createBlocks: function(){
 		this.blocks = game.add.group();
 		this.bloods = game.add.group();
+		this.traps = game.add.group();
+		this.endPoints = game.add.group();
 	},
 
 	destroyBlocks: function(){
@@ -220,6 +245,10 @@ blocks - memory
 			this.blocks.destroy();
 		if (this.bloods && this.bloods.length > 0)
 			this.bloods.destroy();
+		if (this.traps && this.traps.length > 0)
+			this.traps.destroy();
+		if (this.endPoints && this.endPoints.length > 0)
+			this.endPoints.destroy();
 	},
 
 /*
@@ -287,10 +316,15 @@ blocks - generations
 		var block;
 
 		// Get the first dead pipe of our group
+
 		if (imgId === 1)
 	    	block = me.blocks.getFirstDead();
+	    else if (imgId === 2)
+	    	block = me.traps.getFirstDead();
 	    else if (imgId === 3)
 	    	block = me.bloods.getFirstDead();
+	    else if (imgId === 4)
+	    	block = me.endPoints.getFirstDead();
 	    
 
 	    if (!block){
@@ -329,13 +363,19 @@ blocks - generations
 
 	    block.scale.setTo(BasicGame.blockSpriteScale, BasicGame.blockSpriteScale);
 
-	    if (imgId === 1){
-	    	block.body.checkCollision.down = false;
+	    if (imgId === 1){ //  block
+	    	//block.body.checkCollision.down = false;
 			block.body.checkCollision.right = false;
 	    	me.blocks.add(block);
 	    }
-	    else if (imgId === 3){
+	    else if (imgId === 2){ // trap
+	    	me.traps.add(block);
+	    }
+	    else if (imgId === 3){ // blood
 	    	me.bloods.add(block);
+	    }
+	    else if (imgId === 4){ // end point
+	    	me.endPoints.add(block);
 	    }
 
 	    return block;
@@ -362,8 +402,14 @@ blocks - generations
 			} else if (imgId === 1){
 				imgStr = me.getBlockImage(me.currentColumnId, i);
 			}
+			else if (imgId === 2){
+				imgStr = 'trap';
+			}
 			else if (imgId === 3){
 				imgStr = 'blood';
+			}
+			else if (imgId === 4){
+				imgStr = 'endpoint';
 			}
 
 			me.generateSingleBlock(x, y, imgStr, imgId);

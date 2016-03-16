@@ -16,7 +16,10 @@
 
 	<div class="gallery"> 
 	    <table>
-	        <div dir-paginate="item in items | itemsPerPage: itemsCountPerPage" total-items="totalPages" current-page="pagination.current">
+	        <div dir-paginate="item in items | itemsPerPage: itemsCountPerPage" 
+	        		total-items="totalPages" 
+	        		current-page="pagination.current">
+
 	        	<div class="item-box">
 	            	<div class="ui container center aligned red card">
 
@@ -44,11 +47,10 @@
 					    	<i class="spy icon"></i>
 					    	{{ item.author }}
 					    </span>
-					  </div>
-
 					</div>
-	        	</div>
-	        	
+				</div>
+				
+	        </div>
 	    </table>
 
 	    <dir-pagination-controls 

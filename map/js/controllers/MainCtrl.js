@@ -9,6 +9,8 @@ angular.module('MainCtrl', []).controller('MainController', function($scope) {
 	$scope.bloodColor = '#800020';
 	$scope.blockColor = '#00CDCD';
 	$scope.emptyColor = '#474646';
+	$scope.trapColor  = '#551A8B';
+	$scope.endColor   = '#FF69B4';
 
 	if (!window.localStorage.ratedMapIds || window.localStorage.ratedMapIds == null || window.localStorage.ratedMapIds == undefined || window.localStorage.ratedMapIds == 'undefined'){
 		var newArray = {'data':['1234567890']};
