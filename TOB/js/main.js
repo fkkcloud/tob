@@ -98,7 +98,23 @@ BasicGame.Main.prototype = {
 			me.lastChaPos.y = me.cha.y - me.cha.y * 0.125;
 		}
 
-		// loop through blocks ------------------------------------------------------------------------------------------------------------------------------------------------
+		me.updateBlocksEvent();
+
+		me.updateEndPointsEvent();		
+
+		me.updateTrapsEvent();		
+
+		me.updateBloodsEvent();
+
+		// ------------------------------------------------------------------------------------------------------------------------------------------------
+		me.updateBG();
+
+		// debug text
+		//me.debugText.setText(me.bloodCount)// (me.currentColumnId);
+	},
+
+	updateBlocksEvent: function(){
+		var me = this;
 		me.collisionDetected = false;
 		for (var i = 0; i < me.blocks.children.length; i++){
 			
@@ -128,20 +144,10 @@ BasicGame.Main.prototype = {
 				me.groundFX = me.game.time.events.loop(Phaser.Timer.SECOND * 0.4, me.playFXPlayerRun, me);
 			}
 		}
+	},
 
-		// loop through end points ------------------------------------------------------------------------------------------------------------------------------------------------
-		for (var i = 0; i < me.endPoints.children.length; i++){
-
-			var endPoint = me.endPoints.children[i];
-			me.game.physics.arcade.overlap(me.cha, endPoint, function(){
-				me.game.time.events.add(Phaser.Timer.SECOND * 0.1, function(){ 
-					//Send score to game over screen 
-					me.game.state.start('GameOver', true, false, me.score.toString());
-				}, me);
-			})
-		}
-
-		// loop through traps ------------------------------------------------------------------------------------------------------------------------------------------------
+	updateTrapsEvent: function(){
+		var me = this;
 		for (var i = 0; i < me.traps.children.length; i++){
 			
 			var trap = me.traps.children[i];
@@ -149,8 +155,10 @@ BasicGame.Main.prototype = {
 				me.deathHandler();
 			}, null, me);
 		}
+	},
 
-		// loop through bloods ------------------------------------------------------------------------------------------------------------------------------------------------
+	updateBloodsEvent: function(){
+		var me = this;
 		for (var i = 0; i < me.bloods.children.length; i++){
 
 			var block = me.bloods.children[i];
@@ -187,12 +195,20 @@ BasicGame.Main.prototype = {
 			}, null, me);	
 			
 		}
+	},
 
-		// ------------------------------------------------------------------------------------------------------------------------------------------------
-		me.updateBG();
+	updateEndPointsEvent: function(){
+		var me = this;
+		for (var i = 0; i < me.endPoints.children.length; i++){
 
-		// debug text
-		//me.debugText.setText(me.bloodCount)// (me.currentColumnId);
+			var endPoint = me.endPoints.children[i];
+			me.game.physics.arcade.overlap(me.cha, endPoint, function(){
+				me.game.time.events.add(Phaser.Timer.SECOND * 0.1, function(){ 
+					//Send score to game over screen 
+					me.game.state.start('GameOver', true, false, me.score.toString());
+				}, me);
+			})
+		}
 	},
 
 	createMapTitle: function(){
