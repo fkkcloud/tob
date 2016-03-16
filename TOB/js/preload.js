@@ -69,7 +69,7 @@ BasicGame.Preload.prototype = {
 
 		 	originalImageWidth = 47 * 3;
 		}
-		else if(window.devicePixelRatio >= 2)
+		else if(window.devicePixelRatio == 2)
 		{
 
 	    	this.load.image('bg_sky', 'assets/bg_sky@2.png');

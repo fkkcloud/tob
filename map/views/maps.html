@@ -1,4 +1,18 @@
 <div>
+	<div class="highlight">
+		<div id="gradient"></div>
+		<div id="card">
+		  <h1>Today's Featured Map</h1>
+		  <h2> {{ featuredMap.name }} </h2>
+
+		  <p> {{ featuredMap.date | date:'short'}} </p>
+
+		  <img ng-click="startFeatured()" ng-src="{{ featuredMap.imgData }}"/>
+
+		  <span class="left bottom"> <i class="spy icon"></i> {{ featuredMap.author }} </span>
+		  <span class="right bottom"> <i class="checkered flag icon"></i> {{ featuredMap.playcount }} <i ng-click="rateFeatured()" class="ui thumbs up like icon"></i> {{ featuredMap.rate }} </span>
+		</div>
+	</div>
 
 	<div class="gallery"> 
 	    <table>
@@ -14,7 +28,7 @@
 					  </div>
 
 					  <div>
-					    <img id="map-img" ng-click="startMap($index)" ng-src="{{ item.imgData }}" width="320" hegiht="57">
+					    <img id="map-img" ng-click="startMap($index)" ng-src="{{ item.imgData }}" width="320">
 					  </div>
 
 					  <div class="content">

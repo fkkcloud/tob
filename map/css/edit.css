@@ -39,7 +39,7 @@
 
 #mapEditMaster {
   max-width: 860px;
-  height: 200px;
+  height: 220px;
   margin: 10px auto;
   background: #111;
   overflow-x: scroll;
@@ -48,14 +48,14 @@
 @media (max-width: 860px) and (min-width:480px){
   #mapEditMaster {
     width:500px;
-    height: 155px;
+    height: 175px;
     margin: 10px auto;
   }
 }
 @media (max-width: 480px) {
   #mapEditMaster {
     width:320px;
-    height: 90px;
+    height: 110px;
     margin: 10px auto;
   }
 }

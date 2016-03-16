@@ -153,9 +153,13 @@ BasicGame.Main.prototype = {
 
 				if (me.mode !== me.BATMODE && me.bloodCount > 4){
 
-					me.runBatMode();
-					me.createPlayer();
-					me.playFXTransform();
+					// give it a little delay before transformation
+					me.game.time.events.add(Phaser.Timer.SECOND * 0.125, function(){ 
+						me.runBatMode();
+						me.createPlayer();
+						me.playFXTransform();
+					}, me);
+					
 
 				}
 			}, null, me);	
@@ -469,7 +473,7 @@ Mode
 		var me = this;
 
 		me.mode = me.BATMODE;
-		me.defaultAngle = 5;
+		me.defaultAngle = 25;
 	},
 
 	runVampMode: function(){
@@ -547,8 +551,8 @@ Player
 		me.game.physics.arcade.enable(me.cha);
 
 		if (me.mode === me.VAMPMODE){
-			me.cha.body.width = me.cha.body.sourceWidth * 0.7;
-			me.cha.body.height = me.cha.body.sourceHeight * 0.98;
+			me.cha.body.width = me.cha.body.sourceWidth * 0.6;
+			me.cha.body.height = me.cha.body.sourceHeight * 0.95;
 		}
 		else if (me.mode === me.BATMODE){
 			me.cha.body.width = me.cha.body.sourceWidth * 0.6;
@@ -569,6 +573,8 @@ Player
         me.cha.events.onOutOfBounds.add(me.deathHandler, this);
 
 		if (me.initBorn){
+
+			console.log("image");
 			
 			var vamp_img_cache = game.cache.getImage("cha_vamp");
 			me.createFXPlayerSpawn(me.initX - vamp_img_cache.width * 0.65, BasicGame.blockSize * -1);
@@ -576,7 +582,7 @@ Player
 
 			me.cha.body.velocity.y = + 1500 * window.devicePixelRatio;
 
-			me.cha.body.bounce.y = 0.15;
+			me.cha.body.bounce.y = 0.2;
 
 			me.game.time.events.add(Phaser.Timer.SECOND, function(){ 
 				me.cha.body.bounce.y = 0.0;
@@ -584,6 +590,12 @@ Player
 		}
 
 		me.initBorn = false;
+
+		// when it becomes bat, do a little fly
+		if (me.mode === me.BATMODE){
+			me.cha.body.velocity.y = -280 * window.devicePixelRatio;
+			me.game.add.tween(me.cha).to({angle: -40}, 100).start();
+		}
 	},
 
 	playFXPlayerDeath(){
@@ -728,7 +740,7 @@ Control - player
 
 		me.cha.body.velocity.y = -400 * window.devicePixelRatio;
 
-		me.game.add.tween(me.cha).to({angle: -20}, 100).start();
+		me.game.add.tween(me.cha).to({angle: -30}, 100).start();
 
 		if (me.mode === me.BATMODE)
 			me.playFXPlayerFly();

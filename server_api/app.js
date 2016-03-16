@@ -41,6 +41,23 @@ module.exports = function(app) {
 		});
 	});
 
+		// handle things like api calls
+	app.get('/api/maps/featured', function(req, res, next){
+		var parts = url.parse(req.url, true);
+		var query = parts.query;
+
+		console.log('page number:', query.mapid)
+
+		MapData.findOne({ _id: query.mapid }, function(err, result) {
+			if (err) { return next(err) }
+			
+			console.log(result);
+
+		  	res.json(result);
+		});
+	});
+
+
 	app.get('/api/maps/counts', function(req, res, next){
 		MapData.count({}, function(err, count){
 			if (err) { return next(err) }
