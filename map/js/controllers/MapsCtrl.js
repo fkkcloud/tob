@@ -96,12 +96,15 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
 
     function getFeaturedMap() {
 
-        var mapid = "56e50f67e4e1f7a0121d6d44";
+        var mapid = "56e4ab054a48ca1100b4f2a1"; //"56e50f67e4e1f7a0121d6d44";
 
         $http.get('/api/maps/featured/?mapid=' + mapid)
         .then(function(result){
 
             var map = result.data;
+
+            if (!map)
+                return;
 
             map.imgData = generateImage(map);
 
@@ -121,7 +124,7 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
             for (var i = 0; i < items.length; i++){
 
                 var item = items[i];
-                console.log(item);
+                //console.log(item);
 
                 items[i].imgData = generateImage(item);
             }
