@@ -54,7 +54,7 @@
     padding-bottom: 10px;
     padding-top: 5px;
     width: 100%;
-    height:400px;
+    height:380px;
 }
 
 .left {
@@ -76,7 +76,7 @@
 
 #gradient {
   background: #999955;
-  background-image: linear-gradient(#DAB046 20%, #D73B25 20%, #D73B25 40%, #C71B25 40%, #C71B25 60%, #961A39 60%, #961A39 80%, #601035 80%);
+  background-image: linear-gradient(#780909 20%, #8A0707 20%, #8A0707 40%, #A20606 40%, #A20606 60%, #B70303 60%, #B70303 80%, #DC0404 80%);
   margin: 0 auto;
   margin-top:20px;
   width: 100%;
