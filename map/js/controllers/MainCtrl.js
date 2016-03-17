@@ -19,6 +19,7 @@ angular.module('MainCtrl', []).controller('MainController', function($scope) {
 
 	//$scope.href_game = "http://localhost:4000/";
 	$scope.href_game = (document.location.hostname == "localhost" || document.location.hostname == "192.168.0.11") ? "http://192.168.0.11:4000/" : "http://kingsl-tob.herokuapp.com/";
+	$scope.href_edit = (document.location.hostname == "localhost" || document.location.hostname == "192.168.0.11") ? "http://192.168.0.11:4000/map/edit" : "http://kingsl-tob.herokuapp.com/map/edit";
 
 	function createMapData(){
 		var arr = [];

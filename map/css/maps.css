@@ -16,6 +16,17 @@
   margin: 24px auto !important;
 }
 
+.card-map {
+  width:100%;
+  background-color: #000 !important;
+}
+
+.card-edit {
+  background-color: #bbb !important;
+  border-style: none !important;
+  border-width: 0px !important;
+}
+
 .text-small {
   font-size: 12px !important;
 }
@@ -69,13 +80,18 @@
   text-align: center;
 }
 
+.top {
+  position: absolute;
+  top: 35px;
+}
+
 .bottom {
   position: absolute;
   bottom: 25px;
 }
 
 #gradient {
-  background: #999955;
+  background: #780909;
   background-image: linear-gradient(#780909 20%, #8A0707 20%, #8A0707 40%, #A20606 40%, #A20606 60%, #B70303 60%, #B70303 80%, #DC0404 80%);
   margin: 0 auto;
   margin-top:20px;
@@ -86,7 +102,7 @@
 #gradient:after {
   content: "";
   position: absolute;
-  background: #E9E2D0;
+  background: #780909;
   left: 50%;
   margin-top: -67.5px;
   margin-left: -270px;
@@ -99,14 +115,14 @@
 
 #card {
   position: absolute;
-  width: 450px;
+  width: 480px;
   height: 225px;
   padding-top: 0;
   padding-bottom: 0;
   left: 50%;
   top: 5.5px;
-  margin-left: -225px;
-  background: #E9E2D0;
+  margin-left: -240px;
+  background: #780909;
   border-radius: 5px;
   box-shadow: -20px 0 35px -25px black, 20px 0 35px -25px black;
   z-index: 5;
@@ -119,19 +135,35 @@
   }
 }
 
+#card div {
+  width:100%;
+  height:50px;
+  background-color: #000;
+}
+@media (max-width: 780px) {
+  #card div {
+    height:30px;
+  }
+}
+
 #card img {
   margin: 0 auto;
-  width:350px;
+  width:300px;
+  height:50px;
 }
 @media (max-width: 780px) {
   #card img {
     width:200px;
+    height:30px;
   }
 }
 
+#card h1 {
+  color: #111;
+}
+
 #card h2 {
-  font-family: courier;
-  color: #333;
+  color: #111;
   margin: 0 auto;
   padding: 0;
   font-size: 15pt;
@@ -139,7 +171,7 @@
 
 #card p {
   font-family: courier;
-  color: #555;
+  color: #111;
   font-size: 13px;
 }
 

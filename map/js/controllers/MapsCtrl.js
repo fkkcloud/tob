@@ -1,4 +1,4 @@
-angular.module('MapsCtrl', []).controller('MapsController', function($scope, $http) {
+angular.module('MapsCtrl', []).controller('MapsController', function($scope, $http, $location) {
 
     $scope.currentLoadedMaps = undefined;
 
@@ -63,6 +63,14 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
         runMap(queryID);
     }
 
+    $scope.editMap = function(id) {
+        window.localStorage.mapData = $scope.currentLoadedMaps[id].data;
+        window.localStorage.mapName = $scope.currentLoadedMaps[id].name;
+
+        $location.path( '/edit' );
+        //window.location.href = $scope.href_edit;
+    }
+
     function runMap(queryID) {
         $http.post('/api/maps/inc_playcount', { 'id' : queryID })
         .then(function(result){
@@ -96,7 +104,9 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
 
     function getFeaturedMap() {
 
-        var mapid = "56e4ab054a48ca1100b4f2a1"; //"56e50f67e4e1f7a0121d6d44";
+        var testMapId = "56e50f67e4e1f7a0121d6d44";
+        var realMapId = "56e4ab054a48ca1100b4f2a1";
+        var mapid = (document.location.hostname == "localhost" || document.location.hostname == "192.168.0.11") ? testMapId : realMapId ;
 
         $http.get('/api/maps/featured/?mapid=' + mapid)
         .then(function(result){
@@ -154,7 +164,7 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
             var currMapID = mapData2DArray[x][y];
             var color;
             if (currMapID === 0) // nothing
-                color = [255, 255, 255];
+                color = [0, 0, 0];
             else if (currMapID === 1) // block
                 color = [0, 205, 205];
             else if (currMapID === 3) // blood
