@@ -30,11 +30,11 @@ BasicGame.GameTitle.prototype = {
 	createBG: function(){
 		var me = this;
 
-		me.bg_sky = game.add.tileSprite(0, 0, me.game.width - 2, me.game.height, "bg_sky");
+		me.bg_sky = game.add.tileSprite(0, 0, me.game.width, me.game.height, "bg_sky");
 
 		var bg_castle_img_cache = game.cache.getImage("bg_castle");
 		var castle_height = this.game.height - bg_castle_img_cache.height;
-		me.bg_castle = game.add.tileSprite(0, castle_height, me.game.width - 2, me.game.height, "bg_castle");
+		me.bg_castle = game.add.tileSprite(0, castle_height, me.game.width, me.game.height, "bg_castle");
 	},
 
 	startGame: function(){
