@@ -385,9 +385,13 @@ blocks - generations
 	    	me.blocks.add(block);
 	    }
 	    else if (imgId === 2){ // trap
+	    	block.body.width = block.body.sourceWidth * 0.6;
+			block.body.height = block.body.sourceHeight * 0.6;
 	    	me.traps.add(block);
 	    }
 	    else if (imgId === 3){ // blood
+	    	block.body.width = block.body.sourceWidth * 0.64;
+			block.body.height = block.body.sourceHeight * 0.9;
 	    	me.bloods.add(block);
 	    }
 	    else if (imgId === 4){ // end point

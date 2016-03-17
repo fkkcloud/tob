@@ -36,7 +36,7 @@ BasicGame.Preload.prototype = {
 		 	this.load.image('btn_option', 'assets/btn_option@3.png');
 
 		 	this.load.image('blood', 'assets/blood@3.png');
-		 	this.load.spritesheet('blood_eat', 'assets/blood_eat@3.png', 150, 150, 6);
+		 	this.load.spritesheet('blood_eat', 'assets/blood_eat@3.png', 141, 141, 4);
 		 	this.load.spritesheet('blood_fill', 'assets/blood_fill@3.png', 110, 110, 12);
 
 		 	this.load.image('ui_bloodbar', 'assets/ui_bloodbar@3.png');
@@ -96,7 +96,7 @@ BasicGame.Preload.prototype = {
 		 	this.load.image('btn_option', 'assets/btn_option@2.png');
 
 		 	this.load.image('blood', 'assets/blood@2.png');
-		 	this.load.spritesheet('blood_eat', 'assets/blood_eat@2.png', 100, 100, 6);
+		 	this.load.spritesheet('blood_eat', 'assets/blood_eat@2.png', 94, 94, 4);
 		 	this.load.spritesheet('blood_fill', 'assets/blood_fill@2.png', 73, 73, 12);
 
 		 	this.load.image('ui_bloodbar', 'assets/ui_bloodbar@2.png');
@@ -156,7 +156,7 @@ BasicGame.Preload.prototype = {
 		 	this.load.image('btn_option', 'assets/btn_option.png');
 
 		 	this.load.image('blood', 'assets/blood.png');
-		 	this.load.spritesheet('blood_eat', 'assets/blood_eat.png', 50, 50, 6);
+		 	this.load.spritesheet('blood_eat', 'assets/blood_eat.png', 47, 47, 4);
 		 	this.load.spritesheet('blood_fill', 'assets/blood_fill.png', 36, 36, 12);
 
 		 	this.load.image('ui_bloodbar', 'assets/ui_bloodbar.png');
