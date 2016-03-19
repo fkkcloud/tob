@@ -30,7 +30,7 @@ BasicGame.Main.prototype = {
 
 		me.globalGravity = 1400 * window.devicePixelRatio;
 
-		me.mapSpeed = 240 * window.devicePixelRatio;
+		me.mapSpeed = 260 * window.devicePixelRatio;
 		me.mapVelX = -1 * me.mapSpeed;
 
 		me.currentColumnId = 0;
