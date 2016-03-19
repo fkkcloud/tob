@@ -30,7 +30,7 @@ BasicGame.Main.prototype = {
 
 		me.globalGravity = 1400 * window.devicePixelRatio;
 
-		me.mapSpeed = 260 * window.devicePixelRatio;
+		me.mapSpeed = 240 * window.devicePixelRatio;
 		me.mapVelX = -1 * me.mapSpeed;
 
 		me.currentColumnId = 0;
@@ -142,14 +142,13 @@ BasicGame.Main.prototype = {
 			var block = me.blocks.children[i];
 
 			// overlap event - me.chaJumpReady
-			block.scale.setTo(1.2, 1.2);
+			block.scale.setTo(1.45, 1.45);
 			block.anchor.setTo(0.0, 0.0);
 			me.game.physics.arcade.overlap(me.cha, block, function(){
-				console.log('jump ready');
 				me.chaJumpReady = true;
 			}, null, me);
 			// end of overlap event for me.charJumpReady
-			block.scale.setTo(1.0, 1.0);
+			block.scale.setTo(1.25, 1.25); // to its original size
 			block.anchor.setTo(0.0, 0.0);
 
 			// regular collision
@@ -415,7 +414,6 @@ blocks - generations
 	    block.scale.setTo(BasicGame.blockSpriteScale, BasicGame.blockSpriteScale);
 
 	    if (imgId === 1){ //  block
-	    	//block.body.checkCollision.down = false;
 			block.body.checkCollision.right = false;
 	    	me.blocks.add(block);
 	    }
