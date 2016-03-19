@@ -21,6 +21,7 @@ angular.module('MainCtrl', []).controller('MainController', function($scope) {
 	$scope.href_game = (document.location.hostname == "localhost" || document.location.hostname == "192.168.0.11") ? "http://192.168.0.11:4000/" : "http://kingsl-tob.herokuapp.com/";
 	$scope.href_edit = (document.location.hostname == "localhost" || document.location.hostname == "192.168.0.11") ? "http://192.168.0.11:4000/map/edit" : "http://kingsl-tob.herokuapp.com/map/edit";
 
+	// map data
 	function createMapData(){
 		var arr = [];
 		for (var i = 0; i < $scope.map.width; i++){
@@ -30,7 +31,10 @@ angular.module('MainCtrl', []).controller('MainController', function($scope) {
 		return arr;
 	}
 	$scope.mapData = createMapData();
+	$scope.mapSpeed = {};
+	$scope.jumpScale = {};
 	
+	// reset map data
 	$scope.resetMapData = function(){
 		$scope.mapData = createMapData();
 		for (var i = 0; i < $scope.mapData.length; i++){
@@ -38,26 +42,69 @@ angular.module('MainCtrl', []).controller('MainController', function($scope) {
 				$scope.mapData[i][j] = 0;
 			}
 		}
+		$scope.mapSpeed = {value:1.0};
+		$scope.jumpScale = {value:1.0};
 	}
 
+	// map data ------------------------------------------------------------------------------------------------------------------------------------------------
 	$scope.loadMapDataFromLocalStorage = function(){
 		if (window.localStorage.mapData == undefined || window.localStorage.mapData == 'undefined')
 			return false;
-
 		$scope.mapData = JSON.parse(window.localStorage.mapData);
-		//console.log($scope.mapData);
 		return true;
 	}
-
 	$scope.saveMapDataToLocalStorage = function(){
 		window.localStorage.mapData = JSON.stringify($scope.mapData);
 	}
-
 	$scope.resetMapDataFromLocalStorage = function(){
 		if (window.localStorage.mapData == undefined || window.localStorage.mapData == 'undefined')
 			return;
-
 		window.localStorage.mapData = undefined;
 	}
+
+	// map speed ------------------------------------------------------------------------------------------------------------------------------------------------
+	$scope.loadMapSpeedFromLocalStorage = function(){
+		if (window.localStorage.mapSpeed == undefined || 
+			window.localStorage.mapSpeed == 'undefined' || 
+			window.localStorage.mapSpeed == 1 || 
+			window.localStorage.mapSpeed == ''){
+			$scope.mapSpeed['value'] = 1.0;
+			return;
+		}
+		$scope.mapSpeed['value'] = JSON.parse(window.localStorage.mapSpeed).value;
+	}
+	$scope.saveMapSpeedToLocalStorage = function(){
+		window.localStorage.mapSpeed = JSON.stringify($scope.mapSpeed);
+	}
+	$scope.resetMapSpeedFromLocalStorage = function(){
+		if (window.localStorage.mapSpeed == undefined || 
+			window.localStorage.mapSpeed == 'undefined')
+			return;
+		window.localStorage.mapSpeed = undefined;
+	}
+	$scope.loadMapSpeedFromLocalStorage();
+
+	// jump scale ------------------------------------------------------------------------------------------------------------------------------------------------
+	$scope.loadJumpScaleFromLocalStorage = function(){
+		if (window.localStorage.jumpScale == undefined || 
+			window.localStorage.jumpScale == 'undefined' || 
+			window.localStorage.jumpScale == 1 || 
+			window.localStorage.jumpScale == ''){
+			$scope.jumpScale['value'] = 1.0;
+			return;
+		}
+		$scope.jumpScale['value'] = JSON.parse(window.localStorage.jumpScale).value;
+	}
+	$scope.saveJumpScaleToLocalStorage = function(){
+		window.localStorage.jumpScale = JSON.stringify($scope.jumpScale);
+	}
+	$scope.resetJumpScaleFromLocalStorage = function(){
+		if (window.localStorage.jumpScale == undefined || 
+			window.localStorage.jumpScale == 'undefined')
+			return;
+		window.localStorage.jumpScale = undefined;
+	}
+	$scope.loadJumpScaleFromLocalStorage();
+
 
 });

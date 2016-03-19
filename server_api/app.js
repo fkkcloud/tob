@@ -75,7 +75,9 @@ module.exports = function(app) {
 			name   : req.body.name,
 			data   : req.body.data,
 			width  : req.body.width,
-			height : req.body.height
+			height : req.body.height,
+			mapspeed : req.body.mapspeed,
+			jumpscale : req.body.jumpscale
 		});
 
         //console.log('received mapData:', mapData);

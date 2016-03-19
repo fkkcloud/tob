@@ -31,7 +31,7 @@ BasicGame.Main.prototype = {
 		me.globalGravity = 1400 * window.devicePixelRatio;
 
 		me.mapSpeed = 240 * window.devicePixelRatio;
-		me.mapVelX = -1 * me.mapSpeed;
+		me.mapVelX = -1 * me.mapSpeed * BasicGame.mapSpeed.value;
 
 		me.currentColumnId = 0;
 		me.prevColumnId = 0;
@@ -864,7 +864,7 @@ Control - player
 		if (!me.cha || !me.cha.body)
 			return;
 
-		me.cha.body.velocity.y = -400 * window.devicePixelRatio;
+		me.cha.body.velocity.y = -400 * window.devicePixelRatio * BasicGame.jumpScale.value;
 
 		me.game.add.tween(me.cha).to({angle: -30}, 100).start();
 

@@ -4,6 +4,11 @@
   margin: 0 auto ;
 }
 
+#map-property {
+  margin-top: 12px !important;
+  margin: 0 auto ;
+}
+
 #map-preview {
   margin-top: 24px;
   margin-bottom: 48px;

@@ -47,6 +47,21 @@
 		</div>
 	</section>
 
+	<section id="map-property">
+		<div class="ui labeled input">
+		  <div class="ui label">
+		    Jump Scale
+		  </div>
+		  <input type="text" ng-model="jumpScale.value" ng-change="saveJumpScaleToLocalStorage()">
+		</div>
+		<div class="ui labeled input">
+		  <div class="ui label">
+		    Map Speed
+		  </div>
+		  <input type="text" ng-model="mapSpeed.value" ng-change="saveMapSpeedToLocalStorage()">
+		</div>
+	</section>
+
 	<section id="map-preview">
 		<button ng-click="runPreview()" class="ui inverted red button">Preview</button>
 	</section>

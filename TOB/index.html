@@ -123,9 +123,26 @@
 			    //console.log('loaded custom map data:', window.localStorage.mapData);
 
 				var mapData = (window.localStorage.mapData == undefined || window.localStorage.mapData == 'undefined') ? tempMapData : JSON.parse(window.localStorage.mapData);
-
 				BasicGame.mapData = mapData;
-				
+
+				//console.log(window.localStorage.mapSpeed, window.localStorage.jumpScale);
+
+				var mapSpeed = (window.localStorage.mapSpeed == undefined || 
+					window.localStorage.mapSpeed == 'undefined' || 
+					(window.localStorage.mapSpeed && JSON.parse(window.localStorage.mapSpeed).value == 0) || 
+					window.localStorage.mapSpeed == '' ||
+					window.localStorage.mapSpeed == 1) ? {'value':1} : JSON.parse(window.localStorage.mapSpeed);
+				BasicGame.mapSpeed = mapSpeed;
+
+				var jumpScale = (window.localStorage.jumpScale == undefined || 
+					window.localStorage.jumpScale == 'undefined' || 
+					(window.localStorage.jumpScale && JSON.parse(window.localStorage.jumpScale).value == 0) || 
+					window.localStorage.jumpScale == '' ||
+					window.localStorage.jumpScale == 1) ? {'value':1} : JSON.parse(window.localStorage.jumpScale);
+				BasicGame.jumpScale = jumpScale;
+
+				//console.log(BasicGame.mapSpeed, BasicGame.jumpScale);
+
 				/*
 				;
 			    */

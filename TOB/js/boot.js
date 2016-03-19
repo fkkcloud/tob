@@ -18,6 +18,10 @@ BasicGame = {
 
     isGameInit: false,
 
+    mapspeed: 1,
+
+    jumpscale: 1,
+
 };
 
 BasicGame.Boot = function(game){

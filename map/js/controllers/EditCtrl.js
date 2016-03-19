@@ -8,6 +8,7 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 	$scope.paintMode = undefined;
 	$scope.isDrawing = false;
 
+
 	// create row data
 	function createMapDataRow(){
 		var arr = [];
@@ -47,6 +48,8 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 					// reset actual map data
 					$scope.resetMapData();
 					$scope.resetMapDataFromLocalStorage();
+					$scope.resetMapSpeedFromLocalStorage();
+					$scope.resetJumpScaleFromLocalStorage();
 	    			//swal("Deleted!", "Your imaginary file has been deleted.", "success");   
 	    		} 
 	    		else {     
@@ -137,7 +140,9 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 			        	'name':$scope.map.name , 
 			        	'data':mapDataStr ,
 			        	'width':$scope.map.width ,
-			        	'height':$scope.map.height 
+			        	'height':$scope.map.height,
+			        	'mapspeed':JSON.stringify($scope.mapSpeed),
+			        	'jumpscale':JSON.stringify($scope.jumpScale)
 			        };
 
 			        $http.post('/api/maps/posts', postData)

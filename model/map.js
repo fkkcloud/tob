@@ -12,6 +12,8 @@ var schema = new mongoose.Schema({
 	playcount : {type : Number, default: 0,  required: false},
 	width     : {type : Number, default: 0,  required: true},
 	height    : {type : Number, default: 0,  required: true},
+	mapspeed  : {type : String, default: '1',  required: true},
+	jumpscale : {type : String, default: '1',  required: true},
 	date      : {type : Date, required: true, default: Date.now}
 });
 schema.plugin(mongoosePaginate);

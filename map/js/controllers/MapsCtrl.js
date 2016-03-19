@@ -48,6 +48,8 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
     $scope.startMap = function(id) {
         window.localStorage.mapData = $scope.currentLoadedMaps[id].data;
         window.localStorage.mapName = $scope.currentLoadedMaps[id].name;
+        window.localStorage.mapSpeed = $scope.currentLoadedMaps[id].mapspeed;
+        window.localStorage.jumpScale = $scope.currentLoadedMaps[id].jumpscale;
 
         var queryID = $scope.currentLoadedMaps[id]._id;
 
@@ -57,6 +59,8 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
     $scope.startFeatured = function() {
         window.localStorage.mapData = $scope.featuredMap.data;
         window.localStorage.mapName = $scope.featuredMap.name;
+        window.localStorage.mapSpeed = $scope.featuredMap.mapspeed;
+        window.localStorage.jumpScale = $scope.featuredMap.jumpscale;
 
         var queryID = $scope.featuredMap._id;
 
@@ -64,8 +68,10 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
     }
 
     $scope.editMap = function(id) {
-        window.localStorage.mapData = $scope.currentLoadedMaps[id].data;
-        window.localStorage.mapName = $scope.currentLoadedMaps[id].name;
+        //window.localStorage.mapData = $scope.currentLoadedMaps[id].data;
+        //$scope.mapData = $scope.currentLoadedMaps[id].data;
+        $scope.mapSpeed = JSON.parse($scope.currentLoadedMaps[id].mapspeed);
+        $scope.jumpScale = JSON.parse($scope.currentLoadedMaps[id].jumpscale);
 
         $location.path( '/edit' );
         //window.location.href = $scope.href_edit;
