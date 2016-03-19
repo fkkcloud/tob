@@ -20,6 +20,7 @@ BasicGame.Preload.prototype = {
 	    	this.load.image('bg_castle', 'assets/bg_castle@3.png');
 
 	    	this.load.image('title', 'assets/title@3.png');
+	    	this.load.image('title_gameOver', 'assets/gameover@3.png');
 
 	    	this.load.image('copyrights', 'assets/copyrights@3.png');
 
@@ -34,6 +35,9 @@ BasicGame.Preload.prototype = {
 		 	this.load.image('btn_maplist', 'assets/btn_maplist@3.png');
 		 	this.load.image('btn_mapeditor', 'assets/btn_mapeditor@3.png');
 		 	this.load.image('btn_option', 'assets/btn_option@3.png');
+
+		 	this.load.image('btn_menu', 'assets/btn_menu@3.png');
+		 	this.load.image('btn_replay', 'assets/btn_replay@3.png');
 
 		 	this.load.image('blood', 'assets/blood@3.png');
 		 	this.load.spritesheet('blood_eat', 'assets/blood_eat@3.png', 141, 141, 4);
@@ -80,6 +84,7 @@ BasicGame.Preload.prototype = {
 	    	this.load.image('bg_castle', 'assets/bg_castle@2.png');
 
 	    	this.load.image('title', 'assets/title@2.png');
+	    	this.load.image('title_gameOver', 'assets/gameover@2.png');
 
 	    	this.load.image('copyrights', 'assets/copyrights@2.png');
 
@@ -94,6 +99,9 @@ BasicGame.Preload.prototype = {
 		 	this.load.image('btn_maplist', 'assets/btn_maplist@2.png');
 		 	this.load.image('btn_mapeditor', 'assets/btn_mapeditor@2.png');
 		 	this.load.image('btn_option', 'assets/btn_option@2.png');
+
+		 	this.load.image('btn_menu', 'assets/btn_menu@2.png');
+		 	this.load.image('btn_replay', 'assets/btn_replay@2.png');
 
 		 	this.load.image('blood', 'assets/blood@2.png');
 		 	this.load.spritesheet('blood_eat', 'assets/blood_eat@2.png', 94, 94, 4);
@@ -140,6 +148,7 @@ BasicGame.Preload.prototype = {
 		    //this.load.image('bg_sky_bat', 'assets/bg_ground_bat.png');
 
 		    this.load.image('title', 'assets/title.png');
+		    this.load.image('title_gameOver', 'assets/gameover.png');
 
 		    this.load.image('copyrights', 'assets/copyrights.png');
 
@@ -154,6 +163,9 @@ BasicGame.Preload.prototype = {
 		 	this.load.image('btn_maplist', 'assets/btn_maplist.png');
 		 	this.load.image('btn_mapeditor', 'assets/btn_mapeditor.png');
 		 	this.load.image('btn_option', 'assets/btn_option.png');
+
+		 	this.load.image('btn_menu', 'assets/btn_menu.png');
+		 	this.load.image('btn_replay', 'assets/btn_replay.png');
 
 		 	this.load.image('blood', 'assets/blood.png');
 		 	this.load.spritesheet('blood_eat', 'assets/blood_eat.png', 47, 47, 4);

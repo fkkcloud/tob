@@ -10,10 +10,6 @@ BasicGame.GameOver.prototype = {
   		var fontSize = 25 * window.devicePixelRatio;
   		var scoreFont = fontSize + "px Verdana";
 
-  		me.labelGameOver = me.game.add.text(me.game.world.centerX,
-  			me.game.world.height * 0.1, "Is that all you got?!", {font: scoreFont, fill: "#fff"});
-  		me.labelGameOver.anchor.setTo(0.5, 0);
-
   		/*
   		me.labelFinalScore = me.game.add.text(me.game.world.centerX,
   			me.game.world.height * 0.2, me.score + 'm', {font: scoreFont, fill:"#fff"});
@@ -28,14 +24,29 @@ BasicGame.GameOver.prototype = {
   		me.labelHighScore.anchor.setTo(0.5, 0);
   		*/
 
-  		var restartButton = me.game.add.button(me.game.world.width * 0.3,
-  			me.game.world.height * 0.5, "startButton", me.restartGame, me);
+  		var gameoverTitle = me.game.add.sprite(me.game.world.width * 0.5, me.game.height * 0.36, "title_gameOver");
+  		gameoverTitle.anchor.setTo(0.5, 0.5);
+
+  		var restartButton = me.game.add.button(me.game.world.width * 0.4,
+  			me.game.world.height * 0.68, "btn_replay", me.restartGame, me);
   		restartButton.anchor.setTo(0.5, 0.5);
+  		restartButton.onInputDown.add(me.onDown, this);
+		restartButton.onInputUp.add(me.onUp, this);
 
-  		var menuButton = me.game.add.button(me.game.world.width * 0.7,
-  			me.game.world.height * 0.5, "restart", me.gotoMenu, me);
+  		var menuButton = me.game.add.button(me.game.world.width * 0.6,
+  			me.game.world.height * 0.68, "btn_menu", me.gotoMenu, me);
   		menuButton.anchor.setTo(0.5, 0.5);
+  		menuButton.onInputDown.add(me.onDown, this);
+		menuButton.onInputUp.add(me.onUp, this);
 
+	},
+
+	onDown: function(but){
+		but.scale.setTo(1.1, 1.1);
+	},
+
+	onUp: function(but){
+		but.scale.setTo(1.0, 1.0);
 	},
 
 	gotoMenu: function(){
@@ -69,11 +80,6 @@ BasicGame.GameOver.prototype = {
 	createBG: function(){
 
 		var me = this;
-
-		var bg_sky = game.add.tileSprite(0, 0, 2088, 739, "bg_sky");
-		
-		//var scale = me.game.width / sprite.width * 1.1;
-		//sprite.scale.setTo(scale, scale);
 
 	},
 

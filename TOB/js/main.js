@@ -22,7 +22,15 @@ BasicGame.Main.prototype = {
 
 		me.chaDead = false;
 
-		me.mapSpeed = 280 * window.devicePixelRatio;
+		me.chaJumped = false;
+
+		me.jumpPressed = false;
+
+		me.chaJumpReady = false;
+
+		me.globalGravity = 1400 * window.devicePixelRatio;
+
+		me.mapSpeed = 240 * window.devicePixelRatio;
 		me.mapVelX = -1 * me.mapSpeed;
 
 		me.currentColumnId = 0;
@@ -109,6 +117,19 @@ BasicGame.Main.prototype = {
 		// ------------------------------------------------------------------------------------------------------------------------------------------------
 		me.updateBG();
 
+		// long jump!!! ------------------------------------------------------------------------------------------------------------------------------------------------
+		if (me.chaJumped && me.jumpPressed){
+			if (me.cha && me.cha.body){
+				me.cha.body.gravity.y = me.globalGravity - (500 * window.devicePixelRatio);
+			}
+		}
+		else {
+			if (me.cha && me.cha.body){
+				me.cha.body.gravity.y = me.globalGravity;
+			}
+			me.chaJumped = false;
+		}
+
 		// debug text
 		//me.debugText.setText(me.bloodCount)// (me.currentColumnId);
 	},
@@ -119,8 +140,22 @@ BasicGame.Main.prototype = {
 		for (var i = 0; i < me.blocks.children.length; i++){
 			
 			var block = me.blocks.children[i];
+
+			// overlap event - me.chaJumpReady
+			block.scale.setTo(1.2, 1.2);
+			block.anchor.setTo(0.0, 0.0);
+			me.game.physics.arcade.overlap(me.cha, block, function(){
+				console.log('jump ready');
+				me.chaJumpReady = true;
+			}, null, me);
+			// end of overlap event for me.charJumpReady
+			block.scale.setTo(1.0, 1.0);
+			block.anchor.setTo(0.0, 0.0);
+
+			// regular collision
 			me.game.physics.arcade.collide(me.cha, block, null, null, me);
 
+			// touching up collision detected
 			if (block.body.touching.up){
 				me.collisionDetected = true;
 			}
@@ -385,8 +420,12 @@ blocks - generations
 	    	me.blocks.add(block);
 	    }
 	    else if (imgId === 2){ // trap
-	    	block.body.width = block.body.sourceWidth * 0.6;
-			block.body.height = block.body.sourceHeight * 0.6;
+	    	block.width *= 1.25;
+	    	block.height *= 1.25;
+	    	block.body.width = block.width * 0.4;
+			block.body.height = block.height * 0.4;
+			block.anchor.setTo(0.5, 0.5);
+			me.game.add.tween(block).to({angle: 360}, 1000, null, true, 0, 0, false).loop(true).start();
 	    	me.traps.add(block);
 	    }
 	    else if (imgId === 3){ // blood
@@ -631,7 +670,7 @@ Player
 		//me.cha.scale.setTo(1.0, 1.0);
 
 		//Make the player fall by applying gravity 
-		me.cha.body.gravity.y = 1200 * window.devicePixelRatio;
+		me.cha.body.gravity.y = me.globalGravity;
 
         //Make the player collide with the game boundaries
 		me.cha.body.collideWorldBounds = false; 
@@ -794,25 +833,46 @@ Control - player
 
 		var jumpKey = me.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 		jumpKey.onDown.add(me.jump, me);
+		jumpKey.onUp.add(me.endJump, me);
 
 		me.input.onDown.add(me.jump, me);
+		me.input.onUp.add(me.endJump, me);
+
+		console.log(me.input);
+	},
+
+	endJump: function(){
+		var me = this;
+
+		me.jumpPressed = false;
+		// potential jump finish animation
 	},
 
 	jump: function(){
 		var me = this;
 
-		if (me.mode === me.VAMPMODE && !me.chaOnGround)
+		me.jumpPressed = true;
+		// potential jump start animation
+
+		if (me.mode === me.VAMPMODE && ( /*!me.chaOnGround &&*/!me.chaJumpReady) )
+			return;
+
+		if (!me.cha || !me.cha.body)
 			return;
 
 		me.cha.body.velocity.y = -400 * window.devicePixelRatio;
 
 		me.game.add.tween(me.cha).to({angle: -30}, 100).start();
 
+
 		if (me.mode === me.BATMODE)
 			me.playFXPlayerFly();
 
 		if (BasicGame.sound)
 			me.flapSound.play();
+
+		me.chaJumped = true;
+		me.chaJumpReady = false;
 	},
 
 /*

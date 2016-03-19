@@ -101,14 +101,32 @@ BasicGame.GameTitle.prototype = {
 		*/
 	},
 
+	onDown: function(but){
+		but.scale.setTo(1.1, 1.1);
+	},
+
+	onUp: function(but){
+		but.scale.setTo(1.0, 1.0);
+	},
+
 	createButtons: function(){
+		var me = this;
+
 		this.btn_story = this.game.add.button(0, this.game.world.height * 0.2, 'btn_story', this.startGame, this);
+		this.btn_story.onInputDown.add(me.onDown, this);
+		this.btn_story.onInputUp.add(me.onUp, this);
 
 		this.btn_maplist = this.game.add.button(0, this.game.world.height * 0.4, 'btn_maplist', this.gotoMaps, this);
+		this.btn_maplist.onInputDown.add(me.onDown, this);
+		this.btn_maplist.onInputUp.add(me.onUp, this);
 
 		this.btn_mapeditor = this.game.add.button(0, this.game.world.height * 0.55, 'btn_mapeditor', this.gotoMapEditor, this);
+		this.btn_mapeditor.onInputDown.add(me.onDown, this);
+		this.btn_mapeditor.onInputUp.add(me.onUp, this);
 
 		this.btn_option = this.game.add.button(0, this.game.world.height * 0.7, 'btn_option', null, this);
-	}
+		this.btn_option.onInputDown.add(me.onDown, this);
+		this.btn_option.onInputUp.add(me.onUp, this);
+	},
 
 }
