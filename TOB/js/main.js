@@ -186,7 +186,8 @@ BasicGame.Main.prototype = {
 			
 			var trap = me.traps.children[i];
 			me.game.physics.arcade.collide(me.cha, trap, function(){
-				me.deathHandler();
+				if (!me.chaDead)
+					me.deathHandler();
 			}, null, me);
 		}
 	},
@@ -576,6 +577,7 @@ Mode
 
 		me.mode = me.BATMODE;
 		me.defaultAngle = 25;
+		me.bloodCount = 0; // reset blood collection for bat transformation (e.g. when it come back from bat to vamp)
 
 		me.game.time.events.add(Phaser.Timer.SECOND * 4.0, function(){ 
 			me.runVampMode();
