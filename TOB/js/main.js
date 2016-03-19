@@ -572,15 +572,19 @@ Mode
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 */
 	runBatMode: function(){
-		console.log('/////// RUN Bat MODE ///////');
 		var me = this;
 
 		me.mode = me.BATMODE;
 		me.defaultAngle = 25;
+
+		me.game.time.events.add(Phaser.Timer.SECOND * 4.0, function(){ 
+			me.runVampMode();
+			me.createPlayer();
+			me.playFXTransform();
+		}, me);
 	},
 
 	runVampMode: function(){
-		console.log('/////// RUN Vamp MODE ///////');
 		var me = this;
 
 		me.mode = me.VAMPMODE;
