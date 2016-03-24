@@ -80,9 +80,12 @@ BasicGame.Main.prototype = {
 		// pre stage
 		me.createPreStage();
 
-		// create UI
-		me.createUI();
-
+		// loading blood bar
+		me.loadingBar = me.game.add.sprite(me.game.width * 0.5, me.game.height * 0.2, 'loadingBar');
+		var loadingBar_imgCache = game.cache.getImage("loadingBar");
+		me.loadingBar.x -= loadingBar_imgCache.width * 0.5;
+		me.loadingBar.anchor.setTo(0.0, 0.5);
+		me.loadingBar.scale.x = 0.0;
 	},
 
 	update: function() {
@@ -130,6 +133,14 @@ BasicGame.Main.prototype = {
 			me.chaJumped = false;
 		}
 
+		// bat check!! ----------------
+		if (me.mode == me.BATMODE && this.game.time.totalElapsedSeconds() * 1000 > me.batTimeDue){
+			me.bloodCount = 0; // reset blood collection for bat transformation (e.g. when it come back from bat to vamp)
+			me.runVampMode();
+			me.createPlayer();
+			me.playFXTransform();
+		}
+		
 		// debug text
 		//me.debugText.setText(me.bloodCount)// (me.currentColumnId);
 	},
@@ -203,29 +214,55 @@ BasicGame.Main.prototype = {
 				blood.destroy();
 				me.bloodCount += 1;
 
-				/*
-				if (me.bloodCount === 1)
-					this.bloodfill1.animations.play('fill1', 16, false, false);
-				else if (me.bloodCount === 2)
-					this.bloodfill2.animations.play('fill2', 16, false, false);
-				else if (me.bloodCount === 3)
-					this.bloodfill3.animations.play('fill3', 16, false, false);
-				else if (me.bloodCount === 4)
-					this.bloodfill4.animations.play('fill4', 16, false, false);
-				else if (me.bloodCount === 5)
-					this.bloodfill5.animations.play('fill5', 16, false, false);
-				*/
+				
+				if (me.mode == me.VAMPMODE){
+					if (me.bloodCount === 1){
+						me.game.add.tween(me.loadingBar.scale).to({x: 0.2}, 200).start();
+					}
+					else if (me.bloodCount === 2){
+						me.game.add.tween(me.loadingBar.scale).to({x: 0.4}, 200).start();
+					}
+					else if (me.bloodCount === 3){
+						me.game.add.tween(me.loadingBar.scale).to({x: 0.6}, 200).start();
+					}
+					else if (me.bloodCount === 4){
+						me.game.add.tween(me.loadingBar.scale).to({x: 0.8}, 200).start();
+					}
+					else if (me.bloodCount === 5){
+						me.game.add.tween(me.loadingBar.scale).to({x: 1.0}, 120).start();
+					}
+				}
+				
+				if (me.mode == me.BATMODE){
+					console.log('bar life incresase!');
+
+					// increase actual bat time due
+					me.batTimeDue += 1;
+
+					// get new scale for x of blood bar
+					var newScale = me.loadingBar.scale.x + 0.25;
+
+					// get new time for decrease of blood bar
+					var newBatTimeDue = (me.batTimeDue - this.game.time.totalElapsedSeconds() * 1000);
+
+					me.game.add.tween(me.loadingBar.scale).to({x: newScale}, 80).start();
+
+					me.game.time.events.add(80, function(){ 
+						me.game.add.tween(me.loadingBar.scale).to({x: 0.0},  newBatTimeDue).start();
+					}, me);
+					
+				}
 
 				if (me.mode !== me.BATMODE && me.bloodCount > 4){
 
 					// give it a little delay before transformation
-					me.game.time.events.add(Phaser.Timer.SECOND * 0.125, function(){ 
+					var barFinishTime = Phaser.Timer.SECOND * 0.125;
+
+					me.game.time.events.add(barFinishTime, function(){ 
 						me.runBatMode();
 						me.createPlayer();
 						me.playFXTransform();
 					}, me);
-					
-
 				}
 			}, null, me);	
 			
@@ -314,8 +351,9 @@ blocks - event handlers
 		me.chaDead = true;
 
 		// make it stuck to the sticks
-		me.cha.body.gravity.y = 0;
+		me.cha.body.velocity.x = 30 * window.devicePixelRatio;
 		me.cha.body.velocity.y = 0;
+		me.cha.body.gravity.y = 0;
 
 		if (BasicGame.sound)
 			me.hitSound.play();
@@ -324,18 +362,26 @@ blocks - event handlers
 
 		me.cha.animations.stop('flap');
 
-		me.game.time.events.add(Phaser.Timer.SECOND * 0.25, function(){ 
-			//Send score to game over screen 
-			me.cha.destroy();
-		}, me);
-
 		//me.cha.body.velocity.x = -100 * window.devicePixelRatio;
 		//me.cha.body.velocity.y = -200 * window.devicePixelRatio;
-		me.game.add.tween(me.cha).to({angle: -10}, 60).start();
+		me.game.add.tween(me.cha).to({angle: -10}, 40).start();
+
+		// stop the map
+		me.mapSpeed = 0;
+		me.mapVelX = 0;
+		for (var i = 0; i < me.blocks.children.length; i++)
+			me.blocks.children[i].body.velocity.x = 0;
+		for (var i = 0; i < me.traps.children.length; i++)
+			me.traps.children[i].body.velocity.x = 0;
+		for (var i = 0; i < me.bloods.children.length; i++)
+			me.bloods.children[i].body.velocity.x = 0;
+		for (var i = 0; i < me.endPoints.children.length; i++)
+			me.endPoints.children[i].body.velocity.x = 0;
 
 		//Wait a couple of seconds and then trigger the game over screen
-		me.game.time.events.add(Phaser.Timer.SECOND * 0.5, function(){ 
+		me.game.time.events.add(Phaser.Timer.SECOND * 0.8, function(){ 
 			//Send score to game over screen 
+			me.cha.destroy();
 			me.game.state.start('GameOver', true, false, me.score.toString());
 		}, me);
 
@@ -577,13 +623,9 @@ Mode
 
 		me.mode = me.BATMODE;
 		me.defaultAngle = 25;
-		me.bloodCount = 0; // reset blood collection for bat transformation (e.g. when it come back from bat to vamp)
-
-		me.game.time.events.add(Phaser.Timer.SECOND * 4.0, function(){ 
-			me.runVampMode();
-			me.createPlayer();
-			me.playFXTransform();
-		}, me);
+		
+		me.batTimeDue = this.game.time.totalElapsedSeconds() * 1000 + 4000;
+		me.game.add.tween(me.loadingBar.scale).to({x: 0.0}, 4000).start();
 	},
 
 	runVampMode: function(){
@@ -591,6 +633,8 @@ Mode
 
 		me.mode = me.VAMPMODE;
 		me.defaultAngle = 0;
+
+		me.batTimeDue = 0;
 	},
 
 	createStage: function(){
@@ -713,8 +757,8 @@ Player
 		anim.scale.setTo(1.32, 1.32);
 		anim.animations.add('death');
 		anim.animations.play('death', 16, false, true);
-		me.game.physics.arcade.enable(anim);
-		anim.body.velocity.x = me.mapVelX;
+		//me.game.physics.arcade.enable(anim);
+		//anim.body.velocity.x = me.mapVelX;
 	},
 
 	createFXPlayerSpawn(x, y){
@@ -774,29 +818,6 @@ Player
 HUD - score
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 */
-	createUI: function(){
-		
-
-		var bloodFillHeight = this.game.height * 0.064;
-		var bloodFillWidthDelta = 0.059;
-
-		this.bloodfill1 = this.game.add.sprite(this.game.width * 0.62, bloodFillHeight, 'blood_fill');
-		this.bloodfill1.animations.add('fill1');
-
-		this.bloodfill2 = this.game.add.sprite(this.game.width * (0.62 + bloodFillWidthDelta), bloodFillHeight, 'blood_fill');
-		this.bloodfill2.animations.add('fill2');
-
-		this.bloodfill3 = this.game.add.sprite(this.game.width * (0.62 + bloodFillWidthDelta * 2), bloodFillHeight, 'blood_fill');
-		this.bloodfill3.animations.add('fill3');
-
-		this.bloodfill4 = this.game.add.sprite(this.game.width * (0.62 + bloodFillWidthDelta * 3), bloodFillHeight, 'blood_fill');
-		this.bloodfill4.animations.add('fill4');
-
-		this.bloodfill5 = this.game.add.sprite(this.game.width * (0.62 + bloodFillWidthDelta * 4), bloodFillHeight, 'blood_fill');
-		this.bloodfill5.animations.add('fill5');
-
-		var anim = this.game.add.sprite(this.game.width * 0.54, this.game.height * 0.025, 'ui_bloodbar');
-	},
 
 	createScoreHUD: function(){
 		var me = this;
