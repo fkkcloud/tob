@@ -237,7 +237,7 @@ BasicGame.Main.prototype = {
 					console.log('bar life incresase!');
 
 					// increase actual bat time due
-					me.batTimeDue += 1;
+					me.batTimeDue += 1000;
 
 					// get new scale for x of blood bar
 					var newScale = me.loadingBar.scale.x + 0.25;
