@@ -91,6 +91,9 @@ BasicGame.Main.prototype = {
 	update: function() {
 		var me = this;
 
+		if (me.chaDead)
+			return;
+
 		// update current map x pos
 		me.currentMapXPos = me.xTester.position.x;
 
@@ -350,6 +353,8 @@ blocks - event handlers
 
 		me.chaDead = true;
 
+		me.game.time.events.remove(me.groundFX);
+
 		// make it stuck to the sticks
 		me.cha.body.velocity.x = 30 * window.devicePixelRatio;
 		me.cha.body.velocity.y = 0;
@@ -366,6 +371,11 @@ blocks - event handlers
 		//me.cha.body.velocity.y = -200 * window.devicePixelRatio;
 		me.game.add.tween(me.cha).to({angle: -10}, 40).start();
 
+		me.game.time.events.add(100, function(){ 
+			me.cha.destroy();
+		}, me);
+		
+
 		// stop the map
 		me.mapSpeed = 0;
 		me.mapVelX = 0;
@@ -381,10 +391,59 @@ blocks - event handlers
 		//Wait a couple of seconds and then trigger the game over screen
 		me.game.time.events.add(Phaser.Timer.SECOND * 0.8, function(){ 
 			//Send score to game over screen 
-			me.cha.destroy();
-			me.game.state.start('GameOver', true, false, me.score.toString());
+			me.gameoverScreen();
+			//me.game.state.start('GameOver', true, false, me.score.toString());
 		}, me);
 
+	},
+
+	gameoverScreen : function(){
+		var me = this;
+
+		// create a new bitmap data object
+	    var bmd = game.add.bitmapData(me.game.width, me.game.height);
+
+	    // draw to the canvas context like normal
+	    bmd.ctx.beginPath();
+	    bmd.ctx.rect(0,0,me.game.width,me.game.height);
+	    bmd.ctx.fillStyle = '#000000';
+	    bmd.ctx.fill();
+
+	    // use the bitmap data as the texture for the sprite
+	    var sprite = game.add.sprite(0, 0, bmd);
+	    sprite.alpha = 0.8;
+
+	    var gameoverTitle = me.game.add.sprite(me.game.world.width * 0.5, me.game.height * 0.36, "title_gameOver");
+  		gameoverTitle.anchor.setTo(0.5, 0.5);
+
+  		var restartButton = me.game.add.button(me.game.world.width * 0.4,
+  			me.game.world.height * 0.68, "btn_replay", me.restartGame, me);
+  		restartButton.anchor.setTo(0.5, 0.5);
+  		restartButton.onInputDown.add(me.onDown, this);
+		restartButton.onInputUp.add(me.onUp, this);
+
+  		var menuButton = me.game.add.button(me.game.world.width * 0.6,
+  			me.game.world.height * 0.68, "btn_menu", me.gotoMenu, me);
+  		menuButton.anchor.setTo(0.5, 0.5);
+  		menuButton.onInputDown.add(me.onDown, this);
+		menuButton.onInputUp.add(me.onUp, this);
+
+	},
+
+	onDown: function(but){
+		but.scale.setTo(1.1, 1.1);
+	},
+
+	onUp: function(but){
+		but.scale.setTo(1.0, 1.0);
+	},
+
+	gotoMenu: function(){
+		this.game.state.start("GameTitle")
+	},
+
+	restartGame: function(){
+		this.game.state.start("Main");
 	},
 
 /*
@@ -753,7 +812,7 @@ Player
 
 	playFXPlayerDeath(){
 		var me = this;
-		var anim = me.game.add.sprite(me.cha.x - me.cha.width * 0.78, me.cha.y - me.cha.height * 0.5, 'fx_death');
+		var anim = me.game.add.sprite(me.cha.x - me.cha.width, me.cha.y - me.cha.height * 0.8, 'fx_death');
 		anim.scale.setTo(1.32, 1.32);
 		anim.animations.add('death');
 		anim.animations.play('death', 16, false, true);
@@ -785,9 +844,10 @@ Player
 
 	playFXTransform(){
 		var me = this;
-		var anim = me.game.add.sprite(me.cha.x - me.cha.width * 0.6, me.cha.y - me.cha.height * 0.65, 'transform');
+		var anim = me.game.add.sprite(me.cha.x - me.cha.width * 0.5, me.cha.y - me.cha.height * 0.7, 'transform');
 		anim.animations.add('transformation');
 		anim.animations.play('transformation', 12, false, true);
+		anim.scale.setTo(1.6, 1.6);
 		me.game.physics.arcade.enable(anim);
 		anim.body.velocity.x = me.mapVelX * 0.186;
 	},

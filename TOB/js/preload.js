@@ -48,7 +48,7 @@ BasicGame.Preload.prototype = {
 
 		 	this.load.image('trap', 'assets/trap@3.png');
 
-		 	this.load.spritesheet('transform', 'assets/transform@3.png', 360, 360, 6);
+		 	this.load.spritesheet('transform', 'assets/transform@3.png', 200, 200, 6);
 
 			this.load.image('open_all', 'assets/open_all@3.png');
 			this.load.image('open_none', 'assets/open_none@3.png');
@@ -70,7 +70,7 @@ BasicGame.Preload.prototype = {
 			this.load.image('open_up_left', 'assets/open_up_left@3.png');
 			this.load.image('open_up_right', 'assets/open_up_right@3.png');
 
-			this.load.spritesheet('fx_death', 'assets/fx_death@3.png', 300, 300, 9);
+			this.load.spritesheet('fx_death', 'assets/fx_death@3.png', 330, 330, 16);
 			this.load.spritesheet('fx_spawn', 'assets/FX_spawn@3.png', 300, 563, 13);
 			this.load.spritesheet('fx_run', 'assets/FX_run@3.png', 150, 75, 8);
 
@@ -110,7 +110,7 @@ BasicGame.Preload.prototype = {
 
 		 	this.load.image('trap', 'assets/trap@2.png');
 
-		 	this.load.spritesheet('transform', 'assets/transform@2.png', 240, 240, 6);
+		 	this.load.spritesheet('transform', 'assets/transform@2.png', 133, 133, 6);
 
 		 	this.load.image('open_all', 'assets/open_all@2.png');
 			this.load.image('open_none', 'assets/open_none@2.png');
@@ -132,7 +132,7 @@ BasicGame.Preload.prototype = {
 			this.load.image('open_up_left', 'assets/open_up_left@2.png');
 			this.load.image('open_up_right', 'assets/open_up_right@2.png');
 
-			this.load.spritesheet('fx_death', 'assets/fx_death@2.png', 200, 200, 9);
+			this.load.spritesheet('fx_death', 'assets/fx_death@2.png', 220, 220, 16);
 			this.load.spritesheet('fx_spawn', 'assets/FX_spawn@2.png', 200, 375, 13);
 			this.load.spritesheet('fx_run', 'assets/FX_run@2.png', 100, 50, 8);
 
@@ -172,7 +172,7 @@ BasicGame.Preload.prototype = {
 
 		 	this.load.image('trap', 'assets/trap.png');
 
-		 	this.load.spritesheet('transform', 'assets/transform.png', 120, 120, 6);
+		 	this.load.spritesheet('transform', 'assets/transform.png', 66, 66, 6);
 
 		 	this.load.image('open_all', 'assets/open_all.png');
 			this.load.image('open_none', 'assets/open_none.png');
@@ -194,7 +194,7 @@ BasicGame.Preload.prototype = {
 			this.load.image('open_up_left', 'assets/open_up_left.png');
 			this.load.image('open_up_right', 'assets/open_up_right.png');
 
-			this.load.spritesheet('fx_death', 'assets/fx_death.png', 100, 100, 9);
+			this.load.spritesheet('fx_death', 'assets/fx_death.png', 110, 110, 16);
 			this.load.spritesheet('fx_spawn', 'assets/FX_spawn.png', 100, 188, 13);
 			this.load.spritesheet('fx_run', 'assets/FX_run.png', 50, 25, 8);
 
