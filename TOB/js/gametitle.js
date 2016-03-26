@@ -71,6 +71,7 @@ BasicGame.GameTitle.prototype = {
 	createInstructions: function(){
 		var me = this;
 
+		/*
 		var fontSize = 18 * window.devicePixelRatio;
 
 		var headingFont = fontSize + "px Arial";
@@ -82,6 +83,8 @@ BasicGame.GameTitle.prototype = {
 				fill: "#fff", 
 				align: 'right',
 			});
+		*/
+
 		//instructionLabel.anchor.setTo(0.5, 1);
 
 		/*

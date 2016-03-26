@@ -213,7 +213,13 @@ BasicGame.Preload.prototype = {
 	},
 
 	create: function(){
-		this.game.state.start("GameTitle");
-		//this.game.state.start("Main");
+		console.log('window.localStorage.instantPlay',window.localStorage.instantPlay);
+		if (window.localStorage.instantPlay == 1){
+			window.localStorage.instantPlay = 0;
+			this.game.state.start("Main");
+		}
+		else {
+			this.game.state.start("GameTitle");
+		}
 	}
 }

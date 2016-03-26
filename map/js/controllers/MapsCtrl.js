@@ -50,6 +50,7 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
         window.localStorage.mapName = $scope.currentLoadedMaps[id].name;
         window.localStorage.mapSpeed = $scope.currentLoadedMaps[id].mapspeed;
         window.localStorage.jumpScale = $scope.currentLoadedMaps[id].jumpscale;
+        window.localStorage.instantPlay = 1;
 
         var queryID = $scope.currentLoadedMaps[id]._id;
 
@@ -61,6 +62,7 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
         window.localStorage.mapName = $scope.featuredMap.name;
         window.localStorage.mapSpeed = $scope.featuredMap.mapspeed;
         window.localStorage.jumpScale = $scope.featuredMap.jumpscale;
+        window.localStorage.instantPlay = 1;
 
         var queryID = $scope.featuredMap._id;
 

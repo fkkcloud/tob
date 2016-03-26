@@ -83,6 +83,7 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 
 	$scope.runPreview = function(){
 		window.location.href = $scope.href_game;
+		window.localStorage.instantPlay = 1;
 		window.localStorage.mapName = "Preview";
 	}
 
