@@ -201,12 +201,50 @@ BasicGame.Preload.prototype = {
 		 	originalImageWidth = 47;
 		} 
 
+        function setupGUI() {
+
+        	// level list
+			EZGUI.components.levelsList.bindChildren('mousedown', function (event, me) {
+			    //console.log('mousedown ', me);
+			    var ow = me.width;
+			    var oh = me.height;
+			    me.animateSizeTo(ow * 1.3, oh * 1.3, 100, EZGUI.Easing.Back.Out, function () {
+			        me.animateSizeTo(ow, oh, 100);
+			    });
+			});
+
+			EZGUI.components.levelsList.bindChildren('click', function (event, me) {
+
+                //wait for animation to finish
+			    setTimeout(function () {
+			        BasicGame.ui_level_screen.visible = false;
+			        this.game.state.start("Main");
+			    }, 150);
+			    console.log('clicked', event);
+			});
+		}
+
+		EZGUI.Theme.load(['assets/metalworks-theme/metalworks-theme.json'], function () {
+
+		    EZGUI.themes['metalworks'].override(themeOverride);
+
+		    levelSelectScreenJSON.width = this.game.width;
+		    levelSelectScreenJSON.height = this.game.height;
+		    levelSelectScreenJSON.children[0].width = this.game.width;
+		    levelSelectScreenJSON.children[0].height = this.game.height;
+		    
+			BasicGame.ui_level_screen = EZGUI.create(levelSelectScreenJSON, 'metalworks');
+			BasicGame.ui_level_screen.visible = false;		
+			
+			setupGUI();
+		});
+
 		// get right width
 		BasicGame.blockSize = this.game.height/8.0;
 		BasicGame.blockSpriteScale = (BasicGame.blockSize / originalImageWidth) * 1.1;
 
 		BasicGame.preStageUnits = this.game.width/ (BasicGame.blockSize * 1.0);
-		console.log('preStageInit:', BasicGame.preStageUnits);
+		//console.log('preStageInit:', BasicGame.preStageUnits);
 
 		this.load.audio('flap', 'assets/flap.wav');
 		this.load.audio('hit', 'assets/hit.wav');
@@ -221,5 +259,5 @@ BasicGame.Preload.prototype = {
 		else {
 			this.game.state.start("GameTitle");
 		}
-	}
+	},
 }

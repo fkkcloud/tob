@@ -38,7 +38,8 @@ BasicGame.GameTitle.prototype = {
 	},
 
 	startGame: function(){
-		this.game.state.start("Main");
+		this.game.state.start("LevelList");
+		//this.game.state.start("Main");
 	},
 
 	gotoMaps: function(){

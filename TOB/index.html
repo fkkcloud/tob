@@ -13,12 +13,23 @@
 
 	<title>TOB</title>
 
+	<!-- PHASER LIB -->
 	<script type="text/javascript" src="js/phaser.min.js"></script>
+
+	<!-- EZGUI -->
+	<script type="text/javascript" src="js/phaser-compat-2.4.js"></script>
+    <script type="text/javascript" src="js/EZGUI.js"></script>
+
+    <!-- PHASER GAME CODE-->
 	<script type="text/javascript" src="js/boot.js"></script>
 	<script type="text/javascript" src="js/preload.js"></script>
 	<script type="text/javascript" src="js/gametitle.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
 	<script type="text/javascript" src="js/gameover.js"></script>
+	<script type="text/javascript" src="js/levellist.js"></script>
+
+	<script type="text/javascript" src="js/tob_UI_script.js"></script>
+
     <style type="text/css">
         body {
             margin: 0;
@@ -53,9 +64,6 @@
         #mobile-game {
         	display: none;
         }
-
-
-
     </style>
 
     <script>
@@ -66,10 +74,24 @@
 
 	  ga('create', 'UA-68768504-10', 'auto');
 	  ga('send', 'pageview');
-
 	</script>
 
     <script type="text/javascript">
+    	var resources, themeOverride;
+    	/* UI ------------------------------------------------------------------------------------------------------ */
+
+		        themeOverride = {
+		            levelBtn: {
+		                image: 'level-box',                
+		                font: { size: '45px', family: 'Skranji', color: 'white' },
+		                anchor: {x:0.5, y:0.5},
+		            },
+		        };
+
+			    
+				/* END OF UI ------------------------------------------------------------------------------------------ */
+				
+
 		(function() {
 
 			window.addEventListener('orientationchange', doOnOrientationChange);
@@ -135,11 +157,13 @@
 
 			    //console.log('loaded custom map data:', window.localStorage.mapData);
 
+			    // LOCAL STORAGE MAP DATA
 				var mapData = (window.localStorage.mapData == undefined || window.localStorage.mapData == 'undefined') ? tempMapData : JSON.parse(window.localStorage.mapData);
 				BasicGame.mapData = mapData;
 
 				//console.log(window.localStorage.mapSpeed, window.localStorage.jumpScale);
 
+				// LOCAL STORAGE MAP SPEED
 				var mapSpeed = (window.localStorage.mapSpeed == undefined || 
 					window.localStorage.mapSpeed == 'undefined' || 
 					(window.localStorage.mapSpeed && JSON.parse(window.localStorage.mapSpeed).value == 0) || 
@@ -147,6 +171,7 @@
 					window.localStorage.mapSpeed == 1) ? {'value':1} : JSON.parse(window.localStorage.mapSpeed);
 				BasicGame.mapSpeed = mapSpeed;
 
+				// LOCAL STORAGE JUM SCALE 
 				var jumpScale = (window.localStorage.jumpScale == undefined || 
 					window.localStorage.jumpScale == 'undefined' || 
 					(window.localStorage.jumpScale && JSON.parse(window.localStorage.jumpScale).value == 0) || 
@@ -160,13 +185,14 @@
 				;
 			    */
 			    BasicGame.isGameInit = true;
-				
+
 				//Add all states
 				game.state.add("Boot", BasicGame.Boot);
 				game.state.add("Preload", BasicGame.Preload);
 				game.state.add("GameTitle", BasicGame.GameTitle);
 				game.state.add("Main", BasicGame.Main);
 				game.state.add("GameOver", BasicGame.GameOver);
+				game.state.add("LevelList", BasicGame.LevelList);
 
 				// 여기서 이미지 맵을 가져오도록 하기
 

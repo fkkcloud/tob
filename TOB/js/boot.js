@@ -22,6 +22,9 @@ BasicGame = {
 
     jumpscale: 1,
 
+    ui_level_screen: undefined,
+    ui_dialog_complete: undefined,
+
 };
 
 BasicGame.Boot = function(game){
@@ -64,6 +67,14 @@ BasicGame.Boot.prototype = {
             this.load.image('kingsl_logo', 'assets/kingsl_logo@2.png');
         else
             this.load.image('kingsl_logo', 'assets/kingsl_logo.png');
+
+        // UI resources
+        //this.load.image('assets/img/level-box.png', 'assets/img/level-box.png');
+        this.load.image('level-box', 'assets/level_button.png');
+
+        //Note that you need to call fixCache here to fix compatibility issue
+        //this is temporary fix, it will be replaced with a specific EZGUI Loader
+        this.load.onLoadComplete.add(EZGUI.Compatibility.fixCache, this.load, null, resources);
 	},
 	
   	create: function(){
