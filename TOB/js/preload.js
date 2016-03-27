@@ -13,6 +13,9 @@ BasicGame.Preload.prototype = {
 
 		this.load.bitmapFont('flappyfont', 'assets/fonts/flappyfont/flappyfont.png', 'assets/fonts/flappyfont/flappyfont.fnt');  
 
+		this.load.audio('flap', 'assets/flap.wav');
+		this.load.audio('hit', 'assets/hit.wav');
+
 		var originalImageWidth;
 
 		if(window.devicePixelRatio >= 3)
@@ -243,11 +246,8 @@ BasicGame.Preload.prototype = {
 		BasicGame.blockSize = this.game.height/8.0;
 		BasicGame.blockSpriteScale = (BasicGame.blockSize / originalImageWidth) * 1.1;
 
-		BasicGame.preStageUnits = this.game.width/ (BasicGame.blockSize * 1.0);
+		BasicGame.preStageUnits = this.game.width / (BasicGame.blockSize * 1.0);
 		//console.log('preStageInit:', BasicGame.preStageUnits);
-
-		this.load.audio('flap', 'assets/flap.wav');
-		this.load.audio('hit', 'assets/hit.wav');
 	},
 
 	create: function(){

@@ -785,8 +785,6 @@ Player
         me.cha.events.onOutOfBounds.add(me.deathHandler, this);
 
 		if (me.initBorn){
-
-			console.log("image");
 			
 			var vamp_img_cache = game.cache.getImage("cha_vamp");
 			me.createFXPlayerSpawn(me.initX - vamp_img_cache.width * 0.65, BasicGame.blockSize * -1);
@@ -805,7 +803,7 @@ Player
 
 		// when it becomes bat, do a little fly
 		if (me.mode === me.BATMODE){
-			me.cha.body.velocity.y = -140 * window.devicePixelRatio;
+			me.cha.body.velocity.y = -50 * window.devicePixelRatio;
 			me.game.add.tween(me.cha).to({angle: -40}, 100).start();
 		}
 	},

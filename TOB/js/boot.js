@@ -71,10 +71,9 @@ BasicGame.Boot.prototype = {
         // UI resources
         //this.load.image('assets/img/level-box.png', 'assets/img/level-box.png');
         this.load.image('level-box', 'assets/level_button.png');
-
         //Note that you need to call fixCache here to fix compatibility issue
         //this is temporary fix, it will be replaced with a specific EZGUI Loader
-        this.load.onLoadComplete.add(EZGUI.Compatibility.fixCache, this.load, null, resources);
+        this.load.onLoadComplete.add(EZGUI.Compatibility.fixCache, this.load, null, null);
 	},
 	
   	create: function(){
