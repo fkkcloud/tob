@@ -79,18 +79,21 @@
     <script type="text/javascript">
     	var resources, themeOverride;
     	/* UI ------------------------------------------------------------------------------------------------------ */
+
+    	var level_box_font_size = (32 * window.devicePixelRatio).toString() + 'px';
+
         themeOverride = {
             levelBtn: {
                 image: 'level-box',                
-                font: { size: '45px', family: 'Skranji', color: 'white' },
+                font: { size: level_box_font_size, family: 'Skranji', color: 'white' },
                 anchor: {x:0.5, y:0.5},
             },
-            /*
+            
             levelBtnLocked : {
             	image: 'level-box-locked',                
-                font: { size: '45px', family: 'Skranji', color: 'white' },
+                font: { size: level_box_font_size, family: 'Skranji', color: 'gray' },
                 anchor: {x:0.5, y:0.5},
-            },*/
+            },
         };
 		/* END OF UI ------------------------------------------------------------------------------------------ */
 				
@@ -180,6 +183,25 @@
 					window.localStorage.jumpScale == '' ||
 					window.localStorage.jumpScale == 1) ? {'value':1} : JSON.parse(window.localStorage.jumpScale);
 				BasicGame.jumpScale = jumpScale;
+
+				// LOCAL STORAGE STAGE PROGRESS
+				if (!window.localStorage.stageProgress || window.localStorage.stageProgress == undefined ||
+					window.localStorage.stageProgress == "undefined" || window.localStorage.stageProgress == null)
+				{
+					BasicGame.stageProgress = [];
+					for (var i = 0; i < 20; i++){
+						BasicGame.stageProgress.push(0);
+					}
+					BasicGame.stageProgress[0] = 1; // first stage is always available.
+					window.localStorage.stageProgress = JSON.stringify(BasicGame.stageProgress);
+
+					console.log('initializing stage progress...', BasicGame.stageProgress);
+				}
+				else {
+					BasicGame.stageProgress = JSON.parse(window.localStorage.stageProgress);
+
+					console.log('loading stage progress...', BasicGame.stageProgress);
+				}
 
 				//console.log(BasicGame.mapSpeed, BasicGame.jumpScale);
 

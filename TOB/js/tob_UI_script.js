@@ -40,6 +40,7 @@ var levelSelectScreenJSON = {
 			{ id: 'lvl17', text: '17', userData: 'level 17', component: 'Button', position: 'center', width: 100, height: 100, skin: 'levelBtn' },
 			{ id: 'lvl18', text: '18', userData: 'level 18', component: 'Button', position: 'center', width: 100, height: 100, skin: 'levelBtn' },
 			{ id: 'lvl19', text: '19', userData: 'level 19', component: 'Button', position: 'center', width: 100, height: 100, skin: 'levelBtn' },
+			{ id: 'lvl19', text: '20', userData: 'level 20', component: 'Button', position: 'center', width: 100, height: 100, skin: 'levelBtn' },
 		]
 	}
 	]

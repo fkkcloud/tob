@@ -25,6 +25,8 @@ BasicGame = {
     ui_level_screen: undefined,
     ui_dialog_complete: undefined,
 
+    stageProgress:[],
+
 };
 
 BasicGame.Boot = function(game){
@@ -71,8 +73,8 @@ BasicGame.Boot.prototype = {
         // UI resources
         //this.load.image('assets/img/level-box.png', 'assets/img/level-box.png');
         this.load.image('level-box', 'assets/level_button.png');
-        //this.load.image('level-box-locked', 'assets/level_button_locked.png');
-        
+        this.load.image('level-box-locked', 'assets/level_button_locked.png');
+
         //Note that you need to call fixCache here to fix compatibility issue
         //this is temporary fix, it will be replaced with a specific EZGUI Loader
         this.load.onLoadComplete.add(EZGUI.Compatibility.fixCache, this.load, null, null);

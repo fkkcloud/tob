@@ -28,10 +28,6 @@ BasicGame.Preload.prototype = {
 
 	    	this.load.image('copyrights', 'assets/copyrights@3.png');
 
-	    	this.load.image('startButton', 'assets/start-button@x.png');
-
-		 	this.load.image('restart', 'assets/restart@3.png');
-
 		 	this.load.spritesheet('cha_vamp', 'assets/cha_vamp@3.png', 50*3, 75*3, 3);
 		 	this.load.spritesheet('cha_bat', 'assets/cha_bat@3.png', 225, 250, 3);
 
@@ -90,10 +86,6 @@ BasicGame.Preload.prototype = {
 
 	    	this.load.image('copyrights', 'assets/copyrights@2.png');
 
-	    	this.load.image('startButton', 'assets/start-button@2.png');
-
-		 	this.load.image('restart', 'assets/restart@2.png');
-
 		 	this.load.spritesheet('cha_vamp', 'assets/cha_vamp@2.png', 50*2, 75*2, 3);
 		 	this.load.spritesheet('cha_bat', 'assets/cha_bat@2.png', 149, 166, 3);
 
@@ -151,10 +143,6 @@ BasicGame.Preload.prototype = {
 		    this.load.image('title_gameOver', 'assets/gameover.png');
 
 		    this.load.image('copyrights', 'assets/copyrights.png');
-
-		    this.load.image('startButton', 'assets/start-button.png');
-
-		 	this.load.image('restart', 'assets/restart.png');
 
 		 	this.load.spritesheet('cha_vamp', 'assets/cha_vamp.png', 50, 75, 3);
 		 	this.load.spritesheet('cha_bat', 'assets/cha_bat.png', 74, 83, 3);
@@ -220,10 +208,13 @@ BasicGame.Preload.prototype = {
 
                 //wait for animation to finish
 			    setTimeout(function () {
-			        BasicGame.ui_level_screen.visible = false;
-			        this.game.state.start("Main");
+			    	var stageNumber = Number(me.text) - 1;
+			    	if (BasicGame.stageProgress && BasicGame.stageProgress.length >= stageNumber && BasicGame.stageProgress[stageNumber] == 1){
+			        	BasicGame.ui_level_screen.visible = false;
+			        	this.game.state.start("Main");
+					}
 			    }, 150);
-			    console.log('clicked', event);
+			    //console.log('clicked', event);
 			});
 		}
 
@@ -239,6 +230,21 @@ BasicGame.Preload.prototype = {
 		    // choose between levelBtnLocked vs levelBtn for levelSelectScreenJSON.children[0].children[i]s..
 		    // based on the localStorage
 		    // window.localStorage.stageProgress[i] = 1 or 0? 1 for available, 0 for locked
+		    for (var i = 0; i < levelSelectScreenJSON.children[0].children.length; i++){
+
+		    	var level = levelSelectScreenJSON.children[0].children[i];
+		    	
+		    	level.width *= window.devicePixelRatio;
+		    	level.height *= window.devicePixelRatio;
+		    	
+	    		if (BasicGame.stageProgress && BasicGame.stageProgress.length >= i && BasicGame.stageProgress[i] != 0){
+	    			level.skin = "levelBtn";
+	    		}
+	    		else {
+	    			level.skin = "levelBtnLocked";
+	    		}
+		    	
+		    }
 		    
 			BasicGame.ui_level_screen = EZGUI.create(levelSelectScreenJSON, 'metalworks');
 			BasicGame.ui_level_screen.visible = false;
