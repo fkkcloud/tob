@@ -210,11 +210,19 @@ BasicGame.Preload.prototype = {
 			    setTimeout(function () {
 			    	var stageNumber = Number(me.text) - 1;
 			    	if (BasicGame.stageProgress && BasicGame.stageProgress.length >= stageNumber && BasicGame.stageProgress[stageNumber] == 1){
+			        	
+			        	BasicGame.currentStage = stageNumber;
+
+			        	BasicGame.mapData   = BasicGame.stageData[BasicGame.currentStage].mapData;
+						window.localStorage.mapName = BasicGame.stageData[BasicGame.currentStage].mapTitle;
+						BasicGame.jumpScale = {'value':BasicGame.stageData[BasicGame.currentStage].jumpScale};
+						BasicGame.mapSpeed  = {'value':BasicGame.stageData[BasicGame.currentStage].mapSpeed};
+
 			        	BasicGame.ui_level_screen.visible = false;
 			        	this.game.state.start("Main");
 					}
 			    }, 150);
-			    //console.log('clicked', event);
+
 			});
 		}
 

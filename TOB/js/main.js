@@ -237,7 +237,6 @@ BasicGame.Main.prototype = {
 				}
 				
 				if (me.mode == me.BATMODE){
-					console.log('bar life incresase!');
 
 					// increase actual bat time due
 					me.batTimeDue += 1000;
@@ -280,7 +279,8 @@ BasicGame.Main.prototype = {
 			me.game.physics.arcade.overlap(me.cha, endPoint, function(){
 				me.game.time.events.add(Phaser.Timer.SECOND * 0.1, function(){ 
 					//Send score to game over screen 
-					me.game.state.start('GameOver', true, false, me.score.toString());
+					me.gameendScreen();
+					//me.game.state.start('GameOver', true, false, me.score.toString());
 				}, me);
 			})
 		}
@@ -430,6 +430,67 @@ blocks - event handlers
 
 	},
 
+	gameendScreen : function(){
+
+		var me = this;
+
+		me.chaDead = true;
+
+		me.game.time.events.remove(me.groundFX);
+
+		// make it stuck to the sticks
+		me.cha.body.velocity.x = 30 * window.devicePixelRatio;
+		me.cha.body.velocity.y = 0;
+		me.cha.body.gravity.y = 0;
+
+		me.cha.animations.stop('flap');
+
+		me.game.time.events.add(100, function(){ 
+			me.cha.destroy();
+		}, me);
+		
+		// stop the map
+		me.mapSpeed = 0;
+		me.mapVelX = 0;
+		for (var i = 0; i < me.blocks.children.length; i++)
+			me.blocks.children[i].body.velocity.x = 0;
+		for (var i = 0; i < me.traps.children.length; i++)
+			me.traps.children[i].body.velocity.x = 0;
+		for (var i = 0; i < me.bloods.children.length; i++)
+			me.bloods.children[i].body.velocity.x = 0;
+		for (var i = 0; i < me.endPoints.children.length; i++)
+			me.endPoints.children[i].body.velocity.x = 0;
+
+		// create a new bitmap data object
+	    var bmd = game.add.bitmapData(me.game.width, me.game.height);
+
+	    // draw to the canvas context like normal
+	    bmd.ctx.beginPath();
+	    bmd.ctx.rect(0,0,me.game.width,me.game.height);
+	    bmd.ctx.fillStyle = '#000000';
+	    bmd.ctx.fill();
+
+	    // use the bitmap data as the texture for the sprite
+	    var sprite = game.add.sprite(0, 0, bmd);
+	    sprite.alpha = 0.5;
+
+	    var gameoverTitle = me.game.add.sprite(me.game.world.width * 0.5, me.game.height * 0.36, "title_gameOver");
+  		gameoverTitle.anchor.setTo(0.5, 0.5);
+
+  		var restartButton = me.game.add.button(me.game.world.width * 0.4,
+  			me.game.world.height * 0.68, "btn_replay", me.gotoNextStage, me);
+  		restartButton.anchor.setTo(0.5, 0.5);
+  		restartButton.onInputDown.add(me.onDown, this);
+		restartButton.onInputUp.add(me.onUp, this);
+
+  		var menuButton = me.game.add.button(me.game.world.width * 0.6,
+  			me.game.world.height * 0.68, "btn_menu", me.gotoMenu, me);
+  		menuButton.anchor.setTo(0.5, 0.5);
+  		menuButton.onInputDown.add(me.onDown, this);
+		menuButton.onInputUp.add(me.onUp, this);
+
+	},
+
 	onDown: function(but){
 		but.scale.setTo(1.1, 1.1);
 	},
@@ -443,6 +504,22 @@ blocks - event handlers
 	},
 
 	restartGame: function(){
+		this.game.state.start("Main");
+	},
+
+	gotoNextStage: function(){
+		
+		// if there is next stage - go!
+		if (BasicGame.stageData.length > BasicGame.currentStage){
+			BasicGame.currentStage += 1;
+			stageProgress[BasicGame.currentStage] = 1; // progress alarm
+		}
+
+		BasicGame.mapData   = BasicGame.stageData[BasicGame.currentStage].mapData;
+		window.localStorage.mapName = BasicGame.stageData[BasicGame.currentStage].mapTitle;
+		BasicGame.jumpScale = {'value':BasicGame.stageData[BasicGame.currentStage].jumpScale};
+		BasicGame.mapSpeed  = {'value':BasicGame.stageData[BasicGame.currentStage].mapSpeed};
+
 		this.game.state.start("Main");
 	},
 
