@@ -235,9 +235,13 @@ BasicGame.Preload.prototype = {
 		    levelSelectScreenJSON.height = this.game.height;
 		    levelSelectScreenJSON.children[0].width = this.game.width;
 		    levelSelectScreenJSON.children[0].height = this.game.height;
+
+		    // choose between levelBtnLocked vs levelBtn for levelSelectScreenJSON.children[0].children[i]s..
+		    // based on the localStorage
+		    // window.localStorage.stageProgress[i] = 1 or 0? 1 for available, 0 for locked
 		    
 			BasicGame.ui_level_screen = EZGUI.create(levelSelectScreenJSON, 'metalworks');
-			BasicGame.ui_level_screen.visible = false;		
+			BasicGame.ui_level_screen.visible = false;
 			
 			setupGUI();
 		});
