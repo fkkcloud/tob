@@ -601,8 +601,8 @@ blocks - generations
 	    	me.blocks.add(block);
 	    }
 	    else if (imgId === 2){ // trap
-	    	block.width *= 1.25;
-	    	block.height *= 1.25;
+	    	block.width *= 1.0;
+	    	block.height *= 1.0;
 	    	block.body.width = block.width * 0.4;
 			block.body.height = block.height * 0.4;
 			block.anchor.setTo(0.5, 0.5);
