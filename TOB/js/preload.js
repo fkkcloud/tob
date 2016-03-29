@@ -240,6 +240,8 @@ BasicGame.Preload.prototype = {
 	},
 
 	create: function(){
+        BasicGame.preloadState = true;
+
         function setupGUI() {
 
             // level list
@@ -303,17 +305,22 @@ BasicGame.Preload.prototype = {
             BasicGame.ui_level_screen.visible = false;
             
             setupGUI();
+
+            if (BasicGame.preloadState){
+                BasicGame.preloadState = false;
+                if (window.localStorage.instantPlay == 1){
+                    window.localStorage.instantPlay = 0;
+                    this.game.state.start("Main");
+                }
+                else {
+                    this.game.state.start("GameTitle");
+                }
+            }
         };
 
         EZGUI.Theme.load(['assets/metalworks-theme/metalworks-theme.json'], BasicGame.reloadStageScreenUI);
-        
-		console.log('window.localStorage.instantPlay',window.localStorage.instantPlay);
-		if (window.localStorage.instantPlay == 1){
-			window.localStorage.instantPlay = 0;
-			this.game.state.start("Main");
-		}
-		else {
-			this.game.state.start("GameTitle");
-		}
+
+		//console.log('window.localStorage.instantPlay',window.localStorage.instantPlay);
+		
 	},
 }
