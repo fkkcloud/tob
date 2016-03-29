@@ -501,16 +501,22 @@ blocks - event handlers
 	    var sprite = game.add.sprite(0, 0, bmd);
 	    sprite.alpha = 0.5;
 
-	    var gameoverTitle = me.game.add.sprite(me.game.world.width * 0.5, me.game.height * 0.36, "title_gameOver");
+	    var gameoverTitle = me.game.add.sprite(me.game.world.width * 0.5, me.game.height * 0.36, "title_stageClear");
   		gameoverTitle.anchor.setTo(0.5, 0.5);
 
-  		var restartButton = me.game.add.button(me.game.world.width * 0.4,
-  			me.game.world.height * 0.68, "btn_replay", me.gotoNextStage, me);
+  		var restartButton = me.game.add.button(me.game.world.width * 0.25,
+  			me.game.world.height * 0.68, "btn_replay", me.restartGame, me);
   		restartButton.anchor.setTo(0.5, 0.5);
   		restartButton.onInputDown.add(me.onDown, this);
 		restartButton.onInputUp.add(me.onUp, this);
 
-  		var menuButton = me.game.add.button(me.game.world.width * 0.6,
+		var restartButton = me.game.add.button(me.game.world.width * 0.5,
+  			me.game.world.height * 0.68, "btn_next", me.gotoNextStage, me);
+  		restartButton.anchor.setTo(0.5, 0.5);
+  		restartButton.onInputDown.add(me.onDown, this);
+		restartButton.onInputUp.add(me.onUp, this);
+
+  		var menuButton = me.game.add.button(me.game.world.width * 0.75,
   			me.game.world.height * 0.68, "btn_menu", me.gotoMenu, me);
   		menuButton.anchor.setTo(0.5, 0.5);
   		menuButton.onInputDown.add(me.onDown, this);
