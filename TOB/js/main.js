@@ -615,6 +615,10 @@ blocks - generations
 	    	me.bloods.add(block);
 	    }
 	    else if (imgId === 4){ // end point
+	    	block.width *= 1.3;
+	    	block.height *= 1.3;
+	    	block.body.width = block.width * 0.5;
+			block.body.height = block.height * 0.5;
 	    	me.endPoints.add(block);
 	    }
 
