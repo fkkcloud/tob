@@ -453,19 +453,10 @@ blocks - event handlers
 
 		me.game.time.events.remove(me.groundFX);
 
-		// make it stuck to the sticks
-		me.cha.body.velocity.x = 30 * window.devicePixelRatio;
-		me.cha.body.velocity.y = 0;
-		me.cha.body.gravity.y = 0;
-
-		//me.cha.animations.stop('flap');
-
 		for (var i = 0; i < me.endPoints.children.length; i++)
 			me.endPoints.children[i].destroy();
 
-		//me.game.time.events.add(10, function(){ 
-			me.cha.destroy();
-		//}, me);
+		me.cha.destroy();
 		
 		// stop the map
 		me.mapSpeed = 0;
@@ -479,6 +470,8 @@ blocks - event handlers
 		for (var i = 0; i < me.endPoints.children.length; i++)
 			me.endPoints.children[i].body.velocity.x = 0;
 
+		me.playFXTransform();
+		me.playPlayerStageEnd();
 
 		// if there is next stage - go!
 		if (BasicGame.stageData.length - 1 > BasicGame.currentStage){
@@ -980,6 +973,20 @@ Player
 		anim.angle = -45;
 		me.game.physics.arcade.enable(anim);
 		anim.body.velocity.x = me.mapVelX * 0.286;
+	},
+
+	playPlayerStageEnd(){
+		var me = this;
+		me.cha = me.game.add.sprite(me.lastChaPos.x, me.lastChaPos.y, 'cha_bat');
+
+		// add and play animations
+		me.cha.animations.add('flap');
+		me.cha.animations.play('flap', 8, true);
+
+		// set the sprite's anchor to the center
+		me.cha.anchor.setTo(0.5, 0.5);
+
+		me.game.add.tween(me.cha.position).to({x: me.game.width + 70 * window.devicePixelRatio, y: me.game.height * 0.5 - 70 * window.devicePixelRatio}, 3000).start();
 	},
 
 /*
