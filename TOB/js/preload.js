@@ -29,7 +29,7 @@ BasicGame.Preload.prototype = {
             this.load.image('copyrights', 'assets/copyrights@3.png');
 
             this.load.spritesheet('cha_vamp', 'assets/cha_vamp@3.png', 50*3, 75*3, 3);
-            this.load.spritesheet('cha_bat', 'assets/cha_bat@3.png', 225, 250, 3);
+            this.load.spritesheet('cha_bat', 'assets/cha_bat@3.png', 250, 230, 3);
 
             this.load.image('btn_story', 'assets/btn_storymode@3.png');
             this.load.image('btn_maplist', 'assets/btn_maplist@3.png');
@@ -92,7 +92,7 @@ BasicGame.Preload.prototype = {
             this.load.image('copyrights', 'assets/copyrights@2.png');
 
             this.load.spritesheet('cha_vamp', 'assets/cha_vamp@2.png', 50*2, 75*2, 3);
-            this.load.spritesheet('cha_bat', 'assets/cha_bat@2.png', 149, 166, 3);
+            this.load.spritesheet('cha_bat', 'assets/cha_bat@2.png', 166, 153, 3);
 
             this.load.image('btn_story', 'assets/btn_storymode@2.png');
             this.load.image('btn_maplist', 'assets/btn_maplist@2.png');
@@ -155,7 +155,7 @@ BasicGame.Preload.prototype = {
             this.load.image('copyrights', 'assets/copyrights.png');
 
             this.load.spritesheet('cha_vamp', 'assets/cha_vamp.png', 50, 75, 3);
-            this.load.spritesheet('cha_bat', 'assets/cha_bat.png', 74, 83, 3);
+            this.load.spritesheet('cha_bat', 'assets/cha_bat.png', 83, 77, 3);
 
             this.load.image('btn_story', 'assets/btn_storymode.png');
             this.load.image('btn_maplist', 'assets/btn_maplist.png');
@@ -328,7 +328,6 @@ BasicGame.Preload.prototype = {
                 else {
                     level.skin = "levelBtnLocked";
                 }
-                
             }
             
             BasicGame.ui_level_screen = EZGUI.create(levelSelectScreenJSON, 'metalworks');
