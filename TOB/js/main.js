@@ -470,7 +470,8 @@ blocks - event handlers
 		for (var i = 0; i < me.endPoints.children.length; i++)
 			me.endPoints.children[i].body.velocity.x = 0;
 
-		me.playFXTransform();
+		if (me.mode == me.VAMPMODE)
+			me.playFXTransform();
 		me.playPlayerStageEnd();
 
 		// if there is next stage - go!
@@ -478,7 +479,6 @@ blocks - event handlers
 			BasicGame.currentStage += 1;
 			BasicGame.stageProgress[BasicGame.currentStage] = 1; // progress alarm
 			window.localStorage.stageProgress = JSON.stringify(BasicGame.stageProgress); //  save to localStorage
-			BasicGame.reloadStageScreenUI(); // re initialize stage screen UI 
 		}
 
 		// create a new bitmap data object
@@ -507,8 +507,8 @@ blocks - event handlers
   			me.game.world.height * 0.68, "btn_next", me.gotoNextStage, me);
   		restartButton.anchor.setTo(0.5, 0.5);
 		restartButton.scale.x *= -1; // flip horizontally
-  		restartButton.onInputDown.add(me.onDown, this);
-		restartButton.onInputUp.add(me.onUp, this);
+  		restartButton.onInputDown.add(me.onDownNeg, this);
+		restartButton.onInputUp.add(me.onUpNeg, this);
 
   		var menuButton = me.game.add.button(me.game.world.width * 0.75,
   			me.game.world.height * 0.68, "btn_menu", me.gotoMenu, me);
@@ -516,6 +516,14 @@ blocks - event handlers
   		menuButton.onInputDown.add(me.onDown, this);
 		menuButton.onInputUp.add(me.onUp, this);
 
+	},
+
+	onDownNeg: function(but){
+		but.scale.setTo(-1.1, 1.1);
+	},
+
+	onUpNeg: function(but){
+		but.scale.setTo(-1.0, 1.0);
 	},
 
 	onDown: function(but){

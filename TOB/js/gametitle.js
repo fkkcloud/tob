@@ -2,6 +2,10 @@ BasicGame.GameTitle = function(game){};
 
 BasicGame.GameTitle.prototype = {
 
+	preload: function(){
+		BasicGame.reloadStageScreenUI(); // re initialize stage screen UI 
+	},
+
 	create: function(){
 		var me = this;
 
