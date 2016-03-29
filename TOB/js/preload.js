@@ -43,6 +43,10 @@ BasicGame.Preload.prototype = {
 		 	this.load.spritesheet('blood_eat', 'assets/blood_eat@3.png', 141, 141, 4);
 		 	this.load.spritesheet('blood_fill', 'assets/blood_fill@3.png', 110, 110, 12);
 
+		 	this.load.image('blood_highlight', 'assets/bloodhighlight@3.png');
+		 	this.load.image('blood_guage', 'assets/bloodguage@3.png');
+		 	this.load.image('blood_bar', 'assets/bloodbar@3.png');
+
 		 	this.load.image('endpoint', 'assets/endpoint@3.png');
 
 		 	this.load.image('trap', 'assets/trap@3.png');
@@ -101,6 +105,10 @@ BasicGame.Preload.prototype = {
 		 	this.load.spritesheet('blood_eat', 'assets/blood_eat@2.png', 94, 94, 4);
 		 	this.load.spritesheet('blood_fill', 'assets/blood_fill@2.png', 73, 73, 12);
 
+		 	this.load.image('blood_highlight', 'assets/bloodhighlight@2.png');
+		 	this.load.image('blood_guage', 'assets/bloodgauge@2.png');
+		 	this.load.image('blood_bar', 'assets/bloodbar@2.png');
+
 		 	this.load.image('endpoint', 'assets/endpoint@2.png');
 
 		 	this.load.image('trap', 'assets/trap@2.png');
@@ -158,6 +166,10 @@ BasicGame.Preload.prototype = {
 		 	this.load.image('blood', 'assets/blood.png');
 		 	this.load.spritesheet('blood_eat', 'assets/blood_eat.png', 47, 47, 4);
 		 	this.load.spritesheet('blood_fill', 'assets/blood_fill.png', 36, 36, 12);
+
+		 	this.load.image('blood_highlight', 'assets/bloodhighlight.png');
+		 	this.load.image('blood_guage', 'assets/bloodguage.png');
+		 	this.load.image('blood_bar', 'assets/bloodbar.png');
 
 		 	this.load.image('endpoint', 'assets/endpoint.png');
 

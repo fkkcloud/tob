@@ -80,12 +80,24 @@ BasicGame.Main.prototype = {
 		// pre stage
 		me.createPreStage();
 
-		// loading blood bar
-		me.loadingBar = me.game.add.sprite(me.game.width * 0.5, me.game.height * 0.2, 'loadingBar');
-		var loadingBar_imgCache = game.cache.getImage("loadingBar");
-		me.loadingBar.x -= loadingBar_imgCache.width * 0.5;
-		me.loadingBar.anchor.setTo(0.0, 0.5);
+		// setup for blood bar
+		me.bloodIndicator = game.add.group();
+		me.bloodFlash = me.bloodIndicator.create(0, 0, 'blood_highlight');
+		me.bloodFlash.alpha = 0;
+		var leftMarginBloodGuage = 0;
+		if(window.devicePixelRatio >= 3)
+			leftMarginBloodGuage = 30;
+		else if(window.devicePixelRatio >=2)
+			leftMarginBloodGuage = 26.5;
+		else
+			leftMarginBloodGuage = 14;
+		me.loadingBar = me.bloodIndicator.create(leftMarginBloodGuage, 0, 'blood_guage');
+		me.bloodBar   = me.bloodIndicator.create(0, 0, 'blood_bar');		
 		me.loadingBar.scale.x = 0.0;
+		me.bloodIndicator.position.setTo(me.game.width * 0.5, me.game.height * 0.03);
+		me.bloodIndicator.scale.setTo(1.4, 1.4);
+		var loadingBar_imgCache = game.cache.getImage("blood_bar");
+		me.bloodIndicator.x -= (loadingBar_imgCache.width * 0.5) * 1.4;
 	},
 
 	update: function() {
@@ -139,11 +151,11 @@ BasicGame.Main.prototype = {
 		// bat check!! ----------------
 		if (me.mode == me.BATMODE && this.game.time.totalElapsedSeconds() * 1000 > me.batTimeDue){
 			me.bloodCount = 0; // reset blood collection for bat transformation (e.g. when it come back from bat to vamp)
+			me.bloodFlash.alpha = 0;
 			me.runVampMode();
 			me.createPlayer();
 			me.playFXTransform();
 		}
-		
 		// debug text
 		//me.debugText.setText(me.bloodCount)// (me.currentColumnId);
 	},
@@ -766,6 +778,8 @@ Mode
 		
 		me.batTimeDue = this.game.time.totalElapsedSeconds() * 1000 + 4000;
 		me.game.add.tween(me.loadingBar.scale).to({x: 0.0}, 4000).start();
+
+		me.game.add.tween(me.bloodFlash).to({alpha: 1.0}, 140).start();
 	},
 
 	runVampMode: function(){
@@ -1002,7 +1016,7 @@ Control - player
 		me.input.onDown.add(me.jump, me);
 		me.input.onUp.add(me.endJump, me);
 
-		console.log(me.input);
+		//console.log(me.input);
 	},
 
 	endJump: function(){
