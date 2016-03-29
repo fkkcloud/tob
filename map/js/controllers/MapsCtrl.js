@@ -147,7 +147,7 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
             for (var i = 0; i < items.length; i++){
 
                 var item = items[i];
-                //console.log(item);
+                console.log(item);
 
                 items[i].imgData = generateImage(item);
             }
