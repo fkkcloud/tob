@@ -7,8 +7,8 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
 
     setTimeout(function(){
         getResultsPage(1);
-        getFeaturedMap();
-    }, 150)
+        //getFeaturedMap();
+    }, 100)
     
     $scope.pagination = {
         current: 1
@@ -32,7 +32,7 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
         requestRate(queryID);
     }
 
-
+    /*
     $scope.rateFeatured = function() {
         var queryID = $scope.featuredMap._id;
 
@@ -44,6 +44,7 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
         $scope.featuredMap.rate += 1;
         requestRate(queryID);
     }
+    */
 
     $scope.startMap = function(id) {
         window.localStorage.mapData = $scope.currentLoadedMaps[id].data;
@@ -57,6 +58,7 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
         runMap(queryID);
     }
 
+    /*
     $scope.startFeatured = function() {
         window.localStorage.mapData = $scope.featuredMap.data;
         window.localStorage.mapName = $scope.featuredMap.name;
@@ -68,6 +70,7 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
 
         runMap(queryID);
     }
+    */
 
     $scope.editMap = function(id) {
         //window.localStorage.mapData = $scope.currentLoadedMaps[id].data;
@@ -110,6 +113,7 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
         return false;
     }
 
+    /*
     function getFeaturedMap() {
 
         var testMapId = "56e50f67e4e1f7a0121d6d44";
@@ -129,6 +133,7 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
             $scope.featuredMap = map;
         })
     }
+    */
 
     function getResultsPage(pageNumber) {
 
