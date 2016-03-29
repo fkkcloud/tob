@@ -168,7 +168,7 @@ BasicGame.Preload.prototype = {
 		 	this.load.spritesheet('blood_fill', 'assets/blood_fill.png', 36, 36, 12);
 
 		 	this.load.image('blood_highlight', 'assets/bloodhighlight.png');
-		 	this.load.image('blood_guage', 'assets/bloodguage.png');
+		 	this.load.image('blood_guage', 'assets/bloodgauge.png');
 		 	this.load.image('blood_bar', 'assets/bloodbar.png');
 
 		 	this.load.image('endpoint', 'assets/endpoint.png');
