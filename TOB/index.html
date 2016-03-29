@@ -193,12 +193,12 @@
 					BasicGame.stageProgress[0] = 1; // first stage is always available.
 					window.localStorage.stageProgress = JSON.stringify(BasicGame.stageProgress);
 
-					console.log('initializing stage progress...', BasicGame.stageProgress);
+					//console.log('initializing stage progress...', BasicGame.stageProgress);
 				}
 				else {
 					BasicGame.stageProgress = JSON.parse(window.localStorage.stageProgress);
 
-					console.log('loading stage progress...', BasicGame.stageProgress);
+					//console.log('loading stage progress...', BasicGame.stageProgress);
 				}
 				//BasicGame.stageProgress = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
