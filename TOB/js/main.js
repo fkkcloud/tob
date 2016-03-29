@@ -446,6 +446,9 @@ blocks - event handlers
 
 		var me = this;
 
+		if (me.chaDead)
+			return;
+
 		me.chaDead = true;
 
 		me.game.time.events.remove(me.groundFX);
@@ -455,11 +458,14 @@ blocks - event handlers
 		me.cha.body.velocity.y = 0;
 		me.cha.body.gravity.y = 0;
 
-		me.cha.animations.stop('flap');
+		//me.cha.animations.stop('flap');
 
-		me.game.time.events.add(100, function(){ 
+		for (var i = 0; i < me.endPoints.children.length; i++)
+			me.endPoints.children[i].destroy();
+
+		//me.game.time.events.add(10, function(){ 
 			me.cha.destroy();
-		}, me);
+		//}, me);
 		
 		// stop the map
 		me.mapSpeed = 0;
@@ -473,13 +479,22 @@ blocks - event handlers
 		for (var i = 0; i < me.endPoints.children.length; i++)
 			me.endPoints.children[i].body.velocity.x = 0;
 
+
+		// if there is next stage - go!
+		if (BasicGame.stageData.length - 1 > BasicGame.currentStage){
+			BasicGame.currentStage += 1;
+			BasicGame.stageProgress[BasicGame.currentStage] = 1; // progress alarm
+			window.localStorage.stageProgress = JSON.stringify(BasicGame.stageProgress); //  save to localStorage
+			BasicGame.reloadStageScreenUI(); // re initialize stage screen UI 
+		}
+
 		// create a new bitmap data object
 	    var bmd = game.add.bitmapData(me.game.width, me.game.height);
 
 	    // draw to the canvas context like normal
 	    bmd.ctx.beginPath();
 	    bmd.ctx.rect(0,0,me.game.width,me.game.height);
-	    bmd.ctx.fillStyle = '#000000';
+	    bmd.ctx.fillStyle = '#220000';
 	    bmd.ctx.fill();
 
 	    // use the bitmap data as the texture for the sprite
@@ -520,12 +535,6 @@ blocks - event handlers
 	},
 
 	gotoNextStage: function(){
-		
-		// if there is next stage - go!
-		if (BasicGame.stageData.length > BasicGame.currentStage){
-			BasicGame.currentStage += 1;
-			stageProgress[BasicGame.currentStage] = 1; // progress alarm
-		}
 
 		BasicGame.mapData   = BasicGame.stageData[BasicGame.currentStage].mapData;
 		window.localStorage.mapName = BasicGame.stageData[BasicGame.currentStage].mapTitle;

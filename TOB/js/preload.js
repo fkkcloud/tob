@@ -204,6 +204,9 @@ BasicGame.Preload.prototype = {
 		 	originalImageWidth = 47;
 		} 
 
+		BasicGame.globalGameWidth = this.game.width;
+		BasicGame.globalGameHeight = this.game.height;
+
         function setupGUI() {
 
         	// level list
@@ -238,24 +241,21 @@ BasicGame.Preload.prototype = {
 			});
 		}
 
-		EZGUI.Theme.load(['assets/metalworks-theme/metalworks-theme.json'], function () {
+		BasicGame.reloadStageScreenUI = function () {
 
 		    EZGUI.themes['metalworks'].override(themeOverride);
 
-		    levelSelectScreenJSON.width = this.game.width;
-		    levelSelectScreenJSON.height = this.game.height;
-		    levelSelectScreenJSON.children[0].width = this.game.width;
-		    levelSelectScreenJSON.children[0].height = this.game.height;
+		    levelSelectScreenJSON.width = BasicGame.globalGameWidth;
+		    levelSelectScreenJSON.height = BasicGame.globalGameHeight;
+		    levelSelectScreenJSON.children[0].width = BasicGame.globalGameWidth;
+		    levelSelectScreenJSON.children[0].height = BasicGame.globalGameHeight;
 
-		    // choose between levelBtnLocked vs levelBtn for levelSelectScreenJSON.children[0].children[i]s..
-		    // based on the localStorage
-		    // window.localStorage.stageProgress[i] = 1 or 0? 1 for available, 0 for locked
 		    for (var i = 0; i < levelSelectScreenJSON.children[0].children.length; i++){
 
 		    	var level = levelSelectScreenJSON.children[0].children[i];
 		    	
-		    	level.width *= window.devicePixelRatio;
-		    	level.height *= window.devicePixelRatio;
+		    	level.width = 120 * window.devicePixelRatio;
+		    	level.height = 120 * window.devicePixelRatio;
 		    	
 	    		if (BasicGame.stageProgress && BasicGame.stageProgress.length >= i && BasicGame.stageProgress[i] != 0){
 	    			level.skin = "levelBtn";
@@ -270,7 +270,9 @@ BasicGame.Preload.prototype = {
 			BasicGame.ui_level_screen.visible = false;
 			
 			setupGUI();
-		});
+		};
+
+		EZGUI.Theme.load(['assets/metalworks-theme/metalworks-theme.json'], BasicGame.reloadStageScreenUI);
 
 		// get right width
 		BasicGame.blockSize = this.game.height/8.0;
