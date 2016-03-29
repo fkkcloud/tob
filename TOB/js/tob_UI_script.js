@@ -8,8 +8,28 @@ var levelSelectScreenJSON = {
 	height: 200,
 
 
-	layout: [1, 1],
+	layout: [1, 6],
 	children: [
+	{
+		    text: 'StageScreen',
+		    font: {
+		        size: '42px',
+		        family: 'Skranji',
+		        color: '#fff'
+		    },
+		    component: 'Header',
+		    
+		    position: 'center',
+		  
+		    width: 400,
+		    height: 80,
+		    layout: [3, 1],
+		    children: [
+				null,
+				null,
+				{ id: 'backbutton1', component: 'Button', position: 'right', width: 160, height: 120, skin: 'backBtn' },
+		    ]
+	},
 	{
 		id: 'levelsList',
 		component: 'List',

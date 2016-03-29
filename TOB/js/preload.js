@@ -280,6 +280,25 @@ BasicGame.Preload.prototype = {
                 }, 150);
 
             });
+
+            EZGUI.components.backbutton1.on('mousedown', function (event, me) {
+                //console.log('mousedown ', me);
+                var ow = me.width;
+                var oh = me.height;
+                me.animateSizeTo(ow * 1.1, oh * 1.1, 100, EZGUI.Easing.Back.Out, function () {
+                    me.animateSizeTo(ow, oh, 100);
+                });
+            });
+
+            EZGUI.components.backbutton1.on('click', function (event, me) {
+
+                //wait for animation to finish
+                setTimeout(function () {
+                    BasicGame.ui_level_screen.visible = false;
+                    this.game.state.start("GameTitle");
+                }, 100);
+
+            });
         }
 
         BasicGame.reloadStageScreenUI = function () {
@@ -289,11 +308,16 @@ BasicGame.Preload.prototype = {
             levelSelectScreenJSON.width = BasicGame.globalGameWidth;
             levelSelectScreenJSON.height = BasicGame.globalGameHeight;
             levelSelectScreenJSON.children[0].width = BasicGame.globalGameWidth;
-            levelSelectScreenJSON.children[0].height = BasicGame.globalGameHeight;
+            levelSelectScreenJSON.children[0].height = BasicGame.globalGameHeight * 0.2;
+            levelSelectScreenJSON.children[0].font.size = 34 * window.devicePixelRatio + 'px';
+            levelSelectScreenJSON.children[0].children[2].width = BasicGame.globalGameWidth * 0.1;
+            levelSelectScreenJSON.children[0].children[2].height = BasicGame.globalGameHeight * 0.16;
+            levelSelectScreenJSON.children[1].width = BasicGame.globalGameWidth;
+            levelSelectScreenJSON.children[1].height = BasicGame.globalGameHeight * 0.84;
 
-            for (var i = 0; i < levelSelectScreenJSON.children[0].children.length; i++){
+            for (var i = 0; i < levelSelectScreenJSON.children[1].children.length; i++){
 
-                var level = levelSelectScreenJSON.children[0].children[i];
+                var level = levelSelectScreenJSON.children[1].children[i];
                 
                 level.width = 120 * window.devicePixelRatio;
                 level.height = 120 * window.devicePixelRatio;

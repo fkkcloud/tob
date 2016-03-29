@@ -513,6 +513,7 @@ blocks - event handlers
 		var restartButton = me.game.add.button(me.game.world.width * 0.5,
   			me.game.world.height * 0.68, "btn_next", me.gotoNextStage, me);
   		restartButton.anchor.setTo(0.5, 0.5);
+		restartButton.scale.x *= -1; // flip horizontally
   		restartButton.onInputDown.add(me.onDown, this);
 		restartButton.onInputUp.add(me.onUp, this);
 

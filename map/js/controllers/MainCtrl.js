@@ -106,5 +106,7 @@ angular.module('MainCtrl', []).controller('MainController', function($scope) {
 	}
 	$scope.loadJumpScaleFromLocalStorage();
 
-
+	$scope.gotoGame = function(){
+		window.location.href = $scope.href_game;
+	};
 });
