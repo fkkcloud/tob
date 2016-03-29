@@ -2,7 +2,7 @@ BasicGame.GameTitle = function(game){};
 
 BasicGame.GameTitle.prototype = {
 
-	preload: function(){
+	init: function(){
 		function setupGUI() {
 
         	// level list
