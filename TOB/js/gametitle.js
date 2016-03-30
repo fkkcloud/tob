@@ -89,40 +89,40 @@ BasicGame.GameTitle.prototype = {
 	},
 
 	onUp: function(but){
-		but.scale.setTo(0.9, 0.9);
+		but.scale.setTo(0.76, 0.76);
 	},
 
 	onDownStart: function(but){
-		but.scale.setTo(1.2, 1.2);
+		but.scale.setTo(1.3, 1.3);
 	},
 
 	onUpStart: function(but){
-		but.scale.setTo(1.1, 1.1);
+		but.scale.setTo(1.2, 1.2);
 	},
 
 	createButtons: function(){
 		var me = this;
 
 		this.btn_start = this.game.add.button(this.game.world.width * 0.5, this.game.world.height * 0.68, 'btn_start', this.startGame, this);
-		this.btn_start.scale.setTo(1.1, 1.1);
+		this.btn_start.scale.setTo(1.2, 1.2);
 		this.btn_start.anchor.setTo(0.5, 0);
 		this.btn_start.onInputDown.add(me.onDownStart, this);
 		this.btn_start.onInputUp.add(me.onUpStart, this);
 
 		this.btn_maplist = this.game.add.button(this.game.world.width * 0.75, this.game.world.height * 0.78, 'btn_maplist', this.gotoMaps, this);
-		this.btn_maplist.scale.setTo(0.9, 0.9);
+		this.btn_maplist.scale.setTo(0.76, 0.76);
 		this.btn_maplist.anchor.setTo(0.5, 0);
 		this.btn_maplist.onInputDown.add(me.onDown, this);
 		this.btn_maplist.onInputUp.add(me.onUp, this);
 
 		this.btn_mapeditor = this.game.add.button(this.game.world.width * 0.5, this.game.world.height * 0.78, 'btn_mapeditor', this.gotoMapEditor, this);
-		this.btn_mapeditor.scale.setTo(0.9, 0.9);
+		this.btn_mapeditor.scale.setTo(0.76, 0.76);
 		this.btn_mapeditor.anchor.setTo(0.5, 0);
 		this.btn_mapeditor.onInputDown.add(me.onDown, this);
 		this.btn_mapeditor.onInputUp.add(me.onUp, this);
 
 		this.btn_infinity = this.game.add.button(this.game.world.width * 0.25, this.game.world.height * 0.78, 'btn_infinity', this.gotoChallengeAI, this);
-		this.btn_infinity.scale.setTo(0.9, 0.9);
+		this.btn_infinity.scale.setTo(0.76, 0.76);
 		this.btn_infinity.anchor.setTo(0.5, 0);
 		this.btn_infinity.onInputDown.add(me.onDown, this);
 		this.btn_infinity.onInputUp.add(me.onUp, this);
