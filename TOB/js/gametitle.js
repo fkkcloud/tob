@@ -108,6 +108,7 @@ BasicGame.GameTitle.prototype = {
 		this.btn_start.anchor.setTo(0.5, 0);
 		this.btn_start.onInputDown.add(me.onDownStart, this);
 		this.btn_start.onInputUp.add(me.onUpStart, this);
+		me.game.add.tween(this.btn_start).to({alpha: 0.4}, 800, null, true, 0, 0, true).loop(true).start();
 
 		this.btn_maplist = this.game.add.button(this.game.world.width * 0.75, this.game.world.height * 0.78, 'btn_maplist', this.gotoMaps, this);
 		this.btn_maplist.scale.setTo(0.76, 0.76);
