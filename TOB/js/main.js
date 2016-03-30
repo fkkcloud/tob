@@ -538,7 +538,7 @@ blocks - event handlers
 		menuButton.onInputUp.add(me.onUp, this);
 
 		if (BasicGame.storymode == false) {
-			var scoreText = me.game.add.bitmapText(me.game.width * 0.5, me.game.height * 0.4, 'flappyfont', me.score.toString() + 'm', 32 * window.devicePixelRatio);
+			var scoreText = me.game.add.bitmapText(me.game.width * 0.5, me.game.height * 0.5, 'flappyfont', me.score.toString() + 'm', 32 * window.devicePixelRatio);
 	    	scoreText.anchor.setTo(0.5, 0.5);
 	    	scoreText.visible = true;
 	    }
