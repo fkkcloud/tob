@@ -38,15 +38,21 @@ BasicGame.GameTitle.prototype = {
 		var bg_sky_img_cache = game.cache.getImage("bg_sky");
 		var scaleRatio = me.game.height / bg_sky_img_cache.height;
 		me.bg_sky.scale.setTo(scaleRatio, scaleRatio);
+		me.bg_sky.inputEnabled = true;
+		me.bg_sky.events.onInputUp.add(this.startGame, this);
 
 		me.bg_cloud = game.add.tileSprite(0, 0, me.game.width, me.game.height, "bg_cloud");
 		var bg_cloud_img_cache = game.cache.getImage("bg_cloud");
 		scaleRatio = me.game.height / bg_cloud_img_cache.height;
 		me.bg_cloud.scale.setTo(scaleRatio, scaleRatio);
+		me.bg_cloud.inputEnabled = true;
+		me.bg_cloud.events.onInputUp.add(this.startGame, this);
 
 		var bg_castle_img_cache = game.cache.getImage("bg_castle");
 		var castle_height = this.game.height - bg_castle_img_cache.height;
 		me.bg_castle = game.add.tileSprite(0, castle_height, me.game.width, me.game.height, "bg_castle");
+		me.bg_castle.inputEnabled = true;
+		me.bg_castle.events.onInputUp.add(this.startGame, this);
 	},
 
 	startGame: function(){
@@ -85,7 +91,7 @@ BasicGame.GameTitle.prototype = {
 	},
 
 	onDown: function(but){
-		but.scale.setTo(1.1, 1.1);
+		but.scale.setTo(0.84, 0.84);
 	},
 
 	onUp: function(but){
@@ -103,28 +109,28 @@ BasicGame.GameTitle.prototype = {
 	createButtons: function(){
 		var me = this;
 
-		this.btn_start = this.game.add.button(this.game.world.width * 0.5, this.game.world.height * 0.68, 'btn_start', this.startGame, this);
+		this.btn_start = this.game.add.button(this.game.world.width * 0.5, this.game.world.height * 0.71, 'btn_start', this.startGame, this);
 		this.btn_start.scale.setTo(1.2, 1.2);
-		this.btn_start.anchor.setTo(0.5, 0);
+		this.btn_start.anchor.setTo(0.5, 0.5);
 		this.btn_start.onInputDown.add(me.onDownStart, this);
 		this.btn_start.onInputUp.add(me.onUpStart, this);
 		me.game.add.tween(this.btn_start).to({alpha: 0.4}, 800, null, true, 0, 0, true).loop(true).start();
 
-		this.btn_maplist = this.game.add.button(this.game.world.width * 0.75, this.game.world.height * 0.78, 'btn_maplist', this.gotoMaps, this);
+		this.btn_maplist = this.game.add.button(this.game.world.width * 0.75, this.game.world.height * 0.85, 'btn_maplist', this.gotoMaps, this);
 		this.btn_maplist.scale.setTo(0.76, 0.76);
-		this.btn_maplist.anchor.setTo(0.5, 0);
+		this.btn_maplist.anchor.setTo(0.5, 0.5);
 		this.btn_maplist.onInputDown.add(me.onDown, this);
 		this.btn_maplist.onInputUp.add(me.onUp, this);
 
-		this.btn_mapeditor = this.game.add.button(this.game.world.width * 0.5, this.game.world.height * 0.78, 'btn_mapeditor', this.gotoMapEditor, this);
+		this.btn_mapeditor = this.game.add.button(this.game.world.width * 0.5, this.game.world.height * 0.85, 'btn_mapeditor', this.gotoMapEditor, this);
 		this.btn_mapeditor.scale.setTo(0.76, 0.76);
-		this.btn_mapeditor.anchor.setTo(0.5, 0);
+		this.btn_mapeditor.anchor.setTo(0.5, 0.5);
 		this.btn_mapeditor.onInputDown.add(me.onDown, this);
 		this.btn_mapeditor.onInputUp.add(me.onUp, this);
 
-		this.btn_infinity = this.game.add.button(this.game.world.width * 0.25, this.game.world.height * 0.78, 'btn_infinity', this.gotoChallengeAI, this);
+		this.btn_infinity = this.game.add.button(this.game.world.width * 0.25, this.game.world.height * 0.85, 'btn_infinity', this.gotoChallengeAI, this);
 		this.btn_infinity.scale.setTo(0.76, 0.76);
-		this.btn_infinity.anchor.setTo(0.5, 0);
+		this.btn_infinity.anchor.setTo(0.5, 0.5);
 		this.btn_infinity.onInputDown.add(me.onDown, this);
 		this.btn_infinity.onInputUp.add(me.onUp, this);
 	},
