@@ -11,7 +11,7 @@ var levelSelectScreenJSON = {
 	layout: [1, 6],
 	children: [
 	{
-		    text: 'StageScreen',
+		    text: 'Stage Screen',
 		    font: {
 		        size: '42px',
 		        family: 'Skranji',
