@@ -305,7 +305,7 @@ BasicGame.Main.prototype = {
 
 		var fontSize = 32 * window.devicePixelRatio;
 
-		var headingFont = fontSize + "px Arial";
+		var headingFont = fontSize + "px Impact";
 		
 		me.mapTitle = me.game.add.text(me.game.world.centerX,
 			me.game.world.height * 0.3, 
@@ -1085,7 +1085,7 @@ Control - player
 
 		if (!me.cha || !me.cha.body)
 			return;
-		
+
 		me.cha.animations.paused = false;
 		// potential jump finish animation
 	},
