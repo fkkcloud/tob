@@ -788,6 +788,9 @@ blocks - generations
 		else if (!up && down && !left && right){
 			return 'open_up_left';
 		}
+		else if (up && !down && left && !right){
+			return 'open_down_right';
+		}
 
 		// 1 open
 		else if (up && !down && !left && !right){
