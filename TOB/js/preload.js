@@ -32,10 +32,10 @@ BasicGame.Preload.prototype = {
             this.load.spritesheet('cha_vamp', 'assets/cha_vamp@3.png', 50*3, 75*3, 3);
             this.load.spritesheet('cha_bat', 'assets/cha_bat@3.png', 250, 230, 3);
 
-            this.load.image('btn_story', 'assets/btn_storymode@3.png');
+            this.load.image('btn_start', 'assets/PresstoStart@3.png');
             this.load.image('btn_maplist', 'assets/btn_maplist@3.png');
             this.load.image('btn_mapeditor', 'assets/btn_mapeditor@3.png');
-            this.load.image('btn_option', 'assets/btn_option@3.png');
+            this.load.image('btn_infinity', 'assets/btn_infinitymode@3.png');
 
             this.load.image('btn_menu', 'assets/btn_menu@3.png');
             this.load.image('btn_replay', 'assets/btn_replay@3.png');
@@ -96,10 +96,10 @@ BasicGame.Preload.prototype = {
             this.load.spritesheet('cha_vamp', 'assets/cha_vamp@2.png', 50*2, 75*2, 3);
             this.load.spritesheet('cha_bat', 'assets/cha_bat@2.png', 166, 153, 3);
 
-            this.load.image('btn_story', 'assets/btn_storymode@2.png');
+            this.load.image('btn_start', 'assets/PresstoStart@2.png');
             this.load.image('btn_maplist', 'assets/btn_maplist@2.png');
             this.load.image('btn_mapeditor', 'assets/btn_mapeditor@2.png');
-            this.load.image('btn_option', 'assets/btn_option@2.png');
+            this.load.image('btn_infinity', 'assets/btn_infinitymode@2.png');
 
             this.load.image('btn_menu', 'assets/btn_menu@2.png');
             this.load.image('btn_replay', 'assets/btn_replay@2.png');
@@ -160,10 +160,10 @@ BasicGame.Preload.prototype = {
             this.load.spritesheet('cha_vamp', 'assets/cha_vamp.png', 50, 75, 3);
             this.load.spritesheet('cha_bat', 'assets/cha_bat.png', 83, 77, 3);
 
-            this.load.image('btn_story', 'assets/btn_storymode.png');
+            this.load.image('btn_start', 'assets/PresstoStart.png');
             this.load.image('btn_maplist', 'assets/btn_maplist.png');
             this.load.image('btn_mapeditor', 'assets/btn_mapeditor.png');
-            this.load.image('btn_option', 'assets/btn_option.png');
+            this.load.image('btn_infinity', 'assets/btn_infinitymode.png');
 
             this.load.image('btn_menu', 'assets/btn_menu.png');
             this.load.image('btn_replay', 'assets/btn_replay.png');
