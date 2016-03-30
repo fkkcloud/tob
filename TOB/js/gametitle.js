@@ -40,6 +40,9 @@ BasicGame.GameTitle.prototype = {
 		me.bg_sky.scale.setTo(scaleRatio, scaleRatio);
 
 		me.bg_cloud = game.add.tileSprite(0, 0, me.game.width, me.game.height, "bg_cloud");
+		var bg_cloud_img_cache = game.cache.getImage("bg_cloud");
+		scaleRatio = me.game.height / bg_cloud_img_cache.height;
+		me.bg_cloud.scale.setTo(scaleRatio, scaleRatio);
 
 		var bg_castle_img_cache = game.cache.getImage("bg_castle");
 		var castle_height = this.game.height - bg_castle_img_cache.height;
