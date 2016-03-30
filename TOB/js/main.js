@@ -52,7 +52,9 @@ BasicGame.Main.prototype = {
 	    me.xTester.body.immovable = true;
 
 		// timers - score
-   	 	//me.scoreCounter = me.game.time.events.loop(Phaser.Timer.SECOND * 1.0, me.getScore, me);
+		if (BasicGame.storymode == false)
+   	 		me.scoreCounter = me.game.time.events.loop(Phaser.Timer.SECOND * 1.0, me.getScore, me);
+
 
 		// start with vamp mode
 		me.createStage();
@@ -367,6 +369,9 @@ blocks - event handlers
 
 		me.game.time.events.remove(me.groundFX);
 
+		if (BasicGame.storymode == false)
+   	 		me.game.time.events.remove(me.scoreCounter);
+
 		// make it stuck to the sticks
 		me.cha.body.velocity.x = 30 * window.devicePixelRatio;
 		me.cha.body.velocity.y = 0;
@@ -440,6 +445,11 @@ blocks - event handlers
   		menuButton.onInputDown.add(me.onDown, this);
 		menuButton.onInputUp.add(me.onUp, this);
 
+		if (BasicGame.storymode == false) {
+			var scoreText = me.game.add.bitmapText(me.game.width * 0.5, me.game.height * 0.5, 'flappyfont', me.score.toString() + 'm', 32 * window.devicePixelRatio);
+	    	scoreText.anchor.setTo(0.5, 0.5);
+	    	scoreText.visible = true;
+	    }
 	},
 
 	gameendScreen : function(){
@@ -452,6 +462,9 @@ blocks - event handlers
 		me.chaDead = true;
 
 		me.game.time.events.remove(me.groundFX);
+
+		if (BasicGame.storymode == false)
+   	 		me.game.time.events.remove(me.scoreCounter);
 
 		for (var i = 0; i < me.endPoints.children.length; i++)
 			me.endPoints.children[i].destroy();
@@ -523,6 +536,12 @@ blocks - event handlers
   		menuButton.anchor.setTo(0.5, 0.5);
   		menuButton.onInputDown.add(me.onDown, this);
 		menuButton.onInputUp.add(me.onUp, this);
+
+		if (BasicGame.storymode == false) {
+			var scoreText = me.game.add.bitmapText(me.game.width * 0.5, me.game.height * 0.4, 'flappyfont', me.score.toString() + 'm', 32 * window.devicePixelRatio);
+	    	scoreText.anchor.setTo(0.5, 0.5);
+	    	scoreText.visible = true;
+	    }
 
 	},
 
@@ -823,7 +842,8 @@ Mode
 
 		//me.createPlayer();
 
-		//me.createScoreHUD();
+		if (BasicGame.storymode == false)
+			me.createScoreHUD();
 
 		me.createBlocks();
 	},
@@ -1018,7 +1038,7 @@ HUD - score
 			me.scoreText.destroy();
 
 		// setup score bar
-   	 	me.scoreText = me.game.add.bitmapText(me.game.width * 0.5, me.game.height * 0.125, 'flappyfont', me.score.toString() + 'm', 32 * window.devicePixelRatio);
+   	 	me.scoreText = me.game.add.bitmapText(me.game.width * 0.9, me.game.height * 0.125, 'flappyfont', me.score.toString() + 'm', 32 * window.devicePixelRatio);
     	me.scoreText.anchor.setTo(0.5, 0.5);
     	me.scoreText.visible = true;
 	},
@@ -1062,6 +1082,11 @@ Control - player
 		var me = this;
 
 		me.jumpPressed = false;
+
+		if (!me.cha || !me.cha.body)
+			return;
+		
+		me.cha.animations.paused = false;
 		// potential jump finish animation
 	},
 
@@ -1076,6 +1101,8 @@ Control - player
 
 		if (!me.cha || !me.cha.body)
 			return;
+
+		me.cha.animations.paused = true;
 
 		me.cha.body.velocity.y = -400 * window.devicePixelRatio * BasicGame.jumpScale.value;
 
