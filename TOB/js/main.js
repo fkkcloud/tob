@@ -862,6 +862,11 @@ BG
 			me.bg_castle.destroy();
 
 		me.bg_sky = game.add.tileSprite(0, 0, me.game.width, me.game.height, "bg_sky");
+		var bg_sky_img_cache = game.cache.getImage("bg_sky");
+		var scaleRatio = me.game.height / bg_sky_img_cache.height;
+		me.bg_sky.scale.setTo(scaleRatio, scaleRatio);
+
+		me.bg_cloud = game.add.tileSprite(0, 0, me.game.width, me.game.height, "bg_cloud");
 
 		var bg_castle_img_cache = game.cache.getImage("bg_castle");
 		var castle_height = this.game.height - bg_castle_img_cache.height;
@@ -872,6 +877,8 @@ BG
 		this.bg_sky.tilePosition.x -= 0.3;
 
 		this.bg_castle.tilePosition.x -= 0.5;
+
+		this.bg_cloud.tilePosition.x -= 0.4;
 	},
 
 /*

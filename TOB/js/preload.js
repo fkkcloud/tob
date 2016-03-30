@@ -21,6 +21,7 @@ BasicGame.Preload.prototype = {
         {
             this.load.image('bg_sky', 'assets/bg_sky@3.png');
             this.load.image('bg_castle', 'assets/bg_castle@3.png');
+            this.load.image('bg_cloud', 'assets/bg_cloud@3.png');
 
             this.load.image('title', 'assets/title@3.png');
             this.load.image('title_gameOver', 'assets/gameover@3.png');
@@ -84,6 +85,7 @@ BasicGame.Preload.prototype = {
 
             this.load.image('bg_sky', 'assets/bg_sky@2.png');
             this.load.image('bg_castle', 'assets/bg_castle@2.png');
+            this.load.image('bg_cloud', 'assets/bg_cloud@2.png');
 
             this.load.image('title', 'assets/title@2.png');
             this.load.image('title_gameOver', 'assets/gameover@2.png');
@@ -146,6 +148,7 @@ BasicGame.Preload.prototype = {
         {
             this.load.image('bg_sky', 'assets/bg_sky.png');
             this.load.image('bg_castle', 'assets/bg_castle.png');
+            this.load.image('bg_cloud', 'assets/bg_cloud.png');
             //this.load.image('bg_sky_bat', 'assets/bg_ground_bat.png');
 
             this.load.image('title', 'assets/title.png');
