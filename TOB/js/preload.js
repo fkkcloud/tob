@@ -14,8 +14,8 @@ BasicGame.Preload.prototype = {
 
 		this.load.bitmapFont('flappyfont', 'assets/fonts/flappyfont/flappyfont.png', 'assets/fonts/flappyfont/flappyfont.fnt');  
 
-		this.load.audio('flap', 'assets/flap.wav');
-		this.load.audio('hit', 'assets/hit.wav');
+		//this.load.audio('flap', 'assets/flap.wav');
+		//this.load.audio('hit', 'assets/hit.wav');
 
 		if(window.devicePixelRatio >= 3)
         {
@@ -269,6 +269,7 @@ BasicGame.Preload.prototype = {
                         
                         BasicGame.currentStage = stageNumber;
 
+                        BasicGame.storymode = true;
                         BasicGame.mapData   = BasicGame.stageData[BasicGame.currentStage].mapData;
                         window.localStorage.mapName = BasicGame.stageData[BasicGame.currentStage].mapTitle;
                         BasicGame.jumpScale = {'value':BasicGame.stageData[BasicGame.currentStage].jumpScale};

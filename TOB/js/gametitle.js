@@ -18,8 +18,6 @@ BasicGame.GameTitle.prototype = {
 
 		me.createCopyrights();
 
-		me.createInstructions();
-
 		me.createButtons();
 	},
 
@@ -54,7 +52,9 @@ BasicGame.GameTitle.prototype = {
 		window.location.href = "http://kingsl-tob.herokuapp.com/map/edit";
 	},
 
-
+	gotoChallengeAI: function(){
+		this.game.state.start("ChallengeAI");
+	},
 
 	createLogo: function(){
 
@@ -71,42 +71,6 @@ BasicGame.GameTitle.prototype = {
 
 		this.titleGroup.x = this.game.width * 0.5 - this.title.width * 0.5;
 		this.titleGroup.y = this.game.height * 0.9;
-	},
-
-	createInstructions: function(){
-		var me = this;
-
-		/*
-		var fontSize = 18 * window.devicePixelRatio;
-
-		var headingFont = fontSize + "px Arial";
-		
-		instructionLabel = me.game.add.text(me.game.world.width * 0.7,
-			me.game.world.height * 0.8, 
-			window.localStorage.mapName, 
-			{	font: headingFont, 
-				fill: "#fff", 
-				align: 'right',
-			});
-		*/
-
-		//instructionLabel.anchor.setTo(0.5, 1);
-
-		/*
-		instructionLabel2 = me.game.add.text(me.game.world.centerX,
-			me.game.world.centerY + 50 * window.devicePixelRatio, "AVOID NASTY SQUARE",
-			{font:subHeadingFont, fill:'#c0392b'});
-		instructionLabel2.anchor.setTo(0.5, 1);
-		instructionLabel2.align = 'center';
-		
-
-		instructionLabel3 = me.game.add.text(me.game.world.centerX,
-			me.game.world.centerY + 100 * window.devicePixelRatio, window.innerWidth,
-			{font:subHeadingFont, fill:"#000"});
-
-		instructionLabel3.anchor.setTo(0.5, 1);
-		instructionLabel3.align = 'center';
-		*/
 	},
 
 	onDown: function(but){
@@ -132,7 +96,7 @@ BasicGame.GameTitle.prototype = {
 		this.btn_mapeditor.onInputDown.add(me.onDown, this);
 		this.btn_mapeditor.onInputUp.add(me.onUp, this);
 
-		this.btn_option = this.game.add.button(0, this.game.world.height * 0.7, 'btn_option', null, this);
+		this.btn_option = this.game.add.button(0, this.game.world.height * 0.7, 'btn_option', this.gotoChallengeAI, this);
 		this.btn_option.onInputDown.add(me.onDown, this);
 		this.btn_option.onInputUp.add(me.onUp, this);
 	},

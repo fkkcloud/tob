@@ -497,20 +497,28 @@ blocks - event handlers
 	    var gameoverTitle = me.game.add.sprite(me.game.world.width * 0.5, me.game.height * 0.36, "title_stageClear");
   		gameoverTitle.anchor.setTo(0.5, 0.5);
 
-  		var restartButton = me.game.add.button(me.game.world.width * 0.25,
+  		var restartBtnWidthRatio = 0.4; 
+  		var menuBtnWidthRatio = 0.6; 
+
+  		if (BasicGame.storymode){
+  			var nextStageButton = me.game.add.button(me.game.world.width * 0.5,
+  			me.game.world.height * 0.68, "btn_next", me.gotoNextStage, me);
+	  		nextStageButton.anchor.setTo(0.5, 0.5);
+			nextStageButton.scale.x *= -1; // flip horizontally
+	  		nextStageButton.onInputDown.add(me.onDownNeg, this);
+			nextStageButton.onInputUp.add(me.onUpNeg, this);
+
+			restartBtnWidthRatio = 0.25;
+			menuBtnWidthRatio = 0.75;
+  		}
+
+  		var restartButton = me.game.add.button(me.game.world.width * restartBtnWidthRatio,
   			me.game.world.height * 0.68, "btn_replay", me.restartGame, me);
   		restartButton.anchor.setTo(0.5, 0.5);
   		restartButton.onInputDown.add(me.onDown, this);
 		restartButton.onInputUp.add(me.onUp, this);
 
-		var restartButton = me.game.add.button(me.game.world.width * 0.5,
-  			me.game.world.height * 0.68, "btn_next", me.gotoNextStage, me);
-  		restartButton.anchor.setTo(0.5, 0.5);
-		restartButton.scale.x *= -1; // flip horizontally
-  		restartButton.onInputDown.add(me.onDownNeg, this);
-		restartButton.onInputUp.add(me.onUpNeg, this);
-
-  		var menuButton = me.game.add.button(me.game.world.width * 0.75,
+  		var menuButton = me.game.add.button(me.game.world.width * menuBtnWidthRatio,
   			me.game.world.height * 0.68, "btn_menu", me.gotoMenu, me);
   		menuButton.anchor.setTo(0.5, 0.5);
   		menuButton.onInputDown.add(me.onDown, this);
@@ -630,11 +638,11 @@ blocks - generations
 	    	me.blocks.add(block);
 	    }
 	    else if (imgId === 2){ // trap
-	    	block.width *= 1.0;
-	    	block.height *= 1.0;
 	    	block.body.width = block.width * 0.4;
 			block.body.height = block.height * 0.4;
 			block.anchor.setTo(0.5, 0.5);
+			block.position.x += block.width * 0.5;
+			block.position.y += block.height * 0.5;
 			me.game.add.tween(block).to({angle: 360}, 1000, null, true, 0, 0, false).loop(true).start();
 	    	me.traps.add(block);
 	    }

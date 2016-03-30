@@ -28,6 +28,13 @@
 	<script type="text/javascript" src="js/gameover.js"></script>
 	<script type="text/javascript" src="js/levellist.js"></script>
 
+	<!-- AI -->
+	<script type="text/javascript" src="js/recurrent.js"></script>
+    <script type="text/javascript" src="js/vis.js"></script>
+    <script type="text/javascript" src="js/rnn.js"></script>
+	<script type="text/javascript" src="js/challengeai.js"></script>
+
+	<!-- UI -->
 	<script type="text/javascript" src="js/tob_UI_script.js"></script>
 
     <style type="text/css">
@@ -79,8 +86,7 @@
 
     <script type="text/javascript">
     	var resources, themeOverride;
-    	/* UI ------------------------------------------------------------------------------------------------------ */
-
+    	/* CUSTOM BUTTON UI --------------------------------------------------------------------------------------- */
     	var level_box_font_size = (32 * window.devicePixelRatio).toString() + 'px';
 
         themeOverride = {
@@ -221,8 +227,8 @@
 				game.state.add("Main", BasicGame.Main);
 				game.state.add("GameOver", BasicGame.GameOver);
 				game.state.add("LevelList", BasicGame.LevelList);
+				game.state.add("ChallengeAI", BasicGame.ChallengeAI);
 
-				// 여기서 이미지 맵을 가져오도록 하기
 
 				//Start the first state
 				game.state.start("Boot");

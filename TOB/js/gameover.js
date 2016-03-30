@@ -10,20 +10,6 @@ BasicGame.GameOver.prototype = {
   		var fontSize = 25 * window.devicePixelRatio;
   		var scoreFont = fontSize + "px Verdana";
 
-  		/*
-  		me.labelFinalScore = me.game.add.text(me.game.world.centerX,
-  			me.game.world.height * 0.2, me.score + 'm', {font: scoreFont, fill:"#fff"});
-  		me.labelFinalScore.anchor.setTo(0.5, 0);
-
-  		me.labelHighScoreText = me.game.add.text(me.game.world.centerX,
-  			me.game.world.height * 0.3, "BEST", {font: scoreFont, fill: "#fff"});
-  		me.labelHighScoreText.anchor.setTo(0.5, 0);
-
-  		me.labelHighScore = me.game.add.text(me.game.world.centerX,
-  			me.game.world.height * 0.4, me.highScore + 'm', {font: scoreFont, fill: "#fff"});
-  		me.labelHighScore.anchor.setTo(0.5, 0);
-  		*/
-
   		var gameoverTitle = me.game.add.sprite(me.game.world.width * 0.5, me.game.height * 0.36, "title_gameOver");
   		gameoverTitle.anchor.setTo(0.5, 0.5);
 
