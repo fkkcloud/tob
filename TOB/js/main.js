@@ -170,7 +170,7 @@ BasicGame.Main.prototype = {
 			var block = me.blocks.children[i];
 
 			// overlap event - me.chaJumpReady
-			block.scale.setTo(1.0, 1.0);
+			block.scale.setTo(1.05, 1.05);
 			block.anchor.setTo(0.0, 0.0);
 
 			me.game.physics.arcade.overlap(me.cha, block, function(){
