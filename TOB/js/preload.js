@@ -18,7 +18,7 @@ BasicGame.Preload.prototype = {
 		//this.load.audio('hit', 'assets/hit.wav');
 
         this.load.audio('gameplay', 'assets/audio/game.mp3');
-        this.load.audio('mainmenu', 'assets/audio/mainmenu.mp3');
+        this.load.audio('mainmenu', 'assets/audio/menu.mp3');
 
         this.load.audio('bubble', 'assets/audio/bubble.mp3');
         this.load.audio('button', 'assets/audio/button.wav');
