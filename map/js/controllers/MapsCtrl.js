@@ -73,10 +73,11 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
     */
 
     $scope.editMap = function(id) {
-        //window.localStorage.mapData = $scope.currentLoadedMaps[id].data;
-        //$scope.mapData = $scope.currentLoadedMaps[id].data;
+        window.localStorage.mapData = $scope.currentLoadedMaps[id].data;
+        $scope.mapData = $scope.currentLoadedMaps[id].data;
         $scope.mapSpeed = JSON.parse($scope.currentLoadedMaps[id].mapspeed);
         $scope.jumpScale = JSON.parse($scope.currentLoadedMaps[id].jumpscale);
+
 
         $location.path( '/edit' );
         //window.location.href = $scope.href_edit;
