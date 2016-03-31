@@ -10,26 +10,29 @@ var levelSelectScreenJSON = {
 
 	layout: [1, 6],
 	children: [
+
 	{
-		    text: 'Stage Screen',
-		    font: {
-		        size: '42px',
-		        family: 'Skranji',
-		        color: '#fff'
-		    },
-		    component: 'Header',
-		    
-		    position: 'center',
-		  
-		    width: 400,
-		    height: 80,
-		    layout: [3, 1],
-		    children: [
-				null,
-				null,
-				{ id: 'backbutton1', component: 'Button', position: 'right', width: 160, height: 120, skin: 'backBtn' },
-		    ]
+	    text: 'Stage Screen',
+	    font: {
+	        size: '42px',
+	        family: 'Skranji',
+	        color: '#fff'
+	    },
+	    component: 'Footer',
+	    
+	    position: 'center',
+	  
+	    width: 400,
+	    height: 80,
+	    layout: [3, 1],
+	    z: 1,
+	    children: [
+			null,
+			null,
+			{ id: 'backbutton1', component: 'Button', position: 'left', width: 160, height: 120, skin: 'backBtn' },
+	    ]
 	},
+
 	{
 		id: 'levelsList',
 		component: 'List',
@@ -38,7 +41,7 @@ var levelSelectScreenJSON = {
 		position: {x:0, y:0},
 		width: 200,
 		height: 200,
-		layout: [3, 2],
+		layout: [5, 3],
 		children: [
 			{ id: 'lvl1', text: '1', userData: 'level 1', component: 'Button', position: 'center', width: 120, height: 120, skin: 'levelBtn' },
 			{ id: 'lvl2', text: '2', userData: 'level 2', component: 'Button', position: 'center', width: 120, height: 120, skin: 'levelBtn' },
@@ -56,12 +59,9 @@ var levelSelectScreenJSON = {
 			{ id: 'lvl13', text: '13', userData: 'level 13', component: 'Button', position: 'center', width: 120, height: 120, skin: 'levelBtn' },
 			{ id: 'lvl14', text: '14', userData: 'level 14', component: 'Button', position: 'center', width: 120, height: 120, skin: 'levelBtn' },
 			{ id: 'lvl15', text: '15', userData: 'level 15', component: 'Button', position: 'center', width: 120, height: 120, skin: 'levelBtn' },
-			{ id: 'lvl16', text: '16', userData: 'level 16', component: 'Button', position: 'center', width: 120, height: 120, skin: 'levelBtn' },
-			{ id: 'lvl17', text: '17', userData: 'level 17', component: 'Button', position: 'center', width: 120, height: 120, skin: 'levelBtn' },
-			{ id: 'lvl18', text: '18', userData: 'level 18', component: 'Button', position: 'center', width: 120, height: 120, skin: 'levelBtn' },
-			{ id: 'lvl19', text: '19', userData: 'level 19', component: 'Button', position: 'center', width: 120, height: 120, skin: 'levelBtn' },
-			{ id: 'lvl19', text: '20', userData: 'level 20', component: 'Button', position: 'center', width: 120, height: 120, skin: 'levelBtn' },
+			
 		]
 	}
+
 	]
 }

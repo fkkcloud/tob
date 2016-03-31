@@ -312,10 +312,11 @@ BasicGame.Preload.prototype = {
             levelSelectScreenJSON.width = BasicGame.globalGameWidth;
             levelSelectScreenJSON.height = BasicGame.globalGameHeight;
             levelSelectScreenJSON.children[0].width = BasicGame.globalGameWidth;
-            levelSelectScreenJSON.children[0].height = BasicGame.globalGameHeight * 0.2;
+            levelSelectScreenJSON.children[0].height = BasicGame.globalGameHeight * 0.15;
             levelSelectScreenJSON.children[0].font.size = 34 * window.devicePixelRatio + 'px';
             levelSelectScreenJSON.children[0].children[2].width = BasicGame.globalGameWidth * 0.1;
             levelSelectScreenJSON.children[0].children[2].height = BasicGame.globalGameHeight * 0.16;
+
             levelSelectScreenJSON.children[1].width = BasicGame.globalGameWidth;
             levelSelectScreenJSON.children[1].height = BasicGame.globalGameHeight * 0.84;
 
@@ -323,8 +324,8 @@ BasicGame.Preload.prototype = {
 
                 var level = levelSelectScreenJSON.children[1].children[i];
                 
-                level.width = 120 * window.devicePixelRatio;
-                level.height = 120 * window.devicePixelRatio;
+                level.width = 90 * window.devicePixelRatio;
+                level.height = 90 * window.devicePixelRatio;
                 
                 if (BasicGame.stageProgress && BasicGame.stageProgress.length >= i && BasicGame.stageProgress[i] != 0){
                     level.skin = "levelBtn";
