@@ -85,13 +85,11 @@ BasicGame.MainMenu.prototype = {
 	createButtons: function(){
 		var me = this;
 
-		this.btn_start = this.game.add.button(this.game.world.width * 0.5, this.game.world.height * 0.71, 'btn_start', this.startGame, this);
+		this.btn_start = this.game.add.button(this.game.world.width * 0.5, this.game.world.height * 0.71, 'btn_story', this.startGame, this);
 		this.btn_start.scale.setTo(1.5, 1.5);
 		this.btn_start.anchor.setTo(0.5, 0.5);
 		this.btn_start.onInputDown.add(me.onDownStart, this);
 		this.btn_start.onInputUp.add(me.onUpStart, this);
-		me.game.add.tween(this.btn_start).to({alpha: 0.8}, 700, null, true, 0, 0, true).loop(true).start();
-		me.game.add.tween(this.btn_start.scale).to({x: 1.6, y: 1.62}, 440, null, true, 0, 0, true).loop(true).start();
 
 		this.btn_maplist = this.game.add.button(this.game.world.width * 0.7, this.game.world.height * 0.88, 'btn_maplist', this.gotoMaps, this);
 		this.btn_maplist.scale.setTo(0.68, 0.68);
