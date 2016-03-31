@@ -170,13 +170,14 @@ BasicGame.Main.prototype = {
 			var block = me.blocks.children[i];
 
 			// overlap event - me.chaJumpReady
-			block.scale.setTo(1.45, 1.45);
+			block.scale.setTo(1.0, 1.0);
 			block.anchor.setTo(0.0, 0.0);
+
 			me.game.physics.arcade.overlap(me.cha, block, function(){
 				me.chaJumpReady = true;
 			}, null, me);
 			// end of overlap event for me.charJumpReady
-			block.scale.setTo(1.25, 1.25); // to its original size
+			block.scale.setTo(1.1, 1.1); // to its original size
 			block.anchor.setTo(0.0, 0.0);
 
 			// regular collision
@@ -186,11 +187,19 @@ BasicGame.Main.prototype = {
 			if (block.body.touching.up){
 				me.collisionDetected = true;
 			}
+			else
+			{
+				//me.collisionDetected = false;
+			}
+
 			if (block.body.touching.left && !me.chaDead){ // this is the death trigger
 				me.deathHandler();
 			}
 		}
 		me.chaOnGround = me.collisionDetected;
+		
+		if (!me.chaOnGround && !block.body.touching.up)
+			me.chaJumpReady = false;
 
 		if (!me.chaOnGround){
 			// deactivate run FX
@@ -562,7 +571,7 @@ blocks - event handlers
 	},
 
 	gotoMenu: function(){
-		this.game.state.start("GameTitle")
+		this.game.state.start("MainMenu")
 	},
 
 	restartGame: function(){

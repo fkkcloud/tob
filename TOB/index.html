@@ -27,6 +27,7 @@
 	<script type="text/javascript" src="js/main.js"></script>
 	<script type="text/javascript" src="js/gameover.js"></script>
 	<script type="text/javascript" src="js/levellist.js"></script>
+	<script type="text/javascript" src="js/menu.js"></script>
 
 	<!-- AI -->
 	<script type="text/javascript" src="js/recurrent.js"></script>
@@ -129,6 +130,10 @@
 			    switch(window.orientation) 
 			    {  
 			      	case -90:
+			      		if (!BasicGame.isGameInit){
+			      			document.getElementById('orientation').style.display = 'none';
+			       			initGame();
+			       		}
 			      		break;
 			      	case 90:
 			      		if (!BasicGame.isGameInit){
@@ -228,6 +233,7 @@
 				game.state.add("GameOver", BasicGame.GameOver);
 				game.state.add("LevelList", BasicGame.LevelList);
 				game.state.add("ChallengeAI", BasicGame.ChallengeAI);
+				game.state.add("MainMenu", BasicGame.MainMenu);
 
 
 				//Start the first state
