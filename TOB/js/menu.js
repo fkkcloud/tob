@@ -82,21 +82,13 @@ BasicGame.MainMenu.prototype = {
 
 	onDown: function(but){
 		this.clickSound.play();
-		but.scale.setTo(0.8, 0.8);
+		but.scale.setTo(1.0, 1.0);
 	},
 
 	onUp: function(but){
-		but.scale.setTo(0.68, 0.68);
+		but.scale.setTo(0.9, 0.9);
 	},
 
-	onDownStart: function(but){
-		this.clickSound.play();
-		but.scale.setTo(1.6, 1.6);
-	},
-
-	onUpStart: function(but){
-		but.scale.setTo(1.5, 1.5);
-	},
 
 	createButtons: function(){
 		var me = this;
@@ -104,8 +96,8 @@ BasicGame.MainMenu.prototype = {
 		this.btn_start = this.game.add.button(this.game.world.width * 0.3, this.game.world.height * 0.26, 'btn_story', this.startGame, this);
 		this.btn_start.scale.setTo(0.9, 0.9);
 		this.btn_start.anchor.setTo(0.5, 0.5);
-		this.btn_start.onInputDown.add(me.onDownStart, this);
-		this.btn_start.onInputUp.add(me.onUpStart, this);
+		this.btn_start.onInputDown.add(me.onDown, this);
+		this.btn_start.onInputUp.add(me.onUp, this);
 
 		this.btn_maplist = this.game.add.button(this.game.world.width * 0.7, this.game.world.height * 0.26, 'btn_maplist', this.gotoMaps, this);
 		this.btn_maplist.scale.setTo(0.9, 0.9);
