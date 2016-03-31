@@ -12,6 +12,11 @@ BasicGame.GameTitle.prototype = {
 		me.createCopyrights();
 
 		me.createButtons();
+
+		me.mainmenuSound = me.game.add.audio('mainmenu');
+		me.mainmenuSound.loopFull();
+
+		me.clickSound = me.game.add.audio('button');
 	},
 
 	update: function() {
@@ -49,6 +54,10 @@ BasicGame.GameTitle.prototype = {
 	},
 
 	gotoMainMenu: function(){
+		if (this.mainmenuSound){
+			this.mainmenuSound.stop();
+			this.mainmenuSound = null;
+		}
 		this.game.state.start("MainMenu");
 		//this.game.state.start("Main");
 	},
@@ -72,6 +81,7 @@ BasicGame.GameTitle.prototype = {
 	},
 
 	onDownStart: function(but){
+		this.clickSound.play();
 		but.scale.setTo(1.6, 1.6);
 	},
 

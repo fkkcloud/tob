@@ -12,6 +12,12 @@ BasicGame.MainMenu.prototype = {
 		me.createBG();
 
 		me.createButtons();
+
+		me.mainmenuSound = me.game.add.audio('mainmenu');
+		me.mainmenuSound.loopFull();
+
+		me.clickSound = me.game.add.audio('button');
+		
 	},
 
 	update: function() {
@@ -25,24 +31,41 @@ BasicGame.MainMenu.prototype = {
 	},
 
 	startGame: function(){
+		if (this.mainmenuSound){
+			this.mainmenuSound.stop();
+			this.mainmenuSound = null;
+		}
 		this.game.state.start("LevelList");
 		//this.game.state.start("Main");
 	},
 
 	gotoMaps: function(){
+		if (this.mainmenuSound){
+			this.mainmenuSound.stop();
+			this.mainmenuSound = null;
+		}
 		window.location.href = "http://kingsl-tob.herokuapp.com/map";
 	},
 
 	gotoMapEditor: function(){
+		if (this.mainmenuSound){
+			this.mainmenuSound.stop();
+			this.mainmenuSound = null;
+		}
 		window.location.href = "http://kingsl-tob.herokuapp.com/map/edit";
 	},
 
 	gotoChallengeAI: function(){
+		if (this.mainmenuSound){
+			this.mainmenuSound.stop();
+			this.mainmenuSound = null;
+		}
 		this.game.state.start("ChallengeAI");
 	},
 
 
 	onDown: function(but){
+		this.clickSound.play();
 		but.scale.setTo(0.8, 0.8);
 	},
 
@@ -51,6 +74,7 @@ BasicGame.MainMenu.prototype = {
 	},
 
 	onDownStart: function(but){
+		this.clickSound.play();
 		but.scale.setTo(1.6, 1.6);
 	},
 

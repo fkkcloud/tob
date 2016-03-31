@@ -17,6 +17,18 @@ BasicGame.Preload.prototype = {
 		//this.load.audio('flap', 'assets/flap.wav');
 		//this.load.audio('hit', 'assets/hit.wav');
 
+        this.load.audio('gameplay', 'assets/audio/gameplay.mp3');
+        this.load.audio('mainmenu', 'assets/audio/mainmenu.mp3');
+
+        this.load.audio('bubble', 'assets/audio/bubble.mp3');
+        this.load.audio('button', 'assets/audio/button.wav');
+        this.load.audio('die', 'assets/audio/die.mp3');
+        this.load.audio('fly', 'assets/audio/fly.mp3');
+        this.load.audio('vampjump', 'assets/audio/jumpvamp.mp3');
+        this.load.audio('spawn', 'assets/audio/spawn.mp3');
+        this.load.audio('transform', 'assets/audio/transform.mp3');
+        this.load.audio('stageclear', 'assets/audio/stageclear.mp3');
+
 		if(window.devicePixelRatio >= 3)
         {
             this.load.image('bg_sky', 'assets/bg_sky@3.png');

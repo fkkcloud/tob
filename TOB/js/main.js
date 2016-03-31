@@ -37,8 +37,17 @@ BasicGame.Main.prototype = {
 		me.prevColumnId = 0;
 
 		// sound setup
-		me.flapSound = me.game.add.audio('flap');
-		me.hitSound = me.game.add.audio('hit');
+		me.clickSound = me.game.add.audio('button');
+		me.dieSound = me.game.add.audio('die');
+		me.jumpSound = me.game.add.audio('vampjump');
+		me.flySound = me.game.add.audio('fly');
+		me.transformSound = me.game.add.audio('transform');
+		me.stageclearSound = me.game.add.audio('stageclear');
+		me.spawnSound = me.game.add.audio('spawn');
+		me.bubbleSound = me.game.add.audio('bubble');
+
+		me.gameplaySound = me.game.add.audio('gameplay');
+		me.gameplaySound.loopFull();
 
 		// enable physics
 		me.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -170,7 +179,7 @@ BasicGame.Main.prototype = {
 			var block = me.blocks.children[i];
 
 			// overlap event - me.chaJumpReady
-			block.scale.setTo(1.05, 1.05);
+			block.scale.setTo(1.45, 1.45);
 			block.anchor.setTo(0.0, 0.0);
 
 			me.game.physics.arcade.overlap(me.cha, block, function(){
@@ -235,6 +244,8 @@ BasicGame.Main.prototype = {
 
 			var block = me.bloods.children[i];
 			me.game.physics.arcade.overlap(me.cha, block, function(cha, blood){
+
+				me.bubbleSound.play();
 
 				me.playFXEatBlood(blood.x, blood.y);
 				blood.destroy();
@@ -387,7 +398,7 @@ blocks - event handlers
 		me.cha.body.gravity.y = 0;
 
 		if (BasicGame.sound)
-			me.hitSound.play();
+			me.dieSound.play();
 
 		me.playFXPlayerDeath();
 
@@ -470,6 +481,9 @@ blocks - event handlers
 
 		me.chaDead = true;
 
+		if (BasicGame.sound)
+			me.stageclearSound.play();
+		
 		me.game.time.events.remove(me.groundFX);
 
 		if (BasicGame.storymode == false)
@@ -556,6 +570,8 @@ blocks - event handlers
 
 	onDownNeg: function(but){
 		but.scale.setTo(-1.1, 1.1);
+		me.clickSound.play();
+
 	},
 
 	onUpNeg: function(but){
@@ -563,6 +579,7 @@ blocks - event handlers
 	},
 
 	onDown: function(but){
+		me.clickSound.play();
 		but.scale.setTo(1.1, 1.1);
 	},
 
@@ -571,10 +588,14 @@ blocks - event handlers
 	},
 
 	gotoMenu: function(){
+		this.gameplaySound.stop();
+		this.gameplaySound = null;
 		this.game.state.start("MainMenu")
 	},
 
 	restartGame: function(){
+		this.gameplaySound.stop();
+		this.gameplaySound = null;
 		this.game.state.start("Main");
 	},
 
@@ -585,6 +606,8 @@ blocks - event handlers
 		BasicGame.jumpScale = {'value':BasicGame.stageData[BasicGame.currentStage].jumpScale};
 		BasicGame.mapSpeed  = {'value':BasicGame.stageData[BasicGame.currentStage].mapSpeed};
 
+		this.gameplaySound.stop();
+		this.gameplaySound = null;
 		this.game.state.start("Main");
 	},
 
@@ -959,6 +982,8 @@ Player
 			me.game.time.events.add(Phaser.Timer.SECOND, function(){ 
 				me.cha.body.bounce.y = 0.0;
 			}, me);
+
+			me.spawnSound.play();
 		}
 
 		me.initBorn = false;
@@ -1010,6 +1035,7 @@ Player
 		anim.scale.setTo(1.6, 1.6);
 		me.game.physics.arcade.enable(anim);
 		anim.body.velocity.x = me.mapVelX * 0.186;
+		me.transformSound.play();
 	},
 
 	playFXPlayerRun(){
@@ -1134,8 +1160,10 @@ Control - player
 		if (me.mode === me.BATMODE)
 			me.playFXPlayerFly();
 
-		if (BasicGame.sound)
-			me.flapSound.play();
+		if (me.mode === me.BATMODE)
+			me.flySound.play();
+		else
+			me.jumpSound.play();
 
 		me.chaJumped = true;
 		me.chaJumpReady = false;
