@@ -207,8 +207,8 @@ BasicGame.Main.prototype = {
 		}
 		me.chaOnGround = me.collisionDetected;
 		
-		if (!me.chaOnGround && !block.body.touching.up)
-			me.chaJumpReady = false;
+		//if (!me.chaOnGround && !block.body.touching.up)
+		//	me.chaJumpReady = false;
 
 		if (!me.chaOnGround){
 			// deactivate run FX
