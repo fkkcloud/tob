@@ -82,23 +82,23 @@ BasicGame.GameTitle.prototype = {
 
 	onDownStart: function(but){
 		this.clickSound.play();
-		but.scale.setTo(1.6, 1.6);
+		but.scale.setTo(1.4, 1.4);
 	},
 
 	onUpStart: function(but){
-		but.scale.setTo(1.5, 1.5);
+		but.scale.setTo(1.2, 1.2);
 	},
 
 	createButtons: function(){
 		var me = this;
 
 		this.btn_start = this.game.add.button(this.game.world.width * 0.5, this.game.world.height * 0.78, 'btn_start', this.gotoMainMenu, this);
-		this.btn_start.scale.setTo(1.5, 1.5);
+		this.btn_start.scale.setTo(1.2, 1.2);
 		this.btn_start.anchor.setTo(0.5, 0.5);
 		this.btn_start.onInputDown.add(me.onDownStart, this);
 		this.btn_start.onInputUp.add(me.onUpStart, this);
 		me.game.add.tween(this.btn_start).to({alpha: 0.8}, 700, null, true, 0, 0, true).loop(true).start();
-		me.game.add.tween(this.btn_start.scale).to({x: 1.6, y: 1.62}, 440, null, true, 0, 0, true).loop(true).start();
+		me.game.add.tween(this.btn_start.scale).to({x: 1.3, y: 1.3}, 440, null, true, 0, 0, true).loop(true).start();
 
 	},
 

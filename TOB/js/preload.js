@@ -48,7 +48,7 @@ BasicGame.Preload.prototype = {
             this.load.image('btn_maplist', 'assets/btn_maplist@3.png');
             this.load.image('btn_mapeditor', 'assets/btn_mapeditor@3.png');
             this.load.image('btn_infinity', 'assets/btn_infinitymode@3.png');
-            this.load.image('btn_story', 'assets/btn_storymode@3.png');
+            this.load.image('btn_story', 'assets/storymode@3.png');
 
             this.load.image('btn_menu', 'assets/btn_menu@3.png');
             this.load.image('btn_replay', 'assets/btn_replay@3.png');
@@ -113,6 +113,7 @@ BasicGame.Preload.prototype = {
             this.load.image('btn_maplist', 'assets/btn_maplist@2.png');
             this.load.image('btn_mapeditor', 'assets/btn_mapeditor@2.png');
             this.load.image('btn_infinity', 'assets/btn_infinitymode@2.png');
+            this.load.image('btn_story', 'assets/storymode@2.png');
 
             this.load.image('btn_menu', 'assets/btn_menu@2.png');
             this.load.image('btn_replay', 'assets/btn_replay@2.png');
@@ -177,6 +178,7 @@ BasicGame.Preload.prototype = {
             this.load.image('btn_maplist', 'assets/btn_maplist.png');
             this.load.image('btn_mapeditor', 'assets/btn_mapeditor.png');
             this.load.image('btn_infinity', 'assets/btn_infinitymode.png');
+            this.load.image('btn_story', 'assets/storymode.png');
 
             this.load.image('btn_menu', 'assets/btn_menu.png');
             this.load.image('btn_replay', 'assets/btn_replay.png');
