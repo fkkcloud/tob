@@ -24,7 +24,7 @@ BasicGame.Preload.prototype = {
         this.load.audio('button', 'assets/audio/button.wav');
         this.load.audio('die', 'assets/audio/die.mp3');
         this.load.audio('fly', 'assets/audio/fly.mp3');
-        this.load.audio('vampjump', 'assets/audio/jumpvamp.mp3');
+        this.load.audio('vampjump', 'assets/audio/jump.wav');
         this.load.audio('spawn', 'assets/audio/spawn.mp3');
         this.load.audio('transform', 'assets/audio/transform.mp3');
         this.load.audio('stageclear', 'assets/audio/stageclear.mp3');

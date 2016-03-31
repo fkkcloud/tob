@@ -481,8 +481,7 @@ blocks - event handlers
 
 		me.chaDead = true;
 
-		if (BasicGame.sound)
-			me.stageclearSound.play();
+		me.stageclearSound.play();
 		
 		me.game.time.events.remove(me.groundFX);
 
@@ -570,7 +569,7 @@ blocks - event handlers
 
 	onDownNeg: function(but){
 		but.scale.setTo(-1.1, 1.1);
-		me.clickSound.play();
+		this.clickSound.play();
 
 	},
 
@@ -579,7 +578,7 @@ blocks - event handlers
 	},
 
 	onDown: function(but){
-		me.clickSound.play();
+		this.clickSound.play();
 		but.scale.setTo(1.1, 1.1);
 	},
 
