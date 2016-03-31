@@ -48,10 +48,10 @@ BasicGame.ChallengeAI.prototype = {
 	createInstructions: function(){
 		var me = this;
 
-		var fontSize = 24 * window.devicePixelRatio;
+		var fontSize = 32 * window.devicePixelRatio;
 		var subFontSize = 18 * window.devicePixelRatio;
 
-		var headingFont = fontSize + "px Arial";
+		var headingFont = fontSize + "px Impact";
 		var subHeadingFont = subFontSize + "px Arial";
 
 		instructionLabel = me.game.add.text(me.game.world.width * 0.5,
@@ -89,7 +89,7 @@ BasicGame.ChallengeAI.prototype = {
 	createButtons: function(){
 		var me = this;
 
-		this.btn = this.game.add.button(this.game.world.width * 0.5, this.game.world.height * 0.9, 'btn_next', this.startChallenge, this);
+		this.btn = this.game.add.button(this.game.world.width * 0.5, this.game.world.height * 0.86, 'btn_next', this.startChallenge, this);
 		this.btn.scale.setTo(-1.0, 1.0);
 		this.btn.anchor.setTo(0.5, 0.5);
 		this.btn.onInputDown.add(me.onDown, this);
