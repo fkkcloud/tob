@@ -337,6 +337,7 @@ BasicGame.Main.prototype = {
 		var fontSize = 32 * window.devicePixelRatio;
 
 		var headingFont = fontSize + "px Impact";
+		var subHeadingFont = 18 * window.devicePixelRatio + "px Impact";
 		
 		me.mapTitle = me.game.add.text(me.game.world.centerX,
 			me.game.world.height * 0.3, 
@@ -347,12 +348,20 @@ BasicGame.Main.prototype = {
 			});
 		me.mapTitle.anchor.setTo(0.5, 0.5);
 
-		me.game.time.events.add(Phaser.Timer.SECOND * 2, function(){ 
+		me.trialCount = me.game.add.text(me.game.world.centerX,
+			me.game.world.height * 0.4, 
+			'attempt - ' + BasicGame.trialCount, 
+			{	font: subHeadingFont, 
+				fill: "#d22", 
+				align: 'right',
+			});
+		me.trialCount.anchor.setTo(0.5, 0.5);
+
+		me.game.time.events.add(Phaser.Timer.SECOND * 2.5, function(){ 
 			//Send score to game over screen 
+			me.trialCount.destroy();
 			me.mapTitle.destroy();
 		}, me);
-
-
 
 	},
 
@@ -574,7 +583,16 @@ blocks - event handlers
 			var scoreText = me.game.add.bitmapText(me.game.width * 0.5, me.game.height * 0.5, 'flappyfont', me.score.toString() + 'm', 32 * window.devicePixelRatio);
 	    	scoreText.anchor.setTo(0.5, 0.5);
 	    	scoreText.visible = true;
+	    } else {
+	    	var mapNameText = me.game.add.bitmapText(me.game.width * 0.5, me.game.height * 0.5, 'flappyfont', window.localStorage.mapName, 24 * window.devicePixelRatio);
+	    	mapNameText.anchor.setTo(0.5, 0.5);
+	    	mapNameText.visible = true;
+
+			var attemptText = me.game.add.bitmapText(me.game.width * 0.5, me.game.height * 0.56, 'flappyfont', 'Clear on attempt ' + BasicGame.trialCount.toString(), 18 * window.devicePixelRatio);
+	    	attemptText.anchor.setTo(0.5, 0.5);
+	    	attemptText.visible = true;
 	    }
+    	BasicGame.trialCount = 1;
 
 	},
 
@@ -600,13 +618,20 @@ blocks - event handlers
 	gotoMenu: function(){
 		this.gameplaySound.stop();
 		this.gameplaySound = null;
-		this.game.state.start("MainMenu");
+
 		BasicGame.aimode = false;
+		BasicGame.trialCount = 1;
+
+		this.game.state.start("MainMenu");
+		
 	},
 
 	restartGame: function(){
 		this.gameplaySound.stop();
 		this.gameplaySound = null;
+
+		BasicGame.trialCount += 1;
+
 		this.game.state.start("Main");
 	},
 
@@ -616,9 +641,13 @@ blocks - event handlers
 		window.localStorage.mapName = BasicGame.stageData[BasicGame.currentStage].mapTitle;
 		BasicGame.jumpScale = {'value':BasicGame.stageData[BasicGame.currentStage].jumpScale};
 		BasicGame.mapSpeed  = {'value':BasicGame.stageData[BasicGame.currentStage].mapSpeed};
+		BasicGame.trialCount = 1;
 
 		this.gameplaySound.stop();
 		this.gameplaySound = null;
+
+		BasicGame.trialCount = 1;
+
 		this.game.state.start("Main");
 	},
 
