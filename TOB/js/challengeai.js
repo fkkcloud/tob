@@ -18,6 +18,7 @@ BasicGame.ChallengeAI.prototype = {
   			me.game.world.height * 0.4, me.highScore + 'm', {font: scoreFont, fill: "#fff"});
   		me.labelHighScore.anchor.setTo(0.5, 0);
   		*/
+  		me.createBG();
 
   		me.createInstructions();
 
@@ -34,14 +35,38 @@ BasicGame.ChallengeAI.prototype = {
 
 	},
 
-	update: function() {
 		
+	update: function() {
+		var me = this;
+
+		this.bg_sky.tilePosition.x -= 0.3;
+
+		this.bg_cloud.tilePosition.x -= 0.4;
+	},
+
+	createBG: function(){
+		var me = this;
+
+		me.bg_sky = game.add.tileSprite(0, 0, me.game.width, me.game.height, "bg_sky");
+		var bg_sky_img_cache = game.cache.getImage("bg_sky");
+		var scaleRatio = me.game.height / bg_sky_img_cache.height;
+		me.bg_sky.scale.setTo(scaleRatio, scaleRatio);
+		me.bg_sky.inputEnabled = true;
+
+		me.bg_cloud = game.add.tileSprite(0, 0, me.game.width, me.game.height, "bg_cloud");
+		var bg_cloud_img_cache = game.cache.getImage("bg_cloud");
+		scaleRatio = me.game.height / bg_cloud_img_cache.height;
+		me.bg_cloud.scale.setTo(scaleRatio, scaleRatio);
+		me.bg_cloud.inputEnabled = true;
 	},
 
 	startChallenge: function(){
 		setTimeout(function () {
-                    this.game.state.start("Main");
-                }, 60);
+			BasicGame.aimode = true;
+
+            this.game.state.start("Main");
+
+        }, 60);
 		
 	},
 
@@ -63,14 +88,20 @@ BasicGame.ChallengeAI.prototype = {
 			});
 		instructionLabel.anchor.setTo(0.5, 1);
 
+		var alphago = me.game.add.sprite(me.game.world.centerX, me.game.world.height * 0.425, "alphago");
+		alphago.anchor.setTo(0.5, 0.5);
+		// add and play animations
+		alphago.animations.add('think');
+		alphago.animations.play('think', 4, true);
+
 		instructionLabel2 = me.game.add.text(me.game.world.centerX,
-			me.game.world.height * 0.6, "This session is made by artificial intelligence, a machine learning algorithm.",
+			me.game.world.height * 0.675, "This session is made by artificial intelligence, a machine learning algorithm.",
 			{font:subHeadingFont, fill:'#c0392b'});
 		instructionLabel2.anchor.setTo(0.5, 1);
 		instructionLabel2.align = 'center';
 		
 		instructionLabel3 = me.game.add.text(me.game.world.centerX,
-			me.game.world.height * 0.7, "As you proceed, AI will create map based on how you play.",
+			me.game.world.height * 0.75, "As you proceed, AI will create map based on how you play.",
 			{font:subHeadingFont, fill:"#fff"});
 		instructionLabel3.anchor.setTo(0.5, 1);
 		instructionLabel3.align = 'center';

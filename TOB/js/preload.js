@@ -44,6 +44,8 @@ BasicGame.Preload.prototype = {
             this.load.spritesheet('cha_vamp', 'assets/cha_vamp@3.png', 50*3, 75*3, 3);
             this.load.spritesheet('cha_bat', 'assets/cha_bat@3.png', 250, 230, 3);
 
+            this.load.spritesheet('alphago', 'assets/alphago@3.png', 328, 356, 3);
+
             this.load.image('btn_start', 'assets/PresstoStart@3.png');
             this.load.image('btn_maplist', 'assets/btn_maplist@3.png');
             this.load.image('btn_mapeditor', 'assets/btn_mapeditor@3.png');
@@ -109,6 +111,8 @@ BasicGame.Preload.prototype = {
             this.load.spritesheet('cha_vamp', 'assets/cha_vamp@2.png', 50*2, 75*2, 3);
             this.load.spritesheet('cha_bat', 'assets/cha_bat@2.png', 166, 153, 3);
 
+            this.load.spritesheet('alphago', 'assets/alphago@2.png', 218, 238, 3);
+
             this.load.image('btn_start', 'assets/PresstoStart@2.png');
             this.load.image('btn_maplist', 'assets/btn_maplist@2.png');
             this.load.image('btn_mapeditor', 'assets/btn_mapeditor@2.png');
@@ -173,6 +177,8 @@ BasicGame.Preload.prototype = {
 
             this.load.spritesheet('cha_vamp', 'assets/cha_vamp.png', 50, 75, 3);
             this.load.spritesheet('cha_bat', 'assets/cha_bat.png', 83, 77, 3);
+
+            this.load.spritesheet('alphago', 'assets/alphago.png', 109, 119, 3);
 
             this.load.image('btn_start', 'assets/PresstoStart.png');
             this.load.image('btn_maplist', 'assets/btn_maplist.png');

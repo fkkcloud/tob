@@ -109,6 +109,17 @@ BasicGame.Main.prototype = {
 		me.bloodIndicator.scale.setTo(1.4, 1.4);
 		var loadingBar_imgCache = game.cache.getImage("blood_bar");
 		me.bloodIndicator.x -= (loadingBar_imgCache.width * 0.5) * 1.4;
+
+
+		if (BasicGame.aimode){
+			var alphago = me.game.add.sprite(me.game.world.width * 0.9, me.game.world.height * 0.86, "alphago");
+			alphago.scale.setTo(0.9, 0.9);
+			alphago.anchor.setTo(0.5, 0.5);
+			// add and play animations
+			alphago.animations.add('think');
+			alphago.animations.play('think', 4, true);
+		}
+
 	},
 
 	update: function() {
@@ -589,7 +600,8 @@ blocks - event handlers
 	gotoMenu: function(){
 		this.gameplaySound.stop();
 		this.gameplaySound = null;
-		this.game.state.start("MainMenu")
+		this.game.state.start("MainMenu");
+		BasicGame.aimode = false;
 	},
 
 	restartGame: function(){
