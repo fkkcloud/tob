@@ -41,7 +41,7 @@ var levelSelectScreenJSON = {
 		position: {x:0, y:0},
 		width: 200,
 		height: 200,
-		layout: [5, 3],
+		layout: [5, 2],
 		children: [
 			{ id: 'lvl1', text: '1', userData: 'level 1', component: 'Button', position: 'center', width: 120, height: 120, skin: 'levelBtn' },
 			{ id: 'lvl2', text: '2', userData: 'level 2', component: 'Button', position: 'center', width: 120, height: 120, skin: 'levelBtn' },
@@ -53,13 +53,6 @@ var levelSelectScreenJSON = {
 			{ id: 'lvl8', text: '8', userData: 'level 8', component: 'Button', position: 'center', width: 120, height: 120, skin: 'levelBtn' },
 			{ id: 'lvl9', text: '9', userData: 'level 9', component: 'Button', position: 'center', width: 120, height: 120, skin: 'levelBtn' },
 			{ id: 'lvl10', text: '10', userData: 'level 10', component: 'Button', position: 'center', width: 120, height: 120, skin: 'levelBtn' },
-
-			{ id: 'lvl11', text: '11', userData: 'level 11', component: 'Button', position: 'center', width: 120, height: 120, skin: 'levelBtn' },
-			{ id: 'lvl12', text: '12', userData: 'level 12', component: 'Button', position: 'center', width: 120, height: 120, skin: 'levelBtn' },
-			{ id: 'lvl13', text: '13', userData: 'level 13', component: 'Button', position: 'center', width: 120, height: 120, skin: 'levelBtn' },
-			{ id: 'lvl14', text: '14', userData: 'level 14', component: 'Button', position: 'center', width: 120, height: 120, skin: 'levelBtn' },
-			{ id: 'lvl15', text: '15', userData: 'level 15', component: 'Button', position: 'center', width: 120, height: 120, skin: 'levelBtn' },
-			
 		]
 	}
 
