@@ -739,12 +739,12 @@ blocks - generations
 	    	me.blocks.add(block);
 	    }
 	    else if (imgId === 2){ // trap
+	    	block.body.width = block.width * 0.25;
+			block.body.height = block.height * 0.25;
+			
 			block.anchor.setTo(0.5, 0.5);
 			block.position.x += block.width * 0.5;
 			block.position.y += block.height * 0.5;
-
-			block.body.width = block.width * 0.25;
-			block.body.height = block.height * 0.25;
 
 			me.game.add.tween(block).to({angle: 360}, 1000, null, true, 0, 0, false).loop(true).start();
 	    	me.traps.add(block);
