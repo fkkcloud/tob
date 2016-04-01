@@ -194,11 +194,8 @@ BasicGame.Main.prototype = {
 			
 			var block = me.blocks.children[i];
 
-			var blockPhysicOffset = -50;
-
 			// overlap event - me.chaJumpReady
 			block.scale.setTo(1.45, 1.45);
-			block.body.position.x -= blockPhysicOffset;
 			block.anchor.setTo(0.0, 0.0);
 
 			me.game.physics.arcade.overlap(me.cha, block, function(){
@@ -206,7 +203,6 @@ BasicGame.Main.prototype = {
 			}, null, me);
 			// end of overlap event for me.charJumpReady
 			block.scale.setTo(1.1, 1.1); // to its original size
-			block.body.position.x += blockPhysicOffset;
 			block.anchor.setTo(0.0, 0.0);
 
 			// regular collision
@@ -739,6 +735,7 @@ blocks - generations
 
 	    if (imgId === 1){ //  block
 			block.body.checkCollision.right = false;
+			block.body.position.x -= -50;
 	    	me.blocks.add(block);
 	    }
 	    else if (imgId === 2){ // trap
