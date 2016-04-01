@@ -100,7 +100,7 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 		}
 
 		// there should be at least some blocks
-		if (mapDesignModeSum > 30)
+		if (mapDesignModeSum > 40)
 			isMapDataValid = true;
 
 		if (!isMapDataValid){
@@ -108,7 +108,7 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 			return;
 		}
 
-		if ($scope.map.name.length < 3 || $scope.map.author.length < 3){
+		if ($scope.map.name.length < 2 || $scope.map.author.length < 2){
 			swal("Please name the map and author name more properly!", null,"warning")
 			return;
 		}
