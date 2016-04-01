@@ -42,7 +42,7 @@ angular.module('MainCtrl', []).controller('MainController', function($scope) {
 				$scope.mapData[i][j] = 0;
 			}
 		}
-		$scope.mapSpeed = {value:1.0};
+		$scope.mapSpeed = {value:1.3};
 		$scope.jumpScale = {value:1.0};
 	}
 
@@ -66,9 +66,9 @@ angular.module('MainCtrl', []).controller('MainController', function($scope) {
 	$scope.loadMapSpeedFromLocalStorage = function(){
 		if (window.localStorage.mapSpeed == undefined || 
 			window.localStorage.mapSpeed == 'undefined' || 
-			window.localStorage.mapSpeed == 1 || 
+			window.localStorage.mapSpeed == 1.3 || 
 			window.localStorage.mapSpeed == ''){
-			$scope.mapSpeed['value'] = 1.0;
+			$scope.mapSpeed['value'] = 1.3;
 			return;
 		}
 		$scope.mapSpeed['value'] = JSON.parse(window.localStorage.mapSpeed).value;
