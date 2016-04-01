@@ -190,7 +190,7 @@
 					window.localStorage.mapSpeed == 'undefined' || 
 					(window.localStorage.mapSpeed && JSON.parse(window.localStorage.mapSpeed).value == 0) || 
 					window.localStorage.mapSpeed == '' ||
-					window.localStorage.mapSpeed == 1) ? {'value':1} : JSON.parse(window.localStorage.mapSpeed);
+					window.localStorage.mapSpeed == 1) ? {'value':1.3} : JSON.parse(window.localStorage.mapSpeed);
 				BasicGame.mapSpeed = mapSpeed;
 
 				// LOCAL STORAGE JUM SCALE 
