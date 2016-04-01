@@ -41,6 +41,9 @@ BasicGame.Preload.prototype = {
 
             this.load.image('copyrights', 'assets/copyrights@3.png');
 
+            this.load.image('tuto1', 'assets/tuto1@3.png');
+            this.load.image('tuto2', 'assets/tuto2@3.png');
+
             this.load.spritesheet('cha_vamp', 'assets/cha_vamp@3.png', 50*3, 75*3, 3);
             this.load.spritesheet('cha_bat', 'assets/cha_bat@3.png', 250, 230, 3);
 
@@ -108,6 +111,9 @@ BasicGame.Preload.prototype = {
 
             this.load.image('copyrights', 'assets/copyrights@2.png');
 
+            this.load.image('tuto1', 'assets/tuto1@2.png');
+            this.load.image('tuto2', 'assets/tuto2@2.png');
+
             this.load.spritesheet('cha_vamp', 'assets/cha_vamp@2.png', 50*2, 75*2, 3);
             this.load.spritesheet('cha_bat', 'assets/cha_bat@2.png', 166, 153, 3);
 
@@ -174,6 +180,9 @@ BasicGame.Preload.prototype = {
             this.load.image('title_stageClear', 'assets/stageclear.png');
 
             this.load.image('copyrights', 'assets/copyrights.png');
+
+            this.load.image('tuto1', 'assets/tuto1.png');
+            this.load.image('tuto2', 'assets/tuto2.png');
 
             this.load.spritesheet('cha_vamp', 'assets/cha_vamp.png', 50, 75, 3);
             this.load.spritesheet('cha_bat', 'assets/cha_bat.png', 83, 77, 3);
@@ -300,7 +309,11 @@ BasicGame.Preload.prototype = {
                         BasicGame.mapSpeed  = {'value':BasicGame.stageData[BasicGame.currentStage].mapSpeed};
 
                         BasicGame.ui_level_screen.visible = false;
-                        this.game.state.start("Main");
+
+                        if (stageNumber == 0)
+                            this.game.state.start("Tuto1"); // only for stage 1 -> tuto starts!
+                        else
+                            this.game.state.start("Main");
                     }
                 }, 150);
 

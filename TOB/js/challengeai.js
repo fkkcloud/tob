@@ -95,7 +95,7 @@ BasicGame.ChallengeAI.prototype = {
 		alphago.animations.play('think', 4, true);
 
 		instructionLabel2 = me.game.add.text(me.game.world.centerX,
-			me.game.world.height * 0.675, "This session is made by artificial intelligence, a machine learning algorithm.",
+			me.game.world.height * 0.675, "This session is made by AI, a machine learning algorithm.",
 			{font:subHeadingFont, fill:'#c0392b'});
 		instructionLabel2.anchor.setTo(0.5, 1);
 		instructionLabel2.align = 'center';
