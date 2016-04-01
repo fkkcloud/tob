@@ -358,8 +358,8 @@ BasicGame.Preload.prototype = {
 
                 var level = levelSelectScreenJSON.children[1].children[i];
                 
-                level.width = 92 * window.devicePixelRatio;
-                level.height = 92 * window.devicePixelRatio;
+                level.width = 104 * window.devicePixelRatio;
+                level.height = 104 * window.devicePixelRatio;
                 
                 if (BasicGame.stageProgress && BasicGame.stageProgress.length >= i && BasicGame.stageProgress[i] != 0){
                     level.skin = "levelBtn";
