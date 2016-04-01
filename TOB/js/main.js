@@ -65,9 +65,12 @@ BasicGame.Main.prototype = {
    	 		me.scoreCounter = me.game.time.events.loop(Phaser.Timer.SECOND * 1.0, me.getScore, me);
 
 
-		// start with vamp mode
+		// start with vamp mode if not aimode
 		me.createStage();
-		me.runVampMode();
+		if (BasicGame.aimode)
+			me.runBatMode();
+		else
+			me.runVampMode();
 
 		/* character position between map modes */
 		me.initX = me.game.width * 0.2;
@@ -91,25 +94,6 @@ BasicGame.Main.prototype = {
 		// pre stage
 		me.createPreStage();
 
-		// setup for blood bar
-		me.bloodIndicator = game.add.group();
-		me.bloodFlash = me.bloodIndicator.create(0, 0, 'blood_highlight');
-		me.bloodFlash.alpha = 0;
-		var leftMarginBloodGuage = 0;
-		if(window.devicePixelRatio >= 3)
-			leftMarginBloodGuage = 30;
-		else if(window.devicePixelRatio >=2)
-			leftMarginBloodGuage = 26.5;
-		else
-			leftMarginBloodGuage = 14;
-		me.loadingBar = me.bloodIndicator.create(leftMarginBloodGuage, 0, 'blood_guage');
-		me.bloodBar   = me.bloodIndicator.create(0, 0, 'blood_bar');		
-		me.loadingBar.scale.x = 0.0;
-		me.bloodIndicator.position.setTo(me.game.width * 0.5, me.game.height * 0.03);
-		me.bloodIndicator.scale.setTo(1.4, 1.4);
-		var loadingBar_imgCache = game.cache.getImage("blood_bar");
-		me.bloodIndicator.x -= (loadingBar_imgCache.width * 0.5) * 1.4;
-
 
 		if (BasicGame.aimode){
 			var alphago = me.game.add.sprite(me.game.world.width * 0.9, me.game.world.height * 0.86, "alphago");
@@ -118,6 +102,27 @@ BasicGame.Main.prototype = {
 			// add and play animations
 			alphago.animations.add('think');
 			alphago.animations.play('think', 4, true);
+		}
+		else
+		{
+			// setup for blood bar
+			me.bloodIndicator = game.add.group();
+			me.bloodFlash = me.bloodIndicator.create(0, 0, 'blood_highlight');
+			me.bloodFlash.alpha = 0;
+			var leftMarginBloodGuage = 0;
+			if(window.devicePixelRatio >= 3)
+				leftMarginBloodGuage = 30;
+			else if(window.devicePixelRatio >=2)
+				leftMarginBloodGuage = 26.5;
+			else
+				leftMarginBloodGuage = 14;
+			me.loadingBar = me.bloodIndicator.create(leftMarginBloodGuage, 0, 'blood_guage');
+			me.bloodBar   = me.bloodIndicator.create(0, 0, 'blood_bar');		
+			me.loadingBar.scale.x = 0.0;
+			me.bloodIndicator.position.setTo(me.game.width * 0.5, me.game.height * 0.03);
+			me.bloodIndicator.scale.setTo(1.4, 1.4);
+			var loadingBar_imgCache = game.cache.getImage("blood_bar");
+			me.bloodIndicator.x -= (loadingBar_imgCache.width * 0.5) * 1.4;
 		}
 
 	},
@@ -170,8 +175,8 @@ BasicGame.Main.prototype = {
 			me.chaJumped = false;
 		}
 
-		// bat check!! ----------------
-		if (me.mode == me.BATMODE && this.game.time.totalElapsedSeconds() * 1000 > me.batTimeDue){
+		// bat check!! only if its not aimode - for now, aimode only do bat!----------------
+		if (!BasicGame.aimode && me.mode == me.BATMODE && this.game.time.totalElapsedSeconds() * 1000 > me.batTimeDue){
 			me.bloodCount = 0; // reset blood collection for bat transformation (e.g. when it come back from bat to vamp)
 			me.bloodFlash.alpha = 0;
 			me.runVampMode();
@@ -255,6 +260,10 @@ BasicGame.Main.prototype = {
 
 	updateBloodsEvent: function(){
 		var me = this;
+
+		if (BasicGame.aimode)
+			return;
+
 		for (var i = 0; i < me.bloods.children.length; i++){
 
 			var block = me.bloods.children[i];
@@ -899,10 +908,13 @@ Mode
 		me.mode = me.BATMODE;
 		me.defaultAngle = 25;
 		
-		me.batTimeDue = this.game.time.totalElapsedSeconds() * 1000 + 4000;
-		me.game.add.tween(me.loadingBar.scale).to({x: 0.0}, 4000).start();
+		if (!BasicGame.aimode){
+			me.batTimeDue = this.game.time.totalElapsedSeconds() * 1000 + 4000;
 
-		me.game.add.tween(me.bloodFlash).to({alpha: 1.0}, 140).start();
+			me.game.add.tween(me.loadingBar.scale).to({x: 0.0}, 4000).start();
+
+			me.game.add.tween(me.bloodFlash).to({alpha: 1.0}, 140).start();
+		}
 	},
 
 	runVampMode: function(){
