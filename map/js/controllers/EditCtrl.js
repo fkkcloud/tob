@@ -143,8 +143,8 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 			        	'data':mapDataStr ,
 			        	'width':$scope.map.width ,
 			        	'height':$scope.map.height,
-			        	'mapspeed':JSON.stringify($scope.mapSpeed),
-			        	'jumpscale':JSON.stringify($scope.jumpScale)
+			        	'mapspeed':'1.3', /*JSON.stringify($scope.mapSpeed)*/,
+			        	'jumpscale':'1.0' /*JSON.stringify($scope.jumpScale)*/
 			        };
 
 			        $http.post('/api/maps/posts', postData)
