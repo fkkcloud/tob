@@ -4,7 +4,7 @@ BasicGame.ChallengeAI.prototype = {
 
 	preload: function(){
 		BasicGame.AI_initMapCreator();
-		var size = 300;
+		var size = 200;
 
 		BasicGame.storymode = false;
 		BasicGame.mapData = BasicGame.AI_createMap(size);
