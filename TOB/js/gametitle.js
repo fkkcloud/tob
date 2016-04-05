@@ -47,8 +47,10 @@ BasicGame.GameTitle.prototype = {
 		me.bg_cloud.events.onInputUp.add(this.gotoMainMenu, this);
 
 		var bg_castle_img_cache = game.cache.getImage("bg_castle");
-		var castle_height = this.game.height - bg_castle_img_cache.height;
+		scaleRatio = (this.game.height - bg_castle_img_cache.height) / bg_castle_img_cache.height;
+		var castle_height = this.game.height - (bg_castle_img_cache.height * scaleRatio);
 		me.bg_castle = game.add.tileSprite(0, castle_height, me.game.width, me.game.height, "bg_castle");
+		me.bg_castle.scale.setTo(scaleRatio, scaleRatio);
 		me.bg_castle.inputEnabled = true;
 		me.bg_castle.events.onInputUp.add(this.gotoMainMenu, this);
 	},

@@ -17,10 +17,8 @@ BasicGame.MainMenu.prototype = {
 		me.mainmenuSound.loopFull();
 
 		me.clickSound = me.game.add.audio('button');
-		
 	},
 
-	
 	update: function() {
 		var me = this;
 
@@ -36,13 +34,13 @@ BasicGame.MainMenu.prototype = {
 		var bg_sky_img_cache = game.cache.getImage("bg_sky");
 		var scaleRatio = me.game.height / bg_sky_img_cache.height;
 		me.bg_sky.scale.setTo(scaleRatio, scaleRatio);
-		me.bg_sky.inputEnabled = true;
+
 
 		me.bg_cloud = game.add.tileSprite(0, 0, me.game.width, me.game.height, "bg_cloud");
 		var bg_cloud_img_cache = game.cache.getImage("bg_cloud");
 		scaleRatio = me.game.height / bg_cloud_img_cache.height;
 		me.bg_cloud.scale.setTo(scaleRatio, scaleRatio);
-		me.bg_cloud.inputEnabled = true;
+
 	},
 
 

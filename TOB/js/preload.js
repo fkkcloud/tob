@@ -31,9 +31,9 @@ BasicGame.Preload.prototype = {
 
 		if(window.devicePixelRatio >= 3)
         {
-            this.load.image('bg_sky', 'assets/bg_sky@3.png');
-            this.load.image('bg_castle', 'assets/bg_castle@3.png');
-            this.load.image('bg_cloud', 'assets/bg_cloud@3.png');
+            this.load.image('bg_sky', 'assets/bg_sky.png');
+            this.load.image('bg_castle', 'assets/bg_castle.png');
+            this.load.image('bg_cloud', 'assets/bg_cloud.png');
 
             this.load.image('title', 'assets/title@3.png');
             this.load.image('title_gameOver', 'assets/gameover@3.png');
@@ -60,8 +60,7 @@ BasicGame.Preload.prototype = {
             this.load.image('btn_next', 'assets/btn_next@3.png');
 
             this.load.image('blood', 'assets/blood@3.png');
-            this.load.spritesheet('blood_eat', 'assets/blood_eat@3.png', 141, 141, 4);
-            this.load.spritesheet('blood_fill', 'assets/blood_fill@3.png', 110, 110, 12);
+            this.load.spritesheet('blood_eat', 'assets/blood_eat.png', 47, 47, 4);
 
             this.load.image('blood_highlight', 'assets/bloodhighlight@3.png');
             this.load.image('blood_guage', 'assets/bloodguage@3.png');
@@ -71,7 +70,7 @@ BasicGame.Preload.prototype = {
 
             this.load.image('trap', 'assets/trap@3.png');
 
-            this.load.spritesheet('transform', 'assets/transform@3.png', 200, 200, 6);
+            this.load.spritesheet('transform', 'assets/transform.png', 66, 66, 6);
 
             this.load.image('open_all', 'assets/open_all@3.png');
             this.load.image('open_none', 'assets/open_none@3.png');
@@ -93,17 +92,17 @@ BasicGame.Preload.prototype = {
             this.load.image('open_up_left', 'assets/open_up_left@3.png');
             this.load.image('open_up_right', 'assets/open_up_right@3.png');
 
-            this.load.spritesheet('fx_death', 'assets/fx_death@3.png', 330, 330, 16);
-            this.load.spritesheet('fx_spawn', 'assets/FX_spawn@3.png', 300, 563, 13);
-            this.load.spritesheet('fx_run', 'assets/FX_run@3.png', 150, 75, 8);
+            this.load.spritesheet('fx_death', 'assets/fx_death.png', 110, 110, 16);
+            this.load.spritesheet('fx_spawn', 'assets/FX_spawn.png', 100, 188, 13);
+            this.load.spritesheet('fx_run', 'assets/FX_run.png', 50, 25, 8);
 
         }
         else if(window.devicePixelRatio == 2)
         {
 
-            this.load.image('bg_sky', 'assets/bg_sky@2.png');
-            this.load.image('bg_castle', 'assets/bg_castle@2.png');
-            this.load.image('bg_cloud', 'assets/bg_cloud@2.png');
+            this.load.image('bg_sky', 'assets/bg_sky.png');
+            this.load.image('bg_castle', 'assets/bg_castle.png');
+            this.load.image('bg_cloud', 'assets/bg_cloud.png');
 
             this.load.image('title', 'assets/title@2.png');
             this.load.image('title_gameOver', 'assets/gameover@2.png');
@@ -130,8 +129,7 @@ BasicGame.Preload.prototype = {
             this.load.image('btn_next', 'assets/btn_next@2.png');
 
             this.load.image('blood', 'assets/blood@2.png');
-            this.load.spritesheet('blood_eat', 'assets/blood_eat@2.png', 94, 94, 4);
-            this.load.spritesheet('blood_fill', 'assets/blood_fill@2.png', 73, 73, 12);
+            this.load.spritesheet('blood_eat', 'assets/blood_eat.png', 47, 47, 4);
 
             this.load.image('blood_highlight', 'assets/bloodhighlight@2.png');
             this.load.image('blood_guage', 'assets/bloodgauge@2.png');
@@ -141,7 +139,7 @@ BasicGame.Preload.prototype = {
 
             this.load.image('trap', 'assets/trap@2.png');
 
-            this.load.spritesheet('transform', 'assets/transform@2.png', 133, 133, 6);
+            this.load.spritesheet('transform', 'assets/transform.png', 66, 66, 6);
 
             this.load.image('open_all', 'assets/open_all@2.png');
             this.load.image('open_none', 'assets/open_none@2.png');
@@ -163,9 +161,9 @@ BasicGame.Preload.prototype = {
             this.load.image('open_up_left', 'assets/open_up_left@2.png');
             this.load.image('open_up_right', 'assets/open_up_right@2.png');
 
-            this.load.spritesheet('fx_death', 'assets/fx_death@2.png', 220, 220, 16);
-            this.load.spritesheet('fx_spawn', 'assets/FX_spawn@2.png', 200, 375, 13);
-            this.load.spritesheet('fx_run', 'assets/FX_run@2.png', 100, 50, 8);
+            this.load.spritesheet('fx_death', 'assets/fx_death.png', 110, 110, 16);
+            this.load.spritesheet('fx_spawn', 'assets/FX_spawn.png', 100, 188, 13);
+            this.load.spritesheet('fx_run', 'assets/FX_run.png', 50, 25, 8);
 
         }
         else 
@@ -201,7 +199,6 @@ BasicGame.Preload.prototype = {
 
             this.load.image('blood', 'assets/blood.png');
             this.load.spritesheet('blood_eat', 'assets/blood_eat.png', 47, 47, 4);
-            this.load.spritesheet('blood_fill', 'assets/blood_fill.png', 36, 36, 12);
 
             this.load.image('blood_highlight', 'assets/bloodhighlight.png');
             this.load.image('blood_guage', 'assets/bloodgauge.png');

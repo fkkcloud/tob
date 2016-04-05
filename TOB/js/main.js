@@ -951,19 +951,24 @@ BG
 		if (me.bg_castle)
 			me.bg_castle.destroy();
 
+		if (me.bg_cloud)
+			me.bg_cloud.destroy();
+
 		me.bg_sky = game.add.tileSprite(0, 0, me.game.width, me.game.height, "bg_sky");
 		var bg_sky_img_cache = game.cache.getImage("bg_sky");
 		var scaleRatio = me.game.height / bg_sky_img_cache.height;
 		me.bg_sky.scale.setTo(scaleRatio, scaleRatio);
-
+		
 		me.bg_cloud = game.add.tileSprite(0, 0, me.game.width, me.game.height, "bg_cloud");
 		var bg_cloud_img_cache = game.cache.getImage("bg_cloud");
 		scaleRatio = me.game.height / bg_cloud_img_cache.height;
 		me.bg_cloud.scale.setTo(scaleRatio, scaleRatio);
-
+		
 		var bg_castle_img_cache = game.cache.getImage("bg_castle");
-		var castle_height = this.game.height - bg_castle_img_cache.height;
+		scaleRatio = (this.game.height - bg_castle_img_cache.height) / bg_castle_img_cache.height;
+		var castle_height = this.game.height - (bg_castle_img_cache.height * scaleRatio);
 		me.bg_castle = game.add.tileSprite(0, castle_height, me.game.width, me.game.height, "bg_castle");
+		me.bg_castle.scale.setTo(scaleRatio, scaleRatio);
 	},
 
 	updateBG: function(){
@@ -1053,7 +1058,11 @@ Player
 	playFXPlayerDeath(){
 		var me = this;
 		var anim = me.game.add.sprite(me.cha.x - me.cha.width, me.cha.y - me.cha.height * 0.8, 'fx_death');
-		anim.scale.setTo(1.32, 1.32);
+
+		var fx_death_img_cache = game.cache.getImage("fx_death");
+		var scale_ratio = me.cha.height / fx_death_img_cache.height * 1.8;
+		anim.scale.setTo(scale_ratio, scale_ratio);
+
 		anim.animations.add('death');
 		anim.animations.play('death', 16, false, true);
 		//me.game.physics.arcade.enable(anim);
@@ -1064,8 +1073,9 @@ Player
 		var me = this;
 		me.spawnFX = me.game.add.sprite(x, y, 'fx_spawn');
 		var scale = me.game.height / me.spawnFX.height;
-		me.spawnFX .scale.setTo(scale, scale);
-		me.spawnFX .animations.add('spawn');
+
+		me.spawnFX.scale.setTo(scale, scale);
+		me.spawnFX.animations.add('spawn');
 	},
 
 	playFXPlayerSpawn(){
@@ -1075,9 +1085,13 @@ Player
 	playFXEatBlood(x, y){
 		var me = this;
 		var anim = me.game.add.sprite(x, y, 'blood_eat');
+
+		var blood_eat_img_cache = game.cache.getImage("blood_eat");
+		var scale_ratio = me.cha.height / blood_eat_img_cache.height * 0.78;
+		anim.scale.setTo(scale_ratio, scale_ratio);
+
 		anim.animations.add('eatBlood');
 		anim.animations.play('eatBlood', 12, false, true);
-		anim.scale.setTo(1.3, 1.3);
 		me.game.physics.arcade.enable(anim);
 		anim.body.velocity.x = me.mapVelX;
 	},
@@ -1085,9 +1099,13 @@ Player
 	playFXTransform(){
 		var me = this;
 		var anim = me.game.add.sprite(me.cha.x - me.cha.width * 0.5, me.cha.y - me.cha.height * 0.7, 'transform');
+
+		var fx_transform_img_cache = game.cache.getImage("transform");
+		var scale_ratio = me.cha.height / fx_transform_img_cache.height * 1.25;
+		anim.scale.setTo(scale_ratio, scale_ratio);
+
 		anim.animations.add('transformation');
 		anim.animations.play('transformation', 12, false, true);
-		anim.scale.setTo(1.6, 1.6);
 		me.game.physics.arcade.enable(anim);
 		anim.body.velocity.x = me.mapVelX * 0.186;
 		me.transformSound.play();
@@ -1096,7 +1114,11 @@ Player
 	playFXPlayerRun(){
 		var me = this;
 		var anim = me.game.add.sprite(me.cha.x - me.cha.width, me.cha.y, 'fx_run');
-		anim.scale.setTo(1.5, 1.5);
+
+		var fx_run_img_cache = game.cache.getImage("fx_run");
+		var scale_ratio = me.cha.height / fx_run_img_cache.height * 0.5;
+		anim.scale.setTo(scale_ratio, scale_ratio);
+
 		anim.animations.add('runSmoke');
 		anim.animations.play('runSmoke', 10, false, true);
 		me.game.physics.arcade.enable(anim);
@@ -1106,7 +1128,11 @@ Player
 	playFXPlayerFly(){
 		var me = this;
 		var anim = me.game.add.sprite(me.cha.x - me.cha.width * 0.5, me.cha.y - me.cha.height * 0.2, 'fx_run');
-		anim.scale.setTo(1.25, 1.25);
+
+		var fx_run_img_cache = game.cache.getImage("fx_run");
+		var scale_ratio = me.cha.height / fx_run_img_cache.height * 0.4;
+		anim.scale.setTo(scale_ratio, scale_ratio);
+
 		anim.animations.add('runSmoke');
 		anim.animations.play('runSmoke', 10, false, true);
 		anim.angle = -45;
