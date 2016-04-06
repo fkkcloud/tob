@@ -27,7 +27,7 @@ BasicGame.MainMenu.prototype = {
 			this.mainmenuSound.stop();
 			this.mainmenuSound = null;
 		}
-		this.game.state.start("LevelList1");
+		this.game.state.start("LevelList");
 		//this.game.state.start("Main");
 	},
 
