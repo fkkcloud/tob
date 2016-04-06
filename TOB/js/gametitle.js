@@ -86,8 +86,15 @@ BasicGame.GameTitle.prototype = {
 		this.background_sky2.scale.setTo(scaleRatio, scaleRatio);
 
 		var bg_castle_img_cache = game.cache.getImage("bg_castle");
-		scaleRatio = (this.game.height - bg_castle_img_cache.height) / bg_castle_img_cache.height;
-		var castle_height = this.game.height - (bg_castle_img_cache.height * scaleRatio);
+		var castle_height;
+		if (window.devicePixelRatio < 2){
+			scaleRatio = 1;
+			castle_height = this.game.height - bg_castle_img_cache.height;
+		}
+		else {
+			scaleRatio = (this.game.height - bg_castle_img_cache.height) / bg_castle_img_cache.height;
+			castle_height = this.game.height - (bg_castle_img_cache.height * scaleRatio);
+		}
 
 		this.background_castle1 = this.game.add.sprite(0, castle_height, 'bg_castle');  
 		this.background_castle1.scale.setTo(scaleRatio, scaleRatio);
