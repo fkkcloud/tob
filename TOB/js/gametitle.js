@@ -22,38 +22,9 @@ BasicGame.GameTitle.prototype = {
 	update: function() {
 		var me = this;
 
-		this.bg_sky.tilePosition.x -= 0.3;
-
-		this.bg_castle.tilePosition.x -= 0.5;
-
-		this.bg_cloud.tilePosition.x -= 0.4;
+		me.updateBG();
 	},
 
-	createBG: function(){
-		var me = this;
-
-		me.bg_sky = game.add.tileSprite(0, 0, me.game.width, me.game.height, "bg_sky");
-		var bg_sky_img_cache = game.cache.getImage("bg_sky");
-		var scaleRatio = me.game.height / bg_sky_img_cache.height;
-		me.bg_sky.scale.setTo(scaleRatio, scaleRatio);
-		me.bg_sky.inputEnabled = true;
-		me.bg_sky.events.onInputUp.add(this.gotoMainMenu, this);
-
-		me.bg_cloud = game.add.tileSprite(0, 0, me.game.width, me.game.height, "bg_cloud");
-		var bg_cloud_img_cache = game.cache.getImage("bg_cloud");
-		scaleRatio = me.game.height / bg_cloud_img_cache.height;
-		me.bg_cloud.scale.setTo(scaleRatio, scaleRatio);
-		me.bg_cloud.inputEnabled = true;
-		me.bg_cloud.events.onInputUp.add(this.gotoMainMenu, this);
-
-		var bg_castle_img_cache = game.cache.getImage("bg_castle");
-		scaleRatio = (this.game.height - bg_castle_img_cache.height) / bg_castle_img_cache.height;
-		var castle_height = this.game.height - (bg_castle_img_cache.height * scaleRatio);
-		me.bg_castle = game.add.tileSprite(0, castle_height, me.game.width, me.game.height, "bg_castle");
-		me.bg_castle.scale.setTo(scaleRatio, scaleRatio);
-		me.bg_castle.inputEnabled = true;
-		me.bg_castle.events.onInputUp.add(this.gotoMainMenu, this);
-	},
 
 	gotoMainMenu: function(){
 		if (this.mainmenuSound){
@@ -61,7 +32,6 @@ BasicGame.GameTitle.prototype = {
 			this.mainmenuSound = null;
 		}
 		this.game.state.start("MainMenu");
-		//this.game.state.start("Main");
 	},
 
 	createLogo: function(){
@@ -99,9 +69,136 @@ BasicGame.GameTitle.prototype = {
 		this.btn_start.anchor.setTo(0.5, 0.5);
 		this.btn_start.onInputDown.add(me.onDownStart, this);
 		this.btn_start.onInputUp.add(me.onUpStart, this);
+
 		me.game.add.tween(this.btn_start).to({alpha: 0.8}, 700, null, true, 0, 0, true).loop(true).start();
 		me.game.add.tween(this.btn_start.scale).to({x: 1.3, y: 1.3}, 440, null, true, 0, 0, true).loop(true).start();
 
 	},
 
+	createBG: function() { 
+		var bg_sky_img_cache = game.cache.getImage("bg_sky");
+		var scaleRatio = this.game.height / bg_sky_img_cache.height;
+
+		this.background_sky1 = this.game.add.sprite(0, 0, 'bg_sky');  
+		this.background_sky1.scale.setTo(scaleRatio, scaleRatio);
+
+		this.background_sky2 = this.game.add.sprite(bg_sky_img_cache.width * scaleRatio, 0, 'bg_sky');
+		this.background_sky2.scale.setTo(scaleRatio, scaleRatio);
+
+		var bg_castle_img_cache = game.cache.getImage("bg_castle");
+		scaleRatio = (this.game.height - bg_castle_img_cache.height) / bg_castle_img_cache.height;
+		var castle_height = this.game.height - (bg_castle_img_cache.height * scaleRatio);
+
+		this.background_castle1 = this.game.add.sprite(0, castle_height, 'bg_castle');  
+		this.background_castle1.scale.setTo(scaleRatio, scaleRatio);
+
+		this.background_castle2 = this.game.add.sprite(bg_castle_img_cache.width * scaleRatio, castle_height, 'bg_castle');
+		this.background_castle2.scale.setTo(scaleRatio, scaleRatio);
+
+		var bg_cloud_img_cache = game.cache.getImage("bg_cloud");
+		scaleRatio = this.game.height / bg_cloud_img_cache.height;
+
+		this.background_cloud1 = this.game.add.sprite(0, 0, 'bg_cloud');  
+		this.background_cloud1.scale.setTo(scaleRatio, scaleRatio);
+
+		this.background_cloud2 = this.game.add.sprite(bg_cloud_img_cache.width * scaleRatio, 0, 'bg_cloud');
+		this.background_cloud2.scale.setTo(scaleRatio, scaleRatio);
+	},
+
+	updateBG: function() {
+
+		this.moveBackgroundSky1();
+		this.moveBackgroundSky2();
+
+		this.moveBackgroundCloud1();
+		this.moveBackgroundCloud2();
+
+		this.moveBackgroundCastle1();
+		this.moveBackgroundCastle2();
+
+	},
+
+	moveBackgroundCloud2 : function() {  
+		var bg_cloud_img_cache = game.cache.getImage("bg_cloud");
+		var scaleRatio = this.game.height / bg_cloud_img_cache.height;
+
+		if (this.background_cloud2.position.x < -(bg_cloud_img_cache.width * scaleRatio)  )
+		{        
+			this.background_cloud2.position.x = bg_cloud_img_cache.width * scaleRatio; 
+			this.background_cloud2.position.x -= 0.4;  
+		}
+		else {
+			this.background_cloud2.position.x -= 0.4;  
+		}        	  
+	},
+
+	moveBackgroundCloud1 : function() {  
+		var bg_cloud_img_cache = game.cache.getImage("bg_cloud");
+		var scaleRatio = this.game.height / bg_cloud_img_cache.height;
+
+		if (this.background_cloud1.position.x < -(bg_cloud_img_cache.width * scaleRatio)  )
+		{        
+			this.background_cloud1.position.x = bg_cloud_img_cache.width * scaleRatio; 
+			this.background_cloud1.position.x -= 0.4;  
+		}
+		else {
+			this.background_cloud1.position.x -= 0.4;  
+		}         	  
+	},
+
+	moveBackgroundCastle2 : function() {  
+		var bg_castle_img_cache = game.cache.getImage("bg_castle");
+		var scaleRatio = this.game.height / bg_castle_img_cache.height;
+
+		if (this.background_castle2.position.x < -(bg_castle_img_cache.width * scaleRatio)  )
+		{        
+			this.background_castle2.position.x = bg_castle_img_cache.width * scaleRatio; 
+			this.background_castle2.position.x -= 0.5;  
+		}
+		else {
+			this.background_castle2.position.x -= 0.5;  
+		}        	  
+	},
+
+	moveBackgroundCastle1 : function() {  
+		var bg_castle_img_cache = game.cache.getImage("bg_castle");
+		var scaleRatio = this.game.height / bg_castle_img_cache.height;
+
+		if (this.background_castle1.position.x < -(bg_castle_img_cache.width * scaleRatio)  )
+		{        
+			this.background_castle1.position.x = bg_castle_img_cache.width * scaleRatio; 
+			this.background_castle1.position.x -= 0.5;  
+		}
+		else {
+			this.background_castle1.position.x -= 0.5;  
+		}           	  
+	},
+
+	moveBackgroundSky2 : function() {  
+		var bg_sky_img_cache = game.cache.getImage("bg_sky");
+		var scaleRatio = this.game.height / bg_sky_img_cache.height;
+
+		if (this.background_sky2.position.x < -(bg_sky_img_cache.width * scaleRatio)  )
+		{        
+			this.background_sky2.position.x = bg_sky_img_cache.width * scaleRatio; 
+			this.background_sky2.position.x -= 0.3;  
+		}
+		else {
+			this.background_sky2.position.x -= 0.3;  
+		}        	  
+	},
+
+	moveBackgroundSky1 : function() {  
+		var bg_sky_img_cache = game.cache.getImage("bg_sky");
+		var scaleRatio = this.game.height / bg_sky_img_cache.height;
+
+		if (this.background_sky1.position.x < -(bg_sky_img_cache.width * scaleRatio)  )
+		{        
+			this.background_sky1.position.x = bg_sky_img_cache.width * scaleRatio;
+			this.background_sky1.position.x -= 0.3;  
+		} 
+		else {
+			this.background_sky1.position.x -= 0.3;  
+		}        	  
+	},
 }
