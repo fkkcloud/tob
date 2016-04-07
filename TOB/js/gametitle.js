@@ -85,6 +85,11 @@ BasicGame.GameTitle.prototype = {
 		this.background_sky2 = this.game.add.sprite(bg_sky_img_cache.width * scaleRatio, 0, 'bg_sky');
 		this.background_sky2.scale.setTo(scaleRatio, scaleRatio);
 
+		this.background_sky1.inputEnabled = true;
+		this.background_sky2.inputEnabled = true;
+		this.background_sky1.events.onInputDown.add(this.gotoMainMenu, this);
+		this.background_sky2.events.onInputDown.add(this.gotoMainMenu, this);
+
 		var bg_castle_img_cache = game.cache.getImage("bg_castle");
 		var castle_height;
 		if (window.devicePixelRatio < 2){
