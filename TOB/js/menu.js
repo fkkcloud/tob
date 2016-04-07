@@ -27,8 +27,7 @@ BasicGame.MainMenu.prototype = {
 			this.mainmenuSound.stop();
 			this.mainmenuSound = null;
 		}
-		this.game.state.start("LevelList");
-		//this.game.state.start("Main");
+		this.game.state.start("LevelList1");
 	},
 
 	gotoMaps: function(){
@@ -69,25 +68,25 @@ BasicGame.MainMenu.prototype = {
 	createButtons: function(){
 		var me = this;
 
-		this.btn_start = this.game.add.button(this.game.world.width * 0.3, this.game.world.height * 0.26, 'btn_story', this.startGame, this);
+		this.btn_start = this.game.add.button(this.game.world.width * 0.3, this.game.world.height * 0.34, 'btn_story', this.startGame, this);
 		this.btn_start.scale.setTo(0.9, 0.9);
 		this.btn_start.anchor.setTo(0.5, 0.5);
 		this.btn_start.onInputDown.add(me.onDown, this);
 		this.btn_start.onInputUp.add(me.onUp, this);
 
-		this.btn_maplist = this.game.add.button(this.game.world.width * 0.7, this.game.world.height * 0.26, 'btn_maplist', this.gotoMaps, this);
+		this.btn_maplist = this.game.add.button(this.game.world.width * 0.7, this.game.world.height * 0.34, 'btn_maplist', this.gotoMaps, this);
 		this.btn_maplist.scale.setTo(0.9, 0.9);
 		this.btn_maplist.anchor.setTo(0.5, 0.5);
 		this.btn_maplist.onInputDown.add(me.onDown, this);
 		this.btn_maplist.onInputUp.add(me.onUp, this);
 
-		this.btn_mapeditor = this.game.add.button(this.game.world.width * 0.7, this.game.world.height * 0.7, 'btn_mapeditor', this.gotoMapEditor, this);
+		this.btn_mapeditor = this.game.add.button(this.game.world.width * 0.7, this.game.world.height * 0.74, 'btn_mapeditor', this.gotoMapEditor, this);
 		this.btn_mapeditor.scale.setTo(0.9, 0.9);
 		this.btn_mapeditor.anchor.setTo(0.5, 0.5);
 		this.btn_mapeditor.onInputDown.add(me.onDown, this);
 		this.btn_mapeditor.onInputUp.add(me.onUp, this);
 
-		this.btn_infinity = this.game.add.button(this.game.world.width * 0.3, this.game.world.height * 0.7, 'btn_infinity', this.gotoChallengeAI, this);
+		this.btn_infinity = this.game.add.button(this.game.world.width * 0.3, this.game.world.height * 0.74, 'btn_infinity', this.gotoChallengeAI, this);
 		this.btn_infinity.scale.setTo(0.9, 0.9);
 		this.btn_infinity.anchor.setTo(0.5, 0.5);
 		this.btn_infinity.onInputDown.add(me.onDown, this);
@@ -129,6 +128,10 @@ BasicGame.MainMenu.prototype = {
 
 		this.background_cloud2 = this.game.add.sprite(bg_cloud_img_cache.width * scaleRatio, 0, 'bg_cloud');
 		this.background_cloud2.scale.setTo(scaleRatio, scaleRatio);
+
+		// banner
+		this.banner = this.game.add.sprite(this.game.world.width * 0.5, 0, 'banner_main');  
+		this.banner.anchor.setTo(0.5, 0.0);
 	},
 
 	updateBG: function() {

@@ -16,17 +16,16 @@
 	<!-- PHASER LIB -->
 	<script type="text/javascript" src="js/phaser.min.js"></script>
 
-	<!-- EZGUI -->
-	<script type="text/javascript" src="js/phaser-compat-2.4.js"></script>
-    <script type="text/javascript" src="js/EZGUI.js"></script>
-
     <!-- PHASER GAME CODE-->
 	<script type="text/javascript" src="js/boot.js"></script>
 	<script type="text/javascript" src="js/preload.js"></script>
 	<script type="text/javascript" src="js/gametitle.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
 	<script type="text/javascript" src="js/gameover.js"></script>
-	<script type="text/javascript" src="js/levellist.js"></script>
+	<script type="text/javascript" src="js/levellist1.js"></script>
+	<script type="text/javascript" src="js/levellist2.js"></script>
+	<script type="text/javascript" src="js/levellist3.js"></script>
+	<script type="text/javascript" src="js/levellist4.js"></script>
 	<script type="text/javascript" src="js/menu.js"></script>
 	<script type="text/javascript" src="js/tuto1.js"></script>
 	<script type="text/javascript" src="js/tuto2.js"></script>
@@ -36,9 +35,6 @@
     <script type="text/javascript" src="js/vis.js"></script>
     <script type="text/javascript" src="js/rnn.js"></script>
 	<script type="text/javascript" src="js/challengeai.js"></script>
-
-	<!-- UI -->
-	<script type="text/javascript" src="js/tob_UI_script.js"></script>
 
     <style type="text/css">
         body {
@@ -64,7 +60,7 @@
         #desktop-game {
         	display: none;
 
-        	width: 70%;
+        	width: 100%;
         	max-width:620px;
 			overflow: auto;
 			margin: auto;
@@ -89,30 +85,6 @@
 	</script>
 
     <script type="text/javascript">
-    	var resources, themeOverride;
-    	/* CUSTOM BUTTON UI --------------------------------------------------------------------------------------- */
-    	var level_box_font_size = (32 * window.devicePixelRatio).toString() + 'px';
-
-        themeOverride = {
-            levelBtn: {
-                image: 'level-box',                
-                font: { size: level_box_font_size, family: 'Skranji', color: 'white' },
-                anchor: {x:0.5, y:0.4},
-            },
-            
-            levelBtnLocked : {
-            	image: 'level-box-locked',                
-                font: { size: level_box_font_size, family: 'Skranji', color: 'gray' },
-                anchor: {x:0.5, y:0.4},
-            },
-
-            backBtn : {
-            	image: 'btn_next',                
-                anchor: {x:0.5, y:0.5},
-            },
-        };
-		/* END OF UI ------------------------------------------------------------------------------------------ */
-				
 
 		(function() {
 
@@ -203,10 +175,10 @@
 
 				// LOCAL STORAGE STAGE PROGRESS
 				if (!window.localStorage.stageProgress || window.localStorage.stageProgress == undefined ||
-					window.localStorage.stageProgress == "undefined" || window.localStorage.stageProgress == null)
+					window.localStorage.stageProgress == "undefined" || window.localStorage.stageProgress == null) 
 				{
 					BasicGame.stageProgress = [];
-					for (var i = 0; i < 20; i++){
+					for (var i = 0; i < 32; i++){
 						BasicGame.stageProgress.push(0);
 					}
 					BasicGame.stageProgress[0] = 1; // first stage is always available.
@@ -216,6 +188,15 @@
 				}
 				else {
 					BasicGame.stageProgress = JSON.parse(window.localStorage.stageProgress);
+
+					if (BasicGame.stageProgress.length < 25){
+						BasicGame.stageProgress = [];
+						for (var i = 0; i < 32; i++){
+							BasicGame.stageProgress.push(0);
+						}
+						BasicGame.stageProgress[0] = 1; // first stage is always available.
+						window.localStorage.stageProgress = JSON.stringify(BasicGame.stageProgress);
+					}
 
 					//console.log('loading stage progress...', BasicGame.stageProgress);
 				}
@@ -234,7 +215,10 @@
 				game.state.add("GameTitle", BasicGame.GameTitle);
 				game.state.add("Main", BasicGame.Main);
 				game.state.add("GameOver", BasicGame.GameOver);
-				game.state.add("LevelList", BasicGame.LevelList);
+				game.state.add("LevelList1", BasicGame.LevelList1);
+				game.state.add("LevelList2", BasicGame.LevelList2);
+				game.state.add("LevelList3", BasicGame.LevelList3);
+				game.state.add("LevelList4", BasicGame.LevelList4);
 				game.state.add("ChallengeAI", BasicGame.ChallengeAI);
 				game.state.add("MainMenu", BasicGame.MainMenu);
 				game.state.add("Tuto1", BasicGame.Tuto1);

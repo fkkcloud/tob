@@ -96,6 +96,21 @@ BasicGame.Preload.prototype = {
             this.load.spritesheet('fx_spawn', 'assets/FX_spawn@2.png', 200, 375, 13);
             this.load.spritesheet('fx_run', 'assets/FX_run@3.png', 150, 75, 8);
 
+            this.load.image('banner_ai', 'assets/aibanner@3.png');
+            this.load.image('banner_level', 'assets/levelbanner@3.png');
+            this.load.image('banner_main', 'assets/mainbanner@3.png');
+            this.load.image('btn_ai', 'assets/btn_ai@3.png');
+            this.load.image('btn_levelmenu', 'assets/btn_levelmenu@3.png');
+            this.load.image('challengeai', 'assets/challengeai@3.png');
+
+            // UI resources
+            this.load.image('level-box', 'assets/level_button@3.png');
+            this.load.image('level-box-locked', 'assets/level_button_locked@3.png');
+            this.load.image('nav_arrow', 'assets/nav_arrow@3.png');
+            this.load.image('nav_on', 'assets/nav_on@3.png');
+            this.load.image('nav_off', 'assets/nav_off@3.png');
+
+
         }
         else if(window.devicePixelRatio == 2)
         {
@@ -164,6 +179,21 @@ BasicGame.Preload.prototype = {
             this.load.spritesheet('fx_death', 'assets/fx_death.png', 110, 110, 16);
             this.load.spritesheet('fx_spawn', 'assets/FX_spawn@2.png', 200, 375, 13);
             this.load.spritesheet('fx_run', 'assets/FX_run@2.png', 100, 50, 8);
+
+            this.load.image('banner_ai', 'assets/aibanner@2.png');
+            this.load.image('banner_level', 'assets/levelbanner@2.png');
+            this.load.image('banner_main', 'assets/mainbanner@2.png');
+            this.load.image('btn_ai', 'assets/btn_ai@2.png');
+            this.load.image('btn_levelmenu', 'assets/btn_levelmenu@2.png');
+            this.load.image('challengeai', 'assets/challengeai@2.png');
+
+            // UI resources
+            this.load.image('level-box', 'assets/level_button@2.png');
+            this.load.image('level-box-locked', 'assets/level_button_locked@2.png');
+            this.load.image('nav_arrow', 'assets/nav_arrow@2.png');
+            this.load.image('nav_on', 'assets/nav_on@2.png');
+            this.load.image('nav_off', 'assets/nav_off@2.png');
+
 
         }
         else 
@@ -234,19 +264,23 @@ BasicGame.Preload.prototype = {
             this.load.spritesheet('fx_spawn', 'assets/FX_spawn.png', 100, 188, 13);
             this.load.spritesheet('fx_run', 'assets/FX_run.png', 50, 25, 8);
 
+            this.load.image('banner_ai', 'assets/aibanner.png');
+            this.load.image('banner_level', 'assets/levelbanner.png');
+            this.load.image('banner_main', 'assets/mainbanner.png');
+            this.load.image('btn_ai', 'assets/btn_ai.png');
+            this.load.image('btn_levelmenu', 'assets/btn_levelmenu.png');
+            this.load.image('challengeai', 'assets/challengeai.png');
+
+             // UI resources
+            this.load.image('level-box', 'assets/level_button.png');
+            this.load.image('level-box-locked', 'assets/level_button_locked.png');
+            this.load.image('nav_arrow', 'assets/nav_arrow.png');
+            this.load.image('nav_on', 'assets/nav_on.png');
+            this.load.image('nav_off', 'assets/nav_off.png');
+
+
         } 
-
-        // UI resources
-        //this.load.image('assets/img/level-box.png', 'assets/img/level-box.png');
-        this.load.image('level-box', 'assets/level_button.png');
-        this.load.image('level-box-locked', 'assets/level_button_locked.png');
-
-        //Note that you need to call fixCache here to fix compatibility issue
-        //this is temporary fix, it will be replaced with a specific EZGUI Loader
-        this.load.onLoadComplete.add(EZGUI.Compatibility.fixCache, this.load, null, null);
-
 		var originalImageWidth;
-
 		if(window.devicePixelRatio >= 3)
 		{
 	    	
@@ -271,121 +305,19 @@ BasicGame.Preload.prototype = {
 		BasicGame.blockSize = this.game.height/8.0;
 		BasicGame.blockSpriteScale = (BasicGame.blockSize / originalImageWidth) * 1.1;
 
+        // how many spage do we have before stage start!
 		BasicGame.preStageUnits = this.game.width / (BasicGame.blockSize * 1.0);
-		//console.log('preStageInit:', BasicGame.preStageUnits);
 	},
 
 	create: function(){
-        BasicGame.preloadState = true;
 
-        function setupGUI() {
-
-            // level list
-            EZGUI.components.levelsList.bindChildren('mousedown', function (event, me) {
-                //console.log('mousedown ', me);
-                var ow = me.width;
-                var oh = me.height;
-                me.animateSizeTo(ow * 1.3, oh * 1.3, 100, EZGUI.Easing.Back.Out, function () {
-                    me.animateSizeTo(ow, oh, 100);
-                });
-            });
-
-            EZGUI.components.levelsList.bindChildren('click', function (event, me) {
-
-                //wait for animation to finish
-                setTimeout(function () {
-                    var stageNumber = Number(me.text) - 1;
-                    if (BasicGame.stageProgress && BasicGame.stageProgress.length >= stageNumber && BasicGame.stageProgress[stageNumber] == 1){
-                        
-                        BasicGame.currentStage = stageNumber;
-
-                        BasicGame.storymode = true;
-                        BasicGame.mapData   = BasicGame.stageData[BasicGame.currentStage].mapData;
-                        window.localStorage.mapName = BasicGame.stageData[BasicGame.currentStage].mapTitle;
-                        BasicGame.jumpScale = {'value':BasicGame.stageData[BasicGame.currentStage].jumpScale};
-                        BasicGame.mapSpeed  = {'value':BasicGame.stageData[BasicGame.currentStage].mapSpeed};
-
-                        BasicGame.ui_level_screen.visible = false;
-
-                        if (stageNumber == 0)
-                            this.game.state.start("Tuto1"); // only for stage 1 -> tuto starts!
-                        else
-                            this.game.state.start("Main");
-                    }
-                }, 150);
-
-            });
-
-            EZGUI.components.backbutton1.on('mousedown', function (event, me) {
-                //console.log('mousedown ', me);
-                var ow = me.width;
-                var oh = me.height;
-                me.animateSizeTo(ow * 1.1, oh * 1.1, 100, EZGUI.Easing.Back.Out, function () {
-                    me.animateSizeTo(ow, oh, 100);
-                });
-            });
-
-            EZGUI.components.backbutton1.on('click', function (event, me) {
-
-                //wait for animation to finish
-                setTimeout(function () {
-                    BasicGame.ui_level_screen.visible = false;
-                    this.game.state.start("MainMenu");
-                }, 100);
-
-            });
+        if (window.localStorage.instantPlay == 1){
+            window.localStorage.instantPlay = 0;
+            this.game.state.start("Main");
         }
-
-        BasicGame.reloadStageScreenUI = function () {
-
-            EZGUI.themes['metalworks'].override(themeOverride);
-
-            levelSelectScreenJSON.width = BasicGame.globalGameWidth;
-            levelSelectScreenJSON.height = BasicGame.globalGameHeight;
-            levelSelectScreenJSON.children[0].width = BasicGame.globalGameWidth;
-            levelSelectScreenJSON.children[0].height = BasicGame.globalGameHeight * 0.15;
-            levelSelectScreenJSON.children[0].font.size = 34 * window.devicePixelRatio + 'px';
-            levelSelectScreenJSON.children[0].children[2].width = BasicGame.globalGameWidth * 0.1;
-            levelSelectScreenJSON.children[0].children[2].height = BasicGame.globalGameHeight * 0.16;
-
-            levelSelectScreenJSON.children[1].width = BasicGame.globalGameWidth;
-            levelSelectScreenJSON.children[1].height = BasicGame.globalGameHeight * 0.84;
-
-            for (var i = 0; i < levelSelectScreenJSON.children[1].children.length; i++){
-
-                var level = levelSelectScreenJSON.children[1].children[i];
-                
-                level.width = 104 * window.devicePixelRatio;
-                level.height = 104 * window.devicePixelRatio;
-                
-                if (BasicGame.stageProgress && BasicGame.stageProgress.length >= i && BasicGame.stageProgress[i] != 0){
-                    level.skin = "levelBtn";
-                }
-                else {
-                    level.skin = "levelBtnLocked";
-                }
-            }
-            
-            BasicGame.ui_level_screen = EZGUI.create(levelSelectScreenJSON, 'metalworks');
-            BasicGame.ui_level_screen.visible = false;
-            
-            setupGUI();
-
-            if (BasicGame.preloadState){
-                BasicGame.preloadState = false;
-                if (window.localStorage.instantPlay == 1){
-                    window.localStorage.instantPlay = 0;
-                    this.game.state.start("Main");
-                }
-                else {
-                    this.game.state.start("GameTitle");
-                }
-            }
-        };
-
-        EZGUI.Theme.load(['assets/metalworks-theme/metalworks-theme.json'], BasicGame.reloadStageScreenUI);
-
-		//console.log('window.localStorage.instantPlay',window.localStorage.instantPlay);
+        else {
+            this.game.state.start("GameTitle");
+        }
 		
 	},
 }
