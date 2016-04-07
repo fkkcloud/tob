@@ -115,7 +115,8 @@ BasicGame.AI_createMap = function(size){
         
         pred_ls[i] = mapId;
 
-        emptyBlockCount += 1; // count all empty blocks
+        if (mapId > 0)
+          emptyBlockCount += 1; // count all empty blocks
       }
 
       // clear some path
