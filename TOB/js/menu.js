@@ -5,6 +5,8 @@ BasicGame.MainMenu.prototype = {
 	create: function(){
 		var me = this;
 
+		BasicGame.aimode = false;
+
 		me.createBG();
 
 		me.createButtons();
