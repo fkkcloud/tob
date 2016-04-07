@@ -181,8 +181,14 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
                 color = [0, 0, 0];
             else if (currMapID === 1) // block
                 color = [0, 205, 205];
+            else if (currMapID === 2) // trap
+                color = [160, 32, 240];
             else if (currMapID === 3) // blood
                 color = [138, 6, 6];
+            else if (currMapID === 4) // endpoint
+                color = [6, 6, 138];
+            else if (currMapID === 5) // moving trap
+                color = [238,130,238];
 
             data[j]     = color[0]; // red
             data[j + 1] = color[1]; // green

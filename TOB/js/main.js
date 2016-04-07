@@ -4,6 +4,21 @@ BasicGame.Main = function(game){
 
 BasicGame.Main.prototype = {
 
+	render: function() {
+		return;
+
+		//debug
+		var me = this;
+		for (var i = 0; i < me.traps.children.length; i++){
+			
+			var trap = me.traps.children[i];
+			game.debug.body(trap);
+		}
+
+		if (me.cha)
+			game.debug.body(me.cha);
+	},
+
 	create: function() {
 
 		var me = this;
@@ -155,7 +170,7 @@ BasicGame.Main.prototype = {
 
 		me.updateEndPointsEvent();		
 
-		me.updateTrapsEvent();		
+		me.updateTrapsEvent();
 
 		me.updateBloodsEvent();
 
@@ -247,6 +262,15 @@ BasicGame.Main.prototype = {
 		for (var i = 0; i < me.traps.children.length; i++){
 			
 			var trap = me.traps.children[i];
+			me.game.physics.arcade.collide(me.cha, trap, function(){
+				if (!me.chaDead)
+					me.deathHandler();
+			}, null, me);
+		}
+
+		for (var i = 0; i < me.movingTraps.children.length; i++){
+			
+			var trap = me.movingTraps.children[i];
 			me.game.physics.arcade.collide(me.cha, trap, function(){
 				if (!me.chaDead)
 					me.deathHandler();
@@ -453,6 +477,9 @@ blocks - event handlers
 			me.bloods.children[i].body.velocity.x = 0;
 		for (var i = 0; i < me.endPoints.children.length; i++)
 			me.endPoints.children[i].body.velocity.x = 0;
+		for (var i = 0; i < me.movingTraps.children.length; i++){
+			me.movingTraps.children[i].body.velocity.x = 0;
+		}
 
 		//Wait a couple of seconds and then trigger the game over screen
 		me.game.time.events.add(Phaser.Timer.SECOND * 0.8, function(){ 
@@ -533,6 +560,8 @@ blocks - event handlers
 			me.bloods.children[i].body.velocity.x = 0;
 		for (var i = 0; i < me.endPoints.children.length; i++)
 			me.endPoints.children[i].body.velocity.x = 0;
+		for (var i = 0; i < me.movingTraps.children.length; i++)
+			me.movingTraps.children[i].body.velocity.x = 0;
 
 		if (me.mode == me.VAMPMODE)
 			me.playFXTransform();
@@ -695,6 +724,8 @@ blocks - generations
 	    	block = me.bloods.getFirstDead();
 	    else if (imgId === 4)
 	    	block = me.endPoints.getFirstDead();
+	    else if (imgId === 5)
+	    	block = me.movingTraps.getFirstDead();
 	    
 
 	    if (!block){
@@ -739,8 +770,8 @@ blocks - generations
 	    	me.blocks.add(block);
 	    }
 	    else if (imgId === 2){ // trap
-	    	block.body.width = block.width * 0.25;
-			block.body.height = block.height * 0.25;
+	    	block.body.width = block.width * 0.65;
+			block.body.height = block.height * 0.65;
 			
 			block.anchor.setTo(0.5, 0.5);
 			block.position.x += block.width * 0.5;
@@ -748,9 +779,22 @@ blocks - generations
 
 			me.game.add.tween(block).to({angle: 360}, 1000, null, true, 0, 0, false).loop(true).start();
 
-			// me.game.add.tween(block.position).to({y: 400}, 1000, null, true, 0, 0, false).loop(true).start();
-
 	    	me.traps.add(block);
+	    }
+	    else if (imgId === 5){ // moving trap
+	    	block.body.width = block.width * 0.65;
+			block.body.height = block.height * 0.65;
+			
+			block.anchor.setTo(0.5, 0.5);
+			block.position.x += block.width * 0.5;
+			block.position.y += block.height * 0.5;
+
+			me.game.add.tween(block).to({angle: 360}, 1000, null, true, 0, 0, false).loop(true).start();
+
+			var goalPost = block.position.y + BasicGame.blockSize;
+			me.game.add.tween(block.position).to({y: goalPost}, 500, null, true, 0, 0, false).loop(true).start().yoyo(true);
+
+	    	me.movingTraps.add(block);
 	    }
 	    else if (imgId === 3){ // blood
 	    	block.body.width = block.body.sourceWidth * 0.64;
@@ -797,6 +841,9 @@ blocks - generations
 			}
 			else if (imgId === 4){
 				imgStr = 'endpoint';
+			}
+			else if (imgId === 5){
+				imgStr = 'trap';
 			}
 
 			me.generateSingleBlock(x, y, imgStr, imgId);
@@ -1106,7 +1153,7 @@ Player
 
 		if (me.mode === me.VAMPMODE){
 			me.cha.body.width = me.cha.body.sourceWidth * 0.6;
-			me.cha.body.height = me.cha.body.sourceHeight * 0.95;
+			me.cha.body.height = me.cha.body.sourceHeight * 0.925;
 		}
 		else if (me.mode === me.BATMODE){
 			me.cha.body.width = me.cha.body.sourceWidth * 0.6;

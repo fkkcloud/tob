@@ -11,6 +11,7 @@ angular.module('MainCtrl', []).controller('MainController', function($scope) {
 	$scope.emptyColor = '#474646';
 	$scope.trapColor  = '#551A8B';
 	$scope.endColor   = '#FF69B4';
+	$scope.movingTrapColor   = '#39122f';
 
 	if (!window.localStorage.ratedMapIds || window.localStorage.ratedMapIds == null || window.localStorage.ratedMapIds == undefined || window.localStorage.ratedMapIds == 'undefined'){
 		var newArray = {'data':['1234567890']};
