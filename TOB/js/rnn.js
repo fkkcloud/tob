@@ -106,6 +106,7 @@ BasicGame.AI_createMap = function(size){
     for(var q=0;q<size;q++) {
       var pred = BasicGame.predictSentence(model, true, sample_softmax_temperature);
       var pred_ls = pred.split("");
+      var emptyBlockCount = 0; // empty block has to be at least half amount!
       for (var i = 0; i < pred_ls.length; i++){
 
         var mapId = parseInt(pred_ls[i]);
@@ -113,7 +114,18 @@ BasicGame.AI_createMap = function(size){
           mapId = 0;
         
         pred_ls[i] = mapId;
+
+        emptyBlockCount += 1; // count all empty blocks
       }
+
+      // clear some path
+      if (emptyBlockCount <= 4)
+      {
+        for (var i = 3; i < 6; i++){
+          pred_ls[i] = 0;
+        }
+      }
+
       mapData.push(pred_ls);
     }
     return mapData;
