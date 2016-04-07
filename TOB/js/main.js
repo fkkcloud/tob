@@ -77,7 +77,7 @@ BasicGame.Main.prototype = {
 
 		// timers - score
 		if (BasicGame.storymode == false)
-   	 		me.scoreCounter = me.game.time.events.loop(Phaser.Timer.SECOND * 1.0, me.getScore, me);
+   	 		me.scoreCounter = me.game.time.events.loop(Phaser.Timer.SECOND * 0.2, me.getScore, me);
 
 
 		// start with vamp mode if not aimode
@@ -117,6 +117,8 @@ BasicGame.Main.prototype = {
 			// add and play animations
 			alphago.animations.add('think');
 			alphago.animations.play('think', 4, true);
+
+			game.time.events.loop(Phaser.Timer.SECOND * 1.5, me.appendMap, this);
 		}
 		else
 		{
@@ -200,6 +202,14 @@ BasicGame.Main.prototype = {
 		}
 		// debug text
 		//me.debugText.setText(me.bloodCount)// (me.currentColumnId);
+	},
+
+	// for ai ma creatation
+	appendMap: function() {
+		//console.log(BasicGame.mapData);
+		var size = 10;
+		var newMapPart = BasicGame.AI_createMap(size);
+		BasicGame.mapData = BasicGame.mapData.concat(newMapPart);
 	},
 
 	updateBlocksEvent: function(){
