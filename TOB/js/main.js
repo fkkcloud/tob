@@ -416,6 +416,7 @@ blocks - memory
 		this.bloods = game.add.group();
 		this.traps = game.add.group();
 		this.endPoints = game.add.group();
+		this.movingTraps = game.add.group();
 	},
 
 	destroyBlocks: function(){
@@ -427,6 +428,8 @@ blocks - memory
 			this.traps.destroy();
 		if (this.endPoints && this.endPoints.length > 0)
 			this.endPoints.destroy();
+		if (this.movingTraps && this.movingTraps.length > 0)
+			this.movingTraps.destroy();
 	},
 
 /*
