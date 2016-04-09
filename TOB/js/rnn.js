@@ -1,5 +1,5 @@
 // prediction params
-var sample_softmax_temperature = 0.72; // how peaky model predictions should be
+var sample_softmax_temperature = 0.9; // how peaky model predictions should be
 var max_chars_gen = 8; // max length of generated sentences
 
 // various global var inits

@@ -95,7 +95,7 @@ BasicGame.Main.prototype = {
 		me.lastChaPos.x = me.game.width * 0.2;
 		me.lastChaPos.y = me.game.height * 0.5;
 
-		me.game.time.events.add(Phaser.Timer.SECOND * 0.5, function(){ 
+		me.game.time.events.add(Phaser.Timer.SECOND * 0.7, function(){ 
 			me.createPlayer();
 	 		me.setupPlayerControl(); // set up player key input binds
 		}, me);
@@ -118,7 +118,7 @@ BasicGame.Main.prototype = {
 			alphago.animations.add('think');
 			alphago.animations.play('think', 4, true);
 
-			game.time.events.loop(Phaser.Timer.SECOND * 1.5, me.appendMap, this);
+			game.time.events.loop(Phaser.Timer.SECOND * 0.6, me.appendMap, this);
 		}
 		else
 		{
@@ -207,7 +207,7 @@ BasicGame.Main.prototype = {
 	// for ai ma creatation
 	appendMap: function() {
 		//console.log(BasicGame.mapData);
-		var size = 10;
+		var size = 4;
 		var newMapPart = BasicGame.AI_createMap(size);
 		BasicGame.mapData = BasicGame.mapData.concat(newMapPart);
 	},
@@ -1027,7 +1027,7 @@ BG
 		this.background_castle1 = this.game.add.sprite(0, castle_height, 'bg_castle');  
 		this.background_castle1.scale.setTo(scaleRatio, scaleRatio);
 
-		this.background_castle2 = this.game.add.sprite(bg_castle_img_cache.width * scaleRatio - window.devicePixelRatio, castle_height, 'bg_castle');
+		this.background_castle2 = this.game.add.sprite(bg_castle_img_cache.width * scaleRatio - window.devicePixelRatio * 2, castle_height, 'bg_castle');
 		this.background_castle2.scale.setTo(scaleRatio, scaleRatio);
 
 		var bg_cloud_img_cache = game.cache.getImage("bg_cloud");

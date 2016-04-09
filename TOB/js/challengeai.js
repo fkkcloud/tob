@@ -4,10 +4,8 @@ BasicGame.ChallengeAI.prototype = {
 
 	preload: function(){
 		BasicGame.AI_initMapCreator();
-		var size = 20;
 
 		BasicGame.storymode = false;
-		BasicGame.mapData = BasicGame.AI_createMap(size);
 	},
 
 	create: function(){
@@ -31,6 +29,11 @@ BasicGame.ChallengeAI.prototype = {
   		me.createInstructions();
 
   		me.createButtons();
+
+  		setTimeout(function(){
+  			var size = 30;
+			BasicGame.mapData = BasicGame.AI_createMap(size);
+		}, 100);
 
 		window.localStorage.mapName = "Challenge AI";
 		BasicGame.mapSpeed = {'value':1.2};
@@ -70,7 +73,7 @@ BasicGame.ChallengeAI.prototype = {
 		this.background_castle1 = this.game.add.sprite(0, castle_height, 'bg_castle');  
 		this.background_castle1.scale.setTo(scaleRatio, scaleRatio);
 
-		this.background_castle2 = this.game.add.sprite(bg_castle_img_cache.width * scaleRatio - window.devicePixelRatio, castle_height, 'bg_castle');
+		this.background_castle2 = this.game.add.sprite(bg_castle_img_cache.width * scaleRatio - window.devicePixelRatio * 2, castle_height, 'bg_castle');
 		this.background_castle2.scale.setTo(scaleRatio, scaleRatio);
 
 		var bg_cloud_img_cache = game.cache.getImage("bg_cloud");

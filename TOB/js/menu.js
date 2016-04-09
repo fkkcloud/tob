@@ -123,7 +123,7 @@ BasicGame.MainMenu.prototype = {
 		this.background_castle1 = this.game.add.sprite(0, castle_height, 'bg_castle');  
 		this.background_castle1.scale.setTo(scaleRatio, scaleRatio);
 
-		this.background_castle2 = this.game.add.sprite(bg_castle_img_cache.width * scaleRatio - window.devicePixelRatio, castle_height, 'bg_castle');
+		this.background_castle2 = this.game.add.sprite(bg_castle_img_cache.width * scaleRatio - window.devicePixelRatio * 2, castle_height, 'bg_castle');
 		this.background_castle2.scale.setTo(scaleRatio, scaleRatio);
 
 		var bg_cloud_img_cache = game.cache.getImage("bg_cloud");
