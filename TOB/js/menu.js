@@ -11,6 +11,10 @@ BasicGame.MainMenu.prototype = {
 
 		me.createButtons();
 
+		// banner
+		this.banner = this.game.add.sprite(this.game.world.width * 0.5, 0, 'banner_main');  
+		this.banner.anchor.setTo(0.5, 0.0);
+
 		me.mainmenuSound = me.game.add.audio('mainmenu');
 		me.mainmenuSound.loopFull();
 
@@ -102,7 +106,7 @@ BasicGame.MainMenu.prototype = {
 		this.background_sky1 = this.game.add.sprite(0, 0, 'bg_sky');  
 		this.background_sky1.scale.setTo(scaleRatio, scaleRatio);
 
-		this.background_sky2 = this.game.add.sprite(bg_sky_img_cache.width * scaleRatio, 0, 'bg_sky');
+		this.background_sky2 = this.game.add.sprite(bg_sky_img_cache.width * scaleRatio - window.devicePixelRatio * 4, 0, 'bg_sky');
 		this.background_sky2.scale.setTo(scaleRatio, scaleRatio);
 
 		var bg_castle_img_cache = game.cache.getImage("bg_castle");
@@ -119,7 +123,7 @@ BasicGame.MainMenu.prototype = {
 		this.background_castle1 = this.game.add.sprite(0, castle_height, 'bg_castle');  
 		this.background_castle1.scale.setTo(scaleRatio, scaleRatio);
 
-		this.background_castle2 = this.game.add.sprite(bg_castle_img_cache.width * scaleRatio, castle_height, 'bg_castle');
+		this.background_castle2 = this.game.add.sprite(bg_castle_img_cache.width * scaleRatio - window.devicePixelRatio, castle_height, 'bg_castle');
 		this.background_castle2.scale.setTo(scaleRatio, scaleRatio);
 
 		var bg_cloud_img_cache = game.cache.getImage("bg_cloud");
@@ -130,10 +134,6 @@ BasicGame.MainMenu.prototype = {
 
 		this.background_cloud2 = this.game.add.sprite(bg_cloud_img_cache.width * scaleRatio, 0, 'bg_cloud');
 		this.background_cloud2.scale.setTo(scaleRatio, scaleRatio);
-
-		// banner
-		this.banner = this.game.add.sprite(this.game.world.width * 0.5, 0, 'banner_main');  
-		this.banner.anchor.setTo(0.5, 0.0);
 	},
 
 	updateBG: function() {
@@ -146,6 +146,7 @@ BasicGame.MainMenu.prototype = {
 
 		this.moveBackgroundCastle1();
 		this.moveBackgroundCastle2();
+
 	},
 
 	moveBackgroundCloud2 : function() {  
@@ -178,11 +179,17 @@ BasicGame.MainMenu.prototype = {
 
 	moveBackgroundCastle2 : function() {  
 		var bg_castle_img_cache = game.cache.getImage("bg_castle");
-		var scaleRatio = this.game.height / bg_castle_img_cache.height;
+		var scaleRatio;
+		if (window.devicePixelRatio < 2){
+			scaleRatio = 1;
+		}
+		else {
+			scaleRatio = (this.game.height - bg_castle_img_cache.height) / bg_castle_img_cache.height;
+		}
 
-		if (this.background_castle2.position.x < -(bg_castle_img_cache.width * scaleRatio)  )
+		if (this.background_castle2.position.x < -(bg_castle_img_cache.width * scaleRatio - window.devicePixelRatio * 2)  )
 		{        
-			this.background_castle2.position.x = bg_castle_img_cache.width * scaleRatio; 
+			this.background_castle2.position.x = bg_castle_img_cache.width * scaleRatio - window.devicePixelRatio * 2; 
 			this.background_castle2.position.x -= 0.5;  
 		}
 		else {
@@ -192,11 +199,17 @@ BasicGame.MainMenu.prototype = {
 
 	moveBackgroundCastle1 : function() {  
 		var bg_castle_img_cache = game.cache.getImage("bg_castle");
-		var scaleRatio = this.game.height / bg_castle_img_cache.height;
+				var scaleRatio;
+		if (window.devicePixelRatio < 2){
+			scaleRatio = 1;
+		}
+		else {
+			scaleRatio = (this.game.height - bg_castle_img_cache.height) / bg_castle_img_cache.height;
+		}
 
-		if (this.background_castle1.position.x < -(bg_castle_img_cache.width * scaleRatio)  )
+		if (this.background_castle1.position.x < -(bg_castle_img_cache.width * scaleRatio - window.devicePixelRatio * 2)  )
 		{        
-			this.background_castle1.position.x = bg_castle_img_cache.width * scaleRatio; 
+			this.background_castle1.position.x = bg_castle_img_cache.width * scaleRatio - window.devicePixelRatio * 2; 
 			this.background_castle1.position.x -= 0.5;  
 		}
 		else {
@@ -208,9 +221,9 @@ BasicGame.MainMenu.prototype = {
 		var bg_sky_img_cache = game.cache.getImage("bg_sky");
 		var scaleRatio = this.game.height / bg_sky_img_cache.height;
 
-		if (this.background_sky2.position.x < -(bg_sky_img_cache.width * scaleRatio)  )
+		if (this.background_sky2.position.x < -(bg_sky_img_cache.width * scaleRatio - window.devicePixelRatio * 4)  )
 		{        
-			this.background_sky2.position.x = bg_sky_img_cache.width * scaleRatio; 
+			this.background_sky2.position.x = bg_sky_img_cache.width * scaleRatio - window.devicePixelRatio * 4; 
 			this.background_sky2.position.x -= 0.3;  
 		}
 		else {
@@ -222,9 +235,9 @@ BasicGame.MainMenu.prototype = {
 		var bg_sky_img_cache = game.cache.getImage("bg_sky");
 		var scaleRatio = this.game.height / bg_sky_img_cache.height;
 
-		if (this.background_sky1.position.x < -(bg_sky_img_cache.width * scaleRatio)  )
+		if (this.background_sky1.position.x < -(bg_sky_img_cache.width * scaleRatio - window.devicePixelRatio * 4)  )
 		{        
-			this.background_sky1.position.x = bg_sky_img_cache.width * scaleRatio;
+			this.background_sky1.position.x = bg_sky_img_cache.width * scaleRatio - window.devicePixelRatio * 4;
 			this.background_sky1.position.x -= 0.3;  
 		} 
 		else {
