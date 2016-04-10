@@ -78,6 +78,8 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 			  		$( this ).css('background-color', $scope.endColor); // endpoint
 			  	else if ($scope.mapData[index][i] === 5)
 			  		$( this ).css('background-color', $scope.movingTrapColor); // moving trap
+			  	else if ($scope.mapData[index][i] === 6)
+			  		$( this ).css('background-color', $scope.movingTrapColor2); // moving trap
 			});
 		}
 	}
@@ -196,6 +198,12 @@ angular.module('EditCtrl', []).controller('EditController', function($scope, $ht
 		$scope.paintColor = $scope.movingTrapColor;
 		//console.log($scope.trapColor);
 		$scope.paintMode = 5;
+	}
+
+	$scope.setMovingTrapColor2 = function(){
+		$scope.paintColor = $scope.movingTrapColor2;
+		//console.log($scope.trapColor);
+		$scope.paintMode = 6;
 	}
 
 	function applyColor(evt){

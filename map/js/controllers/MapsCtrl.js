@@ -189,6 +189,8 @@ angular.module('MapsCtrl', []).controller('MapsController', function($scope, $ht
                 color = [6, 6, 138];
             else if (currMapID === 5) // moving trap
                 color = [238,130,238];
+            else if (currMapID === 5) // moving trap
+                color = [238,130,255];
 
             data[j]     = color[0]; // red
             data[j + 1] = color[1]; // green

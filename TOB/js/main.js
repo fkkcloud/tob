@@ -286,6 +286,15 @@ BasicGame.Main.prototype = {
 					me.deathHandler();
 			}, null, me);
 		}
+
+		for (var i = 0; i < me.movingTraps2.children.length; i++){
+			
+			var trap = me.movingTraps2.children[i];
+			me.game.physics.arcade.collide(me.cha, trap, function(){
+				if (!me.chaDead)
+					me.deathHandler();
+			}, null, me);
+		}
 	},
 
 	updateBloodsEvent: function(){
@@ -427,6 +436,7 @@ blocks - memory
 		this.traps = game.add.group();
 		this.endPoints = game.add.group();
 		this.movingTraps = game.add.group();
+		this.movingTraps2 = game.add.group();
 	},
 
 	destroyBlocks: function(){
@@ -440,6 +450,8 @@ blocks - memory
 			this.endPoints.destroy();
 		if (this.movingTraps && this.movingTraps.length > 0)
 			this.movingTraps.destroy();
+		if (this.movingTraps2 && this.movingTraps2.length > 0)
+			this.movingTraps2.destroy();
 	},
 
 /*
@@ -490,9 +502,10 @@ blocks - event handlers
 			me.bloods.children[i].body.velocity.x = 0;
 		for (var i = 0; i < me.endPoints.children.length; i++)
 			me.endPoints.children[i].body.velocity.x = 0;
-		for (var i = 0; i < me.movingTraps.children.length; i++){
+		for (var i = 0; i < me.movingTraps.children.length; i++)
 			me.movingTraps.children[i].body.velocity.x = 0;
-		}
+		for (var i = 0; i < me.movingTraps2.children.length; i++)
+			me.movingTraps2.children[i].body.velocity.x = 0;
 
 		//Wait a couple of seconds and then trigger the game over screen
 		me.game.time.events.add(Phaser.Timer.SECOND * 0.8, function(){ 
@@ -575,6 +588,8 @@ blocks - event handlers
 			me.endPoints.children[i].body.velocity.x = 0;
 		for (var i = 0; i < me.movingTraps.children.length; i++)
 			me.movingTraps.children[i].body.velocity.x = 0;
+		for (var i = 0; i < me.movingTraps2.children.length; i++)
+			me.movingTraps2.children[i].body.velocity.x = 0;
 
 		if (me.mode == me.VAMPMODE)
 			me.playFXTransform();
@@ -739,6 +754,8 @@ blocks - generations
 	    	block = me.endPoints.getFirstDead();
 	    else if (imgId === 5)
 	    	block = me.movingTraps.getFirstDead();
+	    else if (imgId === 6)
+	    	block = me.movingTraps2.getFirstDead();
 	    
 
 	    if (!block){
@@ -809,6 +826,21 @@ blocks - generations
 
 	    	me.movingTraps.add(block);
 	    }
+	    else if (imgId === 6){ // moving trap
+	    	block.body.width = block.width * 0.65;
+			block.body.height = block.height * 0.65;
+			
+			block.anchor.setTo(0.5, 0.5);
+			block.position.x += block.width * 0.5;
+			block.position.y += block.height * 0.5;
+
+			me.game.add.tween(block).to({angle: 360}, 1000, null, true, 0, 0, false).loop(true).start();
+
+			var goalPost = block.position.y + BasicGame.blockSize * 2;
+			me.game.add.tween(block.position).to({y: goalPost}, 500, null, true, 0, 0, false).loop(true).start().yoyo(true);
+
+	    	me.movingTraps2.add(block);
+	    }
 	    else if (imgId === 3){ // blood
 	    	block.body.width = block.body.sourceWidth * 0.64;
 			block.body.height = block.body.sourceHeight * 0.9;
@@ -856,6 +888,9 @@ blocks - generations
 				imgStr = 'endpoint';
 			}
 			else if (imgId === 5){
+				imgStr = 'trap';
+			}
+			else if (imgId === 6){
 				imgStr = 'trap';
 			}
 
