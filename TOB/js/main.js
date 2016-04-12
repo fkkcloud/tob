@@ -595,6 +595,23 @@ blocks - event handlers
 			me.playFXTransform();
 		me.playPlayerStageEnd();
 
+		// medal managements
+    	if (BasicGame.storymode && BasicGame.currentStage == 7 && BasicGame.medals[0] == 0){
+    		// get bronze medal
+    		BasicGame.medals[0] = 1;
+    		window.localStorage.medals = JSON.stringify(BasicGame.medals);
+    	}
+    	else if (BasicGame.storymode && BasicGame.currentStage == 15 && BasicGame.medals[1] == 0){
+    		// get silver medal
+    		BasicGame.medals[1] = 1;
+    		window.localStorage.medals = JSON.stringify(BasicGame.medals);
+    	}
+    	else if (BasicGame.storymode && BasicGame.currentStage == 19 && BasicGame.medals[2] == 0){
+    		// get gold medal
+    		BasicGame.medals[2] = 1;
+    		window.localStorage.medals = JSON.stringify(BasicGame.medals);
+    	}
+
 		// if there is next stage - go!
 		if (BasicGame.stageData.length - 1 > BasicGame.currentStage){
 			BasicGame.currentStage += 1;

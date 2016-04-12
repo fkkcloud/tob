@@ -151,13 +151,13 @@
 
 			    //console.log('loaded custom map data:', window.localStorage.mapData);
 
-			    // LOCAL STORAGE MAP DATA
+			    // LOCAL STORAGE MAP DATA //-----------------------------------------------------------------------------------------------
 				var mapData = (window.localStorage.mapData == undefined || window.localStorage.mapData == 'undefined') ? BasicGame.stageData[0].mapData : JSON.parse(window.localStorage.mapData);
 				BasicGame.mapData = mapData;
 
 				//console.log(window.localStorage.mapSpeed, window.localStorage.jumpScale);
 
-				// LOCAL STORAGE MAP SPEED
+				// LOCAL STORAGE MAP SPEED //-----------------------------------------------------------------------------------------------
 				var mapSpeed = (window.localStorage.mapSpeed == undefined || 
 					window.localStorage.mapSpeed == 'undefined' || 
 					(window.localStorage.mapSpeed && JSON.parse(window.localStorage.mapSpeed).value == 0) || 
@@ -165,7 +165,7 @@
 					window.localStorage.mapSpeed == 1.3) ? {'value':1.3} : JSON.parse(window.localStorage.mapSpeed);
 				BasicGame.mapSpeed = mapSpeed;
 
-				// LOCAL STORAGE JUM SCALE 
+				// LOCAL STORAGE JUM SCALE //-----------------------------------------------------------------------------------------------
 				var jumpScale = (window.localStorage.jumpScale == undefined || 
 					window.localStorage.jumpScale == 'undefined' || 
 					(window.localStorage.jumpScale && JSON.parse(window.localStorage.jumpScale).value == 0) || 
@@ -173,7 +173,7 @@
 					window.localStorage.jumpScale == 1) ? {'value':1} : JSON.parse(window.localStorage.jumpScale);
 				BasicGame.jumpScale = jumpScale;
 
-				// LOCAL STORAGE STAGE PROGRESS
+				// LOCAL STORAGE STAGE PROGRESS //-----------------------------------------------------------------------------------------------
 				if (!window.localStorage.stageProgress || window.localStorage.stageProgress == undefined ||
 					window.localStorage.stageProgress == "undefined" || window.localStorage.stageProgress == null) 
 				{
@@ -189,6 +189,7 @@
 				else {
 					BasicGame.stageProgress = JSON.parse(window.localStorage.stageProgress);
 
+					// this is only for resetting old users
 					if (BasicGame.stageProgress.length < 25){
 						BasicGame.stageProgress = [];
 						for (var i = 0; i < 32; i++){
@@ -197,16 +198,26 @@
 						BasicGame.stageProgress[0] = 1; // first stage is always available.
 						window.localStorage.stageProgress = JSON.stringify(BasicGame.stageProgress);
 					}
-
-					//console.log('loading stage progress...', BasicGame.stageProgress);
 				}
-				//BasicGame.stageProgress = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-				//console.log(BasicGame.mapSpeed, BasicGame.jumpScale);
 
-				/*
-				;
-			    */
+				// LOCAL STORAGE REWARD MEDALS //-----------------------------------------------------------------------------------------------
+				if (!window.localStorage.medals || window.localStorage.medals == undefined ||
+					window.localStorage.medals == "undefined" || window.localStorage.medals == null) 
+				{
+					BasicGame.medals = [];
+					for (var i = 0; i < 3; i++){
+						BasicGame.medals.push(0);
+					}
+					window.localStorage.medals = JSON.stringify(BasicGame.medals);
+
+					//console.log('initializing stage progress...', BasicGame.stageProgress);
+				}
+				else {
+					BasicGame.medals = JSON.parse(window.localStorage.medals);
+					console.log('loading stage medals...', BasicGame.medals);
+				}
+
 			    BasicGame.isGameInit = true;
 
 				//Add all states
