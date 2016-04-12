@@ -548,9 +548,33 @@ blocks - event handlers
 		menuButton.onInputUp.add(me.onUp, this);
 
 		if (BasicGame.storymode == false) {
-			var scoreText = me.game.add.bitmapText(me.game.width * 0.5, me.game.height * 0.5, 'flappyfont', me.score.toString() + 'm', 32 * window.devicePixelRatio);
+			// show current score
+			var scoreText = me.game.add.bitmapText(me.game.width * 0.5, me.game.height * 0.56, 'flappyfont', me.score.toString() + 'm', 24 * window.devicePixelRatio);
 	    	scoreText.anchor.setTo(0.5, 0.5);
 	    	scoreText.visible = true;
+
+	    	// show highest score
+	    	var highestAIScore;
+    		if (!window.localStorage.highestAIScore || window.localStorage.highestAIScore == undefined ||
+				window.localStorage.highestAIScore == "undefined" || window.localStorage.highestAIScore == null) 
+			{
+				window.localStorage.highestAIScore = me.score;
+				highestAIScore = me.score;
+			}
+			else
+			{
+				if (me.score > window.localStorage.highestAIScore){
+					highestAIScore = me.score;
+					window.localStorage.highestAIScore = me.score;
+				}
+				else {
+					highestAIScore = window.localStorage.highestAIScore;
+				}
+			}
+    		
+    		var highScoreText = me.game.add.bitmapText(me.game.width * 0.5, me.game.height * 0.5, 'flappyfont', 'Highest Score:' + highestAIScore.toString() + 'm', 24 * window.devicePixelRatio);
+	    	highScoreText.anchor.setTo(0.5, 0.5);
+	    	highScoreText.visible = true;
 	    }
 	},
 
