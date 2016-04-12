@@ -15,7 +15,7 @@ BasicGame.LevelList3.prototype = {
 		me.navButtonReverseDownSize = -1.0;
 
 		me.buttonXPositions = [0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8];
-		me.buttonYPositions = [0.33, 0.33, 0.33, 0.33, 0.66, 0.66, 0.66, 0.66, 0.33, 0.33, 0.33, 0.33, 0.66, 0.66, 0.66, 0.66, 0.33, 0.33, 0.33, 0.33, 0.66, 0.66, 0.66, 0.66, 0.33, 0.33, 0.33, 0.33, 0.66, 0.66, 0.66, 0.66];
+		me.buttonYPositions = [0.36, 0.36, 0.36, 0.36, 0.66, 0.66, 0.66, 0.66, 0.36, 0.36, 0.36, 0.36, 0.66, 0.66, 0.66, 0.66, 0.36, 0.36, 0.36, 0.36, 0.66, 0.66, 0.66, 0.66, 0.36, 0.36, 0.36, 0.36, 0.66, 0.66, 0.66, 0.66];
 		me.stageList = {start:16, end:23};
 
 		me.createBG();
@@ -26,6 +26,26 @@ BasicGame.LevelList3.prototype = {
 
 		me.clickSound = me.game.add.audio('button');
 
+		me.createMedals();
+
+	},
+
+	createMedals: function() {
+		if (BasicGame.medals[0]){
+			this.medal_bronze = this.game.add.sprite(this.game.world.width * 0.445, this.game.world.height * 0.07, 'medal_bronze');  
+			this.medal_bronze.anchor.setTo(0.5, 0.0);
+		}
+
+		if (BasicGame.medals[1]){
+			this.medal_silver = this.game.add.sprite(this.game.world.width * 0.5, this.game.world.height * 0.07, 'medal_silver');  
+			this.medal_silver.anchor.setTo(0.5, 0.0);	
+		}
+		
+		if (BasicGame.medals[2]){
+			this.medal_gold = this.game.add.sprite(this.game.world.width * 0.555, this.game.world.height * 0.07, 'medal_gold');  
+			this.medal_gold.anchor.setTo(0.5, 0.0);	
+		}
+		
 	},
 
 	update: function() {
@@ -83,11 +103,6 @@ BasicGame.LevelList3.prototype = {
 	    }, 150);
 	},
 
-	goToNextLevel: function(){
-		var me = this;
-		this.game.state.start("LevelList4");
-	},
-
 	goToPrevLevel: function(){
 		var me = this;
 		this.game.state.start("LevelList2");
@@ -143,13 +158,6 @@ BasicGame.LevelList3.prototype = {
 		this.btn_menu.scale.setTo(me.navButtonSize, me.navButtonSize);
 		this.btn_menu.onInputDown.add(me.onNavBtnDown, this);
 		this.btn_menu.onInputUp.add(me.onNavBtnUp, this);
-		
-		// next
-		this.btn_next = this.game.add.button(this.game.world.width * 0.6666, this.game.world.height * 0.9, 'nav_arrow', this.goToNextLevel, this);
-		this.btn_next.anchor.setTo(0.5, 0.5);
-		this.btn_next.scale.setTo(me.navButtonReverseSize, me.navButtonReverseSize);
-		this.btn_next.onInputDown.add(me.onNavReverseDown, this);
-		this.btn_next.onInputUp.add(me.onNavReverseUp, this);
 
 		// prev
 		this.btn_next = this.game.add.button(this.game.world.width * 0.3333, this.game.world.height * 0.9, 'nav_arrow', this.goToPrevLevel, this);
@@ -158,17 +166,15 @@ BasicGame.LevelList3.prototype = {
 		this.btn_next.onInputDown.add(me.onNavBtnDown, this);
 		this.btn_next.onInputUp.add(me.onNavBtnUp, this);
 
-		this.banner = this.game.add.sprite(this.game.world.width * (0.3333 + 0.3333 / 5), this.game.world.height * 0.9, 'nav_on');  
+		this.banner = this.game.add.sprite(this.game.world.width * (0.3333 + 0.3333 / 4), this.game.world.height * 0.9, 'nav_on');  
 		this.banner.anchor.setTo(0.5, 0.5);
 
-		this.banner = this.game.add.sprite(this.game.world.width * (0.3333 + 0.3333 * 2 / 5), this.game.world.height * 0.9, 'nav_on');  
+		this.banner = this.game.add.sprite(this.game.world.width * (0.3333 + 0.3333 * 2 / 4), this.game.world.height * 0.9, 'nav_on');  
 		this.banner.anchor.setTo(0.5, 0.5);
 
-		this.banner = this.game.add.sprite(this.game.world.width * (0.3333 + 0.3333 * 3 / 5), this.game.world.height * 0.9, 'nav_off');  
+		this.banner = this.game.add.sprite(this.game.world.width * (0.3333 + 0.3333 * 3 / 4), this.game.world.height * 0.9, 'nav_off');  
 		this.banner.anchor.setTo(0.5, 0.5);
 
-		this.banner = this.game.add.sprite(this.game.world.width * (0.3333 + 0.3333 * 4 / 5), this.game.world.height * 0.9, 'nav_on');  
-		this.banner.anchor.setTo(0.5, 0.5);	
 	},
 
 	createBanner: function(){

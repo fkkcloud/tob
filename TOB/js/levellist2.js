@@ -15,7 +15,7 @@ BasicGame.LevelList2.prototype = {
 		me.navButtonReverseDownSize = -1.0;
 
 		me.buttonXPositions = [0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8];
-		me.buttonYPositions = [0.33, 0.33, 0.33, 0.33, 0.66, 0.66, 0.66, 0.66, 0.33, 0.33, 0.33, 0.33, 0.66, 0.66, 0.66, 0.66, 0.33, 0.33, 0.33, 0.33, 0.66, 0.66, 0.66, 0.66, 0.33, 0.33, 0.33, 0.33, 0.66, 0.66, 0.66, 0.66];
+		me.buttonYPositions = [0.36, 0.36, 0.36, 0.36, 0.66, 0.66, 0.66, 0.66, 0.36, 0.36, 0.36, 0.36, 0.66, 0.66, 0.66, 0.66, 0.36, 0.36, 0.36, 0.36, 0.66, 0.66, 0.66, 0.66, 0.36, 0.36, 0.36, 0.36, 0.66, 0.66, 0.66, 0.66];
 		me.stageList = {start:8, end:15};
 
 		me.createBG();
@@ -25,6 +25,26 @@ BasicGame.LevelList2.prototype = {
 		me.createBanner();
 
 		me.clickSound = me.game.add.audio('button');
+
+		me.createMedals();
+	},
+
+	createMedals: function() {
+		if (BasicGame.medals[0]){
+			this.medal_bronze = this.game.add.sprite(this.game.world.width * 0.445, this.game.world.height * 0.07, 'medal_bronze');  
+			this.medal_bronze.anchor.setTo(0.5, 0.0);
+		}
+
+		if (BasicGame.medals[1]){
+			this.medal_silver = this.game.add.sprite(this.game.world.width * 0.5, this.game.world.height * 0.07, 'medal_silver');  
+			this.medal_silver.anchor.setTo(0.5, 0.0);	
+		}
+		
+		if (BasicGame.medals[2]){
+			this.medal_gold = this.game.add.sprite(this.game.world.width * 0.555, this.game.world.height * 0.07, 'medal_gold');  
+			this.medal_gold.anchor.setTo(0.5, 0.0);	
+		}
+		
 	},
 
 	update: function() {
@@ -157,17 +177,14 @@ BasicGame.LevelList2.prototype = {
 		this.btn_next.onInputDown.add(me.onNavBtnDown, this);
 		this.btn_next.onInputUp.add(me.onNavBtnUp, this);
 
-		this.banner = this.game.add.sprite(this.game.world.width * (0.3333 + 0.3333 / 5), this.game.world.height * 0.9, 'nav_on');  
+		this.banner = this.game.add.sprite(this.game.world.width * (0.3333 + 0.3333 / 4), this.game.world.height * 0.9, 'nav_on');  
 		this.banner.anchor.setTo(0.5, 0.5);
 
-		this.banner = this.game.add.sprite(this.game.world.width * (0.3333 + 0.3333 * 2 / 5), this.game.world.height * 0.9, 'nav_off');  
+		this.banner = this.game.add.sprite(this.game.world.width * (0.3333 + 0.3333 * 2 / 4), this.game.world.height * 0.9, 'nav_off');  
 		this.banner.anchor.setTo(0.5, 0.5);
 
-		this.banner = this.game.add.sprite(this.game.world.width * (0.3333 + 0.3333 * 3 / 5), this.game.world.height * 0.9, 'nav_on');  
+		this.banner = this.game.add.sprite(this.game.world.width * (0.3333 + 0.3333 * 3 / 4), this.game.world.height * 0.9, 'nav_on');  
 		this.banner.anchor.setTo(0.5, 0.5);
-
-		this.banner = this.game.add.sprite(this.game.world.width * (0.3333 + 0.3333 * 4 / 5), this.game.world.height * 0.9, 'nav_on');  
-		this.banner.anchor.setTo(0.5, 0.5);	
 	},
 
 	createBanner: function(){

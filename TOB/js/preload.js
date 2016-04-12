@@ -110,7 +110,10 @@ BasicGame.Preload.prototype = {
             this.load.image('nav_on', 'assets/nav_on@3.png');
             this.load.image('nav_off', 'assets/nav_off@3.png');
 
-
+            // medals
+            this.load.image('medal_bronze', 'assets/medal_bronze@3.png');
+            this.load.image('medal_silver', 'assets/medal_silver@3.png');
+            this.load.image('medal_gold', 'assets/medal_gold@3.png');
         }
         else if(window.devicePixelRatio == 2)
         {
@@ -194,7 +197,9 @@ BasicGame.Preload.prototype = {
             this.load.image('nav_on', 'assets/nav_on@2.png');
             this.load.image('nav_off', 'assets/nav_off@2.png');
 
-
+            this.load.image('medal_bronze', 'assets/medal_bronze@2.png');
+            this.load.image('medal_silver', 'assets/medal_silver@2.png');
+            this.load.image('medal_gold', 'assets/medal_gold@2.png');
         }
         else 
         {
@@ -278,7 +283,9 @@ BasicGame.Preload.prototype = {
             this.load.image('nav_on', 'assets/nav_on.png');
             this.load.image('nav_off', 'assets/nav_off.png');
 
-
+            this.load.image('medal_bronze', 'assets/medal_bronze.png');
+            this.load.image('medal_silver', 'assets/medal_silver.png');
+            this.load.image('medal_gold', 'assets/medal_gold.png');
         } 
 		var originalImageWidth;
 		if(window.devicePixelRatio >= 3)

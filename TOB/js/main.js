@@ -620,20 +620,24 @@ blocks - event handlers
 		me.playPlayerStageEnd();
 
 		// medal managements
+		var medalEarned = false;
     	if (BasicGame.storymode && BasicGame.currentStage == 7 && BasicGame.medals[0] == 0){
     		// get bronze medal
     		BasicGame.medals[0] = 1;
     		window.localStorage.medals = JSON.stringify(BasicGame.medals);
+    		medalEarned = true;
     	}
     	else if (BasicGame.storymode && BasicGame.currentStage == 15 && BasicGame.medals[1] == 0){
     		// get silver medal
     		BasicGame.medals[1] = 1;
     		window.localStorage.medals = JSON.stringify(BasicGame.medals);
+    		medalEarned = true;
     	}
     	else if (BasicGame.storymode && BasicGame.currentStage == 19 && BasicGame.medals[2] == 0){
     		// get gold medal
     		BasicGame.medals[2] = 1;
     		window.localStorage.medals = JSON.stringify(BasicGame.medals);
+    		medalEarned = true;
     	}
 
 		// if there is next stage - go!
@@ -656,7 +660,13 @@ blocks - event handlers
 	    var sprite = game.add.sprite(0, 0, bmd);
 	    sprite.alpha = 0.5;
 
-	    var gameoverTitle = me.game.add.sprite(me.game.world.width * 0.5, me.game.height * 0.36, "title_stageClear");
+	    var clearTitleImgId;
+	    if (medalEarned)
+	    	clearTitleImgId = "title_stageClear"; //"title_medalEarned";
+	    else
+	    	clearTitleImgId = "title_stageClear";
+	    
+	    var gameoverTitle = me.game.add.sprite(me.game.world.width * 0.5, me.game.height * 0.36, clearTitleImgId);
   		gameoverTitle.anchor.setTo(0.5, 0.5);
 
   		var restartBtnWidthRatio = 0.4; 

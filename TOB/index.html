@@ -25,7 +25,6 @@
 	<script type="text/javascript" src="js/levellist1.js"></script>
 	<script type="text/javascript" src="js/levellist2.js"></script>
 	<script type="text/javascript" src="js/levellist3.js"></script>
-	<script type="text/javascript" src="js/levellist4.js"></script>
 	<script type="text/javascript" src="js/menu.js"></script>
 	<script type="text/javascript" src="js/tuto1.js"></script>
 	<script type="text/javascript" src="js/tuto2.js"></script>
@@ -215,8 +214,10 @@
 				}
 				else {
 					BasicGame.medals = JSON.parse(window.localStorage.medals);
-					console.log('loading stage medals...', BasicGame.medals);
 				}
+
+				// debug test
+				//window.localStorage.medals = JSON.stringify([0,0,0]);
 
 			    BasicGame.isGameInit = true;
 
@@ -229,7 +230,6 @@
 				game.state.add("LevelList1", BasicGame.LevelList1);
 				game.state.add("LevelList2", BasicGame.LevelList2);
 				game.state.add("LevelList3", BasicGame.LevelList3);
-				game.state.add("LevelList4", BasicGame.LevelList4);
 				game.state.add("ChallengeAI", BasicGame.ChallengeAI);
 				game.state.add("MainMenu", BasicGame.MainMenu);
 				game.state.add("Tuto1", BasicGame.Tuto1);
