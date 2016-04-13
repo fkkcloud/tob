@@ -38,6 +38,7 @@ BasicGame.Preload.prototype = {
             this.load.image('title', 'assets/title@4.png');
             this.load.image('title_gameOver', 'assets/gameover@4.png');
             this.load.image('title_stageClear', 'assets/stageclear@4.png');
+            this.load.image('title_medalEarned', 'assets/earned@4.png');
 
             this.load.image('copyrights', 'assets/copyrights@4.png');
 
@@ -114,6 +115,9 @@ BasicGame.Preload.prototype = {
             this.load.image('medal_bronze', 'assets/medal_bronze@4.png');
             this.load.image('medal_silver', 'assets/medal_silver@4.png');
             this.load.image('medal_gold', 'assets/medal_gold@4.png');
+            this.load.image('medal_bronze_earned', 'assets/big_medal_bronze@4.png');
+            this.load.image('medal_silver_earned', 'assets/big_medal_silver@4.png');
+            this.load.image('medal_gold_earned', 'assets/big_medal_gold@4.png');
         }
 		else if(window.devicePixelRatio >= 3)
         {
@@ -124,6 +128,7 @@ BasicGame.Preload.prototype = {
             this.load.image('title', 'assets/title@3.png');
             this.load.image('title_gameOver', 'assets/gameover@3.png');
             this.load.image('title_stageClear', 'assets/stageclear@3.png');
+            this.load.image('title_medalEarned', 'assets/earned@3.png');
 
             this.load.image('copyrights', 'assets/copyrights@3.png');
 
@@ -200,6 +205,9 @@ BasicGame.Preload.prototype = {
             this.load.image('medal_bronze', 'assets/medal_bronze@3.png');
             this.load.image('medal_silver', 'assets/medal_silver@3.png');
             this.load.image('medal_gold', 'assets/medal_gold@3.png');
+            this.load.image('medal_bronze_earned', 'assets/big_medal_bronze@3.png');
+            this.load.image('medal_silver_earned', 'assets/big_medal_silver@3.png');
+            this.load.image('medal_gold_earned', 'assets/big_medal_gold@3.png');
         }
         else if(window.devicePixelRatio == 2)
         {
@@ -211,6 +219,7 @@ BasicGame.Preload.prototype = {
             this.load.image('title', 'assets/title@2.png');
             this.load.image('title_gameOver', 'assets/gameover@2.png');
             this.load.image('title_stageClear', 'assets/stageclear@2.png');
+            this.load.image('title_medalEarned', 'assets/earned@2.png');
 
             this.load.image('copyrights', 'assets/copyrights@2.png');
 
@@ -286,6 +295,9 @@ BasicGame.Preload.prototype = {
             this.load.image('medal_bronze', 'assets/medal_bronze@2.png');
             this.load.image('medal_silver', 'assets/medal_silver@2.png');
             this.load.image('medal_gold', 'assets/medal_gold@2.png');
+            this.load.image('medal_bronze_earned', 'assets/big_medal_bronze@2.png');
+            this.load.image('medal_silver_earned', 'assets/big_medal_silver@2.png');
+            this.load.image('medal_gold_earned', 'assets/big_medal_gold@2.png');
         }
         else 
         {
@@ -297,6 +309,7 @@ BasicGame.Preload.prototype = {
             this.load.image('title', 'assets/title.png');
             this.load.image('title_gameOver', 'assets/gameover.png');
             this.load.image('title_stageClear', 'assets/stageclear.png');
+            this.load.image('title_medalEarned', 'assets/earned.png');
 
             this.load.image('copyrights', 'assets/copyrights.png');
 
@@ -372,6 +385,9 @@ BasicGame.Preload.prototype = {
             this.load.image('medal_bronze', 'assets/medal_bronze.png');
             this.load.image('medal_silver', 'assets/medal_silver.png');
             this.load.image('medal_gold', 'assets/medal_gold.png');
+            this.load.image('medal_bronze_earned', 'assets/big_medal_bronze.png');
+            this.load.image('medal_silver_earned', 'assets/big_medal_silver.png');
+            this.load.image('medal_gold_earned', 'assets/big_medal_gold.png');
         } 
 		var originalImageWidth;
 		if(window.devicePixelRatio >= 3)

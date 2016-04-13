@@ -621,34 +621,6 @@ blocks - event handlers
 			me.playFXTransform();
 		me.playPlayerStageEnd();
 
-		// medal managements
-		var medalEarned = false;
-    	if (BasicGame.storymode && BasicGame.currentStage == 7 && BasicGame.medals[0] == 0){
-    		// get bronze medal
-    		BasicGame.medals[0] = 1;
-    		window.localStorage.medals = JSON.stringify(BasicGame.medals);
-    		medalEarned = true;
-    	}
-    	else if (BasicGame.storymode && BasicGame.currentStage == 15 && BasicGame.medals[1] == 0){
-    		// get silver medal
-    		BasicGame.medals[1] = 1;
-    		window.localStorage.medals = JSON.stringify(BasicGame.medals);
-    		medalEarned = true;
-    	}
-    	else if (BasicGame.storymode && BasicGame.currentStage == 19 && BasicGame.medals[2] == 0){
-    		// get gold medal
-    		BasicGame.medals[2] = 1;
-    		window.localStorage.medals = JSON.stringify(BasicGame.medals);
-    		medalEarned = true;
-    	}
-
-		// if there is next stage - go!
-		if (BasicGame.stageData.length - 1 > BasicGame.currentStage){
-			BasicGame.currentStage += 1;
-			BasicGame.stageProgress[BasicGame.currentStage] = 1; // progress alarm
-			window.localStorage.stageProgress = JSON.stringify(BasicGame.stageProgress); //  save to localStorage
-		}
-
 		// create a new bitmap data object
 	    var bmd = game.add.bitmapData(me.game.width, me.game.height);
 
@@ -662,43 +634,8 @@ blocks - event handlers
 	    var sprite = game.add.sprite(0, 0, bmd);
 	    sprite.alpha = 0.5;
 
-	    var clearTitleImgId;
-	    if (medalEarned)
-	    	clearTitleImgId = "title_stageClear"; //"title_medalEarned";
-	    else
-	    	clearTitleImgId = "title_stageClear";
-	    
-	    var gameoverTitle = me.game.add.sprite(me.game.world.width * 0.5, me.game.height * 0.36, clearTitleImgId);
-  		gameoverTitle.anchor.setTo(0.5, 0.5);
-
-  		var restartBtnWidthRatio = 0.4; 
-  		var menuBtnWidthRatio = 0.6; 
-
-  		if (BasicGame.storymode){
-  			var nextStageButton = me.game.add.button(me.game.world.width * 0.5,
-  			me.game.world.height * 0.68, "btn_next", me.gotoNextStage, me);
-	  		nextStageButton.anchor.setTo(0.5, 0.5);
-			nextStageButton.scale.x *= -1; // flip horizontally
-	  		nextStageButton.onInputDown.add(me.onDownNeg, this);
-			nextStageButton.onInputUp.add(me.onUpNeg, this);
-
-			restartBtnWidthRatio = 0.25;
-			menuBtnWidthRatio = 0.75;
-  		}
-
-  		var restartButton = me.game.add.button(me.game.world.width * restartBtnWidthRatio,
-  			me.game.world.height * 0.68, "btn_replay", me.restartGame, me);
-  		restartButton.anchor.setTo(0.5, 0.5);
-  		restartButton.onInputDown.add(me.onDown, this);
-		restartButton.onInputUp.add(me.onUp, this);
-
-  		var menuButton = me.game.add.button(me.game.world.width * menuBtnWidthRatio,
-  			me.game.world.height * 0.68, "btn_menu", me.gotoMenu, me);
-  		menuButton.anchor.setTo(0.5, 0.5);
-  		menuButton.onInputDown.add(me.onDown, this);
-		menuButton.onInputUp.add(me.onUp, this);
-
-		if (BasicGame.storymode == false) {
+	    // player stats
+	    if (BasicGame.storymode == false) {
 			var scoreText = me.game.add.bitmapText(me.game.width * 0.5, me.game.height * 0.5, 'flappyfont', me.score.toString() + 'm', 32 * window.devicePixelRatio);
 	    	scoreText.anchor.setTo(0.5, 0.5);
 	    	scoreText.visible = true;
@@ -713,6 +650,78 @@ blocks - event handlers
 	    }
     	BasicGame.trialCount = 1;
 
+	    // medal managements
+		var medalEarned = false;
+    	if (BasicGame.storymode && BasicGame.currentStage == 7 && BasicGame.medals[0] == 0){
+    		// get bronze medal
+    		BasicGame.medals[0] = 1;
+    		window.localStorage.medals = JSON.stringify(BasicGame.medals);
+    		medalEarned = true;
+
+    		var earnedMedal = me.game.add.sprite(me.game.world.width * 0.5, me.game.height * 0.5, "medal_bronze_earned");
+  			earnedMedal.anchor.setTo(0.5, 0.5);
+    	}
+    	else if (BasicGame.storymode && BasicGame.currentStage == 15 && BasicGame.medals[1] == 0){
+    		// get silver medal
+    		BasicGame.medals[1] = 1;
+    		window.localStorage.medals = JSON.stringify(BasicGame.medals);
+    		medalEarned = true;
+
+    		var earnedMedal = me.game.add.sprite(me.game.world.width * 0.5, me.game.height * 0.5, "medal_silver_earned");
+  			earnedMedal.anchor.setTo(0.5, 0.5);
+    	}
+    	else if (BasicGame.storymode && BasicGame.currentStage == 19 && BasicGame.medals[2] == 0){
+    		// get gold medal
+    		BasicGame.medals[2] = 1;
+    		window.localStorage.medals = JSON.stringify(BasicGame.medals);
+    		medalEarned = true;
+
+    		var earnedMedal = me.game.add.sprite(me.game.world.width * 0.5, me.game.height * 0.5, "medal_gold_earned");
+  			earnedMedal.anchor.setTo(0.5, 0.5);
+    	}
+
+		// if there is next stage - go!
+		if (BasicGame.stageData.length - 1 > BasicGame.currentStage){
+			BasicGame.currentStage += 1;
+			BasicGame.stageProgress[BasicGame.currentStage] = 1; // progress alarm
+			window.localStorage.stageProgress = JSON.stringify(BasicGame.stageProgress); //  save to localStorage
+		}
+
+	    var clearTitleImgId;
+	    if (medalEarned)
+	    	clearTitleImgId = "title_medalEarned";
+	    else
+	    	clearTitleImgId = "title_stageClear";
+	    
+	    var gameoverTitle = me.game.add.sprite(me.game.world.width * 0.5, me.game.height * 0.3, clearTitleImgId);
+  		gameoverTitle.anchor.setTo(0.5, 0.5);
+
+  		var restartBtnWidthRatio = 0.4; 
+  		var menuBtnWidthRatio = 0.6; 
+
+  		if (BasicGame.storymode){
+  			var nextStageButton = me.game.add.button(me.game.world.width * 0.5,
+  			me.game.world.height * 0.74, "btn_next", me.gotoNextStage, me);
+	  		nextStageButton.anchor.setTo(0.5, 0.5);
+			nextStageButton.scale.x *= -1; // flip horizontally
+	  		nextStageButton.onInputDown.add(me.onDownNeg, this);
+			nextStageButton.onInputUp.add(me.onUpNeg, this);
+
+			restartBtnWidthRatio = 0.25;
+			menuBtnWidthRatio = 0.75;
+  		}
+
+  		var restartButton = me.game.add.button(me.game.world.width * restartBtnWidthRatio,
+  			me.game.world.height * 0.74, "btn_replay", me.restartGame, me);
+  		restartButton.anchor.setTo(0.5, 0.5);
+  		restartButton.onInputDown.add(me.onDown, this);
+		restartButton.onInputUp.add(me.onUp, this);
+
+  		var menuButton = me.game.add.button(me.game.world.width * menuBtnWidthRatio,
+  			me.game.world.height * 0.74, "btn_menu", me.gotoMenu, me);
+  		menuButton.anchor.setTo(0.5, 0.5);
+  		menuButton.onInputDown.add(me.onDown, this);
+		menuButton.onInputUp.add(me.onUp, this);
 	},
 
 	onDownNeg: function(but){
