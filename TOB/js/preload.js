@@ -46,7 +46,7 @@ BasicGame.Preload.prototype = {
             this.load.image('tuto2', 'assets/tuto2@4.png');
 
             this.load.spritesheet('cha_vamp', 'assets/cha_vamp@4.png', 50*4, 75*4, 3);
-            this.load.spritesheet('cha_bat', 'assets/cha_bat@4.png', 320, 320, 3);
+            this.load.spritesheet('cha_bat', 'assets/cha_bat@4.png', 320, 306, 3);
 
             this.load.spritesheet('alphago', 'assets/alphago@4.png', 437, 474, 3);
 
