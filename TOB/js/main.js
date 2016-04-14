@@ -851,73 +851,8 @@ blocks - generations
 	    else if (imgId === 6)
 	    	block = me.movingTraps2.getFirstDead();
 	    
-
 	    if (!block){
-
 	    	block = me.game.add.sprite(x, y, imgStr);
-
-	    	// setting block specifications
-	    	me.game.physics.arcade.enable(block);
-
-		    block.body.friction.x = 0;
-
-		    // Kill the pipe when it's no longer visible 
-		    block.checkWorldBounds = true;
-		    block.outOfBoundsKill = true;
-		    
-		    block.body.immovable = true;
-
-		    block.scale.setTo(BasicGame.blockSpriteScale, BasicGame.blockSpriteScale);
-
-		    if (imgId === 1){ //  block
-				block.body.checkCollision.right = false;
-				block.body.position.x -= -50;
-		    	me.blocks.add(block);
-		    }
-		    else if (imgId === 2){ // trap
-				
-				block.anchor.setTo(0.5, 0.5);
-				block.position.x += block.width * 0.5;
-				block.position.y += block.height * 0.5;
-
-				me.game.add.tween(block).to({angle: 360}, 1000, null, true, 0, 0, false).loop(true).start();
-
-		    	me.traps.add(block);
-		    }
-		    else if (imgId === 5){ // moving trap
-				
-				block.anchor.setTo(0.5, 0.5);
-				block.position.x += block.width * 0.5;
-				block.position.y += block.height * 0.5;
-
-				me.game.add.tween(block).to({angle: 360}, 1000, null, true, 0, 0, false).loop(true).start();
-
-				var goalPost = block.position.y + BasicGame.blockSize;
-				me.game.add.tween(block.position).to({y: goalPost}, 500, null, true, 0, 0, false).loop(true).start().yoyo(true);
-
-		    	me.movingTraps.add(block);
-		    }
-		    else if (imgId === 6){ // moving trap
-				
-				block.anchor.setTo(0.5, 0.5);
-				block.position.x += block.width * 0.5;
-				block.position.y += block.height * 0.5;
-
-				me.game.add.tween(block).to({angle: 360}, 1000, null, true, 0, 0, false).loop(true).start();
-
-				var goalPost = block.position.y + BasicGame.blockSize * 2;
-				me.game.add.tween(block.position).to({y: goalPost}, 500, null, true, 0, 0, false).loop(true).start().yoyo(true);
-
-		    	me.movingTraps2.add(block);
-		    }
-		    else if (imgId === 3){ // blood
-		    	me.bloods.add(block);
-		    }
-		    else if (imgId === 4){ // end point
-		    	block.width *= 1.3;
-		    	block.height *= 1.3;
-		    	me.endPoints.add(block);
-		    }
 	    }
 	    else {
 	    	// Set the new position of the pipe
@@ -925,8 +860,70 @@ blocks - generations
 	    	block.reset(x, y);	
 	    }
 
-	    // Add velocity to the pipe to make it move left
+	    // setting block specifications
+    	me.game.physics.arcade.enable(block);
+
+    	// Add velocity to the pipe to make it move left
 		block.body.velocity.x = me.mapVelX;
+	    block.body.friction.x = 0;
+
+	    // Kill the pipe when it's no longer visible 
+	    block.checkWorldBounds = true;
+	    block.outOfBoundsKill = true;
+	    
+	    block.body.immovable = true;
+
+	    block.scale.setTo(BasicGame.blockSpriteScale, BasicGame.blockSpriteScale);
+
+	    if (imgId === 1){ //  block
+			block.body.checkCollision.right = false;
+			block.body.position.x -= -50;
+	    	me.blocks.add(block);
+	    }
+	    else if (imgId === 2){ // trap
+			
+			block.anchor.setTo(0.5, 0.5);
+			block.position.x += block.width * 0.5;
+			block.position.y += block.height * 0.5;
+
+			me.game.add.tween(block).to({angle: 360}, 1000, null, true, 0, 0, false).loop(true).start();
+
+	    	me.traps.add(block);
+	    }
+	    else if (imgId === 5){ // moving trap
+			
+			block.anchor.setTo(0.5, 0.5);
+			block.position.x += block.width * 0.5;
+			block.position.y += block.height * 0.5;
+
+			me.game.add.tween(block).to({angle: 360}, 1000, null, true, 0, 0, false).loop(true).start();
+
+			var goalPost = block.position.y + BasicGame.blockSize;
+			me.game.add.tween(block.position).to({y: goalPost}, 500, null, true, 0, 0, false).loop(true).start().yoyo(true);
+
+	    	me.movingTraps.add(block);
+	    }
+	    else if (imgId === 6){ // moving trap
+			
+			block.anchor.setTo(0.5, 0.5);
+			block.position.x += block.width * 0.5;
+			block.position.y += block.height * 0.5;
+
+			me.game.add.tween(block).to({angle: 360}, 1000, null, true, 0, 0, false).loop(true).start();
+
+			var goalPost = block.position.y + BasicGame.blockSize * 2;
+			me.game.add.tween(block.position).to({y: goalPost}, 500, null, true, 0, 0, false).loop(true).start().yoyo(true);
+
+	    	me.movingTraps2.add(block);
+	    }
+	    else if (imgId === 3){ // blood
+	    	me.bloods.add(block);
+	    }
+	    else if (imgId === 4){ // end point
+	    	block.width *= 1.3;
+	    	block.height *= 1.3;
+	    	me.endPoints.add(block);
+	    }
 
 	    return block;
 	},
