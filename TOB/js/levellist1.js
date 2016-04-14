@@ -8,11 +8,14 @@ BasicGame.LevelList1.prototype = {
 		me.buttonSize = 0.9;
 		me.buttonDownSize = 1.0;
 
-		me.navButtonSize = 1.25;
-		me.navButtonDownSize = 1.35;
+		me.navMenuButtonSize = 0.9;
+		me.navMenuButtonDownSize = 1.0;
 
-		me.navButtonReverseSize = -1.25;
-		me.navButtonReverseDownSize = -1.35;
+		me.navButtonSize = 1.45;
+		me.navButtonDownSize = 1.5;
+
+		me.navButtonReverseSize = -1.45;
+		me.navButtonReverseDownSize = -1.5;
 
 		me.buttonXPositions = [0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8];
 		me.buttonYPositions = [0.36, 0.36, 0.36, 0.36, 0.66, 0.66, 0.66, 0.66, 0.36, 0.36, 0.36, 0.36, 0.66, 0.66, 0.66, 0.66, 0.36, 0.36, 0.36, 0.36, 0.66, 0.66, 0.66, 0.66, 0.36, 0.36, 0.36, 0.36, 0.66, 0.66, 0.66, 0.66];
@@ -69,6 +72,16 @@ BasicGame.LevelList1.prototype = {
 
 	onNavUp: function(but){
 		but.scale.setTo(this.buttonSize, this.buttonSize);
+	},
+
+	onMenuNavDown: function(but){
+		var me = this;
+		this.clickSound.play();
+		but.scale.setTo(me.navMenuButtonDownSize, me.navMenuButtonDownSize);
+	},
+
+	onMenuNavUp: function(but){
+		but.scale.setTo(this.navMenuButtonSize, this.navMenuButtonSize);
 	},
 
 	onBtnLevelDown: function(but){
@@ -154,9 +167,9 @@ BasicGame.LevelList1.prototype = {
 		// menu
 		this.btn_menu = this.game.add.button(this.game.world.width * 0.92, this.game.world.height * 0.9, 'btn_levelmenu', this.goToMainMenu, this);
 		this.btn_menu.anchor.setTo(0.5, 0.5);
-		this.btn_menu.scale.setTo(me.navButtonSize, me.navButtonSize);
-		this.btn_menu.onInputDown.add(me.onNavBtnDown, this);
-		this.btn_menu.onInputUp.add(me.onNavBtnUp, this);
+		this.btn_menu.scale.setTo(me.navMenuButtonSize, me.navMenuButtonSize);
+		this.btn_menu.onInputDown.add(me.onMenuNavDown, this);
+		this.btn_menu.onInputUp.add(me.onMenuNavUp, this);
 		
 		// next
 		this.btn_next = this.game.add.button(this.game.world.width * 0.6666, this.game.world.height * 0.9, 'nav_arrow', this.goToNextLevel, this);
