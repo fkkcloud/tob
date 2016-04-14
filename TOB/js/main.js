@@ -301,8 +301,8 @@ BasicGame.Main.prototype = {
 		for (var i = 0; i < me.traps.children.length; i++){
 			
 			var trap = me.traps.children[i];
-			trap.body.width = trap.width * 0.65;
-			trap.body.height = trap.height * 0.65;
+			trap.body.width = trap.width * 0.85;
+			trap.body.height = trap.height * 0.85;
 			me.game.physics.arcade.collide(me.cha, trap, function(){
 				if (!me.chaDead)
 					me.deathHandler();
@@ -312,8 +312,8 @@ BasicGame.Main.prototype = {
 		for (var i = 0; i < me.movingTraps.children.length; i++){
 			
 			var trap = me.movingTraps.children[i];
-			trap.body.width = trap.width * 0.65;
-			trap.body.height = trap.height * 0.65;
+			trap.body.width = trap.width * 0.85;
+			trap.body.height = trap.height * 0.85;
 			me.game.physics.arcade.collide(me.cha, trap, function(){
 				if (!me.chaDead)
 					me.deathHandler();
@@ -323,8 +323,8 @@ BasicGame.Main.prototype = {
 		for (var i = 0; i < me.movingTraps2.children.length; i++){
 			
 			var trap = me.movingTraps2.children[i];
-			trap.body.width = trap.width * 0.65;
-			trap.body.height = trap.height * 0.65;
+			trap.body.width = trap.width * 0.85;
+			trap.body.height = trap.height * 0.85;
 			me.game.physics.arcade.collide(me.cha, trap, function(){
 				if (!me.chaDead)
 					me.deathHandler();
