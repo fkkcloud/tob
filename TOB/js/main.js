@@ -5,14 +5,39 @@ BasicGame.Main = function(game){
 BasicGame.Main.prototype = {
 
 	render: function() {
+		
+		//debug
 		return;
 
-		//debug
 		var me = this;
 		for (var i = 0; i < me.traps.children.length; i++){
 			
 			var trap = me.traps.children[i];
 			game.debug.body(trap);
+		}
+
+		for (var i = 0; i < me.movingTraps.children.length; i++){
+			
+			var trap = me.movingTraps.children[i];
+			game.debug.body(trap);
+		}
+
+		for (var i = 0; i < me.movingTraps2.children.length; i++){
+			
+			var trap = me.movingTraps2.children[i];
+			game.debug.body(trap);
+		}
+
+		for (var i = 0; i < me.bloods.children.length; i++){
+			
+			var blood = me.bloods.children[i];
+			game.debug.body(blood);
+		}
+
+		for (var i = 0; i < me.endPoints.children.length; i++){
+			
+			var ed = me.endPoints.children[i];
+			game.debug.body(ed);
 		}
 
 		if (me.cha)
@@ -27,6 +52,8 @@ BasicGame.Main.prototype = {
 		me.BATMODE = 0;
 		me.VAMPMODE = 1;
 		me.score = 0;
+
+		me.bloodBounceLoop = undefined;
 
 		me.bloodCount = 0;
 
@@ -274,6 +301,8 @@ BasicGame.Main.prototype = {
 		for (var i = 0; i < me.traps.children.length; i++){
 			
 			var trap = me.traps.children[i];
+			trap.body.width = trap.width * 0.65;
+			trap.body.height = trap.height * 0.65;
 			me.game.physics.arcade.collide(me.cha, trap, function(){
 				if (!me.chaDead)
 					me.deathHandler();
@@ -283,6 +312,8 @@ BasicGame.Main.prototype = {
 		for (var i = 0; i < me.movingTraps.children.length; i++){
 			
 			var trap = me.movingTraps.children[i];
+			trap.body.width = trap.width * 0.65;
+			trap.body.height = trap.height * 0.65;
 			me.game.physics.arcade.collide(me.cha, trap, function(){
 				if (!me.chaDead)
 					me.deathHandler();
@@ -292,6 +323,8 @@ BasicGame.Main.prototype = {
 		for (var i = 0; i < me.movingTraps2.children.length; i++){
 			
 			var trap = me.movingTraps2.children[i];
+			trap.body.width = trap.width * 0.65;
+			trap.body.height = trap.height * 0.65;
 			me.game.physics.arcade.collide(me.cha, trap, function(){
 				if (!me.chaDead)
 					me.deathHandler();
@@ -329,6 +362,7 @@ BasicGame.Main.prototype = {
 					}
 					else if (me.bloodCount === 4){
 						me.game.add.tween(me.loadingBar.scale).to({x: 0.8}, 200).start();
+						me.bloodBounceLoop = me.game.time.events.loop(Phaser.Timer.SECOND * 0.4, me.playFXPlayerRun, me);
 					}
 					else if (me.bloodCount === 5){
 						me.game.add.tween(me.loadingBar.scale).to({x: 1.0}, 120).start();
@@ -467,8 +501,6 @@ blocks - event handlers
 
 		me.chaDead = true;
 
-		me.game.time.events.remove(me.groundFX);
-
 		if (BasicGame.storymode == false)
    	 		me.game.time.events.remove(me.scoreCounter);
 
@@ -488,7 +520,8 @@ blocks - event handlers
 		//me.cha.body.velocity.y = -200 * window.devicePixelRatio;
 		me.game.add.tween(me.cha).to({angle: -10}, 40).start();
 
-		me.game.time.events.add(100, function(){ 
+		me.game.time.events.remove(me.groundFX);
+		me.game.time.events.add(100, function(){
 			me.cha.destroy();
 		}, me);
 		
@@ -805,7 +838,6 @@ blocks - generations
 		var block;
 
 		// Get the first dead pipe of our group
-
 		if (imgId === 1)
 	    	block = me.blocks.getFirstDead();
 	    else if (imgId === 2)
@@ -821,17 +853,71 @@ blocks - generations
 	    
 
 	    if (!block){
-	    	//console.log('allocating new block, total allocated:', me.blocks.length); // debug memory
-
-	    	/*
-	    	var blockKey;
-	    	if (me.mode === 0)
-	    		blockKey = 'pipe';
-	    	else
-	    		blockKey = 'crate';
-	    	*/
 
 	    	block = me.game.add.sprite(x, y, imgStr);
+
+	    	// setting block specifications
+	    	me.game.physics.arcade.enable(block);
+
+		    block.body.friction.x = 0;
+
+		    // Kill the pipe when it's no longer visible 
+		    block.checkWorldBounds = true;
+		    block.outOfBoundsKill = true;
+		    
+		    block.body.immovable = true;
+
+		    block.scale.setTo(BasicGame.blockSpriteScale, BasicGame.blockSpriteScale);
+
+		    if (imgId === 1){ //  block
+				block.body.checkCollision.right = false;
+				block.body.position.x -= -50;
+		    	me.blocks.add(block);
+		    }
+		    else if (imgId === 2){ // trap
+				
+				block.anchor.setTo(0.5, 0.5);
+				block.position.x += block.width * 0.5;
+				block.position.y += block.height * 0.5;
+
+				me.game.add.tween(block).to({angle: 360}, 1000, null, true, 0, 0, false).loop(true).start();
+
+		    	me.traps.add(block);
+		    }
+		    else if (imgId === 5){ // moving trap
+				
+				block.anchor.setTo(0.5, 0.5);
+				block.position.x += block.width * 0.5;
+				block.position.y += block.height * 0.5;
+
+				me.game.add.tween(block).to({angle: 360}, 1000, null, true, 0, 0, false).loop(true).start();
+
+				var goalPost = block.position.y + BasicGame.blockSize;
+				me.game.add.tween(block.position).to({y: goalPost}, 500, null, true, 0, 0, false).loop(true).start().yoyo(true);
+
+		    	me.movingTraps.add(block);
+		    }
+		    else if (imgId === 6){ // moving trap
+				
+				block.anchor.setTo(0.5, 0.5);
+				block.position.x += block.width * 0.5;
+				block.position.y += block.height * 0.5;
+
+				me.game.add.tween(block).to({angle: 360}, 1000, null, true, 0, 0, false).loop(true).start();
+
+				var goalPost = block.position.y + BasicGame.blockSize * 2;
+				me.game.add.tween(block.position).to({y: goalPost}, 500, null, true, 0, 0, false).loop(true).start().yoyo(true);
+
+		    	me.movingTraps2.add(block);
+		    }
+		    else if (imgId === 3){ // blood
+		    	me.bloods.add(block);
+		    }
+		    else if (imgId === 4){ // end point
+		    	block.width *= 1.3;
+		    	block.height *= 1.3;
+		    	me.endPoints.add(block);
+		    }
 	    }
 	    else {
 	    	// Set the new position of the pipe
@@ -839,82 +925,8 @@ blocks - generations
 	    	block.reset(x, y);	
 	    }
 
-	    me.game.physics.arcade.enable(block);
-
 	    // Add velocity to the pipe to make it move left
-	    block.body.velocity.x = me.mapVelX;
-
-	    block.body.friction.x = 0;
-
-
-	    // Kill the pipe when it's no longer visible 
-	    block.checkWorldBounds = true;
-	    block.outOfBoundsKill = true;
-	    
-
-	    block.body.immovable = true;
-
-	    block.scale.setTo(BasicGame.blockSpriteScale, BasicGame.blockSpriteScale);
-
-	    if (imgId === 1){ //  block
-			block.body.checkCollision.right = false;
-			block.body.position.x -= -50;
-	    	me.blocks.add(block);
-	    }
-	    else if (imgId === 2){ // trap
-	    	block.body.width = block.width * 0.65;
-			block.body.height = block.height * 0.65;
-			
-			block.anchor.setTo(0.5, 0.5);
-			block.position.x += block.width * 0.5;
-			block.position.y += block.height * 0.5;
-
-			me.game.add.tween(block).to({angle: 360}, 1000, null, true, 0, 0, false).loop(true).start();
-
-	    	me.traps.add(block);
-	    }
-	    else if (imgId === 5){ // moving trap
-	    	block.body.width = block.width * 0.65;
-			block.body.height = block.height * 0.65;
-			
-			block.anchor.setTo(0.5, 0.5);
-			block.position.x += block.width * 0.5;
-			block.position.y += block.height * 0.5;
-
-			me.game.add.tween(block).to({angle: 360}, 1000, null, true, 0, 0, false).loop(true).start();
-
-			var goalPost = block.position.y + BasicGame.blockSize;
-			me.game.add.tween(block.position).to({y: goalPost}, 500, null, true, 0, 0, false).loop(true).start().yoyo(true);
-
-	    	me.movingTraps.add(block);
-	    }
-	    else if (imgId === 6){ // moving trap
-	    	block.body.width = block.width * 0.65;
-			block.body.height = block.height * 0.65;
-			
-			block.anchor.setTo(0.5, 0.5);
-			block.position.x += block.width * 0.5;
-			block.position.y += block.height * 0.5;
-
-			me.game.add.tween(block).to({angle: 360}, 1000, null, true, 0, 0, false).loop(true).start();
-
-			var goalPost = block.position.y + BasicGame.blockSize * 2;
-			me.game.add.tween(block.position).to({y: goalPost}, 500, null, true, 0, 0, false).loop(true).start().yoyo(true);
-
-	    	me.movingTraps2.add(block);
-	    }
-	    else if (imgId === 3){ // blood
-	    	block.body.width = block.body.sourceWidth * 0.64;
-			block.body.height = block.body.sourceHeight * 0.9;
-	    	me.bloods.add(block);
-	    }
-	    else if (imgId === 4){ // end point
-	    	block.width *= 1.3;
-	    	block.height *= 1.3;
-	    	block.body.width = block.width * 0.5;
-			block.body.height = block.height * 0.5;
-	    	me.endPoints.add(block);
-	    }
+		block.body.velocity.x = me.mapVelX;
 
 	    return block;
 	},
