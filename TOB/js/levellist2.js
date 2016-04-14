@@ -8,11 +8,11 @@ BasicGame.LevelList2.prototype = {
 		me.buttonSize = 0.9;
 		me.buttonDownSize = 1.0;
 
-		me.navButtonSize = 0.9;
-		me.navButtonDownSize = 1.0;
+		me.navButtonSize = 1.25;
+		me.navButtonDownSize = 1.35;
 
-		me.navButtonReverseSize = -0.9;
-		me.navButtonReverseDownSize = -1.0;
+		me.navButtonReverseSize = -1.25;
+		me.navButtonReverseDownSize = -1.35;
 
 		me.buttonXPositions = [0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8, 0.2, 0.4, 0.6, 0.8];
 		me.buttonYPositions = [0.36, 0.36, 0.36, 0.36, 0.66, 0.66, 0.66, 0.66, 0.36, 0.36, 0.36, 0.36, 0.66, 0.66, 0.66, 0.66, 0.36, 0.36, 0.36, 0.36, 0.66, 0.66, 0.66, 0.66, 0.36, 0.36, 0.36, 0.36, 0.66, 0.66, 0.66, 0.66];

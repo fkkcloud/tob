@@ -289,7 +289,7 @@ BasicGame.Main.prototype = {
 		}
 		else {
 			// activate run FX
-			if (!me.groundFX){
+			if (!me.groundFX && !me.chaDead){
 				me.playFXPlayerRun();
 				me.groundFX = me.game.time.events.loop(Phaser.Timer.SECOND * 0.4, me.playFXPlayerRun, me);
 			}
@@ -362,7 +362,6 @@ BasicGame.Main.prototype = {
 					}
 					else if (me.bloodCount === 4){
 						me.game.add.tween(me.loadingBar.scale).to({x: 0.8}, 200).start();
-						me.bloodBounceLoop = me.game.time.events.loop(Phaser.Timer.SECOND * 0.4, me.playFXPlayerRun, me);
 					}
 					else if (me.bloodCount === 5){
 						me.game.add.tween(me.loadingBar.scale).to({x: 1.0}, 120).start();
@@ -525,7 +524,6 @@ blocks - event handlers
 			me.cha.destroy();
 		}, me);
 		
-
 		// stop the map
 		me.mapSpeed = 0;
 		me.mapVelX = 0;
