@@ -701,7 +701,7 @@ blocks - event handlers
     		var earnedMedal = me.game.add.sprite(me.game.world.width * 0.5, me.game.height * 0.5, "medal_silver_earned");
   			earnedMedal.anchor.setTo(0.5, 0.5);
     	}
-    	else if (BasicGame.storymode && BasicGame.currentStage == 19 && BasicGame.medals[2] == 0){
+    	else if (BasicGame.storymode && BasicGame.currentStage == 23 && BasicGame.medals[2] == 0){
     		// get gold medal
     		BasicGame.medals[2] = 1;
     		window.localStorage.medals = JSON.stringify(BasicGame.medals);
