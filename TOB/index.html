@@ -177,7 +177,7 @@
 					window.localStorage.stageProgress == "undefined" || window.localStorage.stageProgress == null) 
 				{
 					BasicGame.stageProgress = [];
-					for (var i = 0; i < 32; i++){
+					for (var i = 0; i < 24; i++){
 						BasicGame.stageProgress.push(0);
 					}
 					BasicGame.stageProgress[0] = 1; // first stage is always available.
@@ -188,11 +188,16 @@
 				else {
 					BasicGame.stageProgress = JSON.parse(window.localStorage.stageProgress);
 
-					// this is only for resetting old users
-					if (BasicGame.stageProgress.length < 25){
+					// this is only for resetting old testing users
+					if (BasicGame.stageProgress.length > 30 || BasicGame.stageProgress.length < 24){
+						var oldProgress = BasicGame.stageProgress;
 						BasicGame.stageProgress = [];
-						for (var i = 0; i < 32; i++){
-							BasicGame.stageProgress.push(0);
+						for (var i = 0; i < 24; i++){
+							var old_stage_info = oldProgress[i];
+							if (old_stage_info)
+								BasicGame.stageProgress.push(old_stage_info);
+							else
+								BasicGame.stageProgress.push(0);
 						}
 						BasicGame.stageProgress[0] = 1; // first stage is always available.
 						window.localStorage.stageProgress = JSON.stringify(BasicGame.stageProgress);
