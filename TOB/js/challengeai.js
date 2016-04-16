@@ -11,19 +11,6 @@ BasicGame.ChallengeAI.prototype = {
 	create: function(){
 		var me = this;
 
-		/*
-  		me.labelFinalScore = me.game.add.text(me.game.world.centerX,
-  			me.game.world.height * 0.2, me.score + 'm', {font: scoreFont, fill:"#fff"});
-  		me.labelFinalScore.anchor.setTo(0.5, 0);
-
-  		me.labelHighScoreText = me.game.add.text(me.game.world.centerX,
-  			me.game.world.height * 0.3, "BEST", {font: scoreFont, fill: "#fff"});
-  		me.labelHighScoreText.anchor.setTo(0.5, 0);
-
-  		me.labelHighScore = me.game.add.text(me.game.world.centerX,
-  			me.game.world.height * 0.4, me.highScore + 'm', {font: scoreFont, fill: "#fff"});
-  		me.labelHighScore.anchor.setTo(0.5, 0);
-  		*/
   		me.createBG();
 
   		me.createInstructions();
