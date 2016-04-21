@@ -29,6 +29,8 @@ BasicGame.Preload.prototype = {
         this.load.audio('transform', 'assets/audio/transform.mp3');
         this.load.audio('stageclear', 'assets/audio/stageclear.mp3');
 
+        console.log(window.devicePixelRatio);
+
         if(window.devicePixelRatio >= 4)
         {
             this.load.image('bg_sky', 'assets/bg_sky.png');
@@ -209,7 +211,7 @@ BasicGame.Preload.prototype = {
             this.load.image('medal_silver_earned', 'assets/big_medal_silver@3.png');
             this.load.image('medal_gold_earned', 'assets/big_medal_gold@3.png');
         }
-        else if(window.devicePixelRatio == 2)
+        else if(window.devicePixelRatio >= 2)
         {
 
             this.load.image('bg_sky', 'assets/bg_sky.png');
