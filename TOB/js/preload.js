@@ -121,7 +121,7 @@ BasicGame.Preload.prototype = {
             this.load.image('medal_silver_earned', 'assets/big_medal_silver@4.png');
             this.load.image('medal_gold_earned', 'assets/big_medal_gold@4.png');
         }
-		else if(window.devicePixelRatio >= 3)
+	else if(window.devicePixelRatio >= 3)
         {
             this.load.image('bg_sky', 'assets/bg_sky.png');
             this.load.image('bg_castle', 'assets/bg_castle.png');
@@ -392,7 +392,12 @@ BasicGame.Preload.prototype = {
             this.load.image('medal_gold_earned', 'assets/big_medal_gold.png');
         } 
 		var originalImageWidth;
-		if(window.devicePixelRatio >= 3)
+            if(window.devicePixelRatio >= 4)
+            {
+            
+                  originalImageWidth = 47 * 4;
+            }
+		else if(window.devicePixelRatio >= 3)
 		{
 	    	
 		 	originalImageWidth = 47 * 3;
