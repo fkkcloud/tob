@@ -61,7 +61,7 @@ BasicGame.MainMenu.prototype = {
 			this.mainmenuSound.stop();
 			this.mainmenuSound = null;
 		}
-		window.location.href = "http://touchofblood.com/map";
+		window.location.href = "http://www.touchofblood.com/map";
 	},
 
 	gotoMapEditor: function(){
@@ -69,7 +69,7 @@ BasicGame.MainMenu.prototype = {
 			this.mainmenuSound.stop();
 			this.mainmenuSound = null;
 		}
-		window.location.href = "http://touchofblood.com/map/edit";
+		window.location.href = "http://www.touchofblood.com/map/edit";
 	},
 
 	gotoChallengeAI: function(){

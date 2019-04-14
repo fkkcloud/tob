@@ -20,8 +20,8 @@ angular.module('MainCtrl', []).controller('MainController', function($scope) {
 	}
 
 	//$scope.href_game = "http://localhost:4000/";
-	$scope.href_game = (document.location.hostname == "localhost" || document.location.hostname == "192.168.0.10") ? "http://192.168.0.10:4000/" : "http://touchofblood.com/";
-	$scope.href_edit = (document.location.hostname == "localhost" || document.location.hostname == "192.168.0.10") ? "http://192.168.0.10:4000/map/edit" : "http://touchofblood.com/map/edit";
+	$scope.href_game = (document.location.hostname == "localhost" || document.location.hostname == "192.168.0.10") ? "http://192.168.0.10:4000/" : "http://www.touchofblood.com/";
+	$scope.href_edit = (document.location.hostname == "localhost" || document.location.hostname == "192.168.0.10") ? "http://192.168.0.10:4000/map/edit" : "http://www.touchofblood.com/map/edit";
 
 	// map data
 	function createMapData(){
